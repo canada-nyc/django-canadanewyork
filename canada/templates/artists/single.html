@@ -4,19 +4,25 @@
 {% block base_title %}{{ artist.first_name }} {{artist.last_name }}{{ block.super }}{% endblock %}
 
 {% block body %}
-<h2>{{ artist.first_name }} {{artist.last_name }}</h2>
+<h1>{{ artist.first_name }} {{artist.last_name }}</h1>
 {% for image in artist.artistphoto_set.all %}
     {% thumbnail image.image image_size as im %}
     <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
     {% endthumbnail %}
 {% endfor %}
-{% if artist.exhibition_set.all %}
     <br>
     <dl>
+    {% if artist.exhibition_set.all %}
         <dt><h3>Exhibitions:</h3></dt>
         {% for exhibition in artist.exhibition_set.all %}
             <dd><a href={{ exhibition.get_absolute_url }}> {{exhibition.name }} in {{exhibition.start_date.year }}</a></dd>
         {% endfor %}
+    {% endif %}
+    {% if artist.press.all %}
+        <dt><h3>Press:</h3></dt>
+        {% for press in artist.press.all %}
+        <dd><a href={{ press.get_absolute_url }}> {{press.title }} in {{ press.publisher }}</a></dd>
+        {% endfor %}
+    {% endif %}
     </dl>
-{% endif %}
 {% endblock %}

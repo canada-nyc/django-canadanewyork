@@ -39,7 +39,6 @@ INSTALLED_APPS = (
 INSTALLED_APPS += (
     'south',
     'grappelli',
-    'menu',
     'sorl.thumbnail',
    )
 
@@ -104,9 +103,9 @@ ROOT_URLCONF = 'canada.urls'
 TEMPLATE_DIRS = (
     rel_path('templates'),
    )
-global_settings.TEMPLATE_CONTEXT_PROCESSORS += (
-    'django.core.context_processors.request',
-   )
+#global_settings.TEMPLATE_CONTEXT_PROCESSORS += (
+#    'django.core.context_processors.request',
+#   )
 
 
 ########

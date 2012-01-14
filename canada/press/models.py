@@ -16,8 +16,8 @@ class Press( models.Model ):
 
     publisher = models.CharField(max_length=60)
     author = models.CharField(max_length=60, blank=True)
-    artists = models.ManyToManyField( Artist, blank = True )
-    exhibition = models.ForeignKey( Exhibition, blank = True )
+    artists = models.ManyToManyField( Artist, blank = True, null=True )
+    exhibition = models.ForeignKey( Exhibition, blank = True, null=True )
 
     slug = models.SlugField(blank=True, editable=False, unique=True)
 
@@ -25,7 +25,7 @@ class Press( models.Model ):
         ordering = ['-date']
 
     def __unicode__(self):
-        return u'%s-%s-%s' % ( self.publisher,self.date.year,self.title )
+        return u'%s-%s-%s' % (self.publisher, self.date.year, self.title)
 
     def save(self):
         self.slug = slugify('-'.join([str(self.date.year), self.title]))

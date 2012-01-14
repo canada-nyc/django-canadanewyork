@@ -3,8 +3,10 @@
 {% block base_title %}CANADA{% endblock %}
 {% block body %}
     {% thumbnail exhibition.frontpage_image image_size as im %}
-    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
     {% endthumbnail %}
+    <a href={{ exhibition.get_absolute_url }}>
     <h2>{{ exhibition.name }}</h2>
     <p> {{ exhibition.description }}</p>
+    </a>
 {% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% block base_title %}{{ exhibition.name }}{{ block.super }}{% endblock %}
+
+{% block body %}
+    
+    <h2>{{ exhibition.name }}</h2>
+    <p>
+    {% ifnotequal exhibition.start_date.year exhibition.end_date.year %}
+        {{ exhibition.start_date|date:"F j, Y" }} - {{ exhibition.end_date|date:"F j, Y" }}
+    {% else %}
+        {% ifnotequal exhibition.start_date.month exhibition.end_date.month %}
+            {{ exhibition.start_date|date:"F j" }} - {{ exhibition.end_date|date:"F j" }}
+        {% else %}
+            {{ exhibition.start_date|date:"F j" }} - {{ exhibition.end_date|date:"j" }}
+        {% endifnotequal %}
+    {% endifnotequal %}
+    </p>
+    {% if exhibition.description %}
+        <p>{{exhibition.description}}</p>
+    {% endif %}
+    
+    {% for image in exhibition.exhibitionphoto_set.all %}
+        {% thumbnail image.image image_size as im %}
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
+        {% endthumbnail %}
+    {% endfor %}
+    <dl>
+        <dt>Atists:</dt>
+    {% for artist in exhibition.artists.all %}
+        <dd><a href={{ artist.get_absolute_url }}> {{artist.first_name }} {{artist.last_name }} </a></dd>
+    {% endfor %}
+    </dl>
+    
+{% endblock %}

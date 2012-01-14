@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% block base_title %}CANADA{% endblock %}
+{% block body %}
+    {% thumbnail exhibition.frontpage_image image_size as im %}
+    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
+    {% endthumbnail %}
+    <h2>{{ exhibition.name }}</h2>
+    <p> {{ exhibition.description }}</p>
+{% endblock %}

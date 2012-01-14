@@ -1,0 +1,49 @@
+/* the humans responsible & colophon */
+/* humanstxt.org */
+
+
+/* TEAM */
+  Old Wordpress Site:
+    Developeer and Designer: Luke Murphy
+    Site: lukelab.com
+  Current Django Site:
+    Devloper and Designer: Saul Shanabrook
+    Twitter: saul.shanabrook
+    Location: Amherst, MA
+
+/* THANKS */
+  Steve Losh, stevelosh.com
+  stackoverflow.com
+  djangoproject.com
+
+/* SITE */
+  Standards: HTML5, PEP8
+  Components: Modernizr, jQuery
+  Software: Django, South, Fabric
+  Environment: Lion, Sublime Text 2, iTerm, Chrome Canary
+
+
+
+                               -o/-
+                               +oo//-
+                              :ooo+//:
+                             -ooooo///-
+                             /oooooo//:
+                            :ooooooo+//-
+                           -+oooooooo///-
+           -://////////////+oooooooooo++////////////::
+            :+ooooooooooooooooooooooooooooooooooooo+:::-
+              -/+ooooooooooooooooooooooooooooooo+/::////:-
+                -:+oooooooooooooooooooooooooooo/::///////:-
+                  --/+ooooooooooooooooooooo+::://////:-
+                     -:+ooooooooooooooooo+:://////:--
+                       /ooooooooooooooooo+//////:-
+                      -ooooooooooooooooooo////-
+                      /ooooooooo+oooooooooo//:
+                     :ooooooo+/::/+oooooooo+//-
+                    -oooooo/::///////+oooooo///-
+                    /ooo+::://////:---:/+oooo//:
+                   -o+/::///////:-      -:/+o+//-
+                   :-:///////:-            -:/://
+                     -////:-                 --//:
+                       --                       -:

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block base_title %}"{{ q }}"{{ block.super }}{% endblock %}
+{% block body %}
+{% if results %}
+    <ul>
+        {% for result in results %}
+        <li><a href={{ result.get_absolute_url }}>{{ result }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No results for <strong>{{ q }}</strong> found</p>
+{% endif %}
+{% endblock %}

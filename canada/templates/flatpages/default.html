@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block base_title %}Contact{{ block.super }}{% endblock %}
+{% block body %}
+{{ flatpage.content }}
+
+<form method="post" action="">
+    {% if completed %}
+        <p>{{ completed }} has been submitted</p>
+    {% endif %}
+    {% csrf_token %}
+    {{ formset }}
+</form>
+
+{% endblock %}

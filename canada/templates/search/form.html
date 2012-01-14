@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block base_title %}Search{{ block.super }}{% endblock %}
+{% block body %}
+{% if errors %}
+    <ul>
+        {% for error in errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<form action="/search/" method="get">
+    <input type=search results=5 placeholder="Search..." name="q">
+    <input type="submit" value="Search">
+</form>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "boilerplate.html" %}
+{% block base_description %}"CANADA - lower East Side Art gallery exhibiting artists in New York."{% endblock %}
+{% block base_author %}"Saul"{% endblock %}
+{% block base_stylesheet %}"{{ STATIC_URL }}canada/css/style.css"{% endblock base_stylesheet %}
+{% block base_title %} &laquo; CANADA{% endblock %}
+
+{% block base_body %}
+<header>
+    <nav>
+        <ul>
+            {% load menubuilder %}
+            {% menu navbar %}
+            {% for item in menuitems %}
+                <li><a href={{ item.url }} {% if item.current %} class='current'{% endif %}>{{ item.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </nav>
+</header>
+
+<article>
+    {% block body %}{% endblock %}
+</article>
+<footer>
+    CANADA 55 Chrystie St (between Hester &amp; Canal), NYC 10002 | 212.925.4631 | <a href="mailto:gallery@canadanewyork.com">gallery@canadanewyork.com</a>
+</footer>
+{% endblock %}

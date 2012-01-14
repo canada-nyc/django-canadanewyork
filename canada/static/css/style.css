@@ -1,0 +1,36 @@
+@import url(base_style.css);
+body {
+  width: 750px;
+  margin-left: 200px;
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size: 75%;
+  color: #aaaaaa;
+  background-color: black;
+  background-image: url(/static/canada/images/background_fire.gif);
+  background-repeat: no-repeat; }
+
+a:link {
+  text-decoration: none;
+  color: #aaaaaa; }
+a:visited {
+  color: #aaaaaa; }
+a:hover {
+  color: orange; }
+
+nav {
+  margin-top: 2em; }
+  li {
+    text-transform: uppercase;
+    display: inline; }
+    nav li .current:visited {
+      color: orange; }
+    nav li:after {
+      content: '|'; }
+    nav li:last-child:after {
+      content: ''; }
+
+article {
+  margin: 2em 0 2em; }
+
+footer {
+  margin: 5em 0 1em; }

@@ -1,0 +1,11 @@
+Django
+Fabric
+PIL
+South
+celery
+django-celery
+django-celery-email
+django-debug-toolbar
+django-grappelli
+sorl-thumbnail
+Werkzeug

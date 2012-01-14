@@ -6,8 +6,10 @@ from django.db import models
 from canada.artists.models import Artist
 from canada.exhibitions.models import Exhibition
 
-class Press( models.Model ):
+
+class Press(models.Model):
     title = models.CharField(max_length=50)
+
     def image_path(instance, filename):
         return os.path.join('press', str(instance.press.date.year), str(instance.exhibition.title), filename)
     image = models.ImageField(null=True, blank=True, upload_to=image_path)
@@ -16,8 +18,8 @@ class Press( models.Model ):
 
     publisher = models.CharField(max_length=60)
     author = models.CharField(max_length=60, blank=True)
-    artists = models.ManyToManyField( Artist, blank = True, null=True )
-    exhibition = models.ForeignKey( Exhibition, blank = True, null=True )
+    artists = models.ManyToManyField(Artist, blank=True, null=True)
+    exhibition = models.ForeignKey(Exhibition, blank=True, null=True)
 
     slug = models.SlugField(blank=True, editable=False, unique=True)
 
@@ -29,10 +31,11 @@ class Press( models.Model ):
 
     def save(self):
         self.slug = slugify('-'.join([str(self.date.year), self.title]))
-        super(Press,self).save()
+        super(Press, self).save()
 
     @permalink
     def get_absolute_url(self):
         return ('press-single', (), {
             'title': self.title,
-            'year': self.date.strftime( "%Y" )})
+            'year': self.date.strftime("%Y")
+            })

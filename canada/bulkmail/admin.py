@@ -3,7 +3,6 @@ from django.http import HttpResponseRedirect
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.template import Context
-from django import forms
 
 from canada.bulkmail.models import *
 
@@ -12,16 +11,16 @@ def send_message(modeladmin, request, queryset):
     for message in queryset:
         subject = message.subject
         from_email = 'saul.shanabrook@gmail.com'
-        bcc_emails = []
+        to_emails = []
         for contact in  message.list.contact_set.all():
-            bcc_emails.append(contact.email)
+            to_emails.append(contact.email)
 
         text_content = get_template('bulkmail/email.txt').render(Context({'message': message}))
         html_content = get_template('bulkmail/email.html').render(Context({'message': message}))
-
-        msg = EmailMultiAlternatives(subject, text_content, from_email, bcc=bcc_emails)
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()
+        for email in to_emails:
+            msg = EmailMultiAlternatives(subject, text_content, from_email, to=email)
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
 
 
 def preview_message(modeladmin, request, queryset):

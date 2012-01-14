@@ -3,7 +3,6 @@ import socket
 import os
 from django.conf import global_settings
 
-
 def rel_path(ending):
     return os.path.abspath(os.path.join(os.path.dirname(__file__), str(ending)))
 
@@ -103,9 +102,6 @@ ROOT_URLCONF = 'canada.urls'
 TEMPLATE_DIRS = (
     rel_path('templates'),
    )
-#global_settings.TEMPLATE_CONTEXT_PROCESSORS += (
-#    'django.core.context_processors.request',
-#   )
 
 
 ########
@@ -134,12 +130,13 @@ DEBUG = False
 if GLOBAL_DEBUG or (LOCAL_DEBUG and socket.gethostname() == 'Sauls-Macbook.local'):
     DEBUG = True
     INSTALLED_APPS += (
-            'django_extensions',
-            'debug_toolbar',
-           )
-
+        'django_extensions',
+        'debug_toolbar',
+        )
     global_settings.MIDDLEWARE_CLASSES += (
-            'debug_toolbar.middleware.DebugToolbarMiddleware',
-           )
-
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+        )
+    global_settings.TEMPLATE_CONTEXT_PROCESSORS += (
+        'django.core.context_processors.request',
+        )
 TEMPLATE_DEBUG = DEBUG

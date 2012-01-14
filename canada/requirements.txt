@@ -9,3 +9,5 @@ django-debug-toolbar
 django-grappelli
 sorl-thumbnail
 Werkzeug
+django_extensions
+ipython

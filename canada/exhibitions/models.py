@@ -7,6 +7,7 @@ from django.core.exceptions import ValidationError
 
 
 from canada.artists.models import Artist
+from canada.functions import cap
 
 
 class Exhibition(models.Model):
@@ -14,7 +15,7 @@ class Exhibition(models.Model):
         return os.path.join(
             'exhibitions',
             str(instance.start_date.year),
-            str(instance.name),
+            str(instance.slug),
             'frontpage-{}'.format(filename)
             )
 
@@ -52,7 +53,8 @@ class Exhibition(models.Model):
         return '%s-%s' % (self.start_date.strftime("%Y"), self.name)
 
     def save(self):
-        self.slug = slugify('-'.join([str(self.start_date.year), self.name]))
+        cap(self,'name', 'last_name')
+        self.slug = slugify(self.name)
 
         # sets "frontpage" to False on all other exhibitions, if we enable it on to this one
         if self.frontpage:
@@ -61,14 +63,14 @@ class Exhibition(models.Model):
 
     @permalink
     def get_absolute_url(self):
-        return 'exhibition-single', (), {'year': self.start_date.strftime("%Y"), 'name': self.name}
+        return 'exhibition-single', (), {'year': self.start_date.strftime("%Y"), 'slug': self.slug}
 
     def clean(self):
         if self.frontpage:
             if not self.frontpage_uploaded_image and not self.frontpage_selected_image:
                 raise ValidationError("Either upload or specify a frontpage image.")
 
-        if not self.frontpage:
+        else:
             try:
                 Exhibition.objects.exclude(pk=self.pk).get(frontpage=True)
             except Exhibition.DoesNotExist:

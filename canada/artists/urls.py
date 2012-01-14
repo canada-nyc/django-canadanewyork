@@ -11,5 +11,5 @@ artist_list_info = {
 
 urlpatterns = patterns( '',
                     url( r'^$', list_detail.object_list, artist_list_info, name='artist-index'),
-                    url( r'^(?P<first_name>[-\w]+)-(?P<last_name>[-\w]+)/$', single, name='artist-single'),
+                    url( r'^(?P<slug>[-\w]+)/$', single, name='artist-single'),
                     )

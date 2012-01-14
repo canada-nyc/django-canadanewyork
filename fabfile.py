@@ -69,7 +69,6 @@ def update():
                 cant_find.append(dist)
             elif available[0] != dist.version:
                 updates[dist.project_name] = available[0]
-    print '\n'
     for dist in updates:
         print '{:17}-> {}'.format(dist, updates[dist])
     if not updates:

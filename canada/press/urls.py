@@ -9,5 +9,5 @@ press_list_info = {
 
 urlpatterns = patterns( '',
                     url( r'^$', list_detail.object_list, press_list_info, name='press-index'),
-                    url(r'^(?P<year>\d{4})/(?P<title>[-\w]+)', 'press.views.single' , name = 'press-single' ),
+                    (r'^(?P<year>\d{4})/(?P<slug>[-\w]+)', 'press.views.single'),
                     )

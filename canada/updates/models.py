@@ -3,14 +3,15 @@ import datetime
 
 from django.db import models
 from django.db.models import permalink
-from django.contrib import databrowse
 from django.template.defaultfilters import slugify
 
 from canada.artists.models import Artist
 from canada.exhibitions.models import Exhibition
+from canada.functions import cap
+
 
 class Update( models.Model ):
-    
+
     name = models.CharField( max_length = 30, unique_for_year = 'post_date')
     description = models.TextField(blank=True)
     artists = models.ManyToManyField( Artist, blank=True )
@@ -25,24 +26,29 @@ class Update( models.Model ):
         return '%s-%s' % ( self.post_date.strftime( "%Y" ), self.name )
 
     def save(self, *args, **kwargs):
+        cap(self, 'name')
         if not self.id:
             self.post_date = datetime.datetime.today()
-        self.slug = slugify('-'.join([str(self.post_date.strftime( "%Y" )), self.name]))
+        self.slug = slugify(self.name)
         super(Update,self).save(*args, **kwargs)
 
-    def get_absolute_url( self ):
-        return '/updates/#%s' % self.slug
+    @permalink
+    def get_absolute_url(self):
+        return ('press.views.single', (), {
+            'slug': self.slug,
+            'year': self.post_date.strftime("%Y")
+            })
 
 class UpdatePhoto( models.Model ):
-    
+
     def image_path(instance, filename):
         return os.path.join('updates', str(instance.update.post_date.year), str(instance.update.name), filename)
-    
+
     update = models.ForeignKey( Update )
     image = models.ImageField( upload_to = image_path )
     caption = models.CharField(max_length=50)
     position = models.PositiveSmallIntegerField( "Position" )
-    
+
     class Meta:
         ordering = ['position']
 

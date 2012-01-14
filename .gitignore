@@ -12,3 +12,7 @@ celerybeat-schedule
 celeryev.pid
 
 /static/
+
+sqlite.db
+
+sqlite.db

@@ -1,18 +1,9 @@
-*.pyc
-.hg/
-.idea/
 .sass-cache/
-.hgtags
-.hgignore
 migrations
 /media/
-.DS_Store
 celerybeat-schedule
 
 celeryev.pid
 
 /static/
-
-sqlite.db
-
 sqlite.db

@@ -35,7 +35,7 @@ class Press(models.Model):
         return u'%s-%s-%s' % (self.publisher, self.date.year, self.title)
 
     def save(self):
-        cap(self,'publisher', 'author')
+        cap(self,'title','publisher', 'author')
         self.slug = slugify(self.title)
         super(Press, self).save()
 

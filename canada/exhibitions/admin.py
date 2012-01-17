@@ -19,7 +19,7 @@ class ExhibitionAdmin(admin.ModelAdmin):
             'fields': ('name', 'description', 'artists', ('start_date', 'end_date'))
         }),
         ('Frontpage', {
-            'fields': ('frontpage', 'frontpage_uploaded_image', 'frontpage_selected_image')
+            'fields': ('frontpage', 'frontpage_uploaded_image', 'frontpage_selected_image', 'frontpage_text')
         }),
     )
     date_hierarchy = 'start_date'

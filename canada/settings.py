@@ -77,7 +77,7 @@ INSTALLED_APPS += (
     'django.contrib.messages',
     'django.contrib.admin',
     'django.contrib.staticfiles',
-    'django.contrib.databrowse',
+    'django.contrib.markup',
    )
 
 #Static/Media

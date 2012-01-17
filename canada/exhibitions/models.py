@@ -40,6 +40,16 @@ class Exhibition(models.Model):
         blank=True,
         null=True,
         )
+    frontpage_text = models.TextField(
+        max_length=800,
+        verbose_name='Text to be added to home page',
+        help_text="""Will be added underneath exhibition info<br>
+                    <i>To add style refer to the
+                    <a href="http://en.wikipedia.org/wiki/Markdown#Syntax_examples"  target="_blank">Wikipedia entry on Markdown</a>
+                    or the <a href="http://daringfireball.net/projects/markdown/basics"  target="_blank">Markdown reference</a></i>""",
+        blank=True,
+        null=True,
+        )
 
     artists = models.ManyToManyField(Artist)
     start_date = models.DateField()
@@ -53,7 +63,7 @@ class Exhibition(models.Model):
         return '%s-%s' % (self.start_date.strftime("%Y"), self.name)
 
     def save(self):
-        cap(self,'name', 'last_name')
+        cap(self,'name')
         self.slug = slugify(self.name)
 
         # sets "frontpage" to False on all other exhibitions, if we enable it on to this one

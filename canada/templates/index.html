@@ -10,6 +10,6 @@
         <h2>{{ exhibition.name }}</h2>
     </a>
     <p>{{ exhibition.description }}</p>
-    <p>{{ exhibition.frontpage_text|markdown }}</p>
+    {% firstof exhibition.frontpage_text|markdown "" %}
 
 {% endblock %}

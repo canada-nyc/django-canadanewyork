@@ -35,6 +35,6 @@ def bulkmail_contact(request):
         formset = ContactEmailFormSet()
     return render(request, 'flatpages/default.html', {
         "formset": formset,
-        "flatepage": contact_flatpage,
+        "flatpage": contact_flatpage,
         "completed": completed,
     })

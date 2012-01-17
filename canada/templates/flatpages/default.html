@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block base_title %}Contact{{ block.super }}{% endblock %}
 {% block body %}
-{{ flatpage.content }}
+{{ flatpage.content|safe }}
 
 <form method="post" action="">
     {% if completed %}

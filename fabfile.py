@@ -16,6 +16,7 @@ def run(celery=False):
             local('tab "label rabbitmq;sudo rabbitmq-server"')
         local('tab "c;label celerycam;python canada/manage.py celerycam"')
         local('tab "c;label celeryWorker;python canada/manage.py celeryd -E -l INFO"')
+
 def sass():
     local('label sass;sass --watch canada/static/sass:canada/static/css')
 
@@ -38,12 +39,14 @@ def sync():
 
 
 def upload():
-    local('cd canada;gondor deploy primary master')
+    local('git push staging master')
 
+def sync_remote():
+    local('heroku run fab sync')
 
-def sr():
-    sync()
-    run()
+def su():
+    upload()
+    sync_remote()
 
 
 def update():

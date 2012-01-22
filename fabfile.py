@@ -35,7 +35,6 @@ def sync():
                 local('python canada/manage.py schemamigration %s --initial' % app)
 
         local('python canada/manage.py migrate')
-        update()
 
 
 def upload():

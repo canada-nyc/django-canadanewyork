@@ -121,6 +121,13 @@ global_settings.TEMPLATE_CONTEXT_PROCESSORS += (
    )
 
 ########
+#Production
+########
+INSTALLED_APPS += (
+    'gunicorn',
+    )
+
+########
 #Debug
 ########
 GLOBAL_DEBUG = True

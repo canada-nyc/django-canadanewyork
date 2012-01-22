@@ -49,7 +49,7 @@ class MessageAdmin(admin.ModelAdmin):
     actions = [send_message, preview_message]
     list_display = ('subject', 'list', 'date_time')
     list_filter = ('list',)
-    inlines = [ContactListInline]
+    #inlines = [ContactListInline]
 
 admin.site.register(Message, MessageAdmin)
 admin.site.register(Contact, ContactAdmin)

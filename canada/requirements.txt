@@ -12,3 +12,4 @@ Werkzeug
 django_extensions
 ipython
 markdown
+psycopg2

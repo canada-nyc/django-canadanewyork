@@ -6,6 +6,7 @@ from django.contrib import admin
 from canada.bulkmail.views import bulkmail_contact
 from canada.feeds import AllEntriesFeed
 from canada.views import TextView
+from canada import settings
 
 admin.autodiscover()
 
@@ -32,6 +33,7 @@ urlpatterns = patterns('',
 
 urlpatterns += staticfiles_urlpatterns()
 
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 if settings.DEBUG:
     #  uploaded media files (images)
     urlpatterns += patterns('',

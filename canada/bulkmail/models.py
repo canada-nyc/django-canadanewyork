@@ -59,7 +59,7 @@ class Message(models.Model):
 
 class Contact(models.Model):
     email = models.EmailField(unique=True)
-    list = models.ForeignKey(ContactList, related_name='contacts')
+    list = models.ForeignKey(ContactList)
 
     class Meta:
         ordering = ['list', 'email']

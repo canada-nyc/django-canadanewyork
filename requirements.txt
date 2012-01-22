@@ -12,7 +12,7 @@ sorl-thumbnail
 celery
 django-celery
 django-celery-email
-djkombu
+django-kombu
 
 #Debug
 ipython

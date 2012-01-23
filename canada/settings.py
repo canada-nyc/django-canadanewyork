@@ -6,14 +6,6 @@ from django.conf import global_settings
 def rel_path(ending):
     return os.path.abspath(os.path.join(os.path.dirname(__file__), str(ending)))
 
-########
-#Gondor
-########
-try:
-    from local_settings import *
-
-except ImportError:
-    pass
 
 ########
 #CANADA
@@ -63,6 +55,16 @@ EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
 
 ########
+#Storage
+########
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_ACCESS_KEY_ID = 'AKIAILXZMFP6SQJQC7XQ'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'canadanewyork'
+
+
+########
 #Django
 ########
 SITE_ID = 1
@@ -79,13 +81,15 @@ INSTALLED_APPS += (
     'django.contrib.admin',
     'django.contrib.staticfiles',
     'django.contrib.markup',
+    'storages',
    )
 
 #Static/Media
-STATIC_URL = '/static/'
+STATIC_URL = 'https://s3.amazonaws.com/canadanewyork/'
 STATICFILES_DIRS = (
     ('canada', rel_path('static')),
    )
+
 MEDIA_URL = '/media/'
 
 #Admin
@@ -122,7 +126,16 @@ global_settings.TEMPLATE_CONTEXT_PROCESSORS += (
    )
 
 ########
-#Production
+#Local
+########
+try:
+    from local_settings import *
+
+except ImportError:
+    pass
+
+########
+#Remote
 ########
 INSTALLED_APPS += (
     'gunicorn',

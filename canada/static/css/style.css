@@ -1,12 +1,14 @@
 @import url(base_style.css);
 body {
   width: 750px;
+  margin: 0 auto;
+  margin-top: 30px;
   margin-left: 200px;
   font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
   font-size: 75%;
   color: #aaaaaa;
   background-color: black;
-  background-image: url(/static/canada/images/background_fire.gif);
+  background-image: url(static/canada/images/background_fire.gif);
   background-repeat: no-repeat; }
 
 a:link {
@@ -18,8 +20,10 @@ a:hover {
   color: orange; }
 
 nav {
-  margin-top: 2em; }
-  li {
+  width: 750px;
+  height: 40px;
+  margin-top: 10px; }
+  nav li {
     text-transform: uppercase;
     display: inline; }
     nav li .current:visited {
@@ -30,7 +34,16 @@ nav {
       content: ''; }
 
 article {
-  margin: 2em 0 2em; }
+  width: 750px;
+  min-height: 450px;
+  /* for modern browsers */
+  height: auto !important;
+  /* for modern browsers */
+  height: 450px;
+  /* for IE5.x and IE6 */
+  margin-top: 10px; }
 
 footer {
-  margin: 5em 0 1em; }
+  width: 750px;
+  height: 100px;
+  margin-top: 40px; }

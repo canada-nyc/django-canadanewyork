@@ -178,7 +178,7 @@ STATICFILES_FINDERS += (
 ########
 
 LOCAL_DEBUG = True
-GLOBAL_DEBUG = False
+GLOBAL_DEBUG = True
 
 DEBUG = False
 if (GLOBAL_DEBUG and socket.gethostname() != 'Sauls-Macbook.local')  or (LOCAL_DEBUG and socket.gethostname() == 'Sauls-Macbook.local'):

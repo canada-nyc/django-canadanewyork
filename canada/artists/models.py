@@ -20,10 +20,10 @@ class Artist( models.Model ):
     def __unicode__( self ):
         return u'%s %s' % ( self.first_name, self.last_name )
 
-    def save(self):
+    def save(self, *args, **kwargs):
         cap(self,'first_name', 'last_name')
         self.slug = slugify('-'.join([self.first_name, self.last_name]))
-        super(Artist,self).save()
+        super(Artist, self).save(*args, **kwargs)
 
 
     @permalink
@@ -54,4 +54,4 @@ class ArtistPhoto( models.Model ):
 
     def save(self):
         cap(self,'title')
-        super(Artist,self).save()
+        super(ArtistPhoto,self).save()

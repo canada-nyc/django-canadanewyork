@@ -43,7 +43,7 @@ def sync():
 
 def upload(to):
     assert to == 'staging' or 'production'
-    local('git push {} master'.format(to))
+    local('git push {} {}'.format(to))
 
 def migrate(export):
     assert export == 'staging' or 'production'

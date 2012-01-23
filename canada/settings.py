@@ -184,7 +184,8 @@ LOCAL_DEBUG = True
 GLOBAL_DEBUG = True
 
 DEBUG = False
-if (GLOBAL_DEBUG and socket.gethostname() != 'Sauls-Macbook.local')  or (LOCAL_DEBUG and socket.gethostname() == 'Sauls-Macbook.local'):
+if ((GLOBAL_DEBUG and socket.gethostname() != 'Sauls-Macbook.local') or
+        (LOCAL_DEBUG and socket.gethostname() == 'Sauls-Macbook.local')):
     DEBUG = True
     INSTALLED_APPS += (
         'django_extensions',

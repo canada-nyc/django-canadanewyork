@@ -8,6 +8,10 @@ from canada.feeds import AllEntriesFeed
 from canada.views import TextView
 from canada import settings
 
+from django.http import HttpResponse
+
+def test(request):
+    return HttpResponse('42')
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -28,8 +32,10 @@ urlpatterns = patterns('',
 
                         url(r'^robots\.txt$', TextView.as_view(template_name="robots.txt")),
                         url(r'^humans\.txt$', TextView.as_view(template_name="humans.txt")),
+                        url(r'^mu-d81b9b5a-572eee60-bc2ce3f6-e3fd43af$', test),
 
 )
+
 if settings.DEBUG:
     urlpatterns += patterns('',
         url(r'^static/(?P<path>.*)', 'django.views.static.serve', {

@@ -51,7 +51,7 @@ def migrate(export):
         import_ = 'production'
     else:
         import_ = 'staging'
-    local("heroku run python canada/manage.py dumpdata --natural --exclude=djkombu --remote {} | sed '1d' > data.json".format(export))
+    local("heroku run python canada/manage.py dumpdata --natural --exclude=djkombu --exclude  --remote {} | sed '1d' > data.json".format(export))
     local('git add data.json')
     local('git commit -m "Added data from {}"'.format(export))
     upload(import_)

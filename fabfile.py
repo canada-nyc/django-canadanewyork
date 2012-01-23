@@ -46,7 +46,7 @@ def upload(to):
     local('git push {} master'.format(to))
 
 def migrate(export):
-    with hide('warnings', 'stdout', 'stderr'):
+    with hide('stdout', 'stderr'):
         assert export == 'staging' or 'production'
         if export == 'staging':
             import_ = 'production'
@@ -60,7 +60,6 @@ def migrate(export):
         local('heroku run python manage.py loaddata data.json --remote {}'.format(import_))
         local('git rm data.json')
         local('git commit -m "Removed data from {}, after importing to {}"'.format(export, import_))
-        upload(import_)
 
 def update():
     print 'Checking for updates:'

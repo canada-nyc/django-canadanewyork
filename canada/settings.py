@@ -118,13 +118,20 @@ global_settings.TEMPLATE_CONTEXT_PROCESSORS += (
    )
 
 ########
-#Local
+#Imports
 ########
 try:
     from local_settings import *
 
 except ImportError:
     from remote_settings import *
+
+
+INSTALLED_APPS += (
+    'gunicorn',
+    'compressor',
+    )
+
 
 ########
 #Celery/Email

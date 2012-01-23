@@ -154,11 +154,19 @@ global_settings.TEMPLATE_CONTEXT_PROCESSORS += (
 ########
 #Production
 #######
+#Cache
+MIDDLEWARE_CLASSES.insert(0, 'django.middleware.cache.UpdateCacheMiddleware')
+MIDDLEWARE_CLASSES += (
+    'django.middleware.cache.FetchFromCacheMiddleware',
+    )
+
 INSTALLED_APPS += (
     'gunicorn',
     'compressor',
     )
-#COMPRESS_ENABLED = False
+CACHE_MIDDLEWARE_KEY_PREFIX = ''
+CACHE_MIDDLEWARE_SECONDS = 600
+
 COMPRESS_ROOT = STATIC_ROOT
 COMPRESS_URL = STATIC_URL
 COMPRESS_STORAGE = STATICFILES_STORAGE

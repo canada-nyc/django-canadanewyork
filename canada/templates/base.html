@@ -1,7 +1,8 @@
 {% extends "boilerplate.html" %}
 {% block base_description %}"CANADA - lower East Side Art gallery exhibiting artists in New York."{% endblock %}
 {% block base_author %}"Saul"{% endblock %}
-{% block base_stylesheet %}"{{ STATIC_URL }}canada/css/style.css"{% endblock base_stylesheet %}
+{% load static %}
+{% block base_stylesheet %}"{% get_static_prefix %}canada/css/style.css"{% endblock base_stylesheet %}
 {% block base_title %} &laquo; CANADA{% endblock %}
 
 {% block base_body %}

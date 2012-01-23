@@ -1,6 +1,7 @@
 import djcelery
 import socket
 import os
+
 from django.conf import global_settings
 
 def rel_path(ending):
@@ -72,15 +73,16 @@ CELERY_RESULT_DBURI = DATABASES['default']
 ########
 #Storage
 ########
-
-STATICFILES_STORAGE = 'canada.storage.CachedS3BotoStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
+#STATICFILES_STORAGE = 'canada.storage.CachedS3BotoStorage'
 AWS_ACCESS_KEY_ID = 'AKIAILXZMFP6SQJQC7XQ'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'canadanewyork'
+#AWS_PRELOAD_METADATA = True
 STATIC_URL = 'https://s3.amazonaws.com/canadanewyork/'
 STATIC_ROOT = rel_path('../static')
-COMPRESS_ROOT = STATIC_ROOT
+MEDAIA_ROOT = rel_path('../media')
 
 
 ########
@@ -105,13 +107,13 @@ INSTALLED_APPS += (
 
 #Static/Media
 STATICFILES_DIRS = (
-    ('canada', rel_path('static')),
+    ('canada', rel_path('static/canada')),
    )
 
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
     'compressor.finders.CompressorFinder',
     )
 
@@ -157,9 +159,16 @@ INSTALLED_APPS += (
     'gunicorn',
     'compressor',
     )
-
+#COMPRESS_ENABLED = False
+COMPRESS_ROOT = STATIC_ROOT
 COMPRESS_URL = STATIC_URL
 COMPRESS_STORAGE = STATICFILES_STORAGE
+COMPRESS_PARSER = 'compressor.parser.Html5LibParser'
+COMPRESS_OFFLINE = False
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'sass --scss {infile} {outfile}'),
+)
+COMPRESS_OUTPUT_DIR = 'caches_compress'
 
 ########
 #Debug

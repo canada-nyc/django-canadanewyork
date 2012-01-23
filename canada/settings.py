@@ -4,8 +4,8 @@ import os
 
 from django.conf import global_settings
 
-def rel_path(ending):
-    return os.path.abspath(os.path.join(os.path.dirname(__file__), str(ending)))
+from canada.functions import rel_path
+
 
 ########
 #Imports
@@ -73,13 +73,16 @@ CELERY_RESULT_DBURI = DATABASES['default']
 ########
 #Storage
 ########
+INSTALLED_APPS += (
+    'storages',
+    )
+
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
-#STATICFILES_STORAGE = 'canada.storage.CachedS3BotoStorage'
+STATICFILES_STORAGE = 'canada.storage.CachedS3BotoStorage'
 AWS_ACCESS_KEY_ID = 'AKIAILXZMFP6SQJQC7XQ'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'canadanewyork'
-#AWS_PRELOAD_METADATA = True
+AWS_PRELOAD_METADATA = True #Disable to load new static file's
 STATIC_URL = 'https://s3.amazonaws.com/canadanewyork/'
 STATIC_ROOT = rel_path('../static')
 MEDAIA_ROOT = rel_path('../media')
@@ -102,7 +105,6 @@ INSTALLED_APPS += (
     'django.contrib.admin',
     'django.contrib.staticfiles',
     'django.contrib.markup',
-    'storages',
    )
 
 #Static/Media
@@ -113,8 +115,6 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-    'compressor.finders.CompressorFinder',
     )
 
 MEDIA_URL = '/media/'
@@ -169,6 +169,10 @@ COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'sass --scss {infile} {outfile}'),
 )
 COMPRESS_OUTPUT_DIR = 'caches_compress'
+
+STATICFILES_FINDERS += (
+    'compressor.finders.CompressorFinder',
+    )
 
 ########
 #Debug

@@ -72,7 +72,8 @@ CELERY_RESULT_DBURI = DATABASES['default']
 ########
 #Storage
 ########
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+STATICFILES_STORAGE = 'canada.storage.CachedS3BotoStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 AWS_ACCESS_KEY_ID = 'AKIAILXZMFP6SQJQC7XQ'
 AWS_SECRET_ACCESS_KEY = '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'
@@ -157,24 +158,6 @@ INSTALLED_APPS += (
 
 COMPRESS_URL = STATIC_URL
 COMPRESS_STORAGE = STATICFILES_STORAGE
-
-from django.core.files.storage import get_storage_class
-from storages.backends.s3boto import S3BotoStorage
-
-class CachedS3BotoStorage(S3BotoStorage):
-    """
-    S3 storage backend that saves the files locally, too.
-    """
-    def __init__(self, *args, **kwargs):
-        super(CachedS3BotoStorage, self).__init__(*args, **kwargs)
-        self.local_storage = get_storage_class(
-            "compressor.storage.CompressorFileStorage")()
-
-    def save(self, name, content):
-        name = super(CachedS3BotoStorage, self).save(name, content)
-        self.local_storage._save(name, content)
-        return name
-
 
 ########
 #Debug

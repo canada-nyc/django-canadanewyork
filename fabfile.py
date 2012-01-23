@@ -55,13 +55,9 @@ def migrate(export):
     local('git commit -m "Added data from {}"'.format(export))
     upload(import_)
     local('heroku run python manage.py loaddata data.json --remote {}'.format(import_))
-    print 'Removing commit...'
-    local('git reset --soft HEAD^')
-    print 'Removing file...'
-    local('git reset HEAD data.json')
-    print 'Reuploading...'
-    local('git push {} master -f'.format(import_))
-
+    local('git rm data.json')
+    local('git commit -m "Removed data from {}, after importing to {}"'.format(export, import_))
+    upload(import_)
 
 def update():
     print 'Checking for updates:'

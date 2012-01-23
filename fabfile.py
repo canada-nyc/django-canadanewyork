@@ -18,7 +18,7 @@ def run(celery=False):
         local('tab "c;label celeryWorker;python canada/manage.py celeryd -E -l INFO"')
 
 def sass():
-    local('label sass;sass --watch canada/static/sass:canada/static/css')
+    local('label sass;sass --watch canada/static/sass:canada/static/css --style compressed')
 
 def celery():
     local('label celery;python canada/manage.py celeryd -E -B --loglevel=INFO')

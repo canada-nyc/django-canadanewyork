@@ -45,9 +45,7 @@ def upload(to):
     local('git push {} master'.format(to))
 
 def migrate(export):
-    with settings(
-            hide('warnings', 'stdout', 'stderr'),
-        ):
+    with hide('warnings', 'stdout', 'stderr'):
         assert export == 'staging' or 'production'
         if export == 'staging':
             import_ = 'production'

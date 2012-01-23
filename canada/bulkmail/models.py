@@ -29,7 +29,7 @@ class ContactList(models.Model):
     def clean(self):
         if not self.default:
             try:
-                ContactList.objects.exclude(pk=self.pk).get(frontpage=True)
+                ContactList.objects.exclude(pk=self.pk).get(default=True)
             except ContactList.DoesNotExist:
                 raise ValidationError("Enable a different contact list to change the default.")
 

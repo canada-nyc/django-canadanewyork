@@ -20,6 +20,8 @@ def run(celery=False):
 def sass():
     local('label sass;sass --watch canada/static/sass:canada/static/css')
 
+def celery():
+    local('label celery;python canada/manage.py celeryd -E -B --loglevel=INFO')
 
 def shell():
     local('python canada/manage.py shell')
@@ -40,14 +42,6 @@ def sync():
 
 def upload():
     local('git push staging master')
-
-def sync_remote():
-    local('heroku run fab sync')
-
-def su():
-    upload()
-    sync_remote()
-
 
 def update():
     print 'Checking for updates:'

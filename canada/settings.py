@@ -79,6 +79,8 @@ AWS_ACCESS_KEY_ID = 'AKIAILXZMFP6SQJQC7XQ'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'canadanewyork'
 STATIC_URL = 'https://s3.amazonaws.com/canadanewyork/'
+STATIC_ROOT = rel_path('../static')
+COMPRESS_ROOT = STATIC_ROOT
 
 
 ########

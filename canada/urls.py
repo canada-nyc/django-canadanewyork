@@ -30,3 +30,8 @@ urlpatterns = patterns('',
                         url(r'^humans\.txt$', TextView.as_view(template_name="humans.txt")),
 
 )
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        url(r'^static/(?P<path>.*)', 'django.views.static.serve', {
+            'document_root': settings.STATIC_ROOT,
+    })

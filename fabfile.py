@@ -40,8 +40,11 @@ def sync():
         local('python canada/manage.py migrate')
 
 
-def upload():
-    local('git push staging master')
+def upload(production=None):
+    if production:
+        local('git push production master')
+    else:
+        local('git push staging master')
 
 def update():
     print 'Checking for updates:'

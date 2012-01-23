@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "canada/manage.py", line 15, in <module>
+    import settings
+  File "/app/canada/settings.py", line 158, in <module>
+    MIDDLEWARE_CLASSES.insert(0, 'django.middleware.cache.UpdateCacheMiddleware')
+NameError: name 'MIDDLEWARE_CLASSES' is not defined

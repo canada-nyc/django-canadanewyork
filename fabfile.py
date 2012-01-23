@@ -40,11 +40,30 @@ def sync():
         local('python canada/manage.py migrate')
 
 
-def upload(production=None):
-    if production:
-        local('git push production master')
+def upload(to):
+    assert to == 'staging' or 'production'
+    local('git push {} master'.format(to))
     else:
-        local('git push staging master')
+        print 'Specify whether to upload to "production" or "staging"'
+
+def migrate(export):
+    assert export == 'staging' or 'production'
+    if export == 'staging':
+        import_ = 'production'
+    else:
+        import_ = 'staging'
+    local("heroku run python canada/manage.py dumpdata --natural --remote {} | sed '1d' > data.json".format(export))
+    local('git add data.json')
+    local('git commit -m "Added data from {}"'.format(export))
+    upload(import_)
+    local('heroku run python manage.py loaddata data.json --remote {}'.format(import_))
+    print 'Removing commit...'
+    local('git reset --soft HEAD^')
+    print 'Removing file...'
+    local('git reset HEAD data.json')
+    print 'Reuploading...'
+    local('git push {} master -f'.format(import_))
+
 
 def update():
     print 'Checking for updates:'

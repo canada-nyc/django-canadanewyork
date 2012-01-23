@@ -43,8 +43,6 @@ def sync():
 def upload(to):
     assert to == 'staging' or 'production'
     local('git push {} master'.format(to))
-    else:
-        print 'Specify whether to upload to "production" or "staging"'
 
 def migrate(export):
     assert export == 'staging' or 'production'

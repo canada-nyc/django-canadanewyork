@@ -56,8 +56,8 @@ def migrate(export):
         local('git add data.json')
         local('git commit -m "Added data from {}"'.format(export))
         upload(import_)
-        local('heroku run python manage.py flush --remote {}'.format(import_))
-        local('heroku run python manage.py loaddata data.json --remote {}'.format(import_))
+        local('heroku run python canada/manage.py flush --remote {}'.format(import_))
+        local('heroku run python canada/manage.py loaddata data.json --remote {}'.format(import_))
         local('git rm data.json')
         local('git commit -m "Removed data from {}, after importing to {}"'.format(export, import_))
 

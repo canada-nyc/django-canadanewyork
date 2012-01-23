@@ -46,20 +46,19 @@ def upload(to):
     local('git push {} master'.format(to))
 
 def migrate(export):
-    with hide('stdout', 'stderr'):
-        assert export == 'staging' or 'production'
-        if export == 'staging':
-            import_ = 'production'
-        else:
-            import_ = 'staging'
-        local("heroku run python canada/manage.py dumpdata --natural --remote {} | sed '1d' > data.json".format(export))
-        local('git add data.json')
-        local('git commit -m "Added data from {}"'.format(export))
-        upload(import_)
-        local('heroku run python canada/manage.py flush --remote {}'.format(import_))
-        local('heroku run python canada/manage.py loaddata data.json --remote {}'.format(import_))
-        local('git rm data.json')
-        local('git commit -m "Removed data from {}, after importing to {}"'.format(export, import_))
+    assert export == 'staging' or 'production'
+    if export == 'staging':
+        import_ = 'production'
+    else:
+        import_ = 'staging'
+    local("heroku run python canada/manage.py dumpdata --natural --exclude=djkombu --remote {} | sed '1d' > data.json".format(export))
+    local('git add data.json')
+    local('git commit -m "Added data from {}"'.format(export))
+    upload(import_)
+    local('heroku run python canada/manage.py flush --noinput --remote {}'.format(import_))
+    local('heroku run python canada/manage.py loaddata data.json --remote {}'.format(import_))
+    local('git rm data.json')
+    local('git commit -m "Removed data from {}, after importing to {}"'.format(export, import_))
 
 def update():
     print 'Checking for updates:'

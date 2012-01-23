@@ -155,7 +155,8 @@ global_settings.TEMPLATE_CONTEXT_PROCESSORS += (
 #Production
 #######
 #Cache
-global_settings.MIDDLEWARE_CLASSES.insert(0, 'django.middleware.cache.UpdateCacheMiddleware')
+global_settings.MIDDLEWARE_CLASSES = ('django.middleware.cache.UpdateCacheMiddleware',) + global_settings.MIDDLEWARE_CLASSES
+print global_settings.MIDDLEWARE_CLASSES
 global_settings.MIDDLEWARE_CLASSES += (
     'django.middleware.cache.FetchFromCacheMiddleware',
     )

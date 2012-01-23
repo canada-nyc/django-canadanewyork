@@ -7,3 +7,4 @@ celeryev.pid
 
 /static/
 sqlite.db
+canada/local_settings.py

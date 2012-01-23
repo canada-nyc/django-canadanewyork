@@ -144,22 +144,18 @@ SESSION_COOKIE_HTTPONLY = True
 USE_I18N = False
 SECRET_KEY = '*itk&52%kmo)f0+ase$uvsy6cmz04c@xr#7$n+bn7_=3wv0lz4'
 INTERNAL_IPS = '127.0.0.1'
-global_settings.MIDDLEWARE_CLASSES += (
-    'django.middleware.csrf.CsrfViewMiddleware',
-)
-global_settings.TEMPLATE_CONTEXT_PROCESSORS += (
-    'django.core.context_processors.csrf',
-   )
+if 'django.middleware.csrf.CsrfViewMiddleware' not in global_settings.MIDDLEWARE_CLASSES:
+    global_settings.MIDDLEWARE_CLASSES += ('django.middleware.csrf.CsrfViewMiddleware',)
+global_settings.TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.csrf',)
 
 ########
 #Production
 #######
 #Cache
-global_settings.MIDDLEWARE_CLASSES = ('django.middleware.cache.UpdateCacheMiddleware',) + global_settings.MIDDLEWARE_CLASSES
-print global_settings.MIDDLEWARE_CLASSES
-global_settings.MIDDLEWARE_CLASSES += (
-    'django.middleware.cache.FetchFromCacheMiddleware',
-    )
+if 'django.middleware.cache.UpdateCacheMiddleware' not in global_settings.MIDDLEWARE_CLASSES:
+    global_settings.MIDDLEWARE_CLASSES = ('django.middleware.cache.UpdateCacheMiddleware',) + global_settings.MIDDLEWARE_CLASSES
+if 'django.middleware.cache.FetchFromCacheMiddleware' not in global_settings.MIDDLEWARE_CLASSES:
+    global_settings.MIDDLEWARE_CLASSES += ('django.middleware.cache.FetchFromCacheMiddleware',)
 
 INSTALLED_APPS += (
     'gunicorn',
@@ -178,9 +174,7 @@ COMPRESS_PRECOMPILERS = (
 )
 COMPRESS_OUTPUT_DIR = 'caches_compress'
 
-STATICFILES_FINDERS += (
-    'compressor.finders.CompressorFinder',
-    )
+STATICFILES_FINDERS += ('compressor.finders.CompressorFinder',)
 
 ########
 #Debug
@@ -196,10 +190,7 @@ if (GLOBAL_DEBUG and socket.gethostname() != 'Sauls-Macbook.local')  or (LOCAL_D
         'django_extensions',
         'debug_toolbar',
         )
-    global_settings.MIDDLEWARE_CLASSES += (
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
-        )
-    global_settings.TEMPLATE_CONTEXT_PROCESSORS += (
-        'django.core.context_processors.request',
-        )
+    if 'debug_toolbar.middleware.DebugToolbarMiddleware' not in global_settings.MIDDLEWARE_CLASSES:
+        global_settings.MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+    global_settings.TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.request',)
 TEMPLATE_DEBUG = DEBUG

@@ -30,12 +30,3 @@ urlpatterns = patterns('',
                         url(r'^humans\.txt$', TextView.as_view(template_name="humans.txt")),
 
 )
-
-urlpatterns += staticfiles_urlpatterns()
-
-#urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-if settings.DEBUG:
-    #  uploaded media files (images)
-    urlpatterns += patterns('',
-        (r'^media/(?P<path>.*)$', 'django.views.static.serve', {
-        'document_root': settings.MEDIA_ROOT}))

@@ -7,6 +7,7 @@ import pip
 
 from fabric.api import local, settings
 from fabric.contrib.console import confirm
+from fabric.context_managers import hide
 
 
 def run(celery=False):

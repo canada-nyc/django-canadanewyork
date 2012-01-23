@@ -23,6 +23,7 @@ django-debug-toolbar
 #Production
 psycopg2
 gunicorn
+django_compressor
 
 #Storage
 django-storages

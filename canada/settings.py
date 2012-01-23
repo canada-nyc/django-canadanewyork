@@ -38,21 +38,7 @@ GRAPPELLI_ADMIN_TITLE = 'CANADA'
 ########
 #Email
 ########
-djcelery.setup_loader()
 
-INSTALLED_APPS += (
-    'djcelery',
-    'djcelery_email',
-    'celery',
-    'djkombu',
-   )
-
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_HOST_USER = "saul.shanabrook@gmail.com"
-EMAIL_HOST_PASSWORD = "3j}s^52G-qH69%kY"
-EMAIL_USE_TLS = True
-EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
 
 ########
 #Storage
@@ -62,7 +48,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 AWS_ACCESS_KEY_ID = 'AKIAILXZMFP6SQJQC7XQ'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'canadanewyork'
-
+STATIC_URL = 'https://s3.amazonaws.com/canadanewyork/'
 
 ########
 #Django
@@ -85,10 +71,16 @@ INSTALLED_APPS += (
    )
 
 #Static/Media
-STATIC_URL = 'https://s3.amazonaws.com/canadanewyork/'
 STATICFILES_DIRS = (
     ('canada', rel_path('static')),
    )
+
+STATICFILES_FINDERS = (
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    #'compressor.finders.CompressorFinder',
+    )
 
 MEDIA_URL = '/media/'
 
@@ -132,63 +124,34 @@ try:
     from local_settings import *
 
 except ImportError:
-    pass
+    from remote_settings import *
 
 ########
-#Remote
+#Celery/Email
 ########
-INSTALLED_APPS += (
-    'gunicorn',
-    )
-
-import os
-import sys
-import urlparse
-
-# Register database schemes in URLs.
-urlparse.uses_netloc.append('postgres')
-urlparse.uses_netloc.append('mysql')
-
-try:
-
-    # Check to make sure DATABASES is set in settings.py file.
-    # If not default to {}
-
-    if 'DATABASES' not in locals():
-        DATABASES = {}
-
-    if 'DATABASE_URL' in os.environ:
-        url = urlparse.urlparse(os.environ['DATABASE_URL'])
-
-        # Ensure default database exists.
-        DATABASES['default'] = DATABASES.get('default', {})
-
-        # Update with environment configuration.
-        DATABASES['default'].update({
-            'NAME': url.path[1:],
-            'USER': url.username,
-            'PASSWORD': url.password,
-            'HOST': url.hostname,
-            'PORT': url.port,
-        })
-        if url.scheme == 'postgres':
-            DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
-
-        if url.scheme == 'mysql':
-            DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
-except Exception:
-    print 'Unexpected error:', sys.exc_info()
-
-
-import djcelery
 djcelery.setup_loader()
+
+INSTALLED_APPS += (
+    'djcelery',
+    'djcelery_email',
+    'celery',
+    'djkombu',
+   )
+
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "saul.shanabrook@gmail.com"
+EMAIL_HOST_PASSWORD = "3j}s^52G-qH69%kY"
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+
 BROKER_BACKEND = "djkombu.transport.DatabaseTransport"
 CELERY_RESULT_DBURI = DATABASES['default']
 
 ########
 #Debug
 ########
-GLOBAL_DEBUG = True
+GLOBAL_DEBUG = False
 LOCAL_DEBUG = True
 
 DEBUG = False

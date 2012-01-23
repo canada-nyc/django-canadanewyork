@@ -14,11 +14,3 @@ DATABASES = {
             'PORT': '',
             }
     }
-BROKER_HOST = "127.0.0.1"
-BROKER_PORT = 5672
-BROKER_VHOST = "/"
-BROKER_USER = "guest"
-BROKER_PASSWORD = "guest"
-
-MEDIA_ROOT = rel_path("../media")
-STATIC_ROOT = rel_path("../static")

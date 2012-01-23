@@ -1,10 +1,9 @@
 import djcelery
 import socket
-import os
 
 from django.conf import global_settings
 
-from canada.functions import rel_path
+from functions import rel_path
 
 
 ########
@@ -177,8 +176,9 @@ STATICFILES_FINDERS += (
 ########
 #Debug
 ########
-GLOBAL_DEBUG = False
+
 LOCAL_DEBUG = True
+GLOBAL_DEBUG = False
 
 DEBUG = False
 if (GLOBAL_DEBUG and socket.gethostname() != 'Sauls-Macbook.local')  or (LOCAL_DEBUG and socket.gethostname() == 'Sauls-Macbook.local'):

@@ -1,3 +1,6 @@
+import os
+
+
 def cap(self, *args):
     """capatilize x model fields"""
     for field in args:

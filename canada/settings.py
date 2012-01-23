@@ -16,12 +16,6 @@ except ImportError:
     from remote_settings import *
 
 
-INSTALLED_APPS += (
-    'gunicorn',
-    'compressor',
-    )
-
-
 ########
 #CANADA
 ########
@@ -115,7 +109,7 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
     'django.contrib.staticfiles.finders.DefaultStorageFinder',
-    #'compressor.finders.CompressorFinder',
+    'compressor.finders.CompressorFinder',
     )
 
 MEDIA_URL = '/media/'
@@ -153,6 +147,13 @@ global_settings.TEMPLATE_CONTEXT_PROCESSORS += (
     'django.core.context_processors.csrf',
    )
 
+########
+#Production
+#######
+INSTALLED_APPS += (
+    'gunicorn',
+    'compressor',
+    )
 
 ########
 #Debug

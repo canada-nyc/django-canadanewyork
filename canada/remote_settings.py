@@ -37,3 +37,8 @@ try:
 except Exception:
     print 'Unexpected error:', sys.exc_info()
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django_pylibmc.memcached.PyLibMCCache'
+    }
+}

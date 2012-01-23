@@ -2,11 +2,6 @@ import os
 import sys
 import urlparse
 
-INSTALLED_APPS += (
-    'gunicorn',
-    'compressor',
-    )
-
 
 # Register database schemes in URLs.
 urlparse.uses_netloc.append('postgres')

@@ -6,6 +6,21 @@ from django.conf import global_settings
 def rel_path(ending):
     return os.path.abspath(os.path.join(os.path.dirname(__file__), str(ending)))
 
+########
+#Imports
+########
+try:
+    from local_settings import *
+
+except ImportError:
+    from remote_settings import *
+
+
+INSTALLED_APPS += (
+    'gunicorn',
+    'compressor',
+    )
+
 
 ########
 #CANADA
@@ -24,6 +39,7 @@ INSTALLED_APPS = (
     'canada.frontpage',
    )
 
+
 ########
 #Packages
 ########
@@ -35,9 +51,28 @@ INSTALLED_APPS += (
 
 GRAPPELLI_ADMIN_TITLE = 'CANADA'
 
+
 ########
-#Email
+#Celery/Email
 ########
+djcelery.setup_loader()
+
+INSTALLED_APPS += (
+    'djcelery',
+    'djcelery_email',
+    'celery',
+    'djkombu',
+   )
+
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "saul.shanabrook@gmail.com"
+EMAIL_HOST_PASSWORD = "3j}s^52G-qH69%kY"
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+
+BROKER_BACKEND = "djkombu.transport.DatabaseTransport"
+CELERY_RESULT_DBURI = DATABASES['default']
 
 
 ########
@@ -49,6 +84,7 @@ AWS_ACCESS_KEY_ID = 'AKIAILXZMFP6SQJQC7XQ'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'canadanewyork'
 STATIC_URL = 'https://s3.amazonaws.com/canadanewyork/'
+
 
 ########
 #Django
@@ -117,43 +153,6 @@ global_settings.TEMPLATE_CONTEXT_PROCESSORS += (
     'django.core.context_processors.csrf',
    )
 
-########
-#Imports
-########
-try:
-    from local_settings import *
-
-except ImportError:
-    from remote_settings import *
-
-
-INSTALLED_APPS += (
-    'gunicorn',
-    'compressor',
-    )
-
-
-########
-#Celery/Email
-########
-djcelery.setup_loader()
-
-INSTALLED_APPS += (
-    'djcelery',
-    'djcelery_email',
-    'celery',
-    'djkombu',
-   )
-
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_HOST_USER = "saul.shanabrook@gmail.com"
-EMAIL_HOST_PASSWORD = "3j}s^52G-qH69%kY"
-EMAIL_USE_TLS = True
-EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
-
-BROKER_BACKEND = "djkombu.transport.DatabaseTransport"
-CELERY_RESULT_DBURI = DATABASES['default']
 
 ########
 #Debug

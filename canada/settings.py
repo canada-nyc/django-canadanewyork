@@ -4,7 +4,7 @@ import socket
 from django.conf import global_settings
 
 from functions import rel_path
-^&*^*(&)
+
 
 ########
 #Imports

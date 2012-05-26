@@ -1,9 +1,10 @@
-import djcelery
-
-from django.conf.global_settings import *
 import datetime
 
-from functions import rel_path, add_to_middleware
+from memcacheify import memcacheify
+
+from django.conf.global_settings import *
+
+from canada.functions import rel_path, add_to_middleware
 
 
 ########
@@ -25,7 +26,7 @@ INSTALLED_APPS = (
 
 
 ########
-#Packages
+#External Packages
 ########
 INSTALLED_APPS += (
     'south',
@@ -37,26 +38,13 @@ GRAPPELLI_ADMIN_TITLE = 'CANADA'
 
 
 ########
-#Celery/Email
+#Email
 ########
-djcelery.setup_loader()
-
-INSTALLED_APPS += (
-    'djcelery',
-    'djcelery_email',
-    'celery',
-    'djkombu',
-  )
-
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "saul.shanabrook@gmail.com"
 EMAIL_HOST_PASSWORD = "3j}s^52G-qH69%kY"
 EMAIL_USE_TLS = True
-EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
-
-BROKER_BACKEND = "djkombu.transport.DatabaseTransport"
-
 
 
 ########
@@ -110,23 +98,25 @@ MIDDLEWARE_CLASSES = add_to_middleware(MIDDLEWARE_CLASSES, 'django.middleware.gz
 
 
 ########
+#Testing
+########
+TEST_RUNNER = 'discover_runner.DiscoverRunner'
+TEST_DISCOVER_TOP_LEVEL = rel_path
+TEST_DISCOVER_ROOT = rel_path('tests')
+
+
+########
 #Cache
 ########
 
-MIDDLEWARE_CLASSES = add_to_middleware(MIDDLEWARE_CLASSES, 'django.middleware.cache.UpdateCacheMiddleware', prepend=True)
-MIDDLEWARE_CLASSES = add_to_middleware(MIDDLEWARE_CLASSES, 'django.middleware.cache.FetchFromCacheMiddleware')
-
-CACHE_MIDDLEWARE_KEY_PREFIX = ''
-CACHE_MIDDLEWARE_SECONDS = 600
+CACHES = memcacheify() # http://rdegges.github.com/django-heroku-memcacheify/
+# Run heroku addons:add memcachier:25 for free 25m
 
 
 ########
 #Security
 ########
 SECURE_FRAME_DENY = True
-SECURE_HSTS_SECONDS = 1
-SESSION_COOKIE_HTTPONLY = True
-USE_I18N = False
 SECRET_KEY = '*itk&52%kmo)f0+ase$uvsy6cmz04c@xr#7$n+bn7_=3wv0lz4'
 INTERNAL_IPS = '127.0.0.1'
 

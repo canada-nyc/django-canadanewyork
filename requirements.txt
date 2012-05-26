@@ -5,25 +5,14 @@ django-grappelli
 markdown
 
 #Images
-PIL
-sorl-thumbnail
+PILsorl-thumbnail
 
-#Email
-celery
-django-celery
-django-celery-email
-django-kombu
-
-#Debug
-ipython
-Werkzeug
-django_extensions
-django-debug-toolbar
 
 #Production
+django-heroku-memcacheify
 
-
-#Storage
+#Testing
+django-discover-runner
 
 #Cache
 

@@ -1,9 +1,4 @@
-import os
-import sys
-import urlparse
-
-from settings.base import *
+from canada.settings.base import *
 
 
 DEBUG = False
-

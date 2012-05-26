@@ -1,10 +1,4 @@
 .sass-cache/
-migrations
 /media/
-celerybeat-schedule
-
-celeryev.pid
-
 /static/
 sqlite.db
-canada/local_settings.py

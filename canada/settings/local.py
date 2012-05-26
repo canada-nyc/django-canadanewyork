@@ -1,4 +1,4 @@
-from settings.base import *
+from canada.settings.base import *
 
 DEBUG = True
 
@@ -12,9 +12,3 @@ DATABASES = {
             'PORT': '',
             }
     }
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-    }
-}

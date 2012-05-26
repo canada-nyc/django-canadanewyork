@@ -9,7 +9,6 @@ from canada.exhibitions.models import Exhibition
 from canada.functions import cap
 
 
-
 class Press(models.Model):
     title = models.CharField(max_length=50)
 
@@ -30,12 +29,11 @@ class Press(models.Model):
         ordering = ['-date']
         verbose_name_plural = "press"
 
-
     def __unicode__(self):
         return u'%s-%s-%s' % (self.publisher, self.date.year, self.title)
 
     def save(self):
-        cap(self,'title','publisher', 'author')
+        cap(self, 'title', 'publisher', 'author')
         self.slug = slugify(self.title)
         super(Press, self).save()
 

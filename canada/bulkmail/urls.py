@@ -10,5 +10,5 @@ urlpatterns = patterns('',
                            login_required(DetailView.as_view(template_name='bulkmail/email.html', model=Message,
                                                              context_object_name='message')),
                            name='message_html'
-                       ),
-                       )
+                      ),
+                      )

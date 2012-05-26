@@ -1,4 +1,4 @@
-@import "base_style.css";
+@import "base.scss";
 
 $main-color: #AAA;
 
@@ -16,9 +16,9 @@ body {
     color: $main-color;
 
     background: {
-        color: black;
+        color: black;/*
         image: url(static/canada/images/background_fire.gif);
-        repeat: no-repeat;
+        repeat: no-repeat;*/
     }
 }
 

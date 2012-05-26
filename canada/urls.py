@@ -1,17 +1,13 @@
 from django.conf.urls.defaults import patterns, include, url
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.conf import settings
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 from canada.bulkmail.views import bulkmail_contact
 from canada.feeds import AllEntriesFeed
 from canada.views import TextView
-from canada import settings
 
-from django.http import HttpResponse
-
-def test(request):
-    return HttpResponse('42')
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -32,12 +28,9 @@ urlpatterns = patterns('',
 
                         url(r'^robots\.txt$', TextView.as_view(template_name="robots.txt")),
                         url(r'^humans\.txt$', TextView.as_view(template_name="humans.txt")),
-                        url(r'^mu-d81b9b5a-572eee60-bc2ce3f6-e3fd43af$', test),
+
 
 )
 
-if settings.DEBUG:
-    urlpatterns += patterns('',
-        url(r'^static/(?P<path>.*)', 'django.views.static.serve', {
-            'document_root': settings.STATIC_ROOT,
-    }))
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

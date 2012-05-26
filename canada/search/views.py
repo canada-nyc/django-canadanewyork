@@ -23,6 +23,6 @@ def form(request):
                                  Exhibition.objects.filter(name__icontains=q),
                                  Press.objects.filter(Q(title__icontains=q) | Q(publisher__icontains=q)),
                                  Update.objects.filter(name__icontains=q)
-                                 ))
+                                ))
             return render(request, 'search/results.html', {'results': results, 'query': q})
     return render(request, 'search/form.html', {'errors:': errors})

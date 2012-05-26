@@ -17,7 +17,7 @@ class Exhibition(models.Model):
             str(instance.start_date.year),
             str(instance.slug),
             'frontpage-{}'.format(filename)
-            )
+           )
 
     name = models.CharField(max_length=30, unique_for_year='start_date')
     description = models.TextField(blank=True)
@@ -25,13 +25,13 @@ class Exhibition(models.Model):
     frontpage = models.BooleanField(
         verbose_name='Displayed on frontpage?',
         help_text="Checking will use this exhibition for the front page. To change to a different exhibition, simply enable this on that exhibition"
-        )
+       )
     frontpage_uploaded_image = models.ImageField(
-        upload_to = image_path,
+        upload_to=image_path,
         verbose_name='Upload frontpage image',
         blank=True,
         null=True
-        )
+       )
     frontpage_selected_image = models.ForeignKey(
         'ExhibitionPhoto',
         related_name='frontpage_selected_image',
@@ -39,7 +39,7 @@ class Exhibition(models.Model):
         help_text='Uploaded image will take preference. Clear the uploaded image to use the selected image.',
         blank=True,
         null=True,
-        )
+       )
     frontpage_text = models.TextField(
         max_length=800,
         verbose_name='Text to be added to home page',
@@ -49,7 +49,7 @@ class Exhibition(models.Model):
                     or the <a href="http://daringfireball.net/projects/markdown/basics"  target="_blank">Markdown reference</a></i>""",
         blank=True,
         null=True,
-        )
+       )
 
     artists = models.ManyToManyField(Artist)
     start_date = models.DateField()
@@ -63,7 +63,7 @@ class Exhibition(models.Model):
         return '%s-%s' % (self.start_date.strftime("%Y"), self.name)
 
     def save(self):
-        cap(self,'name')
+        cap(self, 'name')
         self.slug = slugify(self.name)
 
         # sets "frontpage" to False on all other exhibitions, if we enable it on to this one
@@ -105,7 +105,7 @@ class ExhibitionPhoto(models.Model):
             str(instance.exhibition.start_date.year),
             str(instance.exhibition.name),
             filename
-            )
+           )
 
     exhibition = models.ForeignKey(Exhibition)
     image = models.ImageField(upload_to=image_path)

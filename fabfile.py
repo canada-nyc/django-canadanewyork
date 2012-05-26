@@ -7,7 +7,6 @@ import pip
 
 from fabric.api import local, settings
 from fabric.contrib.console import confirm
-from fabric.context_managers import hide
 
 
 def run(celery=False):
@@ -18,47 +17,42 @@ def run(celery=False):
         local('tab "c;label celerycam;python canada/manage.py celerycam"')
         local('tab "c;label celeryWorker;python canada/manage.py celeryd -E -l INFO"')
 
+
 def sass():
     local('label sass;sass --watch canada/static/sass:canada/static/css --style compressed')
 
+
 def celery():
     local('label celery;python canada/manage.py celeryd -E -B --loglevel=INFO')
+
 
 def shell():
     local('python canada/manage.py shell')
 
 
-APPS_TO_WATCH = ['artists', 'exhibitions', 'updates', 'bulkmail', 'press', 'search', 'frontpage']
-def sync():
-    local('python canada/manage.py syncdb')
-    with settings(warn_only=True):
+def sync(static=False, reset=False):
+    APPS_TO_WATCH = ['artists', 'exhibitions', 'updates', 'bulkmail', 'press', 'search', 'frontpage', 'djcelery']
+    if reset:
+        local('python canada/manage.py flush --noinput')
+        local('python canada/manage.py createsuperuser --username ygbhygb --email s.shanabrook@gmail.com')
         for app in APPS_TO_WATCH:
-            if os.path.isfile(os.path.abspath(os.path.join(os.path.dirname(__file__), "canada", app, 'migrations/0001_initial.py'))):
-                local('python canada/manage.py schemamigration %s --auto' % app)
-            else:
-                local('python canada/manage.py schemamigration %s --initial' % app)
+            local('python canada/manage.py migrate {} --fake'.format(app))
+        #local('python canada/manage.py migrate djcelery')
+        #local('python canada/manage.py migrate')
 
-        local('python canada/manage.py migrate')
-
-
-def upload(to):
-    assert to == 'staging' or 'production'
-    local('git push {0} {0}'.format(to))
-
-def migrate(export):
-    assert export == 'staging' or 'production'
-    if export == 'staging':
-        import_ = 'production'
     else:
-        import_ = 'staging'
-    local("heroku run python canada/manage.py dumpdata --natural --exclude=djkombu --exclude=auth --exclude=contenttypes --remote {} | sed '1d' > data.json".format(export))
-    local('git add data.json')
-    local('git commit -m "Added data from {}"'.format(export))
-    upload(import_)
-    local('heroku run python canada/manage.py flush --noinput --remote {}'.format(import_))
-    local('heroku run python canada/manage.py loaddata data.json --remote {}'.format(import_))
-    local('git rm data.json')
-    local('git commit -m "Removed data from {}, after importing to {}"'.format(export, import_))
+        local('python canada/manage.py syncdb')
+        with settings(warn_only=True):
+            for app in APPS_TO_WATCH:
+                if os.path.isfile(os.path.abspath(os.path.join(os.path.dirname(__file__), "canada", app, 'migrations/0001_initial.py'))):
+                    local('python canada/manage.py schemamigration %s --auto' % app)
+                else:
+                    local('python canada/manage.py schemamigration %s --initial' % app)
+
+            local('python canada/manage.py migrate')
+        if static:
+            local('python canada/manage.py collectstatic')
+
 
 def update():
     print 'Checking for updates:'

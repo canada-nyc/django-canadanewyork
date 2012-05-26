@@ -2,6 +2,7 @@ from django.contrib import admin
 from django import forms
 from canada.exhibitions.models import Exhibition, ExhibitionPhoto
 
+
 class ExhibitionPhotoForm(forms.ModelForm):
     position = forms.IntegerField(widget=forms.HiddenInput)
 
@@ -21,7 +22,7 @@ class ExhibitionAdmin(admin.ModelAdmin):
         ('Frontpage', {
             'fields': ('frontpage', 'frontpage_uploaded_image', 'frontpage_selected_image', 'frontpage_text')
         }),
-    )
+   )
     date_hierarchy = 'start_date'
     list_display = ('name', 'start_date', 'frontpage')
 

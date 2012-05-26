@@ -12,7 +12,7 @@ class ContactList(models.Model):
         help_text="Whether this contact list is the one that emails are added to from the website.\
             When someone submits their email on the site, it will be added to the contact list that has this checked.\
             <br> To enable a different contact list as the default, simply check that one. All others will be disabled."
-        )
+       )
 
     class Meta:
         ordering = ['name']

@@ -16,7 +16,7 @@ def limited_object_detail(request, object_id):
         queryset=Message.objects.filter(),
         template_name='bulkmail/email.html',
         template_object_name='message',
-       )
+      )
 
 
 def bulkmail_contact(request):

@@ -21,14 +21,9 @@ django_extensions
 django-debug-toolbar
 
 #Production
-psycopg2
-gunicorn
-django_compressor
-html5lib
-slimit
-pylibmc
-django-pylibmc-sasl
+
 
 #Storage
-django-storages
-boto
+
+#Cache
+

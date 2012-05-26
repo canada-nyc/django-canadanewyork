@@ -12,4 +12,4 @@ urlpatterns = patterns('',
                        url(r'^$', list_detail.object_list, exhibitions_list_info, name='exhibition-index'),
                        url(r'^(?P<year>\d{4})/(?P<slug>[-\w]+)', 'canada.exhibitions.views.single',
                            name='exhibition-single'),
-                       )
+                      )

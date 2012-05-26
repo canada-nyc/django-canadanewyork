@@ -11,7 +11,8 @@ PILsorl-thumbnail
 #Production
 django-heroku-memcacheify
 
-#Storage
+#Testing
+django-discover-runner
 
 #Cache
 

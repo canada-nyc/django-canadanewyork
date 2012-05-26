@@ -1,0 +1,5 @@
+language: python
+install:
+  - pip install -qr requirements.txt --use-mirrors
+script:
+  - python manage.py test

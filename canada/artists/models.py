@@ -11,7 +11,9 @@ class Artist(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     slug = models.SlugField(blank=True, editable=False)
-    visible = models.BooleanField(default=False, help_text="Whether it appears in the Artists list")
+    visible = models.BooleanField(
+        default=False,
+        help_text="Whether it appears in the Artists list")
 
     class Meta:
         ordering = ['last_name', 'first_name']
@@ -41,8 +43,12 @@ class ArtistPhoto(models.Model):
     title = models.CharField(max_length=50)
     medium = models.CharField(blank=True, max_length=50)
     year = models.PositiveIntegerField(null=True, blank=True)
-    length = models.PositiveIntegerField(null=True, blank=True, help_text='(in inches)')
-    width = models.PositiveIntegerField(null=True, blank=True, help_text='(in inches)')
+    length = models.PositiveIntegerField(null=True,
+                                         blank=True,
+                                         help_text='(in inches)')
+    width = models.PositiveIntegerField(null=True,
+                                        blank=True,
+                                        help_text='(in inches)')
     position = models.PositiveSmallIntegerField("Position")
 
     class Meta:

@@ -43,7 +43,10 @@ class Update(models.Model):
 class UpdatePhoto(models.Model):
 
     def image_path(instance, filename):
-        return os.path.join('updates', str(instance.update.post_date.year), str(instance.update.name), filename)
+        return os.path.join('updates',
+                            str(instance.update.post_date.year),
+                            str(instance.update.name),
+                            filename)
 
     update = models.ForeignKey(Update)
     image = models.ImageField(upload_to=image_path)

@@ -18,7 +18,10 @@ def send_message(modeladmin, request, queryset):
         text_content = get_template('bulkmail/email.txt').render(Context({'message': message}))
         html_content = get_template('bulkmail/email.html').render(Context({'message': message}))
         for email in to_emails:
-            msg = EmailMultiAlternatives(subject, text_content, from_email, to=[email])
+            msg = EmailMultiAlternatives(subject,
+                                         text_content,
+                                         from_email,
+                                         to=[email])
             msg.attach_alternative(html_content, "text/html")
             msg.send()
 

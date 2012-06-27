@@ -17,10 +17,16 @@ class ExhibitionAdmin(admin.ModelAdmin):
     inlines = [ExhibitionPhotoInline]
     fieldsets = (
         (None, {
-            'fields': ('name', 'description', 'artists', ('start_date', 'end_date'))
+            'fields': ('name',
+                       'description',
+                       'artists',
+                       ('start_date', 'end_date'))
         }),
         ('Frontpage', {
-            'fields': ('frontpage', 'frontpage_uploaded_image', 'frontpage_selected_image', 'frontpage_text')
+            'fields': ('frontpage',
+                       'frontpage_uploaded_image',
+                       'frontpage_selected_image',
+                       'frontpage_text')
         }),
    )
     date_hierarchy = 'start_date'

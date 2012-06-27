@@ -1,5 +1,3 @@
-import datetime
-
 from memcacheify import memcacheify
 
 from django.conf.global_settings import *
@@ -94,7 +92,9 @@ TEMPLATE_DIRS = (
     rel_path('templates'),
   )
 
-MIDDLEWARE_CLASSES = add_to_middleware(MIDDLEWARE_CLASSES, 'django.middleware.gzip.GZipMiddleware', prepend=True)
+MIDDLEWARE_CLASSES = add_to_middleware(MIDDLEWARE_CLASSES,
+                                       'django.middleware.gzip.GZipMiddleware',
+                                       prepend=True)
 
 
 ########
@@ -109,7 +109,7 @@ TEST_DISCOVER_ROOT = rel_path('tests')
 #Cache
 ########
 
-CACHES = memcacheify() # http://rdegges.github.com/django-heroku-memcacheify/
+CACHES = memcacheify()  # http://rdegges.github.com/django-heroku-memcacheify/
 # Run heroku addons:add memcachier:25 for free 25m
 
 

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
-from exhibitions.models import Exhibition
+from canada.exhibitions.models import Exhibition
 
 
 def frontpage_exhibition(request):

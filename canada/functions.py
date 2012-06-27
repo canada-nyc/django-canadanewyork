@@ -8,16 +8,16 @@ def cap(self, *args):
         setattr(self, field, value.title())
 
 
-def rel_path(ending):
-    """output the absolute path to a relative file name"""
+def rel_path(ending='/'):
+    """output the absolute path of an ending joined to the current file path"""
     return os.path.join(os.path.dirname(__file__), str(ending))
 
 
-def add_to_middleware(MIDDLEWARE_CLASSES_old, middleware, prepend=False):
-    if middleware not in MIDDLEWARE_CLASSES_old:
+def add_to_middleware(MIDDLEWARE_CLASSES, middleware, prepend=False):
+    if middleware not in MIDDLEWARE_CLASSES:
         if prepend:
-            return (middleware,) + MIDDLEWARE_CLASSES_old
+            return (middleware,) + MIDDLEWARE_CLASSES
         else:
-            return MIDDLEWARE_CLASSES_old + (middleware,)
+            return MIDDLEWARE_CLASSES + (middleware,)
     else:
-        return MIDDLEWARE_CLASSES_old
+        return MIDDLEWARE_CLASSES

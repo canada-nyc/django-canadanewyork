@@ -1,5 +1,3 @@
-from memcacheify import memcacheify
-
 from django.conf.global_settings import *
 
 from canada.functions import rel_path, add_to_middleware
@@ -95,22 +93,14 @@ TEMPLATE_DIRS = (
 MIDDLEWARE_CLASSES = add_to_middleware(MIDDLEWARE_CLASSES,
                                        'django.middleware.gzip.GZipMiddleware',
                                        prepend=True)
-
+DATE_FORMAT = 'F j, Y'
 
 ########
 #Testing
 ########
 TEST_RUNNER = 'discover_runner.DiscoverRunner'
-TEST_DISCOVER_TOP_LEVEL = rel_path
+TEST_DISCOVER_TOP_LEVEL = rel_path()
 TEST_DISCOVER_ROOT = rel_path('tests')
-
-
-########
-#Cache
-########
-
-CACHES = memcacheify()  # http://rdegges.github.com/django-heroku-memcacheify/
-# Run heroku addons:add memcachier:25 for free 25m
 
 
 ########

@@ -1,7 +1,8 @@
 from django.conf.urls.defaults import patterns, url
+from django.views.generic import list_detail
+
 from canada.artists.models import *
 from canada.artists.views import *
-from django.views.generic import list_detail
 
 artist_list_info = {
                         'queryset': Artist.objects.filter(),

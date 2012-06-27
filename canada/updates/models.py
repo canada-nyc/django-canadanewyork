@@ -7,7 +7,6 @@ from django.template.defaultfilters import slugify
 
 from canada.artists.models import Artist
 from canada.exhibitions.models import Exhibition
-from canada.functions import cap
 
 
 class Update(models.Model):
@@ -23,13 +22,13 @@ class Update(models.Model):
         ordering = ["-post_date"]
 
     def __unicode__(self):
-        return '%s-%s' % (self.post_date.strftime("%Y"), self.name)
+        return '{} in {}'.format(self.name, self.post_date.strftime("%Y"))
 
     def save(self, *args, **kwargs):
-        cap(self, 'name')
         if not self.id:
             self.post_date = datetime.datetime.today()
-        self.slug = slugify(self.name)
+        self.slug = slugify('-'.join([self.post_date.strftime("%Y"),
+                                      self.name]))
         super(Update, self).save(*args, **kwargs)
 
     @permalink

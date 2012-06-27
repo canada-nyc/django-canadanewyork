@@ -8,12 +8,9 @@ markdown
 PIL
 sorl-thumbnail
 
-
 #Production
 django-heroku-memcacheify
 
 #Testing
 django-discover-runner
-
-#Cache
-
+factory_boy

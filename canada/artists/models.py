@@ -4,8 +4,6 @@ from django.db import models
 from django.db.models import permalink
 from django.template.defaultfilters import slugify
 
-from canada.functions import cap
-
 
 class Artist(models.Model):
     first_name = models.CharField(max_length=30)
@@ -20,10 +18,9 @@ class Artist(models.Model):
         unique_together = ("first_name", "last_name")
 
     def __unicode__(self):
-        return u'%s %s' % (self.first_name, self.last_name)
+        return self.slug
 
     def save(self, *args, **kwargs):
-        cap(self, 'first_name', 'last_name')
         self.slug = slugify('-'.join([self.first_name, self.last_name]))
         super(Artist, self).save(*args, **kwargs)
 
@@ -55,8 +52,4 @@ class ArtistPhoto(models.Model):
         ordering = ['position']
 
     def __unicode__(self):
-            return u'%s by %s' % (self.title, self.artist)
-
-    def save(self):
-        cap(self, 'title')
-        super(ArtistPhoto, self).save()
+            return u'{} by {}'.format(self.title, self.artist)

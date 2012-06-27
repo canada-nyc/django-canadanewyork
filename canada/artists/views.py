@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.conf import settings
 
-from artists.models import Artist
+from canada.artists.models import Artist
 
 
 def single(request, slug):

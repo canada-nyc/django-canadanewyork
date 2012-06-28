@@ -10,7 +10,6 @@ PIL
 sorl-thumbnail
 
 #Production
-django-heroku-memcacheify
 psycopg2
 dj-database-url
 

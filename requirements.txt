@@ -3,6 +3,7 @@ Fabric
 South
 django-grappelli
 markdown
+gunicorn
 
 #Images
 PIL
@@ -10,6 +11,8 @@ sorl-thumbnail
 
 #Production
 django-heroku-memcacheify
+psycopg2
+dj-database-url
 
 #Testing
 django-discover-runner

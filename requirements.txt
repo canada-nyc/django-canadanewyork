@@ -12,7 +12,6 @@ sorl-thumbnail
 #Production
 psycopg2
 dj-database-url
-gunicorn
 
 #Testing
 django-discover-runner

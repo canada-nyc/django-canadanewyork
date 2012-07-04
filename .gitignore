@@ -3,4 +3,4 @@
 /static/
 sqlite.db
 *.pyc
-
+/cache/

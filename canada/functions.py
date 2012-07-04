@@ -1,13 +1,6 @@
 import os
 
 
-def cap(self, *args):
-    """capatilize x model fields"""
-    for field in args:
-        value = getattr(self, field)
-        setattr(self, field, value.title())
-
-
 def rel_path(ending='/'):
     """output the absolute path of an ending joined to the current file path"""
     return os.path.join(os.path.dirname(__file__), str(ending))

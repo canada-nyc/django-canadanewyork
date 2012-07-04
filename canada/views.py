@@ -1,8 +1,20 @@
-from django.views.generic import TemplateView
+from django.shortcuts import render
+from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
+
+from .exhibitions.models import Exhibition
 
 
-class TextView(TemplateView):
+def frontpage_exhibition(request):
+    try:
+        exhibition = Exhibition.objects.get(frontpage=True)
+        context = {
+            'image_size': settings.CANADA_FRONTPAGE_IMAGE_SIZE,
+            'exhibition': exhibition
+        }
+    except ObjectDoesNotExist:
+        context = {
+            'image_size': settings.CANADA_FRONTPAGE_IMAGE_SIZE,
+        }
 
-    def render_to_response(self, context, **kwargs):
-        return super(TextView, self).render_to_response(context,
-                        content_type='test/plain', **kwargs)
+    return render(request, 'index.html', context)

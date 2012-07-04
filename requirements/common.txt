@@ -1,0 +1,7 @@
+Django==1.4
+Markdown==2.1.1
+PIL==1.1.7
+South==0.7.5
+django-grappelli==2.3.8
+sorl-thumbnail==11.12
+git+git://github.com/errkk/gitpil.git

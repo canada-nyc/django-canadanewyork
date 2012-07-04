@@ -1,18 +1,1 @@
-Django
-Fabric
-South
-django-grappelli
-markdown
-gunicorn
-
-#Images
-PIL
-sorl-thumbnail
-
-#Production
-psycopg2
-dj-database-url
-
-#Testing
-django-discover-runner
-factory_boy
+-r requirements/prod.txt

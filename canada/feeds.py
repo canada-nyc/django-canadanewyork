@@ -1,8 +1,8 @@
 from django.contrib.syndication.views import Feed
 
-from artists.models import Artist
-from exhibitions.models import Exhibition
-from press.models import Press
+from canada.artists.models import Artist
+from canada.exhibitions.models import Exhibition
+from canada.press.models import Press
 from updates.models import Update
 
 

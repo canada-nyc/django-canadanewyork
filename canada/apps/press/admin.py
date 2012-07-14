@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from ..models import Press
+from .models import Press
 
 
 class PressAdmin(admin.ModelAdmin):

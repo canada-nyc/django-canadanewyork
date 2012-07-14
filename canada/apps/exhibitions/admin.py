@@ -1,35 +1,26 @@
 from django.contrib import admin
 from django import forms
+
 from .models import Exhibition, ExhibitionPhoto
+from ..admin import image_file
 
 
-class ExhibitionPhotoForm(forms.ModelForm):
+class ExhibitionPhotoInlineForm(forms.ModelForm):
     position = forms.IntegerField(widget=forms.HiddenInput)
 
 
 class ExhibitionPhotoInline(admin.TabularInline):
     model = ExhibitionPhoto
-    form = ExhibitionPhotoForm
+    form = ExhibitionPhotoInlineForm
     sortable_field_name = "position"
 
 
 class ExhibitionAdmin(admin.ModelAdmin):
     inlines = [ExhibitionPhotoInline]
-    fieldsets = (
-        (None, {
-            'fields': ('name',
-                       'description',
-                       'artists',
-                       ('start_date', 'end_date'))
-        }),
-        ('Frontpage', {
-            'fields': ('frontpage',
-                       'frontpage_uploaded_image',
-                       'frontpage_selected_image',
-                       'frontpage_text')
-        }),
-   )
     date_hierarchy = 'start_date'
-    list_display = ('name', 'start_date', 'frontpage')
+    list_display = ('first_image_thumb', 'name', 'start_date')
+
+    first_image_thumb = image_file('obj.get_first_image_or_none().image',
+                                   'First Image')
 
 admin.site.register(Exhibition, ExhibitionAdmin)

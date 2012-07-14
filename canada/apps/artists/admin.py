@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django import forms
 
-from canada.artists.models import Artist, ArtistPhoto
+from .models import Artist, ArtistPhoto
 
 
 class ArtistPhotoForm(forms.ModelForm):

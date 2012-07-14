@@ -1,7 +1,17 @@
+-r admin.txt
+-r images.txt
+
 Django==1.4
-Markdown==2.1.1
-PIL==1.1.7
+Markdown==2.2.0
 South==0.7.5
-django-grappelli==2.3.8
+
+##
+#Admin
+##
+-e git+git://github.com/sehmaschine/django-grappelli.git@grappelli_2_4
+-e git+git://github.com/lincolnloop/django-smart-selects.git@dbe42ad4604d132ce72adc3ecd0de807a9766094
+##
+#Images
+##
 sorl-thumbnail==11.12
 git+git://github.com/errkk/gitpil.git

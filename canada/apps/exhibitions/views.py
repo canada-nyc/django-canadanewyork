@@ -1,14 +1,12 @@
-from django.shortcuts import get_object_or_404, render
-from django.conf import settings
-
+from django.shortcuts import get_object_or_404
+from django.views.generic import DetailView, ListView
 
 from .models import Exhibition
 
 
-def single(request, year, slug):
-    exhibition = get_object_or_404(Exhibition, start_date__year=year, slug=slug)
-    context = {
-        'image_size': settings.CANADA_SLIDER_IMAGE_SIZE,
-        'exhibition': exhibition
-    }
-    return render(request, 'exhibitions/single.html', context)
+class ExhibitionDetail(DetailView):
+    def get_queryset(self):
+        return get_object_or_404(Exhibition, start_date__year=self.year, name=self.name)
+
+class ExhibitionList(ListView):
+    model = Exhibition

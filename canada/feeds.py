@@ -1,9 +1,9 @@
 from django.contrib.syndication.views import Feed
 
-from canada.artists.models import Artist
-from canada.exhibitions.models import Exhibition
-from canada.press.models import Press
-from updates.models import Update
+from .apps.artists.models import Artist
+from .apps.exhibitions.models import Exhibition
+from .apps.press.models import Press
+from .apps.updates.models import Update
 
 
 class AllEntriesFeed(Feed):

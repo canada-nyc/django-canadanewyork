@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block base_title %}Artists{{ block.super }}{% endblock %}
+{% block body %}
+ <article>
+  <ul>
+  {% for artist in artist_list %}
+      <li><a href={{ artist.get_absolute_url }}>{{ artist.first_name|capfirst }} {{ artist.last_name|capfirst }}</a></li>
+  {% endfor %}
+  </ul>
+ <article>
+{% endblock %}

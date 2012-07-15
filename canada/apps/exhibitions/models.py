@@ -12,7 +12,7 @@ from ..models import BasePhoto
 class Exhibition(models.Model):
     name = models.CharField(max_length=30, unique_for_year='start_date')
     description = models.TextField(blank=True)
-    artists = models.ManyToManyField(Artist)
+    artists = models.ManyToManyField(Artist, related_name='exhibitions')
     start_date = models.DateField()
     end_date = models.DateField()
     slug = models.SlugField(blank=True, editable=False)

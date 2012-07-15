@@ -19,7 +19,8 @@ class Press(models.Model):
 
     publisher = models.CharField(max_length=60)
     author = models.CharField(max_length=60, blank=True)
-    artists = models.ManyToManyField(Artist, blank=True, null=True)
+    artists = models.ManyToManyField(Artist, blank=True, null=True,
+                                     related_name='press')
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True)
 
     slug = models.SlugField(blank=True, editable=False, unique=True)

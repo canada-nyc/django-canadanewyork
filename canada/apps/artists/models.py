@@ -28,7 +28,7 @@ class Artist(models.Model):
 
     @permalink
     def get_absolute_url(self):
-        return ('artist-single', (), {
+        return ('artist-detail', (), {
             'slug': self.slug,
             })
 

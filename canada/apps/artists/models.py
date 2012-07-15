@@ -4,6 +4,8 @@ from django.db import models
 from django.db.models import permalink
 from django.template.defaultfilters import slugify
 
+from ..models import BasePhoto
+
 
 class Artist(models.Model):
     first_name = models.CharField(max_length=30)
@@ -31,25 +33,12 @@ class Artist(models.Model):
             })
 
 
-class ArtistPhoto(models.Model):
+class ArtistPhoto(BasePhoto):
     def image_path(instance, filename):
         return os.path.join('artists', instance.artist.slug, filename)
 
-    artist = models.ForeignKey(Artist)
+    artist = models.ForeignKey(Artist, related_name='images')
     image = models.ImageField(upload_to=image_path)
-    title = models.CharField(max_length=50)
-    medium = models.CharField(blank=True, max_length=50)
-    year = models.PositiveIntegerField(null=True, blank=True)
-    length = models.PositiveIntegerField(null=True,
-                                         blank=True,
-                                         help_text='(in inches)')
-    width = models.PositiveIntegerField(null=True,
-                                        blank=True,
-                                        help_text='(in inches)')
-    position = models.PositiveSmallIntegerField("Position")
-
-    class Meta:
-        ordering = ['position']
 
     def __unicode__(self):
             return u'{} by {}'.format(self.title, self.artist)

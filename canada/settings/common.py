@@ -1,23 +1,33 @@
+from os import path
+
 from django.conf.global_settings import *
 
-from canada.functions import rel_path, add_to_middleware
+from canada.functions import add_to_middleware
+import canada
 
+
+SITE_ROOT = path.dirname(path.realpath(canada.__file__))
 
 ########
 #CANADA
 ########
-CANADA_SLIDER_IMAGE_SIZE = 'x300'
+CANADA_IMAGE_SIZE = 'x300'
 CANADA_FRONTPAGE_IMAGE_SIZE = 'x400'
-CANADA_UPDATES_IMAGE_SIZE = 'x400'
+CANADA_ADMIN_THUMBS_SIZE = 'x60'
+
+
+
 INSTALLED_APPS = (
-    'canada.artists',
-    'canada.exhibitions',
-    'canada.press',
-    'canada.updates',
-    'canada.bulkmail',
-    'canada.updates',
+    'canada.apps.artists',
+    'canada.apps.exhibitions',
+    'canada.apps.press',
+    'canada.apps.updates',
+    'canada.apps.bulkmail',
+    'canada.apps.updates',
+    'canada.apps.frontpage',
   )
 
+TEMPLATE_CONTEXT_PROCESSORS += ('canada.context_processors.image_size',)
 
 ########
 #External Packages
@@ -26,6 +36,7 @@ INSTALLED_APPS += (
     'south',
     'grappelli',
     'sorl.thumbnail',
+    'smart_selects'
   )
 
 GRAPPELLI_ADMIN_TITLE = 'CANADA'
@@ -59,15 +70,16 @@ INSTALLED_APPS += (
 
 #Static/Media
 STATICFILES_DIRS = (
-    ('canada', rel_path('static/')),
+    ('canada', path.join(SITE_ROOT, 'static')),
   )
 
 MEDIA_URL = '/media/'
+MEDIA_ROOT = path.normpath(path.join(SITE_ROOT, '../media/'))
 
 STATIC_URL = '/static/'
-STATIC_ROOT = rel_path('../static/')
-MEDAIA_ROOT = rel_path('../media')
+STATIC_ROOT = path.normpath(path.join(SITE_ROOT, '../static/'))
 
+FIXTURE_DIRS = (path.join(SITE_ROOT, 'fixtures'),)
 
 #Admin
 LOGIN_URL = '/admin/'
@@ -82,21 +94,13 @@ ROOT_URLCONF = 'canada.urls'
 
 #Templates
 TEMPLATE_DIRS = (
-    rel_path('templates'),
+    path.join(SITE_ROOT, 'templates'),
   )
 
 MIDDLEWARE_CLASSES = add_to_middleware(MIDDLEWARE_CLASSES,
                                        'django.middleware.gzip.GZipMiddleware',
                                        prepend=True)
 DATE_FORMAT = 'F j, Y'
-
-########
-#Testing
-########
-TEST_RUNNER = 'discover_runner.DiscoverRunner'
-TEST_DISCOVER_TOP_LEVEL = rel_path()
-TEST_DISCOVER_ROOT = rel_path('tests')
-
 
 ########
 #Security

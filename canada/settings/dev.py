@@ -1,5 +1,5 @@
 from .common import *
-from canada.functions import add_to_middleware
+from ..functions import add_to_middleware
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -7,7 +7,7 @@ TEMPLATE_DEBUG = DEBUG
 DATABASES = {
     'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME':  rel_path('../sqlite.db'),
+            'NAME':  path.join(SITE_ROOT, '../sqlite.db'),
             'USER': '',
             'PASSWORD': '',
             'HOST': '',
@@ -16,7 +16,7 @@ DATABASES = {
     }
 
 ########
-# Debug Toolbar
+#Debug Toolbar
 ########
 MIDDLEWARE_CLASSES = add_to_middleware(
     MIDDLEWARE_CLASSES, 'debug_toolbar.middleware.DebugToolbarMiddleware')

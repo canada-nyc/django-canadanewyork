@@ -1,11 +1,3 @@
-import os
-
-
-def rel_path(ending='/'):
-    """output the absolute path of an ending joined to the current file path"""
-    return os.path.join(os.path.dirname(__file__), str(ending))
-
-
 def add_to_middleware(MIDDLEWARE_CLASSES, middleware, prepend=False):
     if middleware not in MIDDLEWARE_CLASSES:
         if prepend:

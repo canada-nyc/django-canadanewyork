@@ -10,14 +10,14 @@ class FrontpageAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ('', {
-            'fields': ('activated', 'uploaded_image', 'text',),
+            'fields': ('activated', 'custom_title', 'uploaded_image', 'text',),
         }),
         ('Link to Exibition', {
-            'classes': ('grp-collapse grp-closed',),
+            'classes': ('grp-collapse',),
             'fields': ('exhibition', 'exhibition_image', 'exhibition_text'),
         }),
         ('Link to Update', {
-            'classes': ('grp-collapse grp-closed',),
+            'classes': ('grp-collapse',),
             'fields': ('update', 'update_image', 'update_text'),
         }),
     )

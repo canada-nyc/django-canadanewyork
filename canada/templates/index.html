@@ -1,11 +1,20 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 {% load markup %}
-{% block base_title %}CANADA{% endblock %}
+{% block base_title %}CANADA{% endblock base_title %}
 {% block body %}
- {% thumbnail frontpage.image image_size as im %}
-  <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
- {% endthumbnail %}
- {{ frontpage.image }}
- {% firstof frontpage.exhibitition.|markdown "" %}
-{% endblock %}
+ {% if frontpage.url %}
+  <a href={{ frontpage.url }}>
+  {% if frontpage.title %}
+   <h1>{{ frontpage.title }}</h1>
+  {% endif %}
+  {% if frontpage.image %}
+   {% thumbnail frontpage.image image_size as im %}
+    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
+   {% endthumbnail %}
+  {% endif %}
+  </a>
+ {% endif %}
+ {{ frontpage.foreign_text|markdown }}
+ {{ frontpage.text|markdown }}
+{% endblock body %}

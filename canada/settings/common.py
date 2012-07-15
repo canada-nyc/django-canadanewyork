@@ -11,10 +11,11 @@ SITE_ROOT = path.dirname(path.realpath(canada.__file__))
 ########
 #CANADA
 ########
-CANADA_SLIDER_IMAGE_SIZE = 'x300'
+CANADA_IMAGE_SIZE = 'x300'
 CANADA_FRONTPAGE_IMAGE_SIZE = 'x400'
-CANADA_UPDATES_IMAGE_SIZE = 'x400'
 CANADA_ADMIN_THUMBS_SIZE = 'x60'
+
+
 
 INSTALLED_APPS = (
     'canada.apps.artists',
@@ -26,6 +27,7 @@ INSTALLED_APPS = (
     'canada.apps.frontpage',
   )
 
+TEMPLATE_CONTEXT_PROCESSORS += ('canada.context_processors.image_size',)
 
 ########
 #External Packages

@@ -17,7 +17,14 @@ class Frontpage(models.Model):
             str(instance.date_added),
             filename
         )
-
+    custom_title = models.CharField(
+        max_length=40,
+        null=True,
+        blank=True,
+        verbose_name='Title',
+        help_text=('Will override the exhibition or update title, if either are'
+                   ' selected')
+    )
     date_added = models.DateField(auto_now_add=True)
     activated = models.BooleanField(
         verbose_name='Use as frontpage?',
@@ -83,6 +90,11 @@ class Frontpage(models.Model):
             Frontpage.objects.all().update(activated=False)
         elif not Frontpage.objects.filter(activated=True).exists():
             self.activated = True
+
+        if not self.exhibition:
+            self.exhibition_text = False
+        if not self.update:
+            self.update_text = False
         super(Frontpage, self).save()
 
     @permalink
@@ -105,7 +117,25 @@ class Frontpage(models.Model):
     def foreign_text(self):
         if self.exhibition_text and self.exhibition:
             if self.exhibition.description:
-                return self.exhibition.desctiption
+                return self.exhibition.description
         elif self.update_text and self.update:
             if self.update.description:
                 return self.update.description
+        else:
+            return ''
+
+    def title(self):
+        if self.custom_title:
+            return self.custom_title
+        if self.exhibition:
+            return self.exhibition.name
+        elif self.update:
+            return self.update.name
+        else:
+            return ''
+
+    def url(self):
+        if self.exhibition:
+            return self.exhibition.get_absolute_url()
+        elif self.update:
+            return self.update.get_absolute_url()

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load markup %}
+{% block base_title %}Updates{{ block.super }}{% endblock %}
+{% block body %}
+<section>
+ {% for update in update_list %}
+  <article>
+   <header>
+    <h1 id="{{ update.slug }}">{{ update.name }}</h1>
+    <time datetime="{{ update.post_date|date:'Y-m-d H:iO' }}" pubdate> {{ update.post_date|date }}</time>
+    {% if update.artists.all or update.exhibition.all %}
+     <dl>
+      {% if update.artists.all %}
+       <dt>Artists
+       {% for artist in update.artists.all %}
+        <dd><a href={{ artist.get_absolute_url }}>{{ artist }}</a>
+       {% endfor %}
+      {% endif %}
+      {% if update.exhibitions.all %}
+       <dt>Exhibition
+       {% for exhibition in update.exhibitions.all %}
+        <dd><a href={{ exhibition.get_absolute_url }}>{{ exhibition }}</a>
+       {% endfor %}
+      {% endif %} 
+     </dl>
+    {% endif %}
+   </header>
+   {{ update.description|markdown }}
+  </article>
+  {% endfor %}
+ </section>
+{% endblock %}

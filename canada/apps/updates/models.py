@@ -25,14 +25,13 @@ class Update(models.Model):
         return '{}({})'.format(self.name, self.post_date.strftime("%Y"))
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        self.slug = slugify('-'.join(self.post_date.strftime("%Y"), self.name))
         super(Update, self).save(*args, **kwargs)
 
     @permalink
     def get_absolute_url(self):
-        return ('press.views.single', (), {
+        return ('update-single', (), {
             'slug': self.slug,
-            'year': self.post_date.strftime("%Y")
             })
 
     def get_first_image_or_none(self):

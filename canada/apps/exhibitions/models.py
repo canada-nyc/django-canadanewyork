@@ -2,7 +2,7 @@ import os
 
 from django.db import models
 from django.db.models import permalink
-from django.template.defaultfilters import slugify
+from django.template.defaultfilters import slugify, date
 from django.core.exceptions import ValidationError
 
 from ..artists.models import Artist
@@ -21,17 +21,16 @@ class Exhibition(models.Model):
         ordering = ["-start_date"]
 
     def __unicode__(self):
-        return '{}({})'.format(self.name, self.start_date.strftime("%Y"))
+        return '{}({})'.format(self.name, self.start_date.year)
 
     def save(self):
-        self.slug = slugify('-'.join([self.start_date.strftime("%Y"),
-                                      self.name]))
+        self.slug = slugify(self.name)
         super(Exhibition, self).save()
 
     @permalink
     def get_absolute_url(self):
-        return ('canada.exhibitions.views.single', (), {
-            'year': self.start_date.strftime("%Y"),
+        return ('exhibitions-detail', (), {
+            'year': self.start_date.year,
             'slug': self.slug
         })
 
@@ -42,6 +41,19 @@ class Exhibition(models.Model):
     def get_first_image_or_none(self):
         if self.images.all().count() > 0:
             return self.images.all()[0]
+
+    def full_date(self):
+        begin_time = 'F j'
+        if self.start_date.year != self.end_date.year:
+            end_time = 'F j, Y'
+            begin_time = 'F j, Y'
+        elif self.start_date.month != self.start_date.month:
+            end_time = 'F j, Y'
+        elif self.start_date.day != self.start_date.day:
+            end_time = 'j, Y'
+        else:
+            return date(self.start_date, 'F j, Y')
+        return ' - '.join([date(self.start_date, begin_time), date(self.start_date, end_time)])
 
 
 class ExhibitionPhoto(BasePhoto):

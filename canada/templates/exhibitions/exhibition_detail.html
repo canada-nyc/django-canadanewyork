@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load markup %}
+{% block base_title %}{{ exhibition.name }}{{ block.super }}{% endblock %}
+{% block body %}
+<article>
+ <h1>{{ exhibition.name }}</h1>
+ <p>{{ exhibition.full_date }}</p>
+ {% if exhibition.description %}
+  {{exhibition.description|markdown}}
+ {% endif %}
+ {% for image in exhibition.exhibitionphoto_set.all %}
+  {% thumbnail image.image image_size as im %}
+  <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
+  {% endthumbnail %}
+ {% endfor %}
+ <dl>
+  <dt>Atists:</dt>
+ {% for artist in exhibition.artists.all %}
+  <dd><a href={{ artist.get_absolute_url }}> {{artist.first_name }} {{artist.last_name }} </a></dd>
+ {% endfor %}
+ </dl>
+</article>
+{% endblock %}

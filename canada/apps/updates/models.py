@@ -15,17 +15,21 @@ class Update(models.Model):
     description = models.TextField(blank=True, null=True)
     artists = models.ManyToManyField(Artist, blank=True, null=True)
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True)
-    post_date = models.DateTimeField(auto_now_add=True, editable=False)
+    post_date = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(blank=True, editable=False)
 
     class Meta:
         ordering = ["-post_date"]
 
     def __unicode__(self):
-        return '{}({})'.format(self.name, self.post_date.strftime("%Y"))
+        return '{} ({})'.format(self.name, self.post_date.year)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify('-'.join(self.post_date.strftime("%Y"), self.name))
+        import datetime
+        year = str(datetime.datetime.now().year)
+        if self.post_date:
+            year = self.post_date.year
+        self.slug = slugify('-'.join([year, self.name]))
         super(Update, self).save(*args, **kwargs)
 
     @permalink

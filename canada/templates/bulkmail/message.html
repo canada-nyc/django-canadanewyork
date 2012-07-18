@@ -1,0 +1,11 @@
+<html>
+<body>
+{{ message.subject }}
+<br>
+{% load bulkmail_tags %}
+<img src="{{ message.image.url|full_domain }}" width="300"/>
+
+<br>
+{{ message.body }}
+</body>
+</html>

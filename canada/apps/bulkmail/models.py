@@ -1,21 +1,15 @@
 import os
 
 from django.db import models
-from django.forms import ModelForm
-from django.core.exceptions import ValidationError
 
 
 class ContactList(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     default = models.BooleanField(
         verbose_name='Default List',
-        help_text="""Whether this contact list is the one that emails are added
-        to from the website.
-        When someone submits their email on the site, it will be added to the
-        contact list that has this checked.
-        <br> To enable a different contact list as the default, simply check
-        that one. All others will be disabled."""
-       )
+        help_text=('Emails submitted via the forum on the website will use the'
+                   'default list')
+    )
 
     class Meta:
         ordering = ['name']
@@ -26,54 +20,42 @@ class ContactList(models.Model):
     def save(self):
         if self.default:
             ContactList.objects.all().update(default=False)
+        if not ContactList.objects.filter(default=True).exists():
+            self.default = True
         super(ContactList, self).save()
-
-    def clean(self):
-        if not self.default:
-            try:
-                ContactList.objects.exclude(pk=self.pk).get(default=True)
-            except ContactList.DoesNotExist:
-                raise ValidationError("Enable a different contact list to \
-                                       change the default.")
 
 
 class Message(models.Model):
     def image_path(instance, filename):
         return os.path.join('bulkmail',
-                            [instance.date_time, instance.subject].join('-'),
+                            str(instance.pk),
                             filename)
 
-    date_time = models.DateTimeField(auto_now_add=True)
+    date_time = models.DateTimeField(auto_now_add=True, editable=False)
     subject = models.CharField(max_length=200)
     body = models.TextField()
     image = models.ImageField(upload_to=image_path)
-    list = models.ForeignKey(ContactList)
+    contact_list = models.ForeignKey(ContactList)
 
     class Meta:
         ordering = ['-date_time']
 
     def __unicode__(self):
-        return u'%s at %s' % (self.subject, self.date_time)
+        return u'{} at {} ({})'.format(self.subject, self.date_time, self.pk)
 
     @models.permalink
     def get_absolute_url(self):
-        return ('message_html', (), {
+        return ('message-detail', (), {
             'pk': self.pk,
             })
 
 
 class Contact(models.Model):
     email = models.EmailField(unique=True)
-    list = models.ForeignKey(ContactList)
+    contact_list = models.ForeignKey(ContactList, related_name='contacts')
 
     class Meta:
-        ordering = ['list', 'email']
+        ordering = ['contact_list', 'email']
 
     def __unicode__(self):
-        return u'%s in %s' % (self.email, self.list)
-
-
-class ContactEmailForm(ModelForm):
-    class Meta:
-        model = Contact
-        exclude = ('list')
+        return u'{} in {}'.format(self.email, self.list)

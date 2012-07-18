@@ -5,10 +5,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Message
 
 urlpatterns = patterns('',
-                       url(
-                           r'^(?P<pk>\d+)$',
-                           login_required(DetailView.as_view(template_name='bulkmail/email.html', model=Message,
-                                                             context_object_name='message')),
-                           name='message_html'
-                      ),
-                      )
+    url(r'^(?P<pk>\d+)$', login_required(DetailView.as_view(model=Message, 
+        template_name='bulkmail/message.html')),
+       name='message-detail'
+    ),
+)

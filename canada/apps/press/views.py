@@ -1,11 +1,11 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
+from django.views.generic import DetailView
 
 from .models import Press
 
 
-def single(request, year, slug):
-    press = get_object_or_404(Press, date__year=year, slug=slug)
-    context = {
-        'press': press
-        }
-    return render(request, 'press/single.html', context)
+class PressDetail(DetailView):
+    def get_object(self):
+        return get_object_or_404(Press,
+                                 date__year=int(self.kwargs['year']),
+                                 slug=self.kwargs['slug'])

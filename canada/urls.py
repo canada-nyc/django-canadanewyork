@@ -12,7 +12,6 @@ from .apps.bulkmail.urls import urlpatterns as bulkmail_urls
 from .apps.frontpage.urls import urlpatterns as frontpage_urls
 
 
-from .apps.bulkmail.views import bulkmail_contact
 from .feeds import AllEntriesFeed
 
 
@@ -24,8 +23,8 @@ urlpatterns = patterns('',
     url(r'^updates/', include(updates_urls)),
     url(r'^exhibitions/', include(exhibitions_urls)),
     url(r'^press/', include(press_urls)),
-    url(r'^contact/$', bulkmail_contact),
-    url(r'^admin/bulkmail/preview', include(bulkmail_urls)),
+#    url(r'^contact/$', bulkmail_contact),
+    url(r'^admin/bulkmail/preview/', include(bulkmail_urls)),
 
     url(r'^feed/$', AllEntriesFeed),
  )

@@ -1,10 +1,10 @@
 from django.conf.urls.defaults import patterns, url
+from django.views.generic import ListView
 
-from .views import UpdateListView
+from .models import Update
 
 urlpatterns = patterns('',
-    url(r'^$', UpdateListView.as_view(), name='updates-list'),
-    url(r'^\#(?P<slug>[-\w]+)$',
-        UpdateListView.as_view(),
+    url(r'^$', ListView.as_view(model=Update)),
+    url(r'^\#(?P<slug>[-\w]+)$', ListView.as_view(model=Update),
         name='update-single'),
-   )
+)

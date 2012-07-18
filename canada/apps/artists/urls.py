@@ -1,16 +1,11 @@
 from django.conf.urls.defaults import patterns, url
-from django.views.generic import list_detail
+from django.views.generic import DetailView, ListView
 
-from .models import *
-from .views import *
+from .models import Artist
 
-artist_list_info = {
-                        'queryset': Artist.objects.filter(),
-                        'template_name': 'artists/list.html',
-                        'template_object_name': 'artists',
-                        }
 
 urlpatterns = patterns('',
-    url(r'^$', list_detail.object_list, artist_list_info, name='artist-index'),
-    url(r'^(?P<slug>[-\w]+)/$', single, name='artist-single'),
+    url(r'^$', ListView.as_view(model=Artist), name='artist-list'),
+    url(r'^(?P<slug>[-\w]+)/$', DetailView.as_view(model=Artist),
+        name='artist-detail'),
     )

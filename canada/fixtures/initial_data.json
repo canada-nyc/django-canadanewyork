@@ -16,5 +16,13 @@
       "email": "saulshanabrook@gmail.com", 
       "date_joined": "2012-07-12T13:50:30.377"
     }
+  },
+ {
+  "pk": 1, 
+  "model": "sites.site", 
+  "fields": {
+   "domain": "http://localhost:8000", 
+   "name": "localhost:8000"
   }
+ }
 ]

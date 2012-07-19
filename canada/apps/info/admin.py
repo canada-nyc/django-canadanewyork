@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from .models import Contact
+from .models import Info
 
 
-class ContactAdmin(admin.ModelAdmin):
+class InfoAdmin(admin.ModelAdmin):
     date_hierarchy = 'date_added'
     list_display = ('activated', 'date_added',)
 
-admin.site.register(Contact, ContactAdmin)
+admin.site.register(Info, InfoAdmin)

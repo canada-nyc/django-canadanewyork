@@ -22,7 +22,7 @@ INSTALLED_APPS = (
     'canada.apps.bulkmail',
     'canada.apps.updates',
     'canada.apps.frontpage',
-    'canada.apps.contact',
+    'canada.apps.info',
   )
 
 TEMPLATE_CONTEXT_PROCESSORS += ('canada.context_processors.image_size',)

@@ -10,7 +10,7 @@ from .apps.exhibitions.urls import urlpatterns as exhibitions_urls
 from .apps.press.urls import urlpatterns as press_urls
 from .apps.bulkmail.urls import urlpatterns as bulkmail_urls
 from .apps.frontpage.urls import urlpatterns as frontpage_urls
-from .apps.contact.urls import urlpatterns as contact_urls
+from .apps.info.urls import urlpatterns as info_urls
 
 
 from .feeds import AllEntriesFeed
@@ -24,7 +24,7 @@ urlpatterns = patterns('',
     url(r'^updates/', include(updates_urls)),
     url(r'^exhibitions/', include(exhibitions_urls)),
     url(r'^press/', include(press_urls)),
-    url(r'^', include(contact_urls)),
+    url(r'^', include(info_urls)),
     url(r'^admin/bulkmail/preview/', include(bulkmail_urls)),
 
     url(r'^feed/$', AllEntriesFeed),

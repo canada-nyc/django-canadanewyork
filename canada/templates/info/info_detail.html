@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load markup %}
+{% block base_title %}Contact and Information{{ block.super }}{% endblock %}
+{% block body %}
+<article>
+ <h1>Contact and Information</h1>
+ {{ info.text|markdown }}
+</article>
+{% endblock body %}

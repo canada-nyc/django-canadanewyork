@@ -2,11 +2,11 @@ from django.db import models
 from django.db.models import permalink
 
 
-class Info(models.Model):
+class Contact(models.Model):
     date_added = models.DateField(auto_now_add=True)
     activated = models.BooleanField(
-        verbose_name='Use as frontpage?',
-        help_text="To switch frontpages, activate a different one"
+        verbose_name='Use as contact/info page??',
+        help_text="To switch contact pages, activate a different one"
     )
     text = models.TextField(
         max_length=800,
@@ -26,11 +26,11 @@ class Info(models.Model):
 
     def save(self):
         if self.activated:
-            Info.objects.all().update(activated=False)
-        elif not Info.objects.filter(activated=True).exists():
+            Contact.objects.all().update(activated=False)
+        elif not Contact.objects.filter(activated=True).exists():
             self.activated = True
-        super(Info, self).save()
+        super(Contact, self).save()
 
     @permalink
     def get_absolute_url(self):
-        return ('info-detail', (), {'pk': self.pk})
+        return ('contact-detail', (), {'pk': self.pk})

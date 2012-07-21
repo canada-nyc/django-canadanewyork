@@ -25,7 +25,7 @@ urlpatterns = patterns('',
     url(r'^exhibitions/', include(exhibitions_urls)),
     url(r'^press/', include(press_urls)),
     url(r'^', include(info_urls)),
-    url(r'^admin/bulkmail/preview/', include(bulkmail_urls)),
+    url(r'^', include(bulkmail_urls)),
 
     url(r'^feed/$', AllEntriesFeed),
  )

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block base_title %}Remove Email{{ block.super }}{% endblock %}
+{% block body %}
+<p>Remove {{ contact.email }} from our contact list?
+<form method="POST">
+{% csrf_token %}
+<input type="submit" value="Submit"/>
+</form>{% endblock %}

@@ -2,3 +2,6 @@
 
 
 {{ message.body }}
+
+{% load bulkmail_tags %}
+Unsubscribe: {{ recipient.get_delete_url|full_domain }}

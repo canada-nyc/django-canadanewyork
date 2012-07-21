@@ -13,16 +13,18 @@ def send_message(self, request, queryset):
     for message in queryset:
         subject = message.subject
         from_email = 'saul.shanabrook@gmail.com'
-        to_emails = [contact.email for contact in message.contact_list.contacts.all()]
-        text_content = get_template('bulkmail/message.txt').render(Context({'message': message}))
-        html_content = get_template('bulkmail/message.html').render(Context({'message': message}))
-        for email in to_emails:
+        for recipient in message.contact_list.contacts.all():
+            context = {
+                'message': message,
+                'recipient': recipient,
+            }
+            text_content = get_template('bulkmail/message.txt').render(Context(context))
+            html_content = get_template('bulkmail/message.html').render(Context(context))
             msg = mail.EmailMultiAlternatives(subject, text_content, from_email,
-                                              to=[email])
+                                              to=[recipient.email])
             msg.attach_alternative(html_content, "text/html")
             msg.send()
     connection.close()
-    self.message_user(request, 'All {} emails sent'.format(len(to_emails)))
 
 
 class ContactAdmin(admin.ModelAdmin):

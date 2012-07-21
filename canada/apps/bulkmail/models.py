@@ -58,4 +58,10 @@ class Contact(models.Model):
         ordering = ['contact_list', 'email']
 
     def __unicode__(self):
-        return u'{} in {}'.format(self.email, self.list)
+        return u'{} in {}'.format(self.email, self.contact_list)
+
+    @models.permalink
+    def get_delete_url(self):
+        return ('contact-delete', (), {
+            'email': self.email,
+            })

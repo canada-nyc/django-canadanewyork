@@ -17,12 +17,12 @@ class ContactList(models.Model):
     def __unicode__(self):
         return self.name
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if self.default:
             ContactList.objects.all().update(default=False)
         if not ContactList.objects.filter(default=True).exists():
             self.default = True
-        super(ContactList, self).save()
+        super(ContactList, self).save(*args, **kwargs)
 
 
 class Message(models.Model):

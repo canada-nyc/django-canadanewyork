@@ -20,7 +20,7 @@ class Artist(models.Model):
         unique_together = ("first_name", "last_name")
 
     def __unicode__(self):
-        return self.slug
+        return ' '.join([self.first_name, self.last_name])
 
     def save(self, *args, **kwargs):
         self.slug = slugify('-'.join([self.first_name, self.last_name]))

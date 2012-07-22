@@ -4,3 +4,4 @@
 sqlite.db
 *.pyc
 /cache/
+/whoosh_index/

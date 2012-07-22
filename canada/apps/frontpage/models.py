@@ -85,7 +85,7 @@ class Frontpage(models.Model):
     def __unicode__(self):
         return str(self.date_added)
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if self.activated:
             Frontpage.objects.all().update(activated=False)
         elif not Frontpage.objects.filter(activated=True).exists():
@@ -95,7 +95,7 @@ class Frontpage(models.Model):
             self.exhibition_text = False
         if not self.update:
             self.update_text = False
-        super(Frontpage, self).save()
+        super(Frontpage, self).save(*args, **kwargs)
 
     @permalink
     def get_absolute_url(self):

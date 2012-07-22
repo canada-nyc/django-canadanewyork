@@ -4,6 +4,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+from haystack.views import SearchView, search_view_factory
+from haystack.forms import SearchForm
+
 from .apps.artists.urls import urlpatterns as artists_urls
 from .apps.updates.urls import urlpatterns as updates_urls
 from .apps.exhibitions.urls import urlpatterns as exhibitions_urls
@@ -36,6 +39,11 @@ urlpatterns += patterns('',
    url(r'^chaining/', include('smart_selects.urls')),
 )
 
+urlpatterns += patterns('haystack.views',
+    url(r'^search/$', search_view_factory(view_class=SearchView,
+                                          form_class=SearchForm,
+                                          )),
+)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                         document_root=settings.MEDIA_ROOT)

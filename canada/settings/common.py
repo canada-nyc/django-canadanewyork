@@ -34,12 +34,23 @@ INSTALLED_APPS += (
     'south',
     'grappelli',
     'sorl.thumbnail',
-    'smart_selects'
+    'smart_selects',
+    'haystack',
   )
 
 GRAPPELLI_ADMIN_TITLE = 'CANADA'
 
-
+#######
+#Search
+########
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': path.normpath(path.join(SITE_ROOT, '../whoosh_index')),
+        'EXCLUDED_INDEXES': ['canada.apps.updates.search_indexes.UpdateIndex'],
+        'INCLUDE_SPELLING': True,
+    },
+}
 ########
 #Django
 ########

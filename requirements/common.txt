@@ -3,6 +3,7 @@ Markdown==2.2.0
 South==0.7.5
 git+https://github.com/toastdriven/django-haystack.git@master
 whoosh==2.4.1
+rq==0.2.1
 
 ##
 #Admin

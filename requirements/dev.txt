@@ -5,10 +5,9 @@ Fabric==1.4.3
 Werkzeug==0.8.3
 django-extensions==0.9
 
-##
+###
 #Testing
-##
+###
 django-discover-runner==0.2
-factory-boy==1.1.5
-
+git+git://github.com/rbarrois/factory_boy.git
 

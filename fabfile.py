@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 import os
 
-from fabric.api import *
+from fabric import api
 
 from django.db.models.loading import AppCache
 
 
-@task(alias='run')
+@api.task(alias='run')
 def run_local(debug=False):
     if debug:
-        local('python manage.py runserver_plus')
-    local('foreman start -e .env_local')
+        api.local('python manage.py runserver_plus')
+    api.local('foreman start -e .env_local')
 
 
 def reload_modules():

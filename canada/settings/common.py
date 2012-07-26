@@ -67,8 +67,8 @@ INSTALLED_APPS += (
   )
 
 SITE_ID = 1
-
 SECRET_KEY = '-)@0nd&u%*ugt0an^%tbaad+t5_(aoi+)o2t=&zkix5++m&fsr'
+WSGI_APPLICATION = 'wsgi.application'
 
 #Static/Media
 STATICFILES_DIRS = (

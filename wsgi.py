@@ -15,7 +15,10 @@ framework.
 """
 import os
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "canada.settings.dev")
+import manage
+
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", manage.DJANGO_SETTINGS_MODULE)
 
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION

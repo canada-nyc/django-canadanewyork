@@ -8,7 +8,8 @@ class ContactList(models.Model):
     default = models.BooleanField(
         verbose_name='Default List',
         help_text=('Emails submitted via the forum on the website will use the'
-                   'default list')
+                   'default list'),
+        default=False
     )
 
     class Meta:

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load markup %}
-{% block base_title %}Updates{{ block.super }}{% endblock %}
+{% block title %}Updates{{ block.super }}{% endblock %}
 {% block body %}
 <section>
  {% for update in update_list %}
@@ -28,5 +28,5 @@
    {{ update.description|markdown }}
   </article>
   {% endfor %}
- </section>
+</section>
 {% endblock %}

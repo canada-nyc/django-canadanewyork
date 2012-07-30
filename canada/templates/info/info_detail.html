@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% load markup %}
-{% block base_title %}Contact and Information{{ block.super }}{% endblock %}
+{% block title %}Contact and Information{{ block.super }}{% endblock %}
 {% block body %}
 <article>
  <h1>Contact and Information</h1>
  {{ info.text|markdown }}
- <form action="/contact/" method="post">{% csrf_token %}
- {{ form.as_p }}
- <input type="submit" value="Submit" />
- </form></article>
+</article>
+<form action="/contact/" method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
 {% endblock body %}

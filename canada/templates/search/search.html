@@ -1,27 +1,20 @@
 {% extends "base.html" %}
-{% block base_title %}Search{{ block.super }}{% endblock %}
+{% block title %}Search{{ block.super }}{% endblock %}
 {% block body %}
-<div>
-    <h1>Search</h1>
-
-    <form method="get" action=".">
-            {{ form.as_p }}
-        <input type="submit" value="Search">
-
-        {% if query %}
-            <h2>Results</h2>
-
-            <ol>
-
-            {% for result in page.object_list %}
-                <li><a href="{{ result.object.get_absolute_url }}">{{ result.object }}</a>
-            {% empty %}
-                <p>No results found.</p>
-            {% endfor %}
-            </ol>
-        {% else %}
-            <p><em>Search any artist, exhibition, update, or press item.</em>
-        {% endif %}
-    </form>
-</div>
+<section>
+<h1>Search</h1>
+<form method="get" action=".">{{ form.as_p }}<input type="submit" value="Search">
+{% if query %}
+ <h2>Results</h2>
+ {% for result in page.object_list %}
+  {% if forloop.first %}<ol>{% endif %}
+  <li><a href="{{ result.object.get_absolute_url }}">{{ result.object }}</a>
+  {% if forloop.last %}</ol>{% endif %}
+ {% empty %}
+  <p>No results found.</p>
+ {% endfor %}
+{% else %}<p><em>Search any artist, exhibition, update, or press item.</em>
+{% endif %}
+</form>
+</section>
 {% endblock %}

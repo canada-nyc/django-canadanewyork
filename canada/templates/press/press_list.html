@@ -1,16 +1,19 @@
 {% extends "base.html" %}
-{% block base_title %}Press{{ block.super }}{% endblock %}
+{% block title %}Press{{ block.super }}{% endblock %}
 {% block body %}
-    <dl>
-    {% for press in press_list %}
-    
-        {% ifchanged press.date.year %}
-        <dt><h2>{{ press.date.year }}</h2></dt>
-        <hr>
-        {% endifchanged %}
-        <dd><a href="{{ press.get_absolute_url }}"><h3>{{ press.title }}</h3>
-            {{ press.date|date:"F j" }}
-        </a></dd>
-        {% endfor %}
-    </dl>
+<section>
+ <h1>Press</h1>
+ <dl>
+ {% for press in press_list %}
+  {% ifchanged press.date.year %}
+  <dt><h2>{{ press.date.year }}</h2></dt>
+  {% endifchanged %}
+  <dd><a href="{{ press.get_absolute_url }}">
+      <h3>{{ press.title }}</h3>
+      <time datetime="{{ press.date|date:'Y-m-d' }}" pubdate> {{ press.date|date }}</time>
+      </a>
+  </dd>
+ {% endfor %}
+ </dl>
+</section>
 {% endblock %}

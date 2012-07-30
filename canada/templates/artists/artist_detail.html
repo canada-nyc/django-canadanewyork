@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 
-{% block base_title %}{{ artist.first_name }} {{artist.last_name }}{{ block.super }}{% endblock %}
+{% block title %}{{ artist.first_name }} {{artist.last_name }}{{ block.super }}{% endblock %}
 
 {% block body %}
  <h1>{{ artist.first_name }} {{artist.last_name }}</h1>

@@ -10,4 +10,4 @@ django-extensions==0.9
 ###
 django-discover-runner==0.2
 git+git://github.com/rbarrois/factory_boy.git
-
+django-webtest==1.5.3

@@ -1,2 +1,2 @@
-web: gunicorn canada.wsgi
+web: gunicorn manage
 worker: python worker.py

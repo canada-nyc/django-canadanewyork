@@ -1,28 +1,19 @@
-from decimal import Decimal
-
 from django.test import TestCase
-"""
-from arbitrage.models import Stock
-from .factories import StockIntradeFactory
+from django.core import mail
+
+from canada.apps.bulkmail import admin
+from .factories import MessageFactory
 
 
-class StockTestCase(TestCase):
-    def test_intrade_fields_limited(self):
-        fields = ['symbol', 'last_trade_price', 'bid']
-        returned = Stock.intrade_fields(743474, fields)
-        # returned dict has same number of items
-        self.assertItemsEqual(returned.keys(), fields)
-        self.assertIsInstance(returned['bid'], Decimal)
+class MessageTest(TestCase):
+    def test_send_email(self):
+        # Create message with 4 recipients
+        message = MessageFactory(contact_list__contacts__n=4)
+        # Send message via admin action
+        admin.send_messages(queryset=[message])
 
-    def test_intrade_fields_values(self):
-        fields = ['symbol', 'last_trade_price', 'bid', 'ask']
-        returned = Stock.intrade_fields(743474, fields)
-        value_fields = ['last_trade_price', 'bid', 'ask']
-        for decimal_value in [returned[field] for field in value_fields]:
-            self.assertIsInstance(decimal_value, Decimal)
-            self.assertLessEqual(decimal_value, 1)
-            self.assertGreaterEqual(decimal_value, 0)
+        # Test that 4 messages have been sent.
+        self.assertEqual(len(mail.outbox), 4)
 
-    def test_intrade_save(self):
-        stock = StockIntradeFactory()
-"""
+        # Verify that the subject of the first message is correct.
+        self.assertEqual(mail.outbox[0].subject, message.subject)

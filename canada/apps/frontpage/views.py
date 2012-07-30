@@ -5,8 +5,6 @@ from .models import Frontpage
 
 
 class FrontpageDetail(DetailView):
-    template_name = 'index.html'
-
     def get_object(self, *args, **kwargs):
         if 'pk' in self.kwargs:
             return get_object_or_404(Frontpage, pk=self.kwargs['pk'])

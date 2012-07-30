@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 {% load markup %}
-{% block base_title %}{{ exhibition.name }}{{ block.super }}{% endblock %}
+{% block title %}{{ exhibition.name }}{{ block.super }}{% endblock %}
 {% block body %}
 <article>
  <h1>{{ exhibition.name }}</h1>

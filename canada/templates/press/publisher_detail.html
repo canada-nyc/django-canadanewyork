@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ publisher }}{{ block.super }}{% endblock %}
+{% block body %}
+<article>
+ <header>
+  <h1>{{ publisher }}</h1>
+  <p><a href={{ publisher.get_absolute_url }}>{{ publisher.get_absolute_url }}</a>
+ </header>
+ <dl>
+  <dt>Articles:</dt>
+  {% for article in publisher.articles %}
+   <dd><a href={{ article.get_absolute_url }}>{{ article }}</a>
+  {% endfor %}
+ </dl>
+</article>
+{% endblock %}

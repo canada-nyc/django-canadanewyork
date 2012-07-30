@@ -1,5 +1,4 @@
 import factory
-from PIL import Image
 
 from canada.apps.bulkmail.models import Message, ContactList, Contact
 from ..functions import django_image

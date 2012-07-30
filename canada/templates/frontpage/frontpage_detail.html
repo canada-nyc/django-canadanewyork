@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load markup %}
+{% block title %}CANADA{% endblock title %}
+{% block body %}
+<article>
+ {% if frontpage.url %}<a href={{ frontpage.url }}>{% endif %}
+ {% if frontpage.title %}<h1>{{ frontpage.title }}</h1>{% endif %}
+ {% if frontpage.image %}
+  {% thumbnail frontpage.image image_size as im %}
+   <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
+  {% endthumbnail %}
+ {% endif %}
+ {% if frontpage.url %}</a>{% endif %}
+ {{ frontpage.foreign_text|markdown }}
+ {{ frontpage.text|markdown }}
+</article>
+{% endblock body %}

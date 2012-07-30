@@ -116,13 +116,9 @@ class Frontpage(models.Model):
 
     def foreign_text(self):
         if self.exhibition_text and self.exhibition:
-            if self.exhibition.description:
-                return self.exhibition.description
+            return self.exhibition.description
         elif self.update_text and self.update:
-            if self.update.description:
-                return self.update.description
-        else:
-            return ''
+            return self.update.description
 
     def title(self):
         if self.custom_title:
@@ -131,8 +127,6 @@ class Frontpage(models.Model):
             return self.exhibition.name
         elif self.update:
             return self.update.name
-        else:
-            return ''
 
     def url(self):
         if self.exhibition:

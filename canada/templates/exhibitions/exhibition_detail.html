@@ -17,7 +17,11 @@
  <dl>
   <dt>Atists:</dt>
  {% for artist in exhibition.artists.all %}
-  <dd><a href={{ artist.get_absolute_url }}> {{artist.first_name }} {{artist.last_name }} </a></dd>
+  <dd>
+  {% if artist.visible %}<a href={{ artist.get_absolute_url }}> {{ artist }} </a>
+  {% else %}{{ artist }}
+  {% endif %}
+  </dd>
  {% endfor %}
  </dl>
 </article>

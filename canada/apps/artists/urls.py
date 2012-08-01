@@ -5,7 +5,9 @@ from .models import Artist
 
 
 urlpatterns = patterns('',
-    url(r'^$', ListView.as_view(model=Artist), name='artist-list'),
-    url(r'^(?P<slug>[-\w]+)/$', DetailView.as_view(model=Artist),
+    url(r'^$', ListView.as_view(queryset=Artist.in_gallery.all()),
+        name='artist-list'),
+    url(r'^(?P<slug>[-\w]+)/$',
+        DetailView.as_view(queryset=Artist.in_gallery.all()),
         name='artist-detail'),
     )

@@ -7,13 +7,20 @@ from django.template.defaultfilters import slugify
 from ..models import BasePhoto
 
 
+class VisibleManager(models.Manager):
+    def get_query_set(self):
+        return super(VisibleManager, self).get_query_set().filter(visible=True)
+
+
 class Artist(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     slug = models.SlugField(blank=True, editable=False)
     visible = models.BooleanField(
-        default=False,
-        help_text="Whether it appears in the Artists list")
+        default=True,
+        help_text="Whether it appears in the Artists list, and has page")
+    objects = models.Manager()
+    in_gallery = VisibleManager()
 
     class Meta:
         ordering = ['last_name', 'first_name']

@@ -12,9 +12,11 @@
      <dl>
       {% if update.artists.all %}
        <dt>Artists
-       {% for artist in update.artists.all %}
-        <dd><a href={{ artist.get_absolute_url }}>{{ artist }}</a>
-       {% endfor %}
+        <dd>
+        {% if artist.visible %}<a href={{ artist.get_absolute_url }}> {{ artist }} </a>
+        {% else %}{{ artist }}
+        {% endif %}
+        </dd>
       {% endif %}
       {% if update.exhibitions.all %}
        <dt>Exhibition

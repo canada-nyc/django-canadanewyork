@@ -1,10 +1,12 @@
 from django.db import models
 from django.db.models import permalink
 
+from ..fields import UniqueBooleanField
+
 
 class Info(models.Model):
     date_added = models.DateField(auto_now_add=True)
-    activated = models.BooleanField(
+    activated = UniqueBooleanField(
         verbose_name='Use as frontpage?',
         help_text="To switch frontpages, activate a different one"
     )
@@ -23,13 +25,6 @@ class Info(models.Model):
 
     def __unicode__(self):
         return str(self.date_added)
-
-    def save(self):
-        if self.activated:
-            Info.objects.all().update(activated=False)
-        elif not Info.objects.filter(activated=True).exists():
-            self.activated = True
-        super(Info, self).save()
 
     @permalink
     def get_absolute_url(self):

@@ -11,6 +11,7 @@
   <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
   {% endthumbnail %}
  {% endif %}
+ {{ press.text|markdown }}
  {% if press.artists.all or press.exhibition %}
   <dl>
   {% for artist in press.artists.all %}

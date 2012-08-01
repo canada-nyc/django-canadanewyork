@@ -7,9 +7,7 @@ from django.core.exceptions import ValidationError
 from smart_selects.db_fields import ChainedForeignKey
 
 from ..exhibitions.models import Exhibition, ExhibitionPhoto
-from ..updates.models import Update, UpdatePhoto
 from ..fields import UniqueBooleanField
-
 
 
 class Frontpage(models.Model):
@@ -17,38 +15,28 @@ class Frontpage(models.Model):
         return os.path.join(
             'frontpage',
             str(instance.date_added),
-            filename
-        )
-    custom_title = models.CharField(
-        max_length=40,
-        null=True,
-        blank=True,
-        verbose_name='Title',
-        help_text=('Will override the exhibition or update title, if either are'
-                   ' selected')
-    )
+            filename)
     date_added = models.DateField(auto_now_add=True)
-    UniqueBooleanField = models.BooleanField(
+    activated = UniqueBooleanField(
         verbose_name='Use as frontpage?',
-        help_text="To switch frontpages, activate a different one"
-    )
+        help_text="To switch frontpages, activate a different one",
+        default=True)
     uploaded_image = models.ImageField(
         upload_to=image_path,
         help_text='Uploaded image will <strong>override</strong> selected image',
         blank=True,
-        null=True
-    )
+        null=True)
 
     text = models.TextField(
         max_length=800,
-        help_text=('Will be added underneath any exhibition or update info<br>'
+        help_text=('Will be added underneath any exhibition info<br>'
                    '<em>To add style:</em> use markdown('
                    '<a href="http://daringfireball.net/projects/markdown/basics"'
                    ' target="_blank">reference</a>)'),
         blank=True,
         null=True,
     )
-    exhibition = models.ForeignKey(Exhibition, blank=True, null=True)
+    exhibition = models.ForeignKey(Exhibition)
     exhibition_image = ChainedForeignKey(
         ExhibitionPhoto,
         chained_model_field='exhibition',
@@ -60,26 +48,6 @@ class Frontpage(models.Model):
         blank=True,
         null=True,
     )
-    exhibition_text = models.BooleanField(
-        verbose_name='Include exhibition description?',
-        default=True
-    )
-    update = models.ForeignKey(Update, blank=True, null=True)
-    update_image = ChainedForeignKey(
-        UpdatePhoto,
-        chained_model_field='update',
-        chained_field='update',
-        verbose_name='Select image from update',
-        help_text=('Select update first, then choose an image from that'
-                 ' update. If an uploaded image is selected, that will'
-                 ' take precedence'),
-        blank=True,
-        null=True,
-    )
-    update_text = models.BooleanField(
-        verbose_name='Include update description?',
-        default=True
-    )
 
     class Meta:
         ordering = ["-date_added"]
@@ -87,46 +55,16 @@ class Frontpage(models.Model):
     def __unicode__(self):
         return str(self.date_added)
 
-    def save(self, *args, **kwargs):
-        if not self.exhibition:
-            self.exhibition_text = False
-        if not self.update:
-            self.update_text = False
-        super(Frontpage, self).save(*args, **kwargs)
-
     @permalink
     def get_absolute_url(self):
         return ('frontpage-detail', (), {'pk': self.pk})
 
     def clean(self):
-        if self.exhibition and self.update:
-            raise ValidationError('An exhibition and an update can not both be'
-                                  ' linked to the frontpage.')
+        if not self.exhibition_image and not self.uploaded_image:
+            raise ValidationError('Either upload an image, or select one from '
+                                  'the exhibition')
 
     def image(self):
         if self.uploaded_image:
             return self.uploaded_image
-        elif self.exhibition and self.exhibition_image:
-            return self.exhibition_image.image
-        elif self.update and self.update_image:
-            return self.update_image.image
-
-    def foreign_text(self):
-        if self.exhibition_text and self.exhibition:
-            return self.exhibition.description
-        elif self.update_text and self.update:
-            return self.update.description
-
-    def title(self):
-        if self.custom_title:
-            return self.custom_title
-        if self.exhibition:
-            return self.exhibition.name
-        elif self.update:
-            return self.update.name
-
-    def url(self):
-        if self.exhibition:
-            return self.exhibition.get_absolute_url()
-        elif self.update:
-            return self.update.get_absolute_url()
+        return self.exhibition_image.image

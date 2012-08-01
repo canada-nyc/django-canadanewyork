@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django import forms
 
+from sorl.thumbnail.admin import AdminImageMixin
+
 from .models import Exhibition, ExhibitionPhoto
 from ..admin import image_file
 
@@ -9,13 +11,13 @@ class ExhibitionPhotoInlineForm(forms.ModelForm):
     position = forms.IntegerField(widget=forms.HiddenInput)
 
 
-class ExhibitionPhotoInline(admin.TabularInline):
+class ExhibitionPhotoInline(AdminImageMixin, admin.TabularInline):
     model = ExhibitionPhoto
     form = ExhibitionPhotoInlineForm
     sortable_field_name = "position"
 
 
-class ExhibitionAdmin(admin.ModelAdmin):
+class ExhibitionAdmin(AdminImageMixin, admin.ModelAdmin):
     inlines = [ExhibitionPhotoInline]
     date_hierarchy = 'start_date'
     list_display = ('first_image_thumb', 'name', 'start_date')

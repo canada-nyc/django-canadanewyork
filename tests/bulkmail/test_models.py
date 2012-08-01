@@ -1,10 +1,12 @@
 from django.test import TestCase
 from django.core import mail
+from django.test.utils import override_settings
 
 from canada.apps.bulkmail import admin
 from .factories import MessageFactory
 
 
+@override_settings(RQ=False)
 class MessageTest(TestCase):
     def test_send_email(self):
         # Create message with 4 recipients

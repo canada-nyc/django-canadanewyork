@@ -1,6 +1,5 @@
 from .common import *
 
-
 #from memcacheify import memcacheify
 import dj_database_url
 
@@ -17,7 +16,7 @@ TEMPLATE_DEBUG = DEBUG
 MIDDLEWARE_CLASSES = ('django.middleware.gzip.GZipMiddleware',) + MIDDLEWARE_CLASSES
 
 ########
-#Databse
+#Database
 ########
 DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
 
@@ -35,6 +34,12 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = "saul.shanabrook@gmail.com"
 EMAIL_HOST_PASSWORD = ""
 EMAIL_USE_TLS = True
+
+########
+#Background Tasks
+########
+RQ = True
+
 
 ########
 #Security

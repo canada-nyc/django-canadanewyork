@@ -2,28 +2,22 @@ import os
 
 from django.db import models
 
+from ..fields import UniqueBooleanField
+
 
 class ContactList(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    default = models.BooleanField(
-        verbose_name='Default List',
-        help_text=('Emails submitted via the forum on the website will use the'
-                   'default list'),
-        default=False
-    )
+    default = UniqueBooleanField(verbose_name='Default List',
+                                 help_text=('Emails submitted via the forum on '
+                                           'the website will use the default '
+                                           'list'),
+                                 default=False)
 
     class Meta:
         ordering = ['name']
 
     def __unicode__(self):
         return self.name
-
-    def save(self, *args, **kwargs):
-        if self.default:
-            ContactList.objects.all().update(default=False)
-        if not ContactList.objects.filter(default=True).exists():
-            self.default = True
-        super(ContactList, self).save(*args, **kwargs)
 
 
 class Message(models.Model):

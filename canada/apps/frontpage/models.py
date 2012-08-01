@@ -8,6 +8,8 @@ from smart_selects.db_fields import ChainedForeignKey
 
 from ..exhibitions.models import Exhibition, ExhibitionPhoto
 from ..updates.models import Update, UpdatePhoto
+from ..fields import UniqueBooleanField
+
 
 
 class Frontpage(models.Model):
@@ -26,7 +28,7 @@ class Frontpage(models.Model):
                    ' selected')
     )
     date_added = models.DateField(auto_now_add=True)
-    activated = models.BooleanField(
+    UniqueBooleanField = models.BooleanField(
         verbose_name='Use as frontpage?',
         help_text="To switch frontpages, activate a different one"
     )
@@ -86,11 +88,6 @@ class Frontpage(models.Model):
         return str(self.date_added)
 
     def save(self, *args, **kwargs):
-        if self.activated:
-            Frontpage.objects.all().update(activated=False)
-        elif not Frontpage.objects.filter(activated=True).exists():
-            self.activated = True
-
         if not self.exhibition:
             self.exhibition_text = False
         if not self.update:

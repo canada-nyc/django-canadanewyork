@@ -1,5 +1,3 @@
-import sys
-
 from .common import *
 
 
@@ -41,7 +39,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 TEST_RUNNER = 'discover_runner.DiscoverRunner'
 TEST_DISCOVER_TOP_LEVEL = path.normpath(path.join(SITE_ROOT, '..'))
 TEST_DISCOVER_ROOT = path.join(TEST_DISCOVER_TOP_LEVEL, 'tests')
-TEST_DISCOVER_PATTERN = '*.py'
-if 'test' in sys.argv:
-    DATABASES['default'] = {'ENGINE': 'django.db.backends.sqlite3'}
-    RQ = False
+RQ = True

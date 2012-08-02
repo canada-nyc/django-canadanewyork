@@ -1,27 +1,27 @@
 {% load static %}
-<!doctype html public "✰">
+<!DOCTYPE html>
 <head>
- <meta charset="utf-8">
- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{% block title %} | CANADA{% endblock %}</title>
+    <meta name="description" content="CANADA - lower East Side Art gallery exhibiting artists in New York.">
+    <meta name="viewport" content="width=device-width">
 
- <title>{% block title %} | CANADA{% endblock %}</title>
- <meta name="description" content="CANADA - lower East Side Art gallery exhibiting artists in New York.">
- <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet"href="{% get_static_prefix %}canada/css/style.css" />
-  <!--[if lt IE 9]>
-  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
+    <link rel="stylesheet"href="{% get_static_prefix %}canada/css/style.css" />
+    <!--[if lt IE 9]>
+    <script src="{% get_static_prefix %}canada/js/html5shiv.js"></script>
+    <![endif]-->
 </head>
 <body>
  <header>
   <nav>
    <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/artists/">Artists</a></li>
-    <li><a href="/exhibitions/">Exhibitions</a></li>
-    <li><a href="/updates/">Updates</a></li>
-    <li><a href="/press/">Press</a></li>
-    <li><a href="/contact/">Contact</a></li>
+    <li><a href="/">Home</a>
+    <li><a href="/artists/">Artists</a>
+    <li><a href="/exhibitions/">Exhibitions</a>
+    <li><a href="/updates/">Updates</a>
+    <li><a href="/press/">Press</a>
+    <li><a href="/contact/">Contact</a>
    </ul>
   </nav>
  </header>

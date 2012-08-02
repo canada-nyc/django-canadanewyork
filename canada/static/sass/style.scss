@@ -1,7 +1,7 @@
 @import "base.scss";
-
+ 
 $main-color: #AAA;
-
+ 
 body {
     width:750px;
     margin:0 auto;
@@ -14,14 +14,14 @@ body {
         size: 75%;
     }
     color: $main-color;
-
+ 
     background: {
         color: black;/*
         image: url(static/canada/images/background_fire.gif);
         repeat: no-repeat;*/
     }
 }
-
+ 
 a {
     &:link {
         text-decoration: none;
@@ -38,7 +38,7 @@ nav {
     width:750px;
     height:40px;
     margin-top:10px;
-
+ 
     li {
         .current {
                 &:visited {
@@ -54,9 +54,9 @@ nav {
             content: '';
         }
     }
-
+ 
 }
-
+ 
 article {
     width:750px;
     min-height:450px; /* for modern browsers */
@@ -64,9 +64,9 @@ article {
     height:450px; /* for IE5.x and IE6 */
     margin-top:10px;
 }
-
+ 
 footer {
-
+ 
     width:750px;
     height:100px;
     margin-top:40px;

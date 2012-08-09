@@ -12,4 +12,4 @@ git+git://github.com/lincolnloop/django-smart-selects.git@dbe42ad4604d132ce72adc
 #Images
 ##
 sorl-thumbnail==11.12
-git+git://github.com/errkk/gitpil.git
+Pillow==1.7.7

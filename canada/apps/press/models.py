@@ -13,15 +13,15 @@ from ..exhibitions.models import Exhibition
 class Press(models.Model):
     def image_path(instance, filename):
         return os.path.join('press',
-                            str(instance.press.date.year),
+                            str(instance.date.year),
                             instance.exhibition.slug,
                             filename)
 
     title = models.CharField(max_length=50)
     image = models.ImageField(null=True, blank=True, upload_to=image_path)
-    text = models.TextField(max_length=5000, verbose_name=u'Full article text',
-                            null=True, blank=True)
-    url = models.URLField(null=True, blank=True)
+    image_height = models.IntegerField(default=500,
+        help_text='Width will be calculated.<br><em>in pixels</em>')
+    link = models.URLField(null=True, blank=True)
     date = models.DateField()
 
     publisher = models.CharField(max_length=50)
@@ -45,8 +45,8 @@ class Press(models.Model):
         super(Press, self).save()
 
     def clean(self):
-        if not self.image and not self.text:
-            raise ValidationError('Either upload an image, or add some text.')
+        if not self.image and not self.link:
+            raise ValidationError('Either upload an image or add a link.')
 
     @permalink
     def get_absolute_url(self):
@@ -54,3 +54,7 @@ class Press(models.Model):
             'slug': self.slug,
             'year': self.date.year
             })
+
+    @property
+    def image_size(self):
+        return 'x{}'.format(self.image_height)

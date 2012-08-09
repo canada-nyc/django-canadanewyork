@@ -3,6 +3,7 @@ import os
 from django.db import models
 from django.db.models import permalink
 from django.template.defaultfilters import slugify
+from django.core.exceptions import ValidationError
 
 from ..models import BasePhoto
 
@@ -13,8 +14,13 @@ class VisibleManager(models.Manager):
 
 
 class Artist(models.Model):
+    def image_path(instance, filename):
+        return os.path.join('artists',
+                            instance.slug,
+                            filename)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
+    resume = models.FileField(upload_to=image_path)
     slug = models.SlugField(blank=True, editable=False)
     visible = models.BooleanField(
         default=True,
@@ -32,6 +38,11 @@ class Artist(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify('-'.join([self.first_name, self.last_name]))
         super(Artist, self).save(*args, **kwargs)
+
+    def clean(self):
+        if self.resume._file.content_type != 'application/pdf':
+            raise ValidationError('You uploaded a {}. A PDF is required'\
+                .format(self.resume._file.content_type.split('/')[1]))
 
     @permalink
     def get_absolute_url(self):

@@ -10,18 +10,19 @@
   <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
   {% endthumbnail %}
  {% endfor %}
+ <a href={{ artist.resume.url }}>Resume</a>
  {% if artist.exhibitions.all or artist.press.all %}
   <dl>
   {% if artist.exhibitions.all %}
    <dt><h3>Exhibitions:</h3></dt>
    {% for exhibition in artist.exhibitions.all %}
-    <dd><a href={{ exhibition.get_absolute_url }}> {{ exhibition }}</a></dd>
+    <dd><a href={{ exhibition.get_absolute_url }}>{{ exhibition }}</a></dd>
    {% endfor %}
   {% endif %}
   {% if artist.press.all %}
    <dt><h3>Press:</h3></dt>
    {% for press in artist.press.all %}
-    <dd><a href={{ press.get_absolute_url }}> {{ press.title }} in {{ press.publisher }}</a></dd>
+    <dd><a href={{ press.get_absolute_url }}>{{ press.title }} in {{ press.publisher }}</a></dd>
    {% endfor %}
   {% endif %}
   </dl>

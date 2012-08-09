@@ -5,10 +5,10 @@
 {% block body %}
 <article>
  <a href={{ frontpage.exhibition.get_absolute_url }}>
- <h1>{{ frontpage.exhibition.name }}</h1>
  {% thumbnail frontpage.image image_size as im %}
   <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
  {% endthumbnail %}</a>
+ <p>{{ frontpage.exhibition.name }}
  {{ frontpage.text|markdown }}
 </article>
 {% endblock body %}

@@ -8,8 +8,15 @@ rq==0.2.1
 ##
 git+git://github.com/sehmaschine/django-grappelli.git@grappelli_2_4
 git+git://github.com/lincolnloop/django-smart-selects.git@dbe42ad4604d132ce72adc3ecd0de807a9766094
+
 ##
 #Images
 ##
 sorl-thumbnail==11.12
 Pillow==1.7.7
+
+##
+#Storage
+##
+boto==2.5.2
+django-storages==1.1.5

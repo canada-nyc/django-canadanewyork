@@ -7,8 +7,8 @@ from ..fields import UniqueBooleanField
 class Info(models.Model):
     date_added = models.DateField(auto_now_add=True)
     activated = UniqueBooleanField(
-        verbose_name='Use as frontpage?',
-        help_text="To switch frontpages, activate a different one"
+        verbose_name='Use as contact/info page?',
+        help_text="To switch contact/info pages, activate a different one"
     )
     text = models.TextField(
         max_length=800,

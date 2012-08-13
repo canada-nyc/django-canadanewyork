@@ -2,8 +2,10 @@
 import os
 import sys
 
-DJANGO_SETTINGS_MODULE = "canada.settings.dev"
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", DJANGO_SETTINGS_MODULE)
+from django.core.wsgi import get_wsgi_application
+
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "canada.settings.dev")
 
 if __name__ == "__main__":
 
@@ -11,5 +13,4 @@ if __name__ == "__main__":
 
     execute_from_command_line(sys.argv)
 
-from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()

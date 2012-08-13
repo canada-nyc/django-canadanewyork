@@ -4,6 +4,4 @@
 gunicorn
 newrelic
 psycopg2
-
-#Images
-pil
+dj-database-url

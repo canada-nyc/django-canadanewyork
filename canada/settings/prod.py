@@ -1,7 +1,8 @@
 from .common import *
 
 #from memcacheify import memcacheify
-from postgresify import postgresify
+import dj_database_url
+
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -17,7 +18,7 @@ MIDDLEWARE_CLASSES = ('django.middleware.gzip.GZipMiddleware',) + MIDDLEWARE_CLA
 ########
 #Database
 ########
-DATABASES = postgresify()
+DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
 
 ########
 #Server

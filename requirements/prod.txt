@@ -6,4 +6,4 @@ newrelic
 psycopg2
 
 #Images
-git+git://github.com/errkk/gitpil.git
+pil

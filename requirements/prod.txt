@@ -1,7 +1,9 @@
 -r common.txt
 
-#django-heroku-memcacheify==0.2
+django-heroku-memcacheify
 gunicorn
 newrelic
 psycopg2
 dj-database-url
+mock
+pylibmc==1.2.3

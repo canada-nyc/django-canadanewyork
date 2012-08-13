@@ -1,3 +1,4 @@
 heroku addons:add newrelic:standard
 heroku addons:add redistogo
 heroku addons:add memcachier:dev
+heroku addons:add heroku-postgresql:dev

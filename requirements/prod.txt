@@ -5,3 +5,4 @@ gunicorn
 newrelic
 psycopg2
 dj-database-url
+django-heroku-postgresify

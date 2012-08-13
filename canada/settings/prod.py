@@ -1,6 +1,6 @@
 from .common import *
 
-from memcacheify import memcacheify
+#from memcacheify import memcacheify
 import dj_database_url
 
 
@@ -11,7 +11,7 @@ TEMPLATE_DEBUG = DEBUG
 #Cache
 ########
 
-CACHES = memcacheify()  # http://rdegges.github.com/django-heroku-memcacheify/
+#CACHES = memcacheify()  # http://rdegges.github.com/django-heroku-memcacheify/
 # Run heroku addons:add memcachier:25 for free 25m
 MIDDLEWARE_CLASSES = ('django.middleware.gzip.GZipMiddleware',) + MIDDLEWARE_CLASSES
 

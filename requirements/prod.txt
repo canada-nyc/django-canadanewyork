@@ -6,4 +6,3 @@ newrelic
 psycopg2
 dj-database-url
 mock
-pylibmc==1.2.3

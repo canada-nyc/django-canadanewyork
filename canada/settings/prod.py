@@ -36,6 +36,15 @@ EMAIL_HOST_PASSWORD = ""
 EMAIL_USE_TLS = True
 
 ########
+#Storage
+########
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_ACCESS_KEY_ID = 'AKIAILXZMFP6SQJQC7XQ'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'canadanewyork'
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+########
 #Background Tasks
 ########
 RQ = True

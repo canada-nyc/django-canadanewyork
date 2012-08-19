@@ -40,13 +40,6 @@ INSTALLED_APPS += (
 
 GRAPPELLI_ADMIN_TITLE = 'CANADA'
 
-#Storage
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-AWS_ACCESS_KEY_ID = 'AKIAILXZMFP6SQJQC7XQ'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'canadanewyork'
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-
 
 ########
 #Django

@@ -6,14 +6,13 @@
 <article>
  <h1>{{ exhibition.name }}</h1>
  <p>{{ exhibition.full_date }}</p>
- {% if exhibition.description %}
-  {{exhibition.description|markdown}}
- {% endif %}
+  {{ exhibition.description|markdown }}
  {% for image in exhibition.exhibitionphoto_set.all %}
   {% thumbnail image.image image_size as im %}
   <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
   {% endthumbnail %}
  {% endfor %}
+ {% if exhibition.press %}<p><a href={% url exhibition-detail year=exhibition.start_date.year slug=exhibition.slug press='press' %}>Press</a>{% endif %}
  <dl>
   <dt>Atists:</dt>
  {% for artist in exhibition.artists.all %}

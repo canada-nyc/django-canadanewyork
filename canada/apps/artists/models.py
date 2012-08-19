@@ -40,7 +40,7 @@ class Artist(models.Model):
         super(Artist, self).save(*args, **kwargs)
 
     def clean(self):
-        if self.resume._file.content_type != 'application/pdf':
+        if self.resume and self.resume._file.content_type != 'application/pdf':
             raise ValidationError('You uploaded a {}. A PDF is required'\
                 .format(self.resume._file.content_type.split('/')[1]))
 
@@ -48,6 +48,7 @@ class Artist(models.Model):
     def get_absolute_url(self):
         return ('artist-detail', (), {
             'slug': self.slug,
+            'press': ''
             })
 
 

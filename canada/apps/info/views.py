@@ -33,7 +33,6 @@ class InfoDisplay(DetailView):
 
 
 class InfoDetail(View):
-
     def get(self, request, *args, **kwargs):
         view = InfoDisplay.as_view()
         return view(request, *args, **kwargs)

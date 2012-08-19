@@ -4,28 +4,19 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-from .apps.artists.urls import urlpatterns as artists_urls
-from .apps.updates.urls import urlpatterns as updates_urls
-from .apps.exhibitions.urls import urlpatterns as exhibitions_urls
-from .apps.press.urls import urlpatterns as press_urls
-from .apps.bulkmail.urls import urlpatterns as bulkmail_urls
-from .apps.frontpage.urls import urlpatterns as frontpage_urls
-from .apps.info.urls import urlpatterns as info_urls
-
-
 from .feeds import AllEntriesFeed
 
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^', include(frontpage_urls)),
-    url(r'^artists/', include(artists_urls)),
-    url(r'^updates/', include(updates_urls)),
-    url(r'^exhibitions/', include(exhibitions_urls)),
-    url(r'^press/', include(press_urls)),
-    url(r'^', include(info_urls)),
-    url(r'^', include(bulkmail_urls)),
+    url(r'^', include('canada.apps.frontpage.urls')),
+    url(r'^artists/', include('canada.apps.artists.urls')),
+    url(r'^updates/', include('canada.apps.updates.urls')),
+    url(r'^exhibitions/', include('canada.apps.exhibitions.urls')),
+    url(r'^press/', include('canada.apps.press.urls')),
+    url(r'^', include('canada.apps.info.urls')),
+    url(r'^', include('canada.apps.bulkmail.urls')),
 
     url(r'^feed/$', AllEntriesFeed),
  )

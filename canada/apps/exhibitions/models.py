@@ -29,9 +29,10 @@ class Exhibition(models.Model):
 
     @permalink
     def get_absolute_url(self):
-        return ('exhibitions-detail', (), {
+        return ('exhibition-detail', (), {
             'year': self.start_date.year,
-            'slug': self.slug
+            'slug': self.slug,
+            'press': ''
         })
 
     def clean(self):

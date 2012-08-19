@@ -10,7 +10,8 @@
   <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
   {% endthumbnail %}
  {% endfor %}
- <a href={{ artist.resume.url }}>Resume</a>
+ <p><a href={{ artist.resume.url }}>Resume</a>
+ {% if artist.press %}<p><a href={% url artist-detail slug=artist.slug press='press' %}>Press</a>{% endif %}
  {% if artist.exhibitions.all or artist.press.all %}
   <dl>
   {% if artist.exhibitions.all %}

@@ -12,7 +12,7 @@
   <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
   {% endthumbnail %}
  {% endfor %}
- {% if exhibition.press %}<a href={% url exhibition-detail year=exhibition.start_date.year slug=exhibition.slug press='press' %}>Press</a>{% endif %}
+ {% if exhibition.press %}<p><a href={% url exhibition-detail year=exhibition.start_date.year slug=exhibition.slug press='press' %}>Press</a>{% endif %}
  <dl>
   <dt>Atists:</dt>
  {% for artist in exhibition.artists.all %}

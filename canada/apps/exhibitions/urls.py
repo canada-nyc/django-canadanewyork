@@ -7,7 +7,7 @@ from .models import Exhibition
 
 urlpatterns = patterns('',
     url(r'^$', ListView.as_view(model=Exhibition)),
-    url(r'^(?P<year>\d{4})/(?P<slug>[-\w]+)/(?P<press>(press)|)',
+    url(r'^(?P<year>\d{4})/(?P<slug>[-\w]+)/(?P<press>(press)|)$',
         ExhibitionDetailPress.as_view(),
         name='exhibition-detail'),
 )

@@ -48,6 +48,7 @@ class Artist(models.Model):
     def get_absolute_url(self):
         return ('artist-detail', (), {
             'slug': self.slug,
+            'press': ''
             })
 
 

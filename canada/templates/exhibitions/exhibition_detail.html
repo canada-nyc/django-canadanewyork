@@ -4,24 +4,10 @@
 {% block title %}{{ exhibition.name }}{{ block.super }}{% endblock %}
 {% block body %}
 <article>
- <h1>{{ exhibition.name }}</h1>
- <p>{{ exhibition.full_date }}</p>
-  {{ exhibition.description|markdown }}
- {% for image in exhibition.exhibitionphoto_set.all %}
-  {% thumbnail image.image image_size as im %}
-  <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
-  {% endthumbnail %}
- {% endfor %}
- {% if exhibition.press %}<p><a href={% url exhibition-detail year=exhibition.start_date.year slug=exhibition.slug press='press' %}>Press</a>{% endif %}
- <dl>
-  <dt>Atists:</dt>
- {% for artist in exhibition.artists.all %}
-  <dd>
-  {% if artist.visible %}<a href={{ artist.get_absolute_url }}> {{ artist }} </a>
-  {% else %}{{ artist }}
-  {% endif %}
-  </dd>
- {% endfor %}
- </dl>
+ <h1>{% include "_base/model_detail.html" with model=exhibition %}</h1>
+ <p>{% include "_base/model_detail.html" with model=exhibition extra_info="True" %}</p>
+ {{ exhibition.description|markdown }}
+ {% include "_base/images.html" with images=exhibition.images.all %}
+ {% include "_base/related_models.html" with press=exhibition.press.all artists=exhibition.artists.all %}
 </article>
 {% endblock %}

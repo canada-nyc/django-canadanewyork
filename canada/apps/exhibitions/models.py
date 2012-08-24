@@ -43,19 +43,6 @@ class Exhibition(models.Model):
         if self.images.all().count() > 0:
             return self.images.all()[0]
 
-    def full_date(self):
-        begin_time = 'F j'
-        if self.start_date.year != self.end_date.year:
-            end_time = 'F j, Y'
-            begin_time = 'F j, Y'
-        elif self.start_date.month != self.start_date.month:
-            end_time = 'F j, Y'
-        elif self.start_date.day != self.start_date.day:
-            end_time = 'j, Y'
-        else:
-            return date(self.start_date, 'F j, Y')
-        return ' - '.join([date(self.start_date, begin_time), date(self.start_date, end_time)])
-
 
 class ExhibitionPhoto(BasePhoto):
     def image_path(instance, filename):

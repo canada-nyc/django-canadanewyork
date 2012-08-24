@@ -4,8 +4,6 @@ from django.db import models
 from django.db.models import permalink
 from django.template.defaultfilters import slugify
 
-from ..artists.models import Artist
-from ..exhibitions.models import Exhibition
 from ..models import BasePhoto
 
 
@@ -13,8 +11,6 @@ class Update(models.Model):
 
     name = models.CharField(max_length=30, unique_for_year='post_date')
     description = models.TextField(blank=True, null=True)
-    artists = models.ManyToManyField(Artist, blank=True, null=True)
-    exhibition = models.ForeignKey(Exhibition, blank=True, null=True)
     post_date = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(blank=True, editable=False)
 

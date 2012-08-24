@@ -1,32 +1,16 @@
 {% extends "base.html" %}
 {% load thumbnail %}
+{% load canada_filters %}
 {% block title %}{{ press.title }}{{ block.super }}{% endblock title %}
 {% block body %}
 <article>
-<h1>{{ press.publisher }}: {{ press.title }}</h1>
-<p><time datetime="{{ press.date|date:'Y-m-d H:iO' }}" pubdate> {{ update.date|date }}</time>
+<h1>{% include "_base/model_detail.html" with model=press %}</h1>
+<p>{% include "_base/model_detail.html" with model=press extra_info="True"%}
 {% if press.image %}
  {% thumbnail press.image press.image_size as im %}
   <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
  {% endthumbnail %}
 {% endif %}
-
-{% if press.artists.all or press.exhibition %}
- <dl>
- {% for artist in press.artists.all %}
-  {% if forloop.first %}<dt>Atists:</dt>{% endif %}
-  <dd>
-  {% if artist.visible %}
-   <a href={{ artist.get_absolute_url }}> {{ artist }} </a>
-  {% else %}{{ artist }}
-  {% endif %}
-  </dd>
- {% endfor %}
- {% if press.exhibition %}
-  <dt>Exhibition:</dt>
-  <dd><a href={{ press.exhibition.get_absolute_url }}>{{ press.exhibition }}</a>
- {% endif %}
- </dl>
-{% endif %}
+{% include "_base/related_models.html" with artists=press.artists.all exhibitions=press.exhibition|create_list only %}
 </article>
 {% endblock body %}

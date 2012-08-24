@@ -7,28 +7,11 @@
   <article>
    <header>
     <h1 id="{{ update.slug }}">{{ update.name }}</h1>
-    <time datetime="{{ update.post_date|date:'Y-m-d H:iO' }}" pubdate> {{ update.post_date|date }}</time>
-    {% if update.artists.all or update.exhibition.all %}
-     <dl>
-      {% if update.artists.all %}
-       <dt>Artists
-        <dd>
-        {% if artist.visible %}<a href={{ artist.get_absolute_url }}> {{ artist }} </a>
-        {% else %}{{ artist }}
-        {% endif %}
-        </dd>
-      {% endif %}
-      {% if update.exhibitions.all %}
-       <dt>Exhibition
-       {% for exhibition in update.exhibitions.all %}
-        <dd><a href={{ exhibition.get_absolute_url }}>{{ exhibition }}</a>
-       {% endfor %}
-      {% endif %} 
-     </dl>
-    {% endif %}
+    {% include "_base/full_date.html" with date=update.post_date %}
    </header>
+   {% include "_base/images.html" with images=update.images %}
    {{ update.description|markdown }}
   </article>
-  {% endfor %}
+ {% endfor %}
 </section>
 {% endblock %}

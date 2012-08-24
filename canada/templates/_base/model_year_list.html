@@ -1,0 +1,12 @@
+<dl>
+{% for model in models %}
+ {% load canada_filters %}
+ {% with date=model|getattribute:date_atr %}
+  {% ifchanged date.year %}<dt><h2>{{ date.year }}</h2></dt>{% endifchanged %}
+  <dd><a href="{{ model.get_absolute_url }}">
+   {% include "_base/model_detail.html" with model=model only %}<br>
+   <small>{% include "_base/model_detail.html" with model=model extra_info="True" only %}</small>
+  </a></dd>
+ {% endwith %}
+{% endfor %}
+</dl>

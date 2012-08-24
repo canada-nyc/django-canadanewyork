@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Exhibitions{{ block.super }}{% endblock %}
 {% block body %}
-<ol>
- {% for exhibition in exhibition_list %}
-  <li>{{ exhibition.full_date }}: <a href="{{ exhibition.get_absolute_url }}">{{ exhibition.name }}</a>
- {% endfor %}
-<ol/>
+<h1>Exhibitions</h1>
+{% include "_base/model_year_list.html" with models=exhibition_list date_atr='start_date' %}
 {% endblock %}

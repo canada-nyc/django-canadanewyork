@@ -1,20 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Press{{ block.super }}{% endblock %}
 {% block body %}
-<section>
- <h1>{% if exhibition %}<a href={{ exhibition.get_absolute_url }}>{{ exhibition.name }}</a> | 
-     {% elif artist %}<a href={{ artist.get_absolute_url }}>{{ artist }}</a> | {% endif %}Press</h1>
- <dl>
- {% for press in press_list %}
-  {% ifchanged press.date.year %}
-  <dt><h2>{{ press.date.year }}</h2></dt>
-  {% endifchanged %}
-  <dd><a href="{{ press.get_absolute_url }}">
-      <h3>{{ press.title }}</h3>
-      <time datetime="{{ press.date|date:'Y-m-d' }}" pubdate> {{ press.date|date }}</time>
-      </a>
-  </dd>
- {% endfor %}
- </dl>
-</section>
+<h1>{% if exhibition %}<a href={{ exhibition.get_absolute_url }}>{{ exhibition.name }}</a> | 
+    {% elif artist %}<a href={{ artist.get_absolute_url }}>{{ artist }}</a> | {% endif %}Press</h1>
+{% include "_base/model_year_list.html" with models=press_list date_atr="date" only %}
 {% endblock %}

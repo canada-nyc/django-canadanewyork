@@ -23,6 +23,7 @@ INSTALLED_APPS = (
     'canada.apps.updates',
     'canada.apps.frontpage',
     'canada.apps.info',
+    'canada.apps.base'
   )
 
 TEMPLATE_CONTEXT_PROCESSORS += ('canada.context_processors.image_size',)

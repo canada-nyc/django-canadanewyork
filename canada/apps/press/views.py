@@ -13,8 +13,8 @@ class PressDetail(DetailView):
 
 class PressList(ListView):
     model = Press
+
     def get_objects(self):
-        print self.get_context_data()
         if 'exhibition' in self.get_context_data():
             return get_list_or_404(Press,
                                    exhibition=self.get_context_data()['exhibition'])

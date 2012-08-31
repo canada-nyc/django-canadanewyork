@@ -1,5 +1,16 @@
-{% for image in images %}
- {% thumbnail image.image image_size as im %}
- <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
- {% endthumbnail %}
-{% endfor %}
+{% load thumbnail %}
+{% if images %}
+<div id="myCarousel" class="carousel slide">
+ <!-- Carousel items -->
+ <div class="carousel-inner">
+  {% for image in images %}
+   {% thumbnail image.image image_size as im %}
+   <div class="item{% if forloop.first %} active{% endif %}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/></div>
+   {% endthumbnail %}
+  {% endfor %}
+ </div>
+ <!-- Carousel nav -->
+ <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+ <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>
+{% endif %}

@@ -9,27 +9,29 @@
 
  <link rel="stylesheet/less" href="{% get_static_prefix %}canada/less/bootstrap/bootstrap.less">
  <script src="{% get_static_prefix %}canada/js/less.min.js"></script>
-
  <!--[if lt IE 9]>
  <script src="{% get_static_prefix %}canada/js/html5shiv.min.js"></script>
  <![endif]-->
 </head>
 <body>
- <header>
-  <nav>
-   <ul>
+ <div class="wrapper">
+<header class="navbar navbar-static-top navbar-inverse">
+ <nav class="navbar-inner">
+  <div class="container">
+   <ul class="nav">
     <li><a href="/">Home</a>
     <li><a href="/artists/">Artists</a>
     <li><a href="/exhibitions/">Exhibitions</a>
     <li><a href="/updates/">Updates</a>
     <li><a href="/contact/">Contact</a>
    </ul>
-  </nav>
- </header>
- {% block body %}{% endblock %}
- <footer>
-  CANADA 55 Chrystie St (between Hester &amp; Canal), NYC 10002 | 212.925.4631 | <a href="mailto:gallery@canadanewyork.com">gallery@canadanewyork.com</a>
- </footer>
+  </div>
+ </nav>
+</header>
+<div class="container">{% block body %}{% endblock %}</div><div id="push"><!--//--></div></div>
+<footer>
+ <p class="container">CANADA 55 Chrystie St (between Hester &amp; Canal), NYC 10002 | 212.925.4631 | <a href="mailto:gallery@canadanewyork.com">gallery@canadanewyork.com</a>
+</footer>
 
 <script src="{% get_static_prefix %}canada/js/jquery.min.js"></script>
 <script src="{% get_static_prefix %}canada/js/bootstrap.min.js"></script>

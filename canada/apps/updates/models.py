@@ -1,4 +1,5 @@
 import os
+import datetime
 
 from django.db import models
 from django.db.models import permalink
@@ -21,11 +22,8 @@ class Update(models.Model):
         return '{} ({})'.format(self.name, self.post_date.year)
 
     def save(self, *args, **kwargs):
-        import datetime
-        year = str(datetime.datetime.now().year)
-        if self.post_date:
-            year = self.post_date.year
-        self.slug = slugify('-'.join([year, self.name]))
+        year = getattr(self.post_date, 'year', datetime.datetime.now().year)
+        self.slug = slugify('-'.join([str(year), self.name]))
         super(Update, self).save(*args, **kwargs)
 
     @permalink

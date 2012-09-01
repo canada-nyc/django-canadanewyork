@@ -2,7 +2,7 @@ import os
 
 from django.db import models
 from django.db.models import permalink
-from django.template.defaultfilters import slugify, date
+from django.template.defaultfilters import slugify
 from django.core.exceptions import ValidationError
 
 from ..artists.models import Artist
@@ -32,7 +32,6 @@ class Exhibition(models.Model):
         return ('exhibition-detail', (), {
             'year': self.start_date.year,
             'slug': self.slug,
-            'press': ''
         })
 
     def clean(self):
@@ -42,6 +41,17 @@ class Exhibition(models.Model):
     def get_first_image_or_none(self):
         if self.images.all().count() > 0:
             return self.images.all()[0]
+
+    def get_press(self):
+        from ..press.models import Press
+        return Press.objects.filter(exhibition=self)
+
+    @permalink
+    def get_press_url(self):
+        return ('exhibition-press-list', (), {
+            'year': self.start_date.year,
+            'slug': self.slug
+        })
 
 
 class ExhibitionPhoto(BasePhoto):

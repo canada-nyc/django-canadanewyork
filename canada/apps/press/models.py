@@ -3,8 +3,8 @@ import os
 from django.db.models import permalink
 from django.template.defaultfilters import slugify
 from django.db import models
+from django.db.models import Q
 from django.core.exceptions import ValidationError
-
 
 from ..artists.models import Artist
 from ..exhibitions.models import Exhibition
@@ -27,9 +27,9 @@ class Press(models.Model):
     publisher = models.CharField(max_length=50)
     author = models.CharField(max_length=60, blank=True, null=True)
     artists = models.ManyToManyField(Artist, blank=True, null=True,
-                                     related_name='press')
+                                     related_name='press',)
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True,
-                                   related_name='press')
+                                   related_name='press',)
 
     slug = models.SlugField(editable=False, unique_for_year='date')
 

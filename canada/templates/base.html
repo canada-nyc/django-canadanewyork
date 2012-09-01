@@ -1,32 +1,40 @@
 {% load static %}
 <!DOCTYPE html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>{% block title %} | CANADA{% endblock %}</title>
-    <meta name="description" content="CANADA - lower East Side Art gallery exhibiting artists in New York.">
-    <meta name="viewport" content="width=device-width">
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+ <title>{% block title %} | CANADA{% endblock %}</title>
+ <meta name="description" content="CANADA - lower East Side Art gallery exhibiting artists in New York.">
+ <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet"href="{% get_static_prefix %}canada/css/style.css" />
-    <!--[if lt IE 9]>
-    <script src="{% get_static_prefix %}canada/js/html5shiv.js"></script>
-    <![endif]-->
+ <link rel="stylesheet/less" href="{% get_static_prefix %}canada/less/bootstrap/bootstrap.less">
+ <script src="{% get_static_prefix %}canada/js/less.min.js"></script>
+ <!--[if lt IE 9]>
+ <script src="{% get_static_prefix %}canada/js/html5shiv.min.js"></script>
+ <![endif]-->
 </head>
 <body>
- <header>
-  <nav>
-   <ul>
+ <div class="wrapper">
+<header class="navbar navbar-static-top navbar-inverse">
+ <nav class="navbar-inner">
+  <div class="container">
+   <ul class="nav">
     <li><a href="/">Home</a>
     <li><a href="/artists/">Artists</a>
     <li><a href="/exhibitions/">Exhibitions</a>
     <li><a href="/updates/">Updates</a>
     <li><a href="/contact/">Contact</a>
    </ul>
-  </nav>
- </header>
- {% block body %}{% endblock %}
- <footer>
-  CANADA 55 Chrystie St (between Hester &amp; Canal), NYC 10002 | 212.925.4631 | <a href="mailto:gallery@canadanewyork.com">gallery@canadanewyork.com</a>
- </footer>
+  </div>
+ </nav>
+</header>
+<div class="container">{% block body %}{% endblock %}</div><div id="push"><!--//--></div></div>
+<footer>
+ <p class="container">CANADA 55 Chrystie St (between Hester &amp; Canal), NYC 10002 | 212.925.4631 | <a href="mailto:gallery@canadanewyork.com">gallery@canadanewyork.com</a>
+</footer>
+
+<script src="{% get_static_prefix %}canada/js/jquery.min.js"></script>
+<script src="{% get_static_prefix %}canada/js/bootstrap.min.js"></script>
+
 </body>
 </html>

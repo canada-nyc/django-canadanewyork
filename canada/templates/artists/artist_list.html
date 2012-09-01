@@ -2,7 +2,8 @@
 {% block title %}Artists{{ block.super }}{% endblock %}
 {% block body %}
 <article>
- <ul>
+ <h1>Artists</h1>
+ <ul class="unstyled">
   {% for artist in artist_list %}
    <li><a href={{ artist.get_absolute_url }}>{% include "_base/model_detail.html" with model=artist %}</a>
   {% endfor %}

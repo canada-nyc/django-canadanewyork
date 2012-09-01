@@ -37,6 +37,7 @@ INSTALLED_APPS += (
     'sorl.thumbnail',
     'smart_selects',
     'storages',
+    'bootstrapform',
   )
 
 GRAPPELLI_ADMIN_TITLE = 'CANADA'

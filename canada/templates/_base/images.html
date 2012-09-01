@@ -1,3 +1,4 @@
+{% load thumbnail %}
 {% for image in images %}
  {% thumbnail image.image image_size as im %}
  <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>

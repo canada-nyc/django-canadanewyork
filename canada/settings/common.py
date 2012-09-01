@@ -84,6 +84,7 @@ ADMINS = (
 
 #Urls
 ROOT_URLCONF = 'canada.urls'
+APPEND_SLASH = True
 
 #Templates
 TEMPLATE_DIRS = (

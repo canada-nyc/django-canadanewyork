@@ -4,6 +4,8 @@ from django.db import models
 from django.db.models import permalink
 from django.template.defaultfilters import slugify
 from django.core.exceptions import ValidationError
+from django.db.models import Q
+
 
 from ..models import BasePhoto
 
@@ -48,8 +50,18 @@ class Artist(models.Model):
     def get_absolute_url(self):
         return ('artist-detail', (), {
             'slug': self.slug,
-            'press': ''
             })
+
+    def get_press(self):
+        from ..press.models import Press
+        return Press.objects.filter(Q(artists__in=[self]) |
+                                    Q(exhibition__artists__in=[self]))
+
+    @permalink
+    def get_press_url(self):
+        return ('artist-press-list', (), {
+            'slug': self.slug
+        })
 
 
 class ArtistPhoto(BasePhoto):

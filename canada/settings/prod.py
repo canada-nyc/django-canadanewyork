@@ -4,7 +4,7 @@ from .common import *
 import dj_database_url
 
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 #PREPEND_WWW = True
 
@@ -56,4 +56,3 @@ RQ = True
 SECURE_FRAME_DENY = True
 TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.csrf',)
 CSRF_COOKIE_DOMAIN = '.canadanewyork.com'
-PREPEND_WWW = True

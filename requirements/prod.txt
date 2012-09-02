@@ -1,7 +1,9 @@
 -r common.txt
 
-django-heroku-memcacheify
-gunicorn
-newrelic
-psycopg2
-dj-database-url
+django-heroku-memcacheify==0.3
+gunicorn==0.14.6
+newrelic==1.4.0.137
+psycopg2==2.4.5
+dj-database-url==0.2.1
+rq==0.3.1
+

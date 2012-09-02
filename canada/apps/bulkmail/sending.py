@@ -38,8 +38,5 @@ def send_messages(modeladmin=None, request=None, queryset=None):
         for recipient in message.contact_list.contacts.all():
             args = [recipient, 'gallery@canadanewyork.com', message.subject,
                       message.body]
-            if  settings.RQ != False:
-                Queue('Email').enqueue(send_email, *args)
-            else:
-                send_email(*args)
+            Queue('Email').enqueue(send_email, *args)
     connection.close()

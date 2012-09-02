@@ -1,6 +1,0 @@
-heroku addons:add newrelic:standard
-heroku addons:add redistogo
-heroku addons:add memcachier:dev
-heroku addons:add heroku-postgresql:dev
-heroku config:add DJANGO_SETTINGS_MODULE=canada.settings.prod, SECRET_KEY=?, AWS_SECRET_ACCESS_KEY=?, AWS_ACCESS_KEY_ID=?
-heroku run './manage.py sycndb --noinput;./manage.py migrate'

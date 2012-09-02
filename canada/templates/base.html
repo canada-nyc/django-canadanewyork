@@ -1,4 +1,4 @@
-{% load static %}
+{% load static from staticfiles %}
 <!DOCTYPE html>
 <head>
  <meta charset="utf-8">
@@ -7,10 +7,9 @@
  <meta name="description" content="CANADA - lower East Side Art gallery exhibiting artists in New York.">
  <meta name="viewport" content="width=device-width">
 
- <link rel="stylesheet/less" href="{% get_static_prefix %}canada/less/bootstrap/bootstrap.less">
- <script src="{% get_static_prefix %}canada/js/less.min.js"></script>
+ <link rel="stylesheet/css" href="{% static "canada/css/bootstrap.css" %}">
  <!--[if lt IE 9]>
- <script src="{% get_static_prefix %}canada/js/html5shiv.min.js"></script>
+ <script src="{% static "canada/js/html5shiv.min.js" %}"></script>
  <![endif]-->
 </head>
 <body>
@@ -33,8 +32,8 @@
  <p class="container">CANADA 55 Chrystie St (between Hester &amp; Canal), NYC 10002 | 212.925.4631 | <a href="mailto:gallery@canadanewyork.com">gallery@canadanewyork.com</a>
 </footer>
 
-<script src="{% get_static_prefix %}canada/js/jquery.min.js"></script>
-<script src="{% get_static_prefix %}canada/js/bootstrap.min.js"></script>
+<script src="{% static "canada/js/jquery.min.js" %}"></script>
+<script src="{% static "canada/js/bootstrap.min.js" %}"></script>
 
 </body>
 </html>

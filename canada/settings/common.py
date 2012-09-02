@@ -36,7 +36,6 @@ INSTALLED_APPS += (
     'grappelli',
     'sorl.thumbnail',
     'smart_selects',
-    'storages',
     'bootstrapform',
   )
 

@@ -7,7 +7,6 @@ from django.template import Context
 from django.conf import settings
 
 from .models import ContactList, Contact, Message
-from ..admin import image_file
 
 
 class ContactAdmin(admin.ModelAdmin):
@@ -25,9 +24,8 @@ class ContactListAdmin(admin.ModelAdmin):
 
 class MessageAdmin(admin.ModelAdmin):
     actions = ['send_messages']
-    list_display = ('image_thumb', 'subject', 'contact_list', 'date_time')
+    list_display = ('subject', 'contact_list', 'date_time')
     list_filter = ('contact_list',)
-    image_thumb = image_file('obj.image')
 
 
 def send_email(recipient, sender, subject, message):

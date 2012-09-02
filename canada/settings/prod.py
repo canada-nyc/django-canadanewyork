@@ -55,4 +55,4 @@ RQ = True
 ########
 SECURE_FRAME_DENY = True
 TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.csrf',)
-CSRF_COOKIE_DOMAIN = '.canadanewyork.com'
+CSRF_COOKIE_DOMAIN = '.herokuapp.com'

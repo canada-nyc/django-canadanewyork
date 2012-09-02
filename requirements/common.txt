@@ -3,6 +3,7 @@ Markdown==2.2.0
 South==0.7.5
 rq==0.2.1
 django-bootstrap-form==2.0.5
+yolk==0.4.3
 
 ##
 #Admin

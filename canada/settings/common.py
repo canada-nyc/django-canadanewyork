@@ -1,4 +1,4 @@
-from os import path
+from os import path, environ
 
 from django.conf.global_settings import *
 
@@ -59,7 +59,7 @@ INSTALLED_APPS += (
   )
 
 SITE_ID = 1
-SECRET_KEY = '-)@0nd&u%*ugt0an^%tbaad+t5_(aoi+)o2t=&zkix5++m&fsr'
+SECRET_KEY = environ['SECRET_KEY']
 WSGI_APPLICATION = 'manage.application'
 
 #Static/Media

@@ -1,4 +1,4 @@
-import os
+from os import environ
 
 from memcacheify import memcacheify
 import dj_database_url
@@ -33,15 +33,15 @@ INTERNAL_IPS = ('0.0.0.0',)
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "s.shanabrook@gmail.com"
-EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD', '')
 EMAIL_USE_TLS = True
 
 ########
 #Storage
 ########
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_ACCESS_KEY_ID = environ.get('AWS_ACCESS_KEY_ID', '')
+AWS_SECRET_ACCESS_KEY = environ.get('AWS_SECRET_ACCESS_KEY', '')
 AWS_STORAGE_BUCKET_NAME = 'canadanewyork'
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 

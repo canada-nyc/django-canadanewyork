@@ -59,7 +59,7 @@ INSTALLED_APPS += (
   )
 
 SITE_ID = 1
-SECRET_KEY = environ['SECRET_KEY']
+SECRET_KEY = environ.get('SECRET_KEY', '*YSHFUIH&GAHJBJCZKCY)P#R')
 WSGI_APPLICATION = 'manage.application'
 
 #Static/Media

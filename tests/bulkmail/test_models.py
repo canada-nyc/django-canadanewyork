@@ -6,7 +6,7 @@ from canada.apps.bulkmail import admin
 from .factories import MessageFactory
 
 
-@override_settings(RQ=False)
+#@override_settings(RQ=False)
 class MessageTest(TestCase):
     def test_send_email(self):
         # Create message with 4 recipients

@@ -1,4 +1,4 @@
-from os import path
+from os import path, environ
 
 from django.conf.global_settings import *
 
@@ -29,6 +29,16 @@ INSTALLED_APPS = (
 TEMPLATE_CONTEXT_PROCESSORS += ('canada.context_processors.image_size',)
 
 ########
+#Email
+########
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "s.shanabrook@gmail.com"
+EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_USE_TLS = True
+
+
+########
 #External Packages
 ########
 INSTALLED_APPS += (
@@ -36,7 +46,6 @@ INSTALLED_APPS += (
     'grappelli',
     'sorl.thumbnail',
     'smart_selects',
-    'storages',
     'bootstrapform',
   )
 
@@ -59,7 +68,7 @@ INSTALLED_APPS += (
   )
 
 SITE_ID = 1
-SECRET_KEY = '-)@0nd&u%*ugt0an^%tbaad+t5_(aoi+)o2t=&zkix5++m&fsr'
+SECRET_KEY = environ.get('SECRET_KEY', '*YSHFUIH&GAHJBJCZKCY)P#R')
 WSGI_APPLICATION = 'manage.application'
 
 #Static/Media

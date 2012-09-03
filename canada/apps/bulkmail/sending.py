@@ -28,7 +28,3 @@ def send_email(recipient, sender, subject, message):
                                               to=[recipient.email])
             msg.attach_alternative(html_content, "text/html")
             msg.send()
-
-
-def func_test(*args):
-    print args

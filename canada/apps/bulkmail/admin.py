@@ -1,7 +1,15 @@
 from django.contrib import admin
 
 from .models import ContactList, Contact, Message
-from .sending import send_messages
+from .sending import q, send_email
+
+
+def send_messages(modeladmin=None, request=None, queryset=None):
+    for message in queryset:
+        for recipient in message.contact_list.contacts.all():
+            args = [recipient, 'gallery@canadanewyork.com', message.subject,
+                      message.body]
+            q.enqueue(send_email, *args)
 
 
 class ContactAdmin(admin.ModelAdmin):

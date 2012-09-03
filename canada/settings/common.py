@@ -29,6 +29,16 @@ INSTALLED_APPS = (
 TEMPLATE_CONTEXT_PROCESSORS += ('canada.context_processors.image_size',)
 
 ########
+#Email
+########
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "s.shanabrook@gmail.com"
+EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_USE_TLS = True
+
+
+########
 #External Packages
 ########
 INSTALLED_APPS += (

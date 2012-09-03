@@ -13,7 +13,6 @@ TEMPLATE_DEBUG = DEBUG
 ########
 
 CACHES = memcacheify()  # http://rdegges.github.com/django-heroku-memcacheify/
-# Run heroku addons:add memcachier:25 for free 25m
 MIDDLEWARE_CLASSES = ('django.middleware.gzip.GZipMiddleware',) + MIDDLEWARE_CLASSES
 
 ########
@@ -27,14 +26,6 @@ DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
 INSTALLED_APPS += ('gunicorn',)
 INTERNAL_IPS = ('0.0.0.0',)
 
-########
-#Email
-########
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_HOST_USER = "s.shanabrook@gmail.com"
-EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD', '')
-EMAIL_USE_TLS = True
 
 ########
 #Storage

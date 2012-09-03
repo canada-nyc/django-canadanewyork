@@ -21,3 +21,9 @@ Pillow==1.7.7
 ##
 boto==2.5.2
 django-storages==1.1.5
+
+##
+#Queue
+##
+rq==0.3.2
+git+git://github.com/nvie/rq-dashboard.git

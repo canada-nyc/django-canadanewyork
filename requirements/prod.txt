@@ -5,5 +5,4 @@ gunicorn==0.14.6
 newrelic==1.4.0.137
 psycopg2==2.4.5
 dj-database-url==0.2.1
-rq==0.3.1
 

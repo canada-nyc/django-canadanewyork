@@ -6,3 +6,4 @@ sqlite.db
 /cache/
 /whoosh_index/
 .idea
+.DS_Store

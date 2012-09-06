@@ -1,15 +1,17 @@
+import django_rq
+
 from django.contrib import admin
 
 from .models import ContactList, Contact, Message
-from .sending import q, send_email
+from .sending import send_email
 
 
 def send_messages(modeladmin=None, request=None, queryset=None):
     for message in queryset:
         for recipient in message.contact_list.contacts.all():
-            args = [recipient, 'gallery@canadanewyork.com', message.subject,
-                      message.body]
-            q.enqueue(send_email, *args)
+            args = [recipient, 'gallery@canadanewyork.com', message,
+                    request.get_host()]
+            django_rq.enqueue(send_email, *args)
 
 
 class ContactAdmin(admin.ModelAdmin):

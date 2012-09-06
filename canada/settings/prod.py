@@ -1,4 +1,4 @@
-from os import environ
+import os
 
 from memcacheify import memcacheify
 import dj_database_url
@@ -38,9 +38,15 @@ AWS_STORAGE_BUCKET_NAME = 'canadanewyork'
 STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
 
 ########
-#Background Tasks
+#Queue
 ########
-RQ = True
+RQ_QUEUES = {
+    'default': {
+        'URL': os.getenv('REDISTOGO_URL'),
+        'DB': 0,
+    },
+}
+
 
 ########
 #Security

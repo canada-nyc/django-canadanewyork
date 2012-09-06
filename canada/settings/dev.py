@@ -34,9 +34,19 @@ INTERNAL_IPS = ('0.0.0.0', '127.0.0.1',)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ########
+#Queue
+#######
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+    },
+}
+
+########
 #Testing
 #######
 TEST_RUNNER = 'discover_runner.DiscoverRunner'
 TEST_DISCOVER_TOP_LEVEL = path.normpath(path.join(SITE_ROOT, '..'))
 TEST_DISCOVER_ROOT = path.join(TEST_DISCOVER_TOP_LEVEL, 'tests')
-RQ = True

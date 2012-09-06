@@ -1,7 +1,6 @@
 Django==1.4
 Markdown==2.2.0
-South==0.7.5
-rq==0.2.1
+South==0.7.6
 django-bootstrap-form==2.0.5
 yolk==0.4.3
 
@@ -22,3 +21,10 @@ Pillow==1.7.7
 ##
 boto==2.5.2
 django-storages==1.1.5
+
+##
+#Queue
+##
+rq==0.3.2
+redis==2.6.1
+django-rq==0.3.1

@@ -13,7 +13,7 @@ def send_email(recipient_model, sender_email, message_model, domain):
             html_content = get_template('bulkmail/message.html').render(Context(context))
             msg = mail.EmailMultiAlternatives(message_model.subject,
                                               text_content,
-                                              message_model,
+                                              sender_email,
                                               to=[recipient_model.email])
             msg.attach_alternative(html_content, "text/html")
             msg.send()

@@ -27,3 +27,4 @@ django-storages==1.1.5
 ##
 rq==0.3.2
 redis==2.6.1
+django-rq==0.3.1

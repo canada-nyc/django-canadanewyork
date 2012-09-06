@@ -38,9 +38,14 @@ AWS_STORAGE_BUCKET_NAME = 'canadanewyork'
 STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
 
 ########
-#Background Tasks
+#Queue
 ########
-RQ = True
+RQ_QUEUES = {
+    'default': {
+        'URL': os.getenv('REDISTOGO_URL')
+    },
+}
+
 
 ########
 #Security

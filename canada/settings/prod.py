@@ -42,7 +42,8 @@ STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
 ########
 RQ_QUEUES = {
     'default': {
-        'URL': os.getenv('REDISTOGO_URL')
+        'URL': os.getenv('REDISTOGO_URL'),
+        'DB': 0,
     },
 }
 

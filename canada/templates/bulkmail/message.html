@@ -46,8 +46,8 @@
 </head>
 <body>
 <h1>{{ message.subject }}</h1>
-<img src="{{ message.image.url }}" width="300"/>
+<img class="image_fix" src="{{ message.image.url }}" width="300"/>
 <p>{{ message.body }}</p>
-<small><a href="{{ domain }}{{ recipient.get_delete_url }}"> Unsubscribe</a></small>
+<small><a href="{{ domain }}{{ recipient.get_delete_url }}" target="_blank"> Unsubscribe</a></small>
 </body>
 </html>

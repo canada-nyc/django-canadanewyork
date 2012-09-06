@@ -12,6 +12,6 @@ urlpatterns = patterns('',
             template_name='bulkmail/message.html')),
        name='message-detail'
     ),
-    url(r'^info/contact/delete/(?P<email>.*)$', ContactDelete.as_view(),
+    url(r'^bulkmail/contact/(?P<email>.*)/delete/$', ContactDelete.as_view(),
         name='contact-delete')
 )

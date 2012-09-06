@@ -44,6 +44,13 @@ RQ_QUEUES = {
     },
 }
 
+
+########
+#Security
+########
+CSRF_COOKIE_DOMAIN = 'localhost'
+
+
 ########
 #Testing
 #######

@@ -2,10 +2,10 @@
 <body>
 {{ message.subject }}
 <br>
-<img src="{{ domain }}{{ message.image.url }}" width="300"/>
+<img src="{{ message.image.url }}" width="300"/>
 
 <br>
 {{ message.body }}
-<a href={{ domain }}{{ recipient.get_delete_url }}> Unsubscribe</a>
+<a href="{{ domain }}{{ recipient.get_delete_url }}"> Unsubscribe</a>
 </body>
 </html>

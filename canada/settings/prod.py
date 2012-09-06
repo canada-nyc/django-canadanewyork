@@ -1,4 +1,4 @@
-from os import environ
+import os
 
 from memcacheify import memcacheify
 import dj_database_url

@@ -9,8 +9,8 @@ from .sending import send_email
 def send_messages(modeladmin=None, request=None, queryset=None):
     for message in queryset:
         for recipient in message.contact_list.contacts.all():
-            args = [recipient, 'gallery@canadanewyork.com', message.subject,
-                      message.body]
+            args = [recipient, 'gallery@canadanewyork.com', message,
+                    request.get_host()]
             django_rq.enqueue(send_email, *args)
 
 

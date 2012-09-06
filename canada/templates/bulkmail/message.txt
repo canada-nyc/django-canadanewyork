@@ -3,5 +3,4 @@
 
 {{ message.body }}
 
-{% load bulkmail_tags %}
-Unsubscribe: {{ recipient.get_delete_url|full_domain }}
+Unsubscribe: {{ domain }}{{ recipient.get_delete_url }}

@@ -1,0 +1,27 @@
+@import "bootstrap/bootstrap.less";
+@import "theme.less";
+
+
+// Sticky Footer
+@footer_height: 40px;
+
+html,body{
+    height: 100%
+}
+
+#everything {
+    min-height: 100%;
+    position:relative;
+}
+
+#body {
+    padding-bottom: @footer_height;
+}
+
+footer{
+    bottom: 0;
+    height: @footer_height;
+    left: 0;
+    position: absolute;
+    right: 0;
+}

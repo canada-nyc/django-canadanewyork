@@ -1,1 +1,1 @@
-lessc -x canada/static/less/bootstrap/bootstrap.less canada/static/css/bootstrap.css
+lessc -x canada/static/less/canada.less canada/static/css/canada.css

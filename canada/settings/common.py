@@ -26,6 +26,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
+STATICFILES_FINDERS = (
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+)
 ########
 #CANADA
 ########
@@ -67,9 +71,21 @@ INSTALLED_APPS += (
     'smart_selects',
     'bootstrapform',
     'django_rq',
-)
+    'compressor',)
 
 GRAPPELLI_ADMIN_TITLE = 'CANADA'
+
+STATICFILES_FINDERS += ('compressor.finders.CompressorFinder',)
+COMPRESS_ENABLED = True
+COMPRESS_CSS_FILTERS = [
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.CSSMinFilter'
+]
+
+COMPRESS_PRECOMPILERS = (
+    ('text/less', 'lessc -x {infile} {outfile}'),
+)
+COMPRESS_OFFLINE = True
 
 
 ########

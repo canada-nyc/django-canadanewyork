@@ -85,7 +85,6 @@ COMPRESS_CSS_FILTERS = [
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc -x {infile} {outfile}'),
 )
-COMPRESS_OFFLINE = True
 
 
 ########

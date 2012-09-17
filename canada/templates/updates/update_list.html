@@ -15,3 +15,6 @@
  {% endfor %}
 </section>
 {% endblock %}
+{% block js %}
+ {% include "_base/images.html" with images=update.images.all js="True" %}
+{% endblock %}

@@ -12,3 +12,7 @@
  {% include "_base/related_models.html" with artists=exhibition.artists.all %}
 </article>
 {% endblock %}
+
+{% block js %}
+ {% include "_base/images.html" with images=exhibition.images.all js="True" %}
+{% endblock js %}

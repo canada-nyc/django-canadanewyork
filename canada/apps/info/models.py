@@ -25,7 +25,3 @@ class Info(models.Model):
 
     def __unicode__(self):
         return str(self.date_added)
-
-    @permalink
-    def get_absolute_url(self):
-        return ('info-detail', (), {'pk': self.pk})

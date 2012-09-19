@@ -16,17 +16,23 @@ DATABASES = {
     }
 
 ########
-#Debug Toolbar
+#Debug
 ########
-MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+MIDDLEWARE_CLASSES += (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django_pdb.middleware.PdbMiddleware',
+)
 INSTALLED_APPS += (
     'debug_toolbar',
     'django_extensions',
+    'django_pdb',
     )
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
 }
-INTERNAL_IPS = ('0.0.0.0', '127.0.0.1',)
+INTERNAL_IPS = ('127.0.0.1',)
+#POST_MORTEM = True
+
 
 ########
 #Email

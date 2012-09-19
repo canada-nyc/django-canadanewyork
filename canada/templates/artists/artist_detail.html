@@ -16,3 +16,7 @@
 {% block js %}
 {% include "_base/images.html" with images=artist.images.all js="True" %}
 {% endblock js %}
+
+{% block css %}
+{% include "_base/images.html" with images=artist.images.all css="True" %}
+{% endblock css %}

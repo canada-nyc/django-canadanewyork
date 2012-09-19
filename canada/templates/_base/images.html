@@ -2,9 +2,7 @@
 {% load static from staticfiles %}
 
 {% if images %}
- {% if not js %}
-  <div id="galleria"></div>
- {% else %}
+ {% if js %}
   <script src="{% static "canada/js/galleria.js" %}"></script>
   <script src="{% static "canada/js/galleria.classic.js" %}"></script>
   <script>
@@ -24,9 +22,13 @@
     dataSource: data
    });
   Galleria.configure({
-   thumbnails: false
+   thumbnails: false,
+   _toggleInfo: false
   });
   </script>
-
+ {% elif css %}
+ <link type="text/css" rel="stylesheet" href="{% static "canada/css/galleria.classic.css" %}">
+ {% else %}
+ <div id="galleria"></div>
  {% endif %}
 {% endif %}

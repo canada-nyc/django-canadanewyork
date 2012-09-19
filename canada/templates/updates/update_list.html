@@ -22,3 +22,7 @@
 {% block js %}
  {% include "_base/images.html" with images=update.images.all js="True" %}
 {% endblock %}
+
+{% block css %}
+ {% include "_base/images.html" with images=update.images.all css="True" %}
+{% endblock css %}

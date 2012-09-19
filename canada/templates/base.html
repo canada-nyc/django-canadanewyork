@@ -11,14 +11,11 @@
  <link type="text/less" rel="stylesheet" href="{% static "canada/less/bootstrap/bootstrap.less" %}">
  <link type="text/less" rel="stylesheet" href="{% static "canada/less/canada.less" %}">
  {% endcompress %}
- <link type="text/css" rel="stylesheet" href="{% static "canada/css/galleria.classic.css" %}">
-
+ {% block css %}{% endblock %}
  <!--[if lt IE 9]>
   <script src="{% static "canada/js/html5shiv.min.js" %}"></script>
  <![endif]-->
- <style>
-    #galleria{ width: 700px; height: 400px; background: #000 }
-</style>
+
 
 </head>
 <body>

@@ -1,7 +1,5 @@
 Django==1.4
-Markdown==2.2.0
 South==0.7.6
-django-bootstrap-form==2.0.5
 yolk==0.4.3
 
 ##
@@ -21,6 +19,9 @@ Pillow==1.7.7
 ##
 boto==2.5.2
 django-storages==1.1.5
+django-compressor==1.2
+lxml==3.0alpha2
+BeautifulSoup==3.2.1
 
 ##
 #Queue
@@ -28,3 +29,9 @@ django-storages==1.1.5
 rq==0.3.2
 redis==2.6.1
 django-rq==0.3.1
+
+##
+#Templates
+##
+git+git://github.com/trentm/django-markdown-deux.git@61d20148eb7edf7b2bd9b783afd716020aac487b
+django-bootstrap-form==2.0.5

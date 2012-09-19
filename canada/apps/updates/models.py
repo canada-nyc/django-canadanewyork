@@ -5,13 +5,16 @@ from django.db import models
 from django.db.models import permalink
 from django.template.defaultfilters import slugify
 
+from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
+
 from ..models import BasePhoto
 
 
 class Update(models.Model):
 
     name = models.CharField(max_length=30, unique_for_year='post_date')
-    description = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True,
+                                   help_text=markdown_allowed())
     post_date = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(blank=True, editable=False)
 

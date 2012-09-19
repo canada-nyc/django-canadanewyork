@@ -15,10 +15,12 @@ TEMPLATE_DEBUG = DEBUG
 CACHES = memcacheify()  # http://rdegges.github.com/django-heroku-memcacheify/
 MIDDLEWARE_CLASSES = ('django.middleware.gzip.GZipMiddleware',) + MIDDLEWARE_CLASSES
 
+
 ########
 #Database
 ########
 DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
+
 
 ########
 #Server
@@ -37,6 +39,11 @@ AWS_SECRET_ACCESS_KEY = environ['AWS_SECRET_ACCESS_KEY']
 AWS_STORAGE_BUCKET_NAME = 'canadanewyork'
 STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
 
+#Compress
+COMPRESS_STORAGE = STATICFILES_STORAGE
+COMPRESS_URL = 'https://{}.s3.amazonaws.com/'.format(AWS_STORAGE_BUCKET_NAME)
+
+
 ########
 #Queue
 ########
@@ -52,5 +59,3 @@ RQ_QUEUES = {
 #Security
 ########
 SECURE_FRAME_DENY = True
-TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.csrf',)
-CSRF_COOKIE_DOMAIN = '.herokuapp.com'

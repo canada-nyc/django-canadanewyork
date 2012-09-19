@@ -11,4 +11,12 @@
  {% if artist.get_press %}<p><a href={{ artist.get_press_url }}>List of Press</a>{% endif %}
  {% include "_base/related_models.html" with exhibitions=artist.exhibitions.all %}
 </article>
-{% endblock %}
+{% endblock body %}
+
+{% block js %}
+{% include "_base/images.html" with images=artist.images.all js="True" %}
+{% endblock js %}
+
+{% block css %}
+{% include "_base/images.html" with images=artist.images.all css="True" %}
+{% endblock css %}

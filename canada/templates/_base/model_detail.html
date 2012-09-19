@@ -1,19 +1,20 @@
 {% load canada_filters %}
+
 {% with model_name=model|getattribute:"_meta"|getattribute:"module_name" %}
-{% if model_name == "artist" %}
- {{ model.first_name }} {{ model.last_name }}
-{% endif %}
-
-{% if model_name == "exhibition" %}
- {% if not extra_info %}{{ model.name }}
- {% else %}
- {% include "_base/full_date.html" with date=model.start_date %} - {% include "_base/full_date.html" with date=model.end_date %}
+ {% if model_name == "artist" %}
+  {{ model.first_name }} {{ model.last_name }}
  {% endif %}
-{% endif %}
 
-{% if model_name == "press" %}
- {% if not extra_info %}{{ model.publisher }} | <em>{{ model.title }}</em>
- {% else %}{% include "_base/full_date.html" with date=model.date %}{% endif %}
-{% endif %}
+ {% if model_name == "exhibition" %}
+  {% if not extra_info %}{{ model.name }}
+  {% else %}
+  {% include "_base/full_date.html" with date=model.start_date %} - {% include "_base/full_date.html" with date=model.end_date %}
+  {% endif %}
+ {% endif %}
+
+ {% if model_name == "press" %}
+  {% if not extra_info %}{{ model.publisher }} | <em>{{ model.title }}</em>
+  {% else %}{% include "_base/full_date.html" with date=model.date %}{% endif %}
+ {% endif %}
 {% endwith %}
 

@@ -1,7 +1,8 @@
 from django.db import models
-from django.db.models import permalink
 
-from ..fields import UniqueBooleanField
+from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
+
+from .._base.fields import UniqueBooleanField
 
 
 class Info(models.Model):
@@ -12,10 +13,8 @@ class Info(models.Model):
     )
     text = models.TextField(
         max_length=800,
-        help_text=('Show in contact/info page<br>'
-                   '<em>To add style:</em> use markdown('
-                   '<a href="http://daringfireball.net/projects/markdown/basics"'
-                   ' target="_blank">reference</a>)'),
+        help_text=('Show in contact/info page<br>' +
+                   markdown_allowed()),
         blank=True,
         null=True,
     )
@@ -25,7 +24,3 @@ class Info(models.Model):
 
     def __unicode__(self):
         return str(self.date_added)
-
-    @permalink
-    def get_absolute_url(self):
-        return ('info-detail', (), {'pk': self.pk})

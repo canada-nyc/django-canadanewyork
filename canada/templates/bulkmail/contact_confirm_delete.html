@@ -1,8 +1,11 @@
 {% extends "base.html" %}
-{% block title %}Remove Email{{ block.super }}{% endblock %}
+
+{% block title %}Unsubscribe{{ block.super }}{% endblock %}
+
 {% block body %}
-<p>Remove {{ contact.email }} from our contact list?
+<h1>Unsubscribe</h1>
+<p>Remove <em>{{ contact.email }}</em> from our contact list?</p>
 <form method="POST">
 {% csrf_token %}
-<input type="submit" value="Submit"/>
+<button type="submit" class="btn">Yep.</button>
 </form>{% endblock %}

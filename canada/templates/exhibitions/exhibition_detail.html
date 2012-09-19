@@ -1,14 +1,27 @@
 {% extends "base.html" %}
+
 {% load thumbnail %}
-{% load markup %}
+{% load markdown_deux_tags %}
+
 {% block title %}{{ exhibition.name }}{{ block.super }}{% endblock %}
+
 {% block body %}
 <article>
- <h1>{% include "_base/model_detail.html" with model=exhibition %}</h1>
- <p>{% include "_base/model_detail.html" with model=exhibition extra_info="True" %}</p>
+ <header>
+  <h1>{% include "_base/model_detail.html" with model=exhibition %}</h1>
+  <p>{% include "_base/model_detail.html" with model=exhibition extra_info="True" %}</p>
+ </header>
  {{ exhibition.description|markdown }}
  {% include "_base/images.html" with images=exhibition.images.all %}
  {% if exhibition.get_press %}<p><a href={{ exhibition.get_press_url }}>List of Press</a>{% endif %}
  {% include "_base/related_models.html" with artists=exhibition.artists.all %}
 </article>
 {% endblock %}
+
+{% block js %}
+ {% include "_base/images.html" with images=exhibition.images.all js="True" %}
+{% endblock js %}
+
+{% block css %}
+ {% include "_base/images.html" with images=exhibition.images.all css="True" %}
+{% endblock css %}

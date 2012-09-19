@@ -6,8 +6,7 @@ from django.template.defaultfilters import slugify
 from django.core.exceptions import ValidationError
 from django.db.models import Q
 
-
-from ..models import BasePhoto
+from .._base.models import BasePhoto
 
 
 class VisibleManager(models.Manager):
@@ -42,7 +41,7 @@ class Artist(models.Model):
         super(Artist, self).save(*args, **kwargs)
 
     def clean(self):
-        if self.resume and self.resume._file.content_type != 'application/pdf':
+        if self.resume and self.resume._file and self.resume._file.content_type != 'application/pdf':
             raise ValidationError('You uploaded a {}. A PDF is required'\
                 .format(self.resume._file.content_type.split('/')[1]))
 

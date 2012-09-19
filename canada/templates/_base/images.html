@@ -1,16 +1,34 @@
 {% load thumbnail %}
+{% load static from staticfiles %}
+
 {% if images %}
-<div id="myCarousel" class="carousel slide">
- <!-- Carousel items -->
- <div class="carousel-inner">
-  {% for image in images %}
-   {% thumbnail image.image image_size as im %}
-   <div class="item{% if forloop.first %} active{% endif %}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/></div>
-   {% endthumbnail %}
-  {% endfor %}
- </div>
- <!-- Carousel nav -->
- <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
- <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
-</div>
+ {% if js %}
+  <script src="{% static "canada/js/galleria.js" %}"></script>
+  <script src="{% static "canada/js/galleria.classic.js" %}"></script>
+  <script>
+   var data = [
+    {% for image in images %}
+     {% thumbnail image.image image_size as im %}
+     {
+      image: '{{ im.url }}',
+      big: 'big.jpg',
+      title: '{{ image.title }}',
+      description: '{{ image.caption }}',
+     }{% if not forloop.last %},{% endif %}
+     {% endthumbnail %}
+    {% endfor %}
+   ];
+   Galleria.run('#galleria', {
+    dataSource: data
+   });
+  Galleria.configure({
+   thumbnails: false,
+   _toggleInfo: false
+  });
+  </script>
+ {% elif css %}
+ <link type="text/css" rel="stylesheet" href="{% static "canada/css/galleria.classic.css" %}">
+ {% else %}
+ <div id="galleria"></div>
+ {% endif %}
 {% endif %}

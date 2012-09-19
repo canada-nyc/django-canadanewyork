@@ -4,14 +4,17 @@ from django.db import models
 from django.db.models import permalink
 from django.template.defaultfilters import slugify
 from django.core.exceptions import ValidationError
+from django.db.models.loading import get_model
+
+from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 
 from ..artists.models import Artist
-from ..models import BasePhoto
+from .._base.models import BasePhoto
 
 
 class Exhibition(models.Model):
     name = models.CharField(max_length=30, unique_for_year='start_date')
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, help_text=markdown_allowed())
     artists = models.ManyToManyField(Artist, related_name='exhibitions')
     start_date = models.DateField()
     end_date = models.DateField()
@@ -43,8 +46,7 @@ class Exhibition(models.Model):
             return self.images.all()[0]
 
     def get_press(self):
-        from ..press.models import Press
-        return Press.objects.filter(exhibition=self)
+        return get_model('press', 'Press').objects.filter(exhibition=self)
 
     @permalink
     def get_press_url(self):

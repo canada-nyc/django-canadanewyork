@@ -1,6 +1,7 @@
+{% load canada_filters %}
+
 <dl>
 {% for model in models %}
- {% load canada_filters %}
  {% with date=model|getattribute:date_atr %}
   {% ifchanged date.year %}<dt><h2>{{ date.year }}</h2></dt>{% endifchanged %}
   <dd><a href="{{ model.get_absolute_url }}">

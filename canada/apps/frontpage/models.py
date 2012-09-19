@@ -5,9 +5,11 @@ from django.db.models import permalink
 from django.core.exceptions import ValidationError
 
 from smart_selects.db_fields import ChainedForeignKey
+from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
+
 
 from ..exhibitions.models import Exhibition, ExhibitionPhoto
-from ..fields import UniqueBooleanField
+from .._base.fields import UniqueBooleanField
 
 
 class Frontpage(models.Model):
@@ -29,10 +31,8 @@ class Frontpage(models.Model):
 
     text = models.TextField(
         max_length=800,
-        help_text=('Will be added underneath any exhibition info<br>'
-                   '<em>To add style:</em> use markdown('
-                   '<a href="http://daringfireball.net/projects/markdown/basics"'
-                   ' target="_blank">reference</a>)'),
+        help_text=('Will be added underneath any exhibition info<br>' +
+                   markdown_allowed()),
         blank=True,
         null=True,
     )

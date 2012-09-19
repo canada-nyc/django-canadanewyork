@@ -1,7 +1,5 @@
 Django==1.4
-Markdown==2.2.0
 South==0.7.6
-django-bootstrap-form==2.0.5
 yolk==0.4.3
 
 ##
@@ -31,3 +29,9 @@ BeautifulSoup==3.2.1
 rq==0.3.2
 redis==2.6.1
 django-rq==0.3.1
+
+##
+#Templates
+##
+git+git://github.com/trentm/django-markdown-deux.git@61d20148eb7edf7b2bd9b783afd716020aac487b
+django-bootstrap-form==2.0.5

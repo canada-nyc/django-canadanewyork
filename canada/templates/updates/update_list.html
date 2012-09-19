@@ -1,13 +1,16 @@
 {% extends "base.html" %}
-{% load markup %}
+
+{% load markdown_deux_tags %}
+
 {% block title %}Updates{{ block.super }}{% endblock %}
+
 {% block body %}
 <section>
  {% for update in update_list %}
   <article>
    <header>
     <h1 id="{{ update.slug }}">{{ update.name }}</h1>
-    {% include "_base/full_date.html" with date=update.post_date %}
+    <p>{% include "_base/full_date.html" with date=update.post_date %}
    </header>
    {% include "_base/images.html" with images=update.images.all %}
    {{ update.description|markdown }}
@@ -15,6 +18,7 @@
  {% endfor %}
 </section>
 {% endblock %}
+
 {% block js %}
  {% include "_base/images.html" with images=update.images.all js="True" %}
 {% endblock %}

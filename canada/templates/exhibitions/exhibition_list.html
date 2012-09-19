@@ -1,5 +1,7 @@
 {% extends "base.html" %}
+
 {% block title %}Exhibitions{{ block.super }}{% endblock %}
+
 {% block body %}
 <h1>Exhibitions</h1>
 {% include "_base/model_year_list.html" with models=exhibition_list date_atr='start_date' %}

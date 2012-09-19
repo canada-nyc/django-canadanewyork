@@ -6,8 +6,7 @@ from django.template.defaultfilters import slugify
 from django.core.exceptions import ValidationError
 from django.db.models import Q
 
-
-from ..models import BasePhoto
+from .._base.models import BasePhoto
 
 
 class VisibleManager(models.Manager):

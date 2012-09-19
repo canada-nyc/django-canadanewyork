@@ -1,5 +1,7 @@
 {% extends "base.html" %}
+
 {% block title %}Press{{ block.super }}{% endblock %}
+
 {% block body %}
 <h1><a href={{ object.get_absolute_url }}>{{ object }}</a> |Press</h1>
 {% include "_base/model_year_list.html" with models=object.get_press date_atr="date" only %}

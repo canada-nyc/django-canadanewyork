@@ -1,11 +1,16 @@
 {% extends "base.html" %}
+
 {% load thumbnail %}
 {% load canada_filters %}
+
 {% block title %}{{ press.title }}{{ block.super }}{% endblock title %}
+
 {% block body %}
 <article>
-<h1>{% include "_base/model_detail.html" with model=press %}</h1>
-<p>{% include "_base/model_detail.html" with model=press extra_info="True"%}
+<header>
+ <h1>{% include "_base/model_detail.html" with model=press %}</h1>
+ <p>{% include "_base/model_detail.html" with model=press extra_info="True"%}
+</header>
 {% if press.image %}
  {% thumbnail press.image press.image_size as im %}
   <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>

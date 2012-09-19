@@ -46,7 +46,7 @@ INSTALLED_APPS = (
     'canada.apps.updates',
     'canada.apps.frontpage',
     'canada.apps.info',
-    'canada.apps.base'
+    'canada.apps._base'
 )
 
 TEMPLATE_CONTEXT_PROCESSORS += ('canada.context_processors.image_size',)
@@ -71,7 +71,9 @@ INSTALLED_APPS += (
     'smart_selects',
     'bootstrapform',
     'django_rq',
-    'compressor',)
+    'compressor',
+    'markdown_deux',
+)
 
 GRAPPELLI_ADMIN_TITLE = 'CANADA'
 
@@ -86,6 +88,11 @@ COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc -x {infile} {outfile}'),
 )
 
+MARKDOWN_DEUX_STYLES = {
+    "default": {
+        "safe_mode": "escape",
+    },
+}
 
 ########
 #Django Customize

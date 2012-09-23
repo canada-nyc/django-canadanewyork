@@ -4,7 +4,7 @@ from django import forms
 from sorl.thumbnail.admin import AdminImageMixin
 
 from .models import Exhibition, ExhibitionPhoto
-from .._base.admin import image_file
+from ..base.admin import image_file
 
 
 class ExhibitionPhotoInlineForm(forms.ModelForm):

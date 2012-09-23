@@ -9,7 +9,7 @@ from django.db.models.loading import get_model
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 
 from ..artists.models import Artist
-from .._base.models import BasePhoto
+from ..base.models import BasePhoto
 
 
 class Exhibition(models.Model):
@@ -26,9 +26,9 @@ class Exhibition(models.Model):
     def __unicode__(self):
         return '{}({})'.format(self.name, self.start_date.year)
 
-    def save(self):
+    def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        super(Exhibition, self).save()
+        super(Exhibition, self).save(*args, **kwargs)
 
     @permalink
     def get_absolute_url(self):

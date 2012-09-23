@@ -1,0 +1,1215 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"rel",
+				"rel_path"
+			],
+			[
+				"def",
+				"def	Function"
+			],
+			[
+				"Django",
+				"DjangoDefault	(global, class)"
+			],
+			[
+				"SITE",
+				"SITE_ROOT"
+			],
+			[
+				"prop",
+				"property	(builtin, function)"
+			],
+			[
+				"se",
+				"self"
+			],
+			[
+				"Front",
+				"FrontpageFactory	(imported, class)"
+			],
+			[
+				"Ex",
+				"ExhibitionFactory	(imported, instance)"
+			],
+			[
+				"Exhib",
+				"ExhibitionFactory"
+			],
+			[
+				"Arti",
+				"ArtistFactory  (class)"
+			],
+			[
+				"Exhibi",
+				"ExhibitionPhotoFactory"
+			],
+			[
+				"Exhibition",
+				"ExhibitionPhoto	(imported, instance)"
+			],
+			[
+				"Artist",
+				"ArtistPhotoFactory	(global, class)"
+			],
+			[
+				"T",
+				"True	(builtin, instance)"
+			],
+			[
+				"Art",
+				"ArtistPhoto  (class)"
+			],
+			[
+				"help",
+				"help_text"
+			],
+			[
+				"get_",
+				"get_object(args, kwargs)	(attribute, function)"
+			],
+			[
+				"STAT",
+				"STATICFILES_FINDERS"
+			],
+			[
+				"intra",
+				"intrade_fields	(local, instance)"
+			],
+			[
+				"com",
+				"completion_date  (variable)"
+			],
+			[
+				"Gr",
+				"GroupFactory  (class)"
+			],
+			[
+				"Stock",
+				"StockGroupFactory  (class)"
+			],
+			[
+				"relat",
+				"relative_bid"
+			],
+			[
+				"Gro",
+				"GroupFactory	(global, class)"
+			],
+			[
+				"Fac",
+				"Factory"
+			],
+			[
+				"Sto",
+				"StockIntradeFactory"
+			],
+			[
+				"err",
+				"error_soup	(local, instance)"
+			],
+			[
+				"parse",
+				"parse_only"
+			],
+			[
+				"fin",
+				"find_greatest_difference"
+			],
+			[
+				"sync",
+				"sync_stockgroups()	(attribute, function)"
+			],
+			[
+				"decim",
+				"decimal_value"
+			],
+			[
+				"Test",
+				"TestCase	(imported, instance)"
+			],
+			[
+				"site",
+				"site_id	(local, instance)"
+			],
+			[
+				"pro",
+				"property	New Property"
+			],
+			[
+				"TEMPLATE",
+				"TEMPLATE_CONTEXT_PROCESSORS"
+			],
+			[
+				"redis",
+				"redis_url	(global, instance)"
+			],
+			[
+				"url",
+				"urlparse	(imported, module)"
+			],
+			[
+				"sen",
+				"send_messages	(global, function)"
+			],
+			[
+				"artist",
+				"artists__contains"
+			],
+			[
+				"get",
+				"get_queryset"
+			],
+			[
+				"uniq",
+				"unique_for_year"
+			],
+			[
+				"Conta",
+				"ContactListFactory	(global, class)"
+			],
+			[
+				"asser",
+				"assertEqual  (function)"
+			],
+			[
+				"imag",
+				"image_path	(local, function)"
+			],
+			[
+				"property",
+				"property	(builtin, function)"
+			],
+			[
+				"image",
+				"image_width	(attribute, instance)"
+			],
+			[
+				"cre",
+				"create_django	(local, instance)"
+			],
+			[
+				"folder",
+				"folder	(local, instance)"
+			],
+			[
+				"PRO",
+				"PROJECT_ROOT	(local, instance)"
+			],
+			[
+				"V",
+				"VisibleManager	(global, class)"
+			],
+			[
+				"max",
+				"max_length"
+			],
+			[
+				"all",
+				"all_true	(local, instance)"
+			],
+			[
+				"mode",
+				"model_instance	(local, instance)"
+			],
+			[
+				"un",
+				"unique_boolean	(attribute, instance)"
+			],
+			[
+				"assert",
+				"assertEqual"
+			],
+			[
+				"uni",
+				"unique_boolean"
+			],
+			[
+				"Un",
+				"UniqueBooleanModel	(global, class)"
+			],
+			[
+				"mod",
+				"model_instance	(local, instance)"
+			],
+			[
+				"send",
+				"send_email"
+			],
+			[
+				"rec",
+				"recipients"
+			],
+			[
+				"Cont",
+				"ContactFactory"
+			],
+			[
+				"net",
+				"network_name"
+			],
+			[
+				"out",
+				"output_file"
+			],
+			[
+				"contact",
+				"contact_list"
+			],
+			[
+				"Fa",
+				"Factory"
+			],
+			[
+				"re",
+				"recipients"
+			],
+			[
+				"Contact",
+				"ContactAdmin"
+			],
+			[
+				"s",
+				"start_date"
+			],
+			[
+				"end",
+				"end_date"
+			],
+			[
+				"ass",
+				"assertIsInstance"
+			],
+			[
+				"update",
+				"updated_fields"
+			],
+			[
+				"upd",
+				"updated_fields"
+			],
+			[
+				"up",
+				"updated_fields"
+			],
+			[
+				"fi",
+				"field"
+			],
+			[
+				"F",
+				"FIELD_TAGS"
+			],
+			[
+				"ask",
+				"ask_price"
+			],
+			[
+				"bid",
+				"bid_price"
+			],
+			[
+				"ch",
+				"check_tags"
+			],
+			[
+				"as",
+				"ask_volume"
+			],
+			[
+				"bi",
+				"bid"
+			],
+			[
+				"bid_",
+				"bid_volume"
+			],
+			[
+				"b",
+				"bid_price"
+			],
+			[
+				"S",
+				"SITE_NAME_CHOICES"
+			],
+			[
+				"P",
+				"PROJECT"
+			],
+			[
+				"de",
+				"default"
+			],
+			[
+				"exhi",
+				"exhibition"
+			],
+			[
+				"exh",
+				"exhibition"
+			],
+			[
+				"exhib",
+				"exhibition_image"
+			],
+			[
+				"Fr",
+				"frontpage"
+			],
+			[
+				"log",
+				"log_path"
+			],
+			[
+				"Exh",
+				"ExhibitionList"
+			],
+			[
+				"bulk",
+				"bulkmail_contact"
+			],
+			[
+				"press",
+				"press_urls"
+			],
+			[
+				"indent",
+				"indent_string"
+			],
+			[
+				"fo",
+				"file_location_list"
+			],
+			[
+				"sy",
+				"sync_time"
+			],
+			[
+				"fil",
+				"file_location"
+			],
+			[
+				"Contac",
+				"ContactEmailForm"
+			],
+			[
+				"front",
+				"frontpage_exhibition"
+			],
+			[
+				"gen",
+				"generate_commit"
+			],
+			[
+				"comm",
+				"commit_message"
+			],
+			[
+				"_",
+				"_generated"
+			],
+			[
+				"let",
+				"letter_one"
+			],
+			[
+				"user_",
+				"user_one"
+			],
+			[
+				"user",
+				"user_two"
+			],
+			[
+				"pr",
+				"pre_now"
+			],
+			[
+				"git",
+				"github"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "canada/settings/common.py",
+			"settings":
+			{
+				"buffer_size": 1146,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 137.0,
+		"selected_items":
+		[
+			[
+				"code f",
+				"Code Folding: Fold Tag Attributes"
+			],
+			[
+				"code fol",
+				"Code Folding: Fold Tag Attributes"
+			],
+			[
+				"close",
+				"File: Close All"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"pacakge",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"packag",
+				"Package Control: Discover Packages"
+			],
+			[
+				"objec",
+				"Set Syntax: Objective-C"
+			],
+			[
+				"space",
+				"Trailing Spaces: Delete Trailing Spaces"
+			],
+			[
+				"strip ",
+				"Trailing Spaces: Delete Trailing Spaces"
+			],
+			[
+				"delete",
+				"Trailing Spaces: Delete Trailing Spaces"
+			],
+			[
+				"set pyt",
+				"Set Syntax: Python Django"
+			],
+			[
+				"python",
+				"Set Syntax: Python Django"
+			],
+			[
+				"setting ",
+				"Preferences: Settings - User"
+			],
+			[
+				"move",
+				"File: Move"
+			],
+			[
+				"pack",
+				"Package Control: List Packages"
+			],
+			[
+				"rope r",
+				"Rope Refactoring: Inline Variable"
+			],
+			[
+				"rope re",
+				"Rope Refactoring: Extract Method"
+			],
+			[
+				"rope",
+				"Rope Refactoring: Restructure"
+			],
+			[
+				"rope:",
+				"Rope: New Project"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"git com",
+				"Git: Commit"
+			],
+			[
+				"git add",
+				"Git: Add..."
+			],
+			[
+				"git st",
+				"Git: Status"
+			],
+			[
+				"de",
+				"File: Delete"
+			],
+			[
+				"markd",
+				"Markdown Preview: current file in browser"
+			],
+			[
+				"mark",
+				"Set Syntax: Markdown"
+			],
+			[
+				"git push",
+				"Git: Push Current Branch"
+			],
+			[
+				"git qu",
+				"Git: Quick Commit"
+			],
+			[
+				"git ad",
+				"Git: Add Current File"
+			],
+			[
+				"git pu",
+				"Git: Push"
+			],
+			[
+				"term",
+				"Preferences: Terminal Key Bindings – Default"
+			],
+			[
+				"add",
+				"Project: Add Folder"
+			],
+			[
+				"pac",
+				"Package Control: Discover Packages"
+			]
+		],
+		"width": 502.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": true,
+		"show_open_files": false,
+		"show_tabs": true,
+		"side_bar_visible": false,
+		"status_bar_visible": true
+	},
+	"file_history":
+	[
+		"/Users/saul/projects/django-saul/setup.py",
+		"/Users/saul/projects/django-canadanewyork/canada/settings.py",
+		"/Users/saul/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/saul/projects/django-canadanewyork/docs/heroku_install",
+		"/Users/saul/projects/django-canadanewyork/manage.py",
+		"/Users/saul/projects/django-canadanewyork/tests/base/test_fields.py",
+		"/Users/saul/projects/django-canadanewyork/requirements/common.txt",
+		"/Users/saul/projects/django-canadanewyork/canada/settings/testing.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/base/management/commands/add_superuser.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/base/management/commands/clean_db.py",
+		"/Users/saul/projects/django-canadanewyork/initial_data/admin.py",
+		"/Users/saul/projects/django-canadanewyork/docs/dev_clean_install",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/base/management/commands/__init__.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/base/management/__init__.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/base/management/clean_db.py",
+		"/Users/saul/projects/django-canadanewyork/docs/heroku_install.fish",
+		"/Users/saul/projects/django-canadanewyork/tests/frontpage/factories.py",
+		"/Users/saul/projects/django-canadanewyork/tests/exhibitions/test_models.py",
+		"/Users/saul/projects/django-canadanewyork/tests/frontpage/test_models.py",
+		"/Users/saul/projects/django-canadanewyork/tests/exhibitions/factories.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/frontpage/models.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/exhibitions/models.py",
+		"/Users/saul/projects/django-canadanewyork/tests/bulkmail/factories.py",
+		"/Users/saul/projects/django-canadanewyork/tests/factories.py",
+		"/Users/saul/projects/django-canadanewyork/tests/artists/factories.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/artists/models.py",
+		"/Users/saul/projects/django-canadanewyork/tests/artists/test_models.py",
+		"/Users/saul/projects/django-canadanewyork/tests/bulkmail/test_models.py",
+		"/Users/saul/projects/django-canadanewyork/tests/functions.py",
+		"/Users/saul/projects/django-canadanewyork/canada/initial_data/mock_basic.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/_base/models.py",
+		"/Users/saul/projects/django-canadanewyork/tests/artists/__init__.py",
+		"/Users/saul/projects/django-canadanewyork/canada/initial_data/admin.py",
+		"/Users/saul/projects/django-canadanewyork/canada/initial_data/__init__.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/bulkmail/admin.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/updates/models.py",
+		"/Users/saul/projects/django-canadanewyork/Procfile",
+		"/Users/saul/projects/django-canadanewyork/canada/settings/common.py",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/press/press_detail.html",
+		"/Users/saul/projects/django-canadanewyork/canada/static/less/canada.less",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/artists/artist_detail.html",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/exhibitions/exhibition_detail.html",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/_base/images.html",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/updates/update_list.html",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/base.html",
+		"/Users/saul/projects/django-canadanewyork/canada/settings/dev.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/exhibitions/admin.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/bulkmail/models.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/frontpage/admin.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/updates/admin.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/info/models.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/base/models.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/models.py",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/_base/model_detail.html",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/_base/model_year_list.html",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/_base/related_models.html",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/artists/artist_list.html",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/bulkmail/contact_add_success.html",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/bulkmail/contact_confirm_delete.html",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/exhibitions/exhibition_list.html",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/frontpage/frontpage_detail.html",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/info/info_detail.html",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/press/press_list.html",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/404.html",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/500.html",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/info/views.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/info/urls.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/bulkmail/urls.py",
+		"/Users/saul/projects/django-canadanewyork/requirements/dev.txt",
+		"/Users/saul/projects/objc-test/input.m",
+		"/Users/saul/projects/objc-test/a.out",
+		"/Users/saul/projects/django-canadanewyork/canada/settings/prod.py",
+		"/Users/saul/projects/django-canadanewyork/bin/post-compile",
+		"/Users/saul/projects/django-canadanewyork/canada/static/js/bootstrap-carousel-animate/jquery.easing.js",
+		"/Users/saul/projects/django-canadanewyork/canada/static/js/bootstrap-carousel-animate/bootstrap-carousel-animate.js",
+		"/Users/saul/projects/django-canadanewyork/package.json",
+		"/Users/saul/projects/django-canadanewyork/bin/pre-compile",
+		"/Users/saul/projects/django-arbitrage/arbitrage/apps/stocks/models.py",
+		"/Users/saul/projects/django-arbitrage/tests/stocks/test_models.py",
+		"/Users/saul/projects/django-arbitrage/tests/stocks/factories.py",
+		"/Users/saul/projects/django-arbitrage/arbitrage/apps/stocks/api.py",
+		"/Users/saul/projects/django-arbitrage/arbitrage/apps/stocks/admin.py",
+		"/Users/saul/projects/django-arbitrage/arbitrage/apps/stocks/signals.py",
+		"/Users/saul/projects/django-arbitrage/tests/stocks/models.py",
+		"/Users/saul/projects/django-canadanewyork/docs/pre_collectstatic.fish",
+		"/Users/saul/projects/django-canadanewyork/canada/static/less/bootstrap/bootstrap.less",
+		"/Users/saul/Desktop/start_vnc.shell",
+		"/Users/saul/projects/django-canadanewyork/canada/static/less/bootstrap/variables.less",
+		"/Users/saul/projects/django-canadanewyork/canada/static/less/theme.less",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/bulkmail/views.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/bulkmail/sending.py",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/bulkmail/message.txt",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/bulkmail/message.html",
+		"/Users/saul/projects/django-rq/django_rq/tests/tests.py",
+		"/Users/saul/projects/django-canadanewyork/requirements.txt",
+		"/Users/saul/projects/django-canadanewyork/test.py",
+		"/Users/saul/projects/django-canadanewyork/canada/urls.py",
+		"/Users/saul/projects/django-canadanewyork/canada/fixtures/initial_data.json",
+		"/Users/saul/projects/django-canadanewyork/.gitignore",
+		"/Users/saul/projects/django-canadanewyork/requirements/prod.txt",
+		"/usr/local/etc/redis.conf",
+		"/Users/saul/projects/django-canadanewyork/worker.py",
+		"/Users/saul/projects/django-canadanewyork/canada/static/css/bootstrap.css",
+		"/Users/saul/projects/django-canadanewyork/static/canada/css/bootstrap.css",
+		"/Users/saul/projects/django-canadanewyork/docs/install.txt",
+		"/Users/saul/projects/django-canadanewyork/canada/static/css",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/artists/urls.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/exhibitions/urls.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/press/models.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/exhibitions/views.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/artists/views.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/press/views.py",
+		"/Users/saul/Downloads/variables.less",
+		"/Users/saul/.config/fish/config.fish",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/base/templatetags/canada_filters.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/press/templatetags/canada_filters.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/base/__init__.py",
+		"/Users/saul/projects/django-canadanewyork/canada/apps/press/templatetags/__init__.py",
+		"/Users/saul/projects/django-canadanewyork/canada/press/templatetags/canada_filters.py",
+		"/Users/saul/projects/django-canadanewyork/canada/press/templatetags/__init__.py",
+		"/Users/saul/projects/django-canadanewyork/canada/templatetags/canada_filters.py",
+		"/Users/saul/projects/django-canadanewyork/canada/templatetags/__init__.py",
+		"/Users/saul/projects/django-canadanewyork/canada/template_filters.py",
+		"/Users/saul/projects/django-canadanewyork/canada/template_filters",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/_base/full_dare.html",
+		"/Users/saul/projects/django-canadanewyork/canada/templates/_base/full_time.html",
+		"/Users/saul/Library/Application Support/Sublime Text 2/Packages/User/HTML (Django).sublime-settings",
+		"/Users/saul/.config/fish/fishd.Sauls-MacBook-Pro.local"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"/Users/saul/projects/django-canadanewyork",
+			"/Users/saul/Documents/Coding/django-canadanewyork/canada",
+			"/Users/saul/Documents/Coding/django-canadanewyork",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"pdb",
+			"pdf",
+			"static",
+			"sync",
+			"button",
+			"csrf",
+			"url",
+			"path",
+			"yolk",
+			"WSGI_APPLICATION",
+			"artists_in",
+			"artists_",
+			"all_press",
+			"Q(",
+			"q(",
+			"Q(",
+			"Q",
+			"press_all",
+			"all_press",
+			"through",
+			"pdb",
+			"bulkmail_tags",
+			"echo",
+			"PROMPTING",
+			"profile",
+			"image_height",
+			"PROJECT_ROOT",
+			"\\ ",
+			" $",
+			"models",
+			"INSTALLED_APPS",
+			"base_title",
+			"    ",
+			",NA,",
+			",En",
+			",",
+			"unitid,Name,State,Region,Black?,Urbanization,Calender System,Control/Alliliation,Religious Affiliation,Accepts AP?,Total Enrollment,Full Time Enrollment,Part Time Enrollment,Total Enrollment Equivalent,Undergrad Enrollment,% Undergrads Race American Indian/Alaskan Native,% Undergrads Race Asian,% Undergrads Race Black,% Undergrads Race Hispanic or Latino,% Undergrads Race Pacific Islander,% Undergrads Race White,% Undergrads Race 2+,% Undergrads Race Unknown,% Undergrads Resident Aliens,drvef2010_pcuenrap.VL.Percent.of.undergraduate.enrollment.that.are.Asian.Native.Hawaiian.Pacific.Islander,% Undergrads Gender Woman,% Undergrads Age < 18,% Undergrads Age 18-24,% Undergrads 24-64,Sallary Equated to 9 Months All,Sallary Equated to 9 Months Professors,Sallary Equated to 9 Months Associate Professors,Students Price Total In District On Campus,Students Price Total In State On Campus,Students Price Total Out of State On Campus,Students Price Total In District Off Campus,Students Price Total In State Off Campus,Students Price Total Out of State Off Campus,Admissions Total,Admissions Gender Men,Admissions Gender Woman,Enrollment Total,Enrollment Total,Enrollment Part Time,Enrollment Undergrad Total,Enrollment Undergrad Full Time,Enrollment Undergrad Part Time,Enrollment Undergrad First Time Degree Seeking Total,Enrollment Undergrad First Time Degree Seeking Full Time,Enrollment Undergrad First Time Degree Seeking Part Time,Enrollment Graduate Total,Enrollment Graduate Part Time,Institution Entity Name,Street Address,City,Zip Code,Longitude,Latitude,Institution Name Alias,Tuition and Fees In State,Tuition In State,Fees In State,Tuition % Increase In State,Fees % Increase In State,Tuition Undergrad Full Time In District,Fee Undergrad Full Time In Districtic,Tuition Undergrad Full Time In State,Fee Undergrad Full Time In State,Tuition Undergrad Full Time Out of State,Fees Undergrad Full Time Out of State,Tuition and Fees Out of State,Tuition Out of State,Fees Out of State,Tuition % Increase Out of State,Fees % Increase Out of State,Books and Supplies,Room and Board on Campus,Room and Board Off Campus,Comprehensive Fee In District,Comprehensive Fee % Increase In District,Comprehensive Fee In State,Comprehensive Fee % Increase In State,Comprehensive Fee Out of State,Comprehensive Fee % Increase Out of State,# Programs Offered,# Months Complete Longest Program,Tuition and Fees,Books and Supplies,Room and Board on Capus,Other Expanses On Campus,Room and Board off Campus,Other Expenses Off Campus,Comprehensive Fee,Application Fee Undergrad,Application Fee Graduate,Applicants Total,Admissions Total,% First Time Degree Seeking Submitting SAT,% First Time Degree Seeking Submitting ACT,Score SAT Critical Reading 25th Percentile,Score SAT Critical Reading 75th Percentile,Score SAT Math 25th Percentile,Score SAT Math 75th Percentile,Score SAT Writing 25th Percentile,Score SAT Writing 75th Percentile,Score ACT Composite 25th Percentile,Score ACT Composite 75th Percentile,Score ACT English 25th Percentile,Score ACT English 75th Percentile,Score ACT Math 25th Percentile,Score ACT Composite 75th Percentile,Score ACT Writing 25th Percentile,Score ACT Writing 75th Percentile,Dorm Capacity,ic2010_rv_mealswk.vl.number.of.meals.per.week.in.board.charge,ic2010_rv_roomamt.vl.typical.room.charge.for.academic.year,ic2010_rv_boardamt.vl.typical.board.charge.for.academic.year,ic2010_rv_rmbrdamt.vl.combined.charge.for.room.and.board,sfa0910_rv_scugffn.vl.total.number.of.full.time.first.time.degree.certificate.seeking.undergraduates...financial.aid.cohort,sfa0910_rv_anyaidp.vl.percent.of.full.time.first.time.undergraduates.receiving.any.financial.aid,sfa0910_rv_aidfsip.vl.percent.of.full.time.first.time.undergraduates.receiving.any.loans.to.students.or.grant.aid.....,sfa0910_rv_agrnt_p.vl.percent.of.full.time.first.time.undergraduates.receiving.federal..state..local.or.institutional.grant.aid,sfa0910_rv_agrnt_a.vl.average.amount.of.federal..state..local.or.institutional.grant.aid.received,sfa0910_rv_npgrn2.vl.average.net.price.students.receiving.grant.or.scholarship.aid..2009.10,sfa0910_rv_fgrnt_p.vl.percent.of.full.time.first.time.undergraduates..receiving.federal.grant.aid,sfa0910_rv_fgrnt_a.vl.average.amount.of.federal.grant.aid.received.by.full.time.first.time.undergraduates,sfa0910_rv_npt412.vl.average.net.price..income.0.30.000..students.receiving.title.iv.federal.financial.aid..2009.10,sfa0910_rv_npt422.vl.average.net.price..income.30.001.48.000..students.receiving.title.iv.federal.financial.aid..2009.10,sfa0910_rv_npt432.vl.average.net.price..income.48.001.75.000..students.receiving.title.iv.federal.financial.aid..2009.10,sfa0910_rv_pgrnt_p.vl.percent.of.full.time.first.time.undergraduates.receiving.pell.grants,sfa0910_rv_pgrnt_a.vl.average.amount.of.pell.grant.aid.received.by.full.time.first.time.undergraduates,sfa0910_rv_ofgrt_p.vl.percent.of.full.time.first.time.undergraduates.receiving.other.federal.grant.aid,sfa0910_rv_ofgrt_a.vl.average.amount.of.other.federal.grant.aid.received.by.full.time.first.time.undergraduates,sfa0910_rv_igrnt_p.vl.percent.of.full.time.first.time.undergraduates.receiving.institutional.grant.aid,sfa0910_rv_igrnt_a.vl.average.amount.of.institutional.grant.aid.received.by.full.time.first.time.undergraduates,sfa0910_rv_loan_p.vl.percent.of.full.time.first.time.undergraduates.receiving.student.loan.aid,sfa0910_rv_loan_a.vl.average.amount.of.student.loan.aid.received.by.full.time.first.time.undergraduates,sfa0910_rv_floan_p.vl.percent.of.full.time.first.time.undergraduates.receiving.federal.student.loans,sfa0910_rv_floan_a.vl.average.amount.of.federal.student.loan.aid.received.by.full.time.first.time.undergraduates,sfa0910_rv_oloan_p.vl.percent.of.full.time.first.time.undergraduates.receiving.other.loan.aid,sfa0910_rv_oloan_a.vl.average.amount.of.other.student.loan.aid.received.by.full.time.first.time.undergraduates,flags2010_idx_sfa.vl.id.of.institution.where.data.are.reported.for.the.student.financial.aid.component,gr2010.grtype.VL.Cohort.data,gr2010.dvgrait.VL.American.Indian.or.Alaska.Native.total...derived,gr2010.dvgrapt.VL.Asian.Native.Hawaiian.Other.Pacific.Islander.total...derived,gr2010.dvgrbkt.VL.Black.or.African.American.Black.non.Hispanic.total...derived,gr2010.dvgrhst.VL.Hispanic.or.Latino.Hispanic..total...derived,gr2010.dvgrwht.VL.White.White.non.Hispanic.total...derived,gr2010.graiant.VL.American.Indian.or.Alaska.Native.total...new,gr2010.grasiat.VL.Asian.total...new,gr2010.grbkaat.VL.Black.or.African.American.total...new,gr2010.grhispt.VL.Hispanic.total...new,gr2010.grnhpit.VL.Native.Hawaiian.or.Other.Pacific.Islander.total...new,gr2010.grwhitt.VL.White.total...new,gr2010.gr2mort.VL.Two.or.more.races.total...new,gr2010.grunknt.VL.Race.ethnicity.unknown.total,effy2010_rv.efytotlt.vl.grand.total,gr2010.grnralt.VL.Nonresident.alien.total,idxtable_flags2010.idx_gr.vl.id.of.institution.where.data.are.reported.for.the.graduation.rates.aid.component,ef2010.eftotal.VL.Grand.total,ef2010.efmen.VL.Total.men,ef2010.efwom.VL.Total.women\n",
+			"j",
+			",",
+			"\\,",
+			",",
+			",,",
+			"wsgi",
+			"info",
+			"    ",
+			"fields",
+			"MIDDL",
+			"hello",
+			"os",
+			"    ",
+			"ex",
+			"print",
+			"../",
+			"SITE_",
+			"caption",
+			"frontpage",
+			"DIRNA",
+			"os.",
+			"LOG_PATH",
+			"time.",
+			"matched = s.match(line)",
+			"	",
+			"exhibition-single'",
+			"site",
+			" exhibitions.models",
+			" press.models",
+			"artists.models",
+			"search.views",
+			"static",
+			"settings.dev",
+			"GIT_NAME",
+			"iw",
+			"program_exists",
+			"iw",
+			"ip ",
+			"	",
+			"'",
+			"archive"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"root_dir",
+			" ",
+			"",
+			"title",
+			" ",
+			",,",
+			" ",
+			"log_path",
+			"datetime.",
+			"    ",
+			"GIT_USERNAME",
+			"  "
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		},
+		{
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "canada/settings/common.py",
+					"settings":
+					{
+						"buffer_size": 1146,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								231,
+								254
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": false,
+							"sublimelinter": "load-save",
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/Djaneiro/Syntaxes/Python Django.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.51994194664,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.git":
+	{
+		"height": 98.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"setcom",
+				"canada/settings/common.py"
+			],
+			[
+				"recom",
+				"requirements/common.txt"
+			],
+			[
+				"reqpr",
+				"requirements/prod.txt"
+			],
+			[
+				"reqc",
+				"requirements/common.txt"
+			],
+			[
+				"exhmod",
+				"canada/apps/exhibitions/models.py"
+			],
+			[
+				"premod",
+				"canada/apps/press/models.py"
+			],
+			[
+				"bulkmod",
+				"canada/apps/bulkmail/models.py"
+			],
+			[
+				"infmod",
+				"canada/apps/info/models.py"
+			],
+			[
+				"exhmode",
+				"canada/apps/exhibitions/models.py"
+			],
+			[
+				"exmode",
+				"canada/apps/exhibitions/models.py"
+			],
+			[
+				"bulkmo",
+				"canada/apps/bulkmail/models.py"
+			],
+			[
+				"fix",
+				"canada/fixtures/initial_data.json"
+			],
+			[
+				"secom",
+				"canada/settings/common.py"
+			],
+			[
+				"in",
+				"canada/templates/info/info_detail.html"
+			],
+			[
+				"inmo",
+				"canada/apps/info/models.py"
+			],
+			[
+				"inad",
+				"canada/apps/info/admin.py"
+			],
+			[
+				"html",
+				"canada/templates/base.html"
+			],
+			[
+				"art",
+				"canada/templates/artists/artist_detail.html"
+			],
+			[
+				"frontd",
+				"canada/templates/frontpage/frontpage_detail.html"
+			],
+			[
+				"tempexh",
+				"canada/templates/exhibitions/exhibition_detail.html"
+			],
+			[
+				"presde",
+				"canada/templates/press/press_detail.html"
+			],
+			[
+				"exmod",
+				"canada/apps/exhibitions/models.py"
+			],
+			[
+				"prede",
+				"canada/templates/press/press_detail.html"
+			],
+			[
+				"fronmo",
+				"canada/apps/frontpage/models.py"
+			],
+			[
+				"temppre",
+				"canada/templates/press/press_detail.html"
+			],
+			[
+				"com",
+				"canada/settings/common.py"
+			],
+			[
+				"rec",
+				"requirements/common.txt"
+			],
+			[
+				"rede",
+				"requirements/dev.txt"
+			],
+			[
+				"fromod",
+				"canada/apps/frontpage/models.py"
+			],
+			[
+				"pressmodel",
+				"canada/apps/press/models.py"
+			],
+			[
+				"url",
+				"canada/urls.py"
+			],
+			[
+				"info",
+				"canada/templates/info/info_detail.html"
+			],
+			[
+				"conurl",
+				"canada/apps/contact/urls.py"
+			],
+			[
+				"convie",
+				"canada/apps/contact/views.py"
+			],
+			[
+				"updamod",
+				"canada/apps/updates/models.py"
+			],
+			[
+				"exhmo",
+				"canada/exhibitions/models.py"
+			],
+			[
+				"canada/ws",
+				"canada/wsgi.py"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 175.0,
+	"status_bar_visible": true
+}

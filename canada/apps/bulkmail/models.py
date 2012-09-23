@@ -2,7 +2,7 @@ import os
 
 from django.db import models
 
-from .._base.fields import UniqueBooleanField
+from ..base.fields import UniqueBooleanField
 
 
 class ContactList(models.Model):

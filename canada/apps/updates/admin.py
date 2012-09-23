@@ -2,7 +2,7 @@ from django.contrib import admin
 from django import forms
 
 from .models import Update, UpdatePhoto
-from .._base.admin import image_file
+from ..base.admin import image_file
 
 
 class UpdatePhotoInlineForm(forms.ModelForm):

@@ -1,10 +1,12 @@
 import factory
 
 from canada.apps.frontpage.models import Frontpage
+from ..factories import DjangoFactory
+from ..exhibitions.factories import ExhibitionFactory
 
 
-class FrontpageFactory(factory.Factory):
+class FrontpageFactory(DjangoFactory):
     FACTORY_FOR = Frontpage
 
-    custom_title = factory.LazyAttributeSequence(lambda _, n: 'Custom Title {}'.format(n))
-    activated = True
+    exhibition = factory.LazyAttribute(lambda a: ExhibitionFactory(photos__n=1))
+    exhibition_image = factory.LazyAttribute(lambda a: a.exhibition.images.all()[0])

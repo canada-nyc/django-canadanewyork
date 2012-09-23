@@ -46,10 +46,10 @@ INSTALLED_APPS = (
     'canada.apps.updates',
     'canada.apps.frontpage',
     'canada.apps.info',
-    'canada.apps._base'
+    'canada.apps.base',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS += ('canada.context_processors.image_size',)
+TEMPLATE_CONTEXT_PROCESSORS += ('canada.apps.base.context_processors.image_size',)
 
 ########
 #Email
@@ -70,9 +70,9 @@ INSTALLED_APPS += (
     'sorl.thumbnail',
     'smart_selects',
     'bootstrapform',
-    'django_rq',
     'compressor',
     'markdown_deux',
+    'django_rq'
 )
 
 GRAPPELLI_ADMIN_TITLE = 'CANADA'

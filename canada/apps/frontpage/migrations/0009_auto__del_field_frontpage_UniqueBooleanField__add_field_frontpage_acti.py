@@ -13,7 +13,7 @@ class Migration(SchemaMigration):
 
         # Adding field 'Frontpage.activated'
         db.add_column('frontpage_frontpage', 'activated',
-                      self.gf('canada.apps.fields.UniqueBooleanField')(default=True),
+                      self.gf('canada.apps.base.fields.UniqueBooleanField')(default=True),
                       keep_default=False)
 
 
@@ -59,7 +59,7 @@ class Migration(SchemaMigration):
         },
         'frontpage.frontpage': {
             'Meta': {'ordering': "['-date_added']", 'object_name': 'Frontpage'},
-            'activated': ('canada.apps.fields.UniqueBooleanField', [], {'default': 'True'}),
+            'activated': ('canada.apps.base.fields.UniqueBooleanField', [], {'default': 'True'}),
             'date_added': ('django.db.models.fields.DateField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'exhibition': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['exhibitions.Exhibition']"}),
             'exhibition_image': ('smart_selects.db_fields.ChainedForeignKey', [], {'to': "orm['exhibitions.ExhibitionPhoto']", 'null': 'True', 'blank': 'True'}),

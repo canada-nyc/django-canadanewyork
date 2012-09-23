@@ -10,9 +10,9 @@
   <article>
    <header>
     <h1 id="{{ update.slug }}">{{ update.name }}</h1>
-    <p>{% include "_base/full_date.html" with date=update.post_date %}
+    <p>{% include "base/full_date.html" with date=update.post_date %}
    </header>
-   {% include "_base/images.html" with images=update.images.all %}
+   {% include "base/images.html" with images=update.images.all %}
    {{ update.description|markdown }}
   </article>
  {% endfor %}
@@ -20,9 +20,9 @@
 {% endblock %}
 
 {% block js %}
- {% include "_base/images.html" with images=update.images.all js="True" %}
+ {% include "base/images.html" with images=update.images.all js="True" %}
 {% endblock %}
 
 {% block css %}
- {% include "_base/images.html" with images=update.images.all css="True" %}
+ {% include "base/images.html" with images=update.images.all css="True" %}
 {% endblock css %}

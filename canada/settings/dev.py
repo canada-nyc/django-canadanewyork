@@ -24,7 +24,6 @@ MIDDLEWARE_CLASSES += (
 )
 INSTALLED_APPS += (
     'debug_toolbar',
-    'django_extensions',
     'django_pdb',
     )
 DEBUG_TOOLBAR_CONFIG = {
@@ -63,3 +62,4 @@ CSRF_COOKIE_DOMAIN = 'localhost'
 TEST_RUNNER = 'discover_runner.DiscoverRunner'
 TEST_DISCOVER_TOP_LEVEL = path.normpath(path.join(SITE_ROOT, '..'))
 TEST_DISCOVER_ROOT = path.join(TEST_DISCOVER_TOP_LEVEL, 'tests')
+SOUTH_TESTS_MIGRATE = False

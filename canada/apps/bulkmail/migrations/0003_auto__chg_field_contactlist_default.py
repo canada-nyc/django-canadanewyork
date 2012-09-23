@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
 
         # Changing field 'ContactList.default'
-        db.alter_column('bulkmail_contactlist', 'default', self.gf('canada.apps.fields.UniqueBooleanField')())
+        db.alter_column('bulkmail_contactlist', 'default', self.gf('canada.apps.base.fields.UniqueBooleanField')())
 
     def backwards(self, orm):
 
@@ -26,7 +26,7 @@ class Migration(SchemaMigration):
         },
         'bulkmail.contactlist': {
             'Meta': {'ordering': "['name']", 'object_name': 'ContactList'},
-            'default': ('canada.apps.fields.UniqueBooleanField', [], {'default': 'False'}),
+            'default': ('canada.apps.base.fields.UniqueBooleanField', [], {'default': 'False'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '50'})
         },

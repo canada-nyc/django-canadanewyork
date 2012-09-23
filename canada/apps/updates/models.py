@@ -7,7 +7,7 @@ from django.template.defaultfilters import slugify
 
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 
-from .._base.models import BasePhoto
+from ..base.models import BasePhoto
 
 
 class Update(models.Model):

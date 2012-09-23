@@ -9,7 +9,7 @@ from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 
 
 from ..exhibitions.models import Exhibition, ExhibitionPhoto
-from .._base.fields import UniqueBooleanField
+from ..base.fields import UniqueBooleanField
 
 
 class Frontpage(models.Model):

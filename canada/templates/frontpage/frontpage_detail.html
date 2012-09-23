@@ -11,7 +11,7 @@
  {% thumbnail frontpage.image image_size as im %}
   <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
  {% endthumbnail %}</a>
- <p>{% include "_base/model_detail.html" with model=frontpage.exhibition %}
+ <p>{% include "base/model_detail.html" with model=frontpage.exhibition %}
  {{ frontpage.text|markdown }}
 </article>
 {% endblock body %}

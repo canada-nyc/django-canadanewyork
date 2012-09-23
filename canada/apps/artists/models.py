@@ -6,7 +6,7 @@ from django.template.defaultfilters import slugify
 from django.core.exceptions import ValidationError
 from django.db.models import Q
 
-from .._base.models import BasePhoto
+from ..base.models import BasePhoto
 
 
 class VisibleManager(models.Manager):
@@ -21,7 +21,7 @@ class Artist(models.Model):
                             filename)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    resume = models.FileField(upload_to=image_path)
+    resume = models.FileField(upload_to=image_path, blank=True, editable=False)
     slug = models.SlugField(blank=True, editable=False)
     visible = models.BooleanField(
         default=True,

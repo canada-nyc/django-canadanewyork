@@ -61,8 +61,7 @@ class ExhibitionPhoto(BasePhoto):
         return os.path.join(
             'exhibitions',
             str(instance.exhibition.slug),
-            (str(instance.position) + filename)
-           )
+            (str(instance.position) + filename))
 
     exhibition = models.ForeignKey(Exhibition, related_name='images')
     image = models.ImageField(upload_to=image_path)

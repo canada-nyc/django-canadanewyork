@@ -33,7 +33,7 @@ class Update(models.Model):
     def get_absolute_url(self):
         return ('update-single', (), {
             'slug': self.slug,
-            })
+        })
 
     def get_first_image_or_none(self):
         if self.images.all().count() > 0:

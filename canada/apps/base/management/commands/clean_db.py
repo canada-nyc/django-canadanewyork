@@ -9,8 +9,7 @@ class Command(NoArgsCommand):
     help = 'Wipes DB and static and reinstalls with default data'
     option_list = NoArgsCommand.option_list + (
         make_option('--no-wipe', dest='wipe', default=True, action='store_false',
-            help='Don\'t remove ./static/ and sqlite.db'),
-        )
+                    help='Don\'t remove ./static/ and sqlite.db'))
 
     def handle(self, *args, **options):
         if options.get('wipe'):

@@ -42,14 +42,13 @@ class Artist(models.Model):
 
     def clean(self):
         if self.resume and self.resume._file and self.resume._file.content_type != 'application/pdf':
-            raise ValidationError('You uploaded a {}. A PDF is required'\
-                .format(self.resume._file.content_type.split('/')[1]))
+            file_type = self.resume._file.content_type.split('/')[1]
+            error = 'You uploaded a {}. A PDF is required'.format(file_type)
+            raise ValidationError(error)
 
     @permalink
     def get_absolute_url(self):
-        return ('artist-detail', (), {
-            'slug': self.slug,
-            })
+        return ('artist-detail', (), {'slug': self.slug})
 
     def get_press(self):
         from ..press.models import Press

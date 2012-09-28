@@ -1,19 +1,18 @@
 from django.test import TestCase
-from django.test.utils import override_settings
-from django.conf import settings
 from django.core.management import call_command
 from django.db.models import loading
+from django.test.utils import override_settings
+from django.conf import settings
 
 
 from .models import UniqueBooleanModel
 
 
-@override_settings(SOUTH_TESTS_MIGRATE=False)
-@override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('tests.fields',))
+@override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('tests.base',))
 class UniqueBooleanTest(TestCase):
     def setUp(self):
         loading.cache.loaded = False
-        call_command('syncdb', verbosity=0)
+        call_command('syncdb')
 
     def test_field(self):
         # Create one model

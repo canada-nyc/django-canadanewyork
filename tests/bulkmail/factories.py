@@ -2,12 +2,13 @@ import factory
 
 from canada.apps.bulkmail.models import Message, ContactList, Contact
 from ..functions import django_image
+from ..factories import DjangoFactory
 
 
-class ContactListFactory(factory.Factory):
+class ContactListFactory(DjangoFactory):
     FACTORY_FOR = ContactList
 
-    name = factory.LazyAttributeSequence(lambda _, n: 'Contact List {}'.format(n))
+    name = factory.Sequence(lambda n: 'Contact List {}'.format(n))
 
     @factory.post_generation(extract_prefix='contacts')
     def create_contacts(self, create, extracted, **kwargs):
@@ -22,17 +23,17 @@ class ContactListFactory(factory.Factory):
             ContactFactory(contact_list=self)
 
 
-class ContactFactory(factory.Factory):
+class ContactFactory(DjangoFactory):
     FACTORY_FOR = Contact
 
-    email = factory.LazyAttributeSequence(lambda _, n: '{}@example.com'.format(n))
+    email = factory.Sequence(lambda n: '{}@example.com'.format(n))
     contact_list = factory.SubFactory(ContactListFactory)
 
 
-class MessageFactory(factory.Factory):
+class MessageFactory(DjangoFactory):
     FACTORY_FOR = Message
 
-    subject = factory.LazyAttributeSequence(lambda _, n: 'Subject {}'.format(n))
+    subject = factory.Sequence(lambda n: 'Subject {}'.format(n))
     body = factory.LazyAttribute(lambda a: '{} message'.format(a.subject))
     image = factory.LazyAttribute(lambda a: django_image(a.subject))
     contact_list = factory.SubFactory(ContactListFactory)

@@ -2,15 +2,15 @@ import os
 
 from django.db import models
 
-from .._base.fields import UniqueBooleanField
+from ..base.fields import UniqueBooleanField
 
 
 class ContactList(models.Model):
     name = models.CharField(max_length=50, unique=True)
     default = UniqueBooleanField(verbose_name='Default List',
                                  help_text=('Emails submitted via the forum on '
-                                           'the website will use the default '
-                                           'list'),
+                                            'the website will use the default '
+                                            'list'),
                                  default=False)
 
     class Meta:
@@ -40,9 +40,7 @@ class Message(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('message-detail', (), {
-            'pk': self.pk,
-            })
+        return ('message-detail', (), {'pk': self.pk})
 
 
 class Contact(models.Model):
@@ -57,6 +55,4 @@ class Contact(models.Model):
 
     @models.permalink
     def get_delete_url(self):
-        return ('contact-delete', (), {
-            'email': self.email,
-            })
+        return ('contact-delete', (), {'email': self.email})

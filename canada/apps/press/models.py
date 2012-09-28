@@ -3,7 +3,6 @@ import os
 from django.db.models import permalink
 from django.template.defaultfilters import slugify
 from django.db import models
-from django.db.models import Q
 from django.core.exceptions import ValidationError
 
 from ..artists.models import Artist
@@ -19,7 +18,8 @@ class Press(models.Model):
 
     title = models.CharField(max_length=50)
     image = models.ImageField(null=True, blank=True, upload_to=image_path)
-    image_height = models.IntegerField(default=500,
+    image_height = models.IntegerField(
+        default=500,
         help_text='Width will be calculated.<br><em>in pixels</em>')
     link = models.URLField(null=True, blank=True)
     date = models.DateField()
@@ -40,9 +40,9 @@ class Press(models.Model):
     def __unicode__(self):
         return u'{} ({})'.format(self.title, self.date.year)
 
-    def save(self):
+    def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        super(Press, self).save()
+        super(Press, self).save(*args, **kwargs)
 
     def clean(self):
         if not self.image and not self.link:
@@ -53,7 +53,7 @@ class Press(models.Model):
         return ('press-detail', (), {
             'slug': self.slug,
             'year': self.date.year
-            })
+        })
 
     @property
     def image_size(self):

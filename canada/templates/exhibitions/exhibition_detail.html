@@ -8,20 +8,20 @@
 {% block body %}
 <article>
  <header>
-  <h1>{% include "_base/model_detail.html" with model=exhibition %}</h1>
-  <p>{% include "_base/model_detail.html" with model=exhibition extra_info="True" %}</p>
+  <h1>{% include "base/model_detail.html" with model=exhibition %}</h1>
+  <p>{% include "base/model_detail.html" with model=exhibition extra_info="True" %}</p>
  </header>
  {{ exhibition.description|markdown }}
- {% include "_base/images.html" with images=exhibition.images.all %}
+ {% include "base/images.html" with images=exhibition.images.all %}
  {% if exhibition.get_press %}<p><a href={{ exhibition.get_press_url }}>List of Press</a>{% endif %}
- {% include "_base/related_models.html" with artists=exhibition.artists.all %}
+ {% include "base/related_models.html" with artists=exhibition.artists.all %}
 </article>
 {% endblock %}
 
 {% block js %}
- {% include "_base/images.html" with images=exhibition.images.all js="True" %}
+ {% include "base/images.html" with images=exhibition.images.all js="True" %}
 {% endblock js %}
 
 {% block css %}
- {% include "_base/images.html" with images=exhibition.images.all css="True" %}
+ {% include "base/images.html" with images=exhibition.images.all css="True" %}
 {% endblock css %}

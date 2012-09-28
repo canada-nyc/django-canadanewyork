@@ -3,7 +3,7 @@ from django.contrib import admin
 from sorl.thumbnail.admin import AdminImageMixin
 
 from .models import Frontpage
-from .._base.admin import image_file
+from ..base.admin import image_file
 
 
 class FrontpageAdmin(AdminImageMixin, admin.ModelAdmin):

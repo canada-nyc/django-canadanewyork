@@ -11,7 +11,7 @@ def send_messages(modeladmin=None, request=None, queryset=None):
         for recipient in message.contact_list.contacts.all():
             host = request.get_host() if request else 'localhost'
             args = [recipient, 'gallery@canadanewyork.com', message,
-                   host]
+                    host]
             django_rq.enqueue(send_email, *args)
 
 

@@ -1,6 +1,6 @@
 from django.db import models
 
-from canada.apps.fields import UniqueBooleanField
+from canada.apps.base.fields import UniqueBooleanField
 
 
 class UniqueBooleanModel(models.Model):

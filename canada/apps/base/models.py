@@ -8,7 +8,7 @@ class BasePhoto(models.Model):
     caption = models.CharField(blank=True, max_length=100,
                                help_text=markdown_allowed())
 
-    position = models.PositiveSmallIntegerField()
+    position = models.PositiveSmallIntegerField("Position")
 
     class Meta:
         abstract = True

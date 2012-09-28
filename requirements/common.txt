@@ -1,11 +1,11 @@
-Django==1.4
+Django==1.4.1
 South==0.7.6
 yolk==0.4.3
 
 ##
 #Admin
 ##
-git+git://github.com/sehmaschine/django-grappelli.git@grappelli_2_4
+django-grappelli==2.4.2
 git+git://github.com/lincolnloop/django-smart-selects.git@dbe42ad4604d132ce72adc3ecd0de807a9766094
 
 ##
@@ -13,12 +13,17 @@ git+git://github.com/lincolnloop/django-smart-selects.git@dbe42ad4604d132ce72adc
 ##
 sorl-thumbnail==11.12
 Pillow==1.7.7
+reportlab==2.5
 
 ##
-#Storage
+#Templates
 ##
-boto==2.5.2
-django-storages==1.1.5
+git+git://github.com/trentm/django-markdown-deux.git@61d20148eb7edf7b2bd9b783afd716020aac487b
+django-bootstrap-form==2.0.5
+
+##
+#Compression
+##
 django-compressor==1.2
 lxml==3.0alpha2
 BeautifulSoup==3.2.1
@@ -29,9 +34,3 @@ BeautifulSoup==3.2.1
 rq==0.3.2
 redis==2.6.1
 django-rq==0.3.1
-
-##
-#Templates
-##
-git+git://github.com/trentm/django-markdown-deux.git@61d20148eb7edf7b2bd9b783afd716020aac487b
-django-bootstrap-form==2.0.5

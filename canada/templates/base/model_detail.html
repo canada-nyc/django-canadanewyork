@@ -8,13 +8,13 @@
  {% if model_name == "exhibition" %}
   {% if not extra_info %}{{ model.name }}
   {% else %}
-  {% include "_base/full_date.html" with date=model.start_date %} - {% include "_base/full_date.html" with date=model.end_date %}
+  {% include "base/full_date.html" with date=model.start_date %} - {% include "base/full_date.html" with date=model.end_date %}
   {% endif %}
  {% endif %}
 
  {% if model_name == "press" %}
   {% if not extra_info %}{{ model.publisher }} | <em>{{ model.title }}</em>
-  {% else %}{% include "_base/full_date.html" with date=model.date %}{% endif %}
+  {% else %}{% include "base/full_date.html" with date=model.date %}{% endif %}
  {% endif %}
 {% endwith %}
 

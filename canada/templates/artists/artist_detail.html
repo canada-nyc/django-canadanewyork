@@ -1,22 +1,22 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 
-{% block title %}{% include "_base/model_detail.html" with model=artist %}{{ block.super }}{% endblock %}
+{% block title %}{% include "base/model_detail.html" with model=artist %}{{ block.super }}{% endblock %}
 
 {% block body %}
 <article>
- <h1>{% include "_base/model_detail.html" with model=artist %}</h1>
- {% include "_base/images.html" with images=artist.images.all %}
+ <h1>{% include "base/model_detail.html" with model=artist %}</h1>
+ {% include "base/images.html" with images=artist.images.all %}
  <p><a href={{ artist.resume.url }}>Resume</a>
  {% if artist.get_press %}<p><a href={{ artist.get_press_url }}>List of Press</a>{% endif %}
- {% include "_base/related_models.html" with exhibitions=artist.exhibitions.all %}
+ {% include "base/related_models.html" with exhibitions=artist.exhibitions.all %}
 </article>
 {% endblock body %}
 
 {% block js %}
-{% include "_base/images.html" with images=artist.images.all js="True" %}
+{% include "base/images.html" with images=artist.images.all js="True" %}
 {% endblock js %}
 
 {% block css %}
-{% include "_base/images.html" with images=artist.images.all css="True" %}
+{% include "base/images.html" with images=artist.images.all css="True" %}
 {% endblock css %}

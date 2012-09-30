@@ -1,22 +1,3 @@
-from .django import RelPath
-
-
-class SQLite(RelPath):
-
-    @property
-    def DATABASES(self):
-        return {
-            'default': {
-                    'ENGINE': 'django.db.backends.sqlite3',
-                    'NAME':  super(SQLite, self).rel_path('../sqlite.db'),
-                    'USER': '',
-                    'PASSWORD': '',
-                    'HOST': '',
-                    'PORT': '',
-                    }
-            }
-
-
 class DebugToolbar(object):
     @property
     def MIDDLEWARE_CLASSES(self):
@@ -47,11 +28,6 @@ class PDB(object):
         return (
             'django_pdb',
         ) + super(PDB, self).INSTALLED_APPS
-
-
-class Local(SQLite):
-    INTERNAL_IPS = ('127.0.0.1',)
-    CSRF_COOKIE_DOMAIN = 'localhost'
 
 
 class Debug(DebugToolbar, PDB):

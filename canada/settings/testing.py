@@ -13,3 +13,5 @@ class Testing(RelPath):
     @property
     def TEST_DISCOVER_ROOT(self):
         return os.path.join(self.TEST_DISCOVER_TOP_LEVEL, 'tests')
+
+    SOUTH_TESTS_MIGRATE = False

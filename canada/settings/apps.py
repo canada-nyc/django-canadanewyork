@@ -2,7 +2,6 @@ from . import django
 
 
 class Compress(django.Static):
-
     @property
     def INSTALLED_APPS(self):
         return (
@@ -32,12 +31,11 @@ class Compress(django.Static):
 
     @property
     def COMPRESS_URL(self):
-        if super(Compress, self).AWS_STORAGE_BUCKET_NAME:
+        if hasattr(super(Compress, self), 'AWS_STORAGE_BUCKET_NAME'):
             return 'https://{}.s3.amazonaws.com/'.format(super(Compress, self).AWS_STORAGE_BUCKET_NAME)
 
 
 class South(object):
-
     @property
     def INSTALLED_APPS(self):
         return (
@@ -81,7 +79,7 @@ class Grappelli(django.Admin):
 
     @property
     def GRAPPELLI_ADMIN_TITLE(self):
-        return super(Grappelli, self).NAME
+        return self.NAME
 
     @property
     def ADMIN_MEDIA_PREFIX(self):
@@ -93,11 +91,11 @@ class Markdown(object):
     @property
     def INSTALLED_APPS(self):
         return (
-            'grappelli',
+            'markdown_deux',
         ) + super(Markdown, self).INSTALLED_APPS
 
     MARKDOWN_DEUX_STYLES = {
-            "default": {
+        "default": {
             "safe_mode": "escape",
         },
     }

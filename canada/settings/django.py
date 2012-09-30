@@ -3,16 +3,19 @@ import os
 
 
 class RelPath(object):
-
     @property
     def SITE_ROOT(self):
-        return imp.find_module(super(RelPath, self).NAME)[0]
+        return imp.find_module(self.NAME)[1]
 
     def rel_path(self, relative_path):
-        return os.path.normpath(os.path.join(self.SITE_ROOT, relative_path))
+        '''
+        given any path relative to the `SITE_ROOT`, returns the full path
+        '''
+        return os.path.normpath(os.path.join(self.SITE_ROOT,
+                                             relative_path))
 
 
-class DjangoDefault(RelPath):
+class DjangoDefault(object):
     SITE_ID = 1
     SECRET_KEY = os.environ.get('SECRET_KEY', '*YSHFUIH&GAHJBJCZKCY)P#R')
     WSGI_APPLICATION = 'manage.application'
@@ -22,8 +25,16 @@ class DjangoDefault(RelPath):
     def TEMPLATE_DEBUG(self):
         return super(DjangoDefault, self).DEBUG
 
+    @property
+    def TEMPLATE_DIRS(self):
+        return (super(DjangoDefault, self).rel_path('templates'), )
 
-class Media(RelPath):
+    @property
+    def ROOT_URLCONF(self):
+        return self.NAME + '.urls'
+
+
+class Media(object):
     MEDIA_URL = '/media/'
 
     @property
@@ -31,8 +42,12 @@ class Media(RelPath):
         return super(Media, self).rel_path('../media/')
 
 
-class Static(RelPath):
+class Static(object):
     STATIC_URL = '/static/'
+
+    @property
+    def INSTALLED_APPS(self):
+        return super(Static, self).INSTALLED_APPS + ('django.contrib.staticfiles',)
 
     @property
     def STATIC_ROOT(self):
@@ -41,8 +56,8 @@ class Static(RelPath):
     @property
     def STATICFILES_DIRS(self):
         return (
-            (super(Static, self).SITE_ROOT,
-             super(Static, self).rel_path('static/')),
+            (self.NAME,
+             super(Static, self).rel_path('static')),
         )
 
 
@@ -71,4 +86,3 @@ class Email(object):
         return (
             'django.contrib.sites',
         ) + super(Email, self).INSTALLED_APPS
-

@@ -1,4 +1,4 @@
-from . import django, apps, development, production, testing
+from . import django, apps, development, production, testing, services, db
 
 from configurations import Settings
 
@@ -11,8 +11,8 @@ class Canada(django.DjangoDefault,
              apps.Thumbnail,
              apps.TwitterBootstrap,
              apps.South,
-             apps.Compress,
-             Settings):
+             services.RQ,
+             apps.Compress):
     CANADA_IMAGE_SIZE = 'x300'
     CANADA_FRONTPAGE_IMAGE_SIZE = 'x400'
     CANADA_ADMIN_THUMBS_SIZE = 'x60'
@@ -41,17 +41,19 @@ class Canada(django.DjangoDefault,
 
 
 class LocalSettings(Canada,
-                    development.Local,
+                    db.SQLite,
                     development.Debug,
-                    testing.Testing):
-    pass
+                    testing.Testing,
+                    Settings):
+    INTERNAL_IPS = ('127.0.0.1',)
+    CSRF_COOKIE_DOMAIN = 'localhost'
 
-"""
+
 class HerokuSettings(Canada,
                      production.SecureFrameDeny,
                      production.GZip,
                      services.S3,
-                     services.RQ,
-                     services.Heroku):
-    pass
-"""
+                     production.HerokuMemcache,
+                     services.Gunicorn):
+    INTERNAL_IPS = ('0.0.0.0',)
+    CSRF_COOKIE_DOMAIN = ('.herokuapps.com')

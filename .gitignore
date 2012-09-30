@@ -7,3 +7,5 @@ sqlite.db
 /whoosh_index/
 .idea
 .DS_Store
+
+/django-canadanewyork.sublime-workspace

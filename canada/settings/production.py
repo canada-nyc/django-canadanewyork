@@ -1,3 +1,12 @@
+class HerokuMemcache(object):
+    try:
+        from memcacheify import memcacheify
+    except:
+        pass
+    else:
+        CACHES = memcacheify()
+
+
 class SecureFrameDeny(object):
     SECURE_FRAME_DENY = True
 

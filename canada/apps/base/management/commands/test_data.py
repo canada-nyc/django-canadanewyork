@@ -1,12 +1,12 @@
 from django.core import management
 
-from tests.bulkmail.factories import ContactListFactory
-from tests.exhibitions.factories import ExhibitionFactory
-from tests.info.factories import InfoFactory
-from tests.press.factories import PressFactory
-from tests.artists.factories import ArtistFactory
-from tests.updates.factories import UpdateFactory
-from tests.frontpage.factories import FrontpageFactory
+from tests.apps.bulkmail.factories import ContactListFactory
+from tests.apps.exhibitions.factories import ExhibitionFactory
+from tests.apps.info.factories import InfoFactory
+from tests.apps.press.factories import PressFactory
+from tests.apps.artists.factories import ArtistFactory
+from tests.apps.updates.factories import UpdateFactory
+from tests.apps.frontpage.factories import FrontpageFactory
 
 
 class Command(management.base.BaseCommand):

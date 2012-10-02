@@ -1,7 +1,7 @@
 import datetime
 
 from canada.apps.info.models import Info
-from ..factories import DjangoFactory
+from ...factories import DjangoFactory
 
 
 class InfoFactory(DjangoFactory):

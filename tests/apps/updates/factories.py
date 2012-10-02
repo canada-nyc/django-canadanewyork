@@ -3,7 +3,7 @@ import datetime
 import factory
 
 from canada.apps.updates.models import Update, UpdatePhoto
-from ..factories import DjangoFactory, BasePhotoFactory
+from ...factories import DjangoFactory, BasePhotoFactory
 
 
 class UpdateFactory(DjangoFactory):

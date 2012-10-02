@@ -4,7 +4,7 @@ import datetime
 import factory
 
 from canada.apps.press.models import Press
-from ..factories import DjangoFactory
+from ...factories import DjangoFactory
 from ..artists.factories import ArtistFactory
 
 

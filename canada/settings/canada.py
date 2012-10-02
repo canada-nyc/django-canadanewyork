@@ -49,11 +49,5 @@ class LocalSettings(Canada,
     CSRF_COOKIE_DOMAIN = 'localhost'
 
 
-class HerokuSettings(Canada,
-                     production.SecureFrameDeny,
-                     production.GZip,
-                     services.S3,
-                     production.HerokuMemcache,
-                     services.Gunicorn):
-    INTERNAL_IPS = ('0.0.0.0',)
-    CSRF_COOKIE_DOMAIN = ('.herokuapps.com')
+class ProductionSettings(Canada, production.HerokuSettings, services.S3):
+    pass

@@ -1,8 +1,8 @@
 import factory
 
 from canada.apps.artists.models import Artist, ArtistPhoto
-from ..factories import DjangoFactory, BasePhotoFactory
-from ..functions import django_pdf
+from ...factories import DjangoFactory, BasePhotoFactory
+from ...functions import django_pdf
 
 
 class ArtistFactory(DjangoFactory):

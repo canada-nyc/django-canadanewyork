@@ -1,6 +1,7 @@
 Django==1.4.1
 South==0.7.6
 yolk==0.4.3
+django-configurations==0.1
 
 ##
 #Admin
@@ -34,3 +35,10 @@ BeautifulSoup==3.2.1
 rq==0.3.2
 redis==2.6.1
 django-rq==0.3.1
+
+##
+#Storage
+##
+boto==2.5.2
+django-storages==1.1.5
+

@@ -7,3 +7,6 @@ before_script:
     pep8 . --exclude=migrations,static --ignore=E501
 script:
   - python manage.py test
+
+notifications:
+  email: false

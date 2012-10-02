@@ -14,7 +14,7 @@ git+git://github.com/lincolnloop/django-smart-selects.git@dbe42ad4604d132ce72adc
 ##
 sorl-thumbnail==11.12
 Pillow==1.7.7
-reportlab==2.5
+reportlab==2.6
 
 ##
 #Templates
@@ -26,19 +26,19 @@ django-bootstrap-form==2.0.5
 #Compression
 ##
 django-compressor==1.2
-lxml==3.0alpha2
+lxml
 BeautifulSoup==3.2.1
 
 ##
 #Queue
 ##
 rq==0.3.2
-redis==2.6.1
-django-rq==0.3.1
+redis==2.6.2
+django-rq==0.3.2
 
 ##
 #Storage
 ##
-boto==2.5.2
+boto==2.6.0
 django-storages==1.1.5
 

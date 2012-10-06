@@ -3,8 +3,8 @@ import collections
 
 import factory
 
-from canada.apps.exhibitions.models import Exhibition, ExhibitionPhoto
-from ...factories import DjangoFactory, BasePhotoFactory
+from apps.exhibitions.models import Exhibition, ExhibitionPhoto
+from ...common.factories import DjangoFactory, BasePhotoFactory
 from ..artists.factories import ArtistFactory
 
 

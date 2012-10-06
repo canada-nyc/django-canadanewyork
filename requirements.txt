@@ -1,2 +1,2 @@
--r requirements/prod.txt
+-r configs/requirements/prod.txt
 pylibmc

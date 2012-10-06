@@ -3,7 +3,7 @@ import os
 import sys
 
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "canada.settings.canada")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "configs.settings.canada")
 os.environ.setdefault('DJANGO_CONFIGURATION', 'LocalSettings')
 
 if __name__ == "__main__":

@@ -1,8 +1,8 @@
 import factory
 
-from canada.apps.bulkmail.models import Message, ContactList, Contact
-from ...functions import django_image
-from ...factories import DjangoFactory
+from apps.bulkmail.models import Message, ContactList, Contact
+from ...common.functions import django_image
+from ...common.factories import DjangoFactory
 
 
 class ContactListFactory(DjangoFactory):

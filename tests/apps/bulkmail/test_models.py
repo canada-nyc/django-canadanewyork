@@ -2,7 +2,7 @@ from django.test import TestCase
 from django_rq import get_worker
 
 
-from canada.apps.bulkmail.admin import send_messages
+from apps.bulkmail.admin import send_messages
 from .factories import MessageFactory
 
 

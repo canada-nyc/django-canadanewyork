@@ -1,7 +1,7 @@
 import factory
 
-from canada.apps.frontpage.models import Frontpage
-from ...factories import DjangoFactory
+from apps.frontpage.models import Frontpage
+from ...common.factories import DjangoFactory
 from ..exhibitions.factories import ExhibitionFactory
 
 

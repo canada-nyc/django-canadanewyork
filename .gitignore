@@ -1,11 +1,5 @@
 .sass-cache/
-/media/
-/static/
-sqlite.db
+/tmp/
 *.pyc
-/cache/
-/whoosh_index/
 .idea
 .DS_Store
-
-/django-canadanewyork.sublime-workspace

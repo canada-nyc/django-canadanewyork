@@ -16,6 +16,7 @@ urlpatterns = patterns(
     url(r'^press/', include('apps.press.urls')),
     url(r'^', include('apps.info.urls')),
     url(r'^', include('apps.bulkmail.urls')),
+)
 
 urlpatterns += patterns(
     '',

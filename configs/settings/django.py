@@ -31,7 +31,7 @@ class DjangoDefault(object):
 
     @property
     def ROOT_URLCONF(self):
-        return self.NAME + '.urls'
+        return 'configs.urls'
 
 
 class Media(object):

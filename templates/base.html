@@ -37,7 +37,6 @@
       </div><!--/.nav-collapse -->
     </div><!--/.container-fluid-->
   </div><!--/.navbar-inner-->
-  <div id="push"></div>
 </div><!--/.navbar-->
 <div class="container-fluid">
   <div class="row-fluid">
@@ -45,16 +44,12 @@
       <img src="{% static "canada/images/fire_logo.gif" %}">
     </div><!--/span3-->
     <div class="span9">
-      <div class="container">{% block body %}{% endblock %}</div>
+      {% block body %}{% endblock %}
+      <footer>
+        <p>333 Broome St, NYC 10002 | 212.925.4631 | <a href="mailto:gallery@canadanewyork.com">gallery@canadanewyork.com</a>
+      </footer>
     </div><!--/span9-->
   </div><!--/row-->
-  <footer class="row-fluid">
-      <ul class="unstyled">
-        <li class="span3">333 Broome St, NYC 10002
-        <li class="span2">212.925.4631
-        <li class="span1"><a href="mailto:gallery@canadanewyork.com">gallery@canadanewyork.com</a>
-      </ul>
-  </footer>
 </div><!--/.container-fluid-->
 {% compress js %}
 <script src="{% static "canada/js/jquery.min.js" %}"></script>

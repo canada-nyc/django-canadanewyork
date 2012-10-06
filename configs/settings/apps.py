@@ -22,7 +22,7 @@ class Compress(django.Static):
     ]
 
     COMPRESS_PRECOMPILERS = (
-        ('text/less', 'lessc -x {infile} {outfile}'),
+        ('text/less', 'lessc {infile} {outfile}'),
     )
 
     @property

@@ -2,47 +2,64 @@
 {% load compress %}
 <!DOCTYPE html>
 <head>
- <meta charset="utf-8">
- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
- <title>{% block title %} | CANADA{% endblock %}</title>
- <meta name="description" content="CANADA - lower East Side Art gallery exhibiting artists in New York.">
- <meta name="viewport" content="width=device-width">
- {% compress css %}
- <link type="text/less" rel="stylesheet" href="{% static "canada/less/bootstrap/bootstrap.less" %}">
- <link type="text/less" rel="stylesheet" href="{% static "canada/less/canada.less" %}">
- {% endcompress %}
- {% block css %}{% endblock %}
- <!--[if lt IE 9]>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>{% block title %} | CANADA{% endblock %}</title>
+  <meta name="description" content="CANADA - lower East Side Art gallery exhibiting artists in New York.">
+  <meta name="viewport" content="width=device-width">
+  {% compress css %}
+  <link type="text/less" rel="stylesheet" href="{% static "canada/less/bootstrap.less" %}">
+  <link type="text/less" rel="stylesheet" href="{% static "canada/less/bootstrap-responsive.less" %}">
+  <link type="text/less" rel="stylesheet" href="{% static "canada/less/canada.less" %}">
+  {% endcompress %}
+  {% block css %}{% endblock %}
+  <!--[if lt IE 9]>
   <script src="{% static "canada/js/html5shiv.min.js" %}"></script>
- <![endif]-->
-
-
+  <![endif]-->
 </head>
 <body>
-<div id="everything"
- <header class="navbar navbar-static-top navbar-inverse">
-  <nav class="navbar-inner">
-   <div class="container">
-    <ul class="nav">
-     <li><a href="/">Home</a>
-     <li><a href="/artists/">Artists</a>
-     <li><a href="/exhibitions/">Exhibitions</a>
-     <li><a href="/updates/">Updates</a>
-     <li><a href="/contact/">Contact</a>
-    </ul>
-   </div>
-  </nav>
- </header>
- <div class="container" id="body">{% block body %}{% endblock %}</div>
- <footer>
-  <p class="container">CANADA 55 Chrystie St (between Hester &amp; Canal), NYC 10002 | 212.925.4631 | <a href="mailto:gallery@canadanewyork.com">gallery@canadanewyork.com</a>
- </footer>
-</div>
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="/">CANADA</a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <li><a href="/artists/">Artists</a>
+          <li><a href="/exhibitions/">Exhibitions</a>
+          <li><a href="/updates/">Updates</a>
+          <li><a href="/contact/">Contact</a>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid-->
+  </div><!--/.navbar-inner-->
+  <div id="push"></div>
+</div><!--/.navbar-->
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span2 hidden-phone">
+      <img src="{% static "canada/images/fire_logo.gif" %}">
+    </div><!--/span3-->
+    <div class="span9">
+      <div class="container">{% block body %}{% endblock %}</div>
+    </div><!--/span9-->
+  </div><!--/row-->
+  <footer class="row-fluid">
+      <ul class="unstyled">
+        <li class="span3">333 Broome St, NYC 10002
+        <li class="span2">212.925.4631
+        <li class="span1"><a href="mailto:gallery@canadanewyork.com">gallery@canadanewyork.com</a>
+      </ul>
+  </footer>
+</div><!--/.container-fluid-->
 {% compress js %}
 <script src="{% static "canada/js/jquery.min.js" %}"></script>
 <script src="{% static "canada/js/bootstrap.min.js" %}"></script>
 {% block js %}{% endblock %}
 {% endcompress %}
-
 </body>
 </html>

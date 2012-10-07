@@ -1,7 +1,7 @@
 Django==1.4.1
 South==0.7.6
 yolk==0.4.3
-django-configurations==0.1
+git+git://github.com/jezdez/django-configurations.git
 
 ##
 #Admin

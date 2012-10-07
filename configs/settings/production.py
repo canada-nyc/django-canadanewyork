@@ -3,12 +3,8 @@ from . import db
 
 
 class HerokuMemcache(object):
-    try:
-        from memcacheify import memcacheify
-    except:
-        pass
-    else:
-        CACHES = memcacheify()
+    import memcacheify
+    CACHES = memcacheify.memcacheify()
 
 
 class SecureFrameDeny(object):
@@ -21,9 +17,3 @@ class GZip(object):
         return (
             'django.middleware.gzip.GZipMiddleware',
         ) + super(GZip, self).MIDDLEWARE_CLASSES
-
-
-class HerokuSettings(HerokuMemcache, GZip, SecureFrameDeny,
-                     services.Gunicorn, db.HerokuDB):
-    INTERNAL_IPS = ('0.0.0.0',)
-    CSRF_COOKIE_DOMAIN = ('.herokuapps.com')

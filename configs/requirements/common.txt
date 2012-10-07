@@ -42,3 +42,8 @@ django-rq==0.3.2
 boto==2.6.0
 django-storages==1.1.5
 
+##
+#Heroku, but required for settings import
+##
+django-heroku-memcacheify==0.3
+dj-database-url==0.2.0

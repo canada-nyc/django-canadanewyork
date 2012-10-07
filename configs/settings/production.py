@@ -1,4 +1,5 @@
 from . import services
+from . import db
 
 
 class HerokuMemcache(object):
@@ -23,6 +24,6 @@ class GZip(object):
 
 
 class HerokuSettings(HerokuMemcache, GZip, SecureFrameDeny,
-                     services.Gunicorn):
+                     services.Gunicorn, db.HerokuDB):
     INTERNAL_IPS = ('0.0.0.0',)
     CSRF_COOKIE_DOMAIN = ('.herokuapps.com')

@@ -21,19 +21,24 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container-fluid">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-      <a class="brand" href="/">CANADA</a>
-      <div class="nav-collapse collapse">
-        <ul class="nav">
-          <li><a href="/artists/">Artists</a>
-          <li><a href="/exhibitions/">Exhibitions</a>
-          <li><a href="/updates/">Updates</a>
-          <li><a href="/contact/">Contact</a>
-        </ul>
+      <div class="row-fluid">
+        <div class="span2 visible-desktop"></div><!--So that navbar is offset in desktop rendering to match up with text-->
+        <div class="span10">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">CANADA</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="/artists/">Artists</a>
+              <li><a href="/exhibitions/">Exhibitions</a>
+              <li><a href="/updates/">Updates</a>
+              <li><a href="/contact/">Contact</a>
+            </ul>
+          </div>
+        </div><!--/.row-fluid-->
       </div><!--/.nav-collapse -->
     </div><!--/.container-fluid-->
   </div><!--/.navbar-inner-->
@@ -42,8 +47,8 @@
   <div class="row-fluid">
     <div class="span2 hidden-phone">
       <img src="{% static "canada/images/fire_logo.gif" %}">
-    </div><!--/span3-->
-    <div class="span9">
+    </div><!--/span2-->
+    <div class="span10">
       {% block body %}{% endblock %}
       <footer>
         <p>333 Broome St, NYC 10002 | 212.925.4631 | <a href="mailto:gallery@canadanewyork.com">gallery@canadanewyork.com</a>

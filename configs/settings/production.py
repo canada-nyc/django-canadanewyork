@@ -1,3 +1,5 @@
+import os
+
 from . import services
 from . import db
 
@@ -6,7 +8,7 @@ class HerokuMemcache(object):
     CACHES = {
         'default': {
             'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
-            'LOCATION': os.environ['MEMCACHIER_SERVERS'],
+            'LOCATION': os.environ.get('MEMCACHIER_SERVERS'),
             'TIMEOUT': 500,
             'BINARY': True,
         }
@@ -30,4 +32,4 @@ class CSRF(object):
     def MIDDLEWARE_CLASSES(self):
         return (
             'django.middleware.csrf.CsrfViewMiddleware',
-        ) + super(GZip, self).MIDDLEWARE_CLASSES
+        ) + super(CSRF, self).MIDDLEWARE_CLASSES

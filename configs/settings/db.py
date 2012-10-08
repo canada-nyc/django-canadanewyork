@@ -17,10 +17,6 @@ class SQLite(RelPath):
         return db
 
 
-class HerokuDB(object):
-    try:
-        import dj_database_url
-    except:
-        pass
-    else:
-        DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
+class Postgres(object):
+    import dj_database_url
+    DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}

@@ -1,12 +1,22 @@
 language: python
+
 services:
   - redis-server
+  - memcached
+
+env:
+  global:
+    - DJANGO_CONFIGURATION: TravisSettings
+
 install:
-  - pip install -qr requirements.txt --use-mirrors
+  - sudo apt-get install -qq libmemcached-dev
+  - pip install -r configs/requirements/prod.txt -r configs/requirements/testing.txt --use-mirrors
+
 before_script:
     pep8 . --exclude=migrations,static --ignore=E501
+
 script:
-  - python manage.py test
+  - python manage.py test --noinput tests.apps
 
 notifications:
   email: false

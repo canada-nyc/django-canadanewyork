@@ -7,8 +7,6 @@ from django.conf import settings
 from django.test import TestCase
 from django.db.models import loading
 
-from .models import MyStorage
-
 
 @override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('storages',),
                    DEFAULT_FILE_STORAGE='storages.backends.s3boto.S3BotoStorage',

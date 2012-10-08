@@ -1,13 +1,18 @@
+import os
+
 from . import services
+from . import db
 
 
 class HerokuMemcache(object):
-    try:
-        from memcacheify import memcacheify
-    except:
-        pass
-    else:
-        CACHES = memcacheify()
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
+            'LOCATION': os.environ.get('MEMCACHIER_SERVERS'),
+            'TIMEOUT': 500,
+            'BINARY': True,
+        }
+    }
 
 
 class SecureFrameDeny(object):
@@ -22,7 +27,9 @@ class GZip(object):
         ) + super(GZip, self).MIDDLEWARE_CLASSES
 
 
-class HerokuSettings(HerokuMemcache, GZip, SecureFrameDeny,
-                     services.Gunicorn):
-    INTERNAL_IPS = ('0.0.0.0',)
-    CSRF_COOKIE_DOMAIN = ('.herokuapps.com')
+class CSRF(object):
+    @property
+    def MIDDLEWARE_CLASSES(self):
+        return (
+            'django.middleware.csrf.CsrfViewMiddleware',
+        ) + super(CSRF, self).MIDDLEWARE_CLASSES

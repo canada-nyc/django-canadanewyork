@@ -1,7 +1,7 @@
 Django==1.4.1
 South==0.7.6
 yolk==0.4.3
-django-configurations==0.1
+git+git://github.com/jezdez/django-configurations.git
 
 ##
 #Admin
@@ -26,14 +26,13 @@ django-bootstrap-form==2.0.5
 #Compression
 ##
 django-compressor==1.2
-lxml
 BeautifulSoup==3.2.1
 
 ##
 #Queue
 ##
 rq==0.3.2
-redis==2.6.2
+redis==2.7.0
 django-rq==0.3.2
 
 ##
@@ -42,3 +41,7 @@ django-rq==0.3.2
 boto==2.6.0
 django-storages==1.1.5
 
+##
+#Heroku, but required for settings import
+##
+dj-database-url==0.2.1

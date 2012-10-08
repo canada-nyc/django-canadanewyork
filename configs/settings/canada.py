@@ -53,9 +53,9 @@ class LocalSettings(Canada,
 
 class ProductionSettings(Canada,
                          db.HerokuDB,
-                         production.HerokuMemcache,
-                         production.GZip,
-                         production.SecureFrameDeny,
+                         #production.HerokuMemcache,
+                         #production.GZip,
+                         #production.SecureFrameDeny,
                          services.Gunicorn,
                          services.S3,
                          Settings):

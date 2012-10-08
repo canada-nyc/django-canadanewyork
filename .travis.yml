@@ -2,7 +2,7 @@ language: python
 services:
   - redis-server
 install:
-  - pip install -qr requirements.txt --use-mirrors
+  - pip install -qr configs/dev/requirements.txt --use-mirrors
 before_script:
     pep8 . --exclude=migrations,static --ignore=E501
 script:

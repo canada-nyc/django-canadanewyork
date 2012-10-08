@@ -60,3 +60,11 @@ class ProductionSettings(Canada,
                          services.S3,
                          Settings):
     INTERNAL_IPS = ('0.0.0.0',)
+
+
+class TravisSetttings(Canada,
+                      db.Postgres,
+                      production.HerokuMemcache,
+                      services.Gunicorn,
+                      Settings):
+    pass

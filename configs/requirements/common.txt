@@ -26,7 +26,6 @@ django-bootstrap-form==2.0.5
 #Compression
 ##
 django-compressor==1.2
-lxml
 BeautifulSoup==3.2.1
 
 ##

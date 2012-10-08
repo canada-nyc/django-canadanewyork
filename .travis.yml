@@ -10,13 +10,13 @@ env:
 
 install:
   - sudo apt-get install -qq libmemcached-dev
-  - pip install -r configs/requirements/prod.txt -r configs/requirements/testing.txt --use-mirrors
+  - pip install -r configs/requirements/prod.txt -r configs/requirements/testing.txt pylibmc --use-mirrors
 
 before_script:
     pep8 . --exclude=migrations,static --ignore=E501
 
 script:
-  - python manage.py test --noinput tests.apps
+  - python manage.py test tests.apps
 
 notifications:
   email: false

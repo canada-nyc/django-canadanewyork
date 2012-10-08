@@ -57,6 +57,7 @@ class ProductionSettings(Canada,
                          production.GZip,
                          production.SecureFrameDeny,
                          services.Gunicorn,
-                         services.S3):
+                         services.S3,
+                         Settings):
     INTERNAL_IPS = ('0.0.0.0',)
     CSRF_COOKIE_DOMAIN = ('.herokuapps.com')

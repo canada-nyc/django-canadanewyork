@@ -6,7 +6,7 @@ heroku:
 	heroku addons:add heroku-postgresql:dev
 	heroku labs:enable user-env-compile #enabled so that collectstatic has access to amazon ec2 key
 	heroku config:add DJANGO_CONFIGURATION=ProductionSettings \
-	                  SECRET_KEY='fa3rsdgaxczx' \
+	                  SECRET_KEY=(openssl rand -base64 32) \
 	                  AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
 	                  AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
 	                  AWS_STORAGE_BUCKET_NAME=canadanewyork \

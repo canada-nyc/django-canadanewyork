@@ -5,13 +5,16 @@ from configurations import Settings
 
 class Canada(django.DjangoDefault,
              django.Email,
+             production.GZip,
+             production.SecureFrameDeny,
+             production.CSRF,
+             services.RQ,
              apps.Grappelli,
              apps.Markdown,
              apps.SmartSelects,
              apps.Thumbnail,
              apps.TwitterBootstrap,
              apps.South,
-             services.RQ,
              apps.Compress):
     CANADA_IMAGE_SIZE = 'x300'
     CANADA_FRONTPAGE_IMAGE_SIZE = 'x400'
@@ -48,16 +51,12 @@ class LocalSettings(Canada,
                     testing.Testing,
                     Settings):
     INTERNAL_IPS = ('127.0.0.1',)
-    CSRF_COOKIE_DOMAIN = 'localhost'
 
 
 class ProductionSettings(Canada,
-                         db.HerokuDB,
-                         #production.HerokuMemcache,
-                         #production.GZip,
-                         #production.SecureFrameDeny,
+                         db.Postgres,
+                         production.HerokuMemcache,
                          services.Gunicorn,
                          services.S3,
                          Settings):
     INTERNAL_IPS = ('0.0.0.0',)
-    CSRF_COOKIE_DOMAIN = ('.herokuapps.com')

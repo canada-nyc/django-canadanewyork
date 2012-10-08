@@ -1,8 +1,9 @@
 language: python
 services:
   - redis-server
+  - memcached
 install:
-  - pip install -qr configs/dev/requirements.txt --use-mirrors
+  - pip install -qr configs/requirements/prod.txt -qr configs/requirements/testing.txt --use-mirrors
 before_script:
     pep8 . --exclude=migrations,static --ignore=E501
 script:

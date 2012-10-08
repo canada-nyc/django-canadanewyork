@@ -3,8 +3,14 @@ from . import db
 
 
 class HerokuMemcache(object):
-    import memcacheify
-    CACHES = memcacheify.memcacheify()
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
+            'LOCATION': os.environ['MEMCACHIER_SERVERS'],
+            'TIMEOUT': 500,
+            'BINARY': True,
+        }
+    }
 
 
 class SecureFrameDeny(object):
@@ -16,4 +22,12 @@ class GZip(object):
     def MIDDLEWARE_CLASSES(self):
         return (
             'django.middleware.gzip.GZipMiddleware',
+        ) + super(GZip, self).MIDDLEWARE_CLASSES
+
+
+class CSRF(object):
+    @property
+    def MIDDLEWARE_CLASSES(self):
+        return (
+            'django.middleware.csrf.CsrfViewMiddleware',
         ) + super(GZip, self).MIDDLEWARE_CLASSES

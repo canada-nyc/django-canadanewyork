@@ -1,13 +1,6 @@
 -r common.txt
+-r testing.txt
 
 django-debug-toolbar==0.9.4
 django-pdb==0.3.2
 ipdb==0.7
-
-
-###
-#Testing
-###
-django-discover-runner==0.2.2
-git+git://github.com/rbarrois/factory_boy.git
-pep8

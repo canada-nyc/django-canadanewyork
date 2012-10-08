@@ -3,8 +3,8 @@ services:
   - redis-server
   - memcached
 install:
-  - apt-get install libmemcached-dev
-  - pip install -r configs/requirements/prod.txt -qr configs/requirements/testing.txt --use-mirrors
+  - sudo apt-get install -qq libmemcached-dev
+  - pip install -r configs/requirements/prod.txt -r configs/requirements/testing.txt --use-mirrors
 before_script:
     pep8 . --exclude=migrations,static --ignore=E501
 script:

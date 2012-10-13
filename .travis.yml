@@ -20,4 +20,3 @@ script:
 
 notifications:
   email: false
-

@@ -8,7 +8,7 @@ from django.conf import settings
 from .models import UniqueBooleanModel
 
 
-@override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('tests.apps.base',))
+@override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('tests.unique_boolean.base',))
 class UniqueBooleanTest(TestCase):
     def setUp(self):
         loading.cache.loaded = False

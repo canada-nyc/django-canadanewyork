@@ -5,6 +5,7 @@ from configurations import Settings
 
 class Canada(django.DjangoDefault,
              django.Email,
+             django.Redirects,
              production.GZip,
              production.SecureFrameDeny,
              production.CSRF,
@@ -34,8 +35,7 @@ class Canada(django.DjangoDefault,
             'apps.frontpage',
             'apps.info',
             'apps.common',
-            'apps.model_redirects',
-            'apps.unique_boolean'
+            'tests.apps.content_redirects'
         ) + super(Canada, self).INSTALLED_APPS
 
     @property

@@ -11,7 +11,7 @@ from .factories import RedirectModelFactory, RedirectModel_2Factory
 
 
 @override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('tests.apps.content_redirects',))
-class TestContentRedirect(TestCase):
+class TestContentRedirects(TestCase):
     def setUp(self):
         loading.cache.loaded = False
         call_command('syncdb')
@@ -23,7 +23,7 @@ class TestContentRedirect(TestCase):
         self.assertEqual(_Content.old_path, _Redirect.old_path)
 
     def test_change_old_path(self):
-        _Content = ContentRedirectModelFactory()
+        _Content = RedirectModelFactory()
         _Content.old_path = '/from/another'
         _Content.save()
         _Redirect = _Content.redirect
@@ -31,7 +31,7 @@ class TestContentRedirect(TestCase):
         self.assertEqual(1, Redirect.objects.count())
 
     def test_change_absolute_url(self):
-        _Content = ContentRedirectModelFactory()
+        _Content = RedirectModelFactory()
         _Content.text = 'new text'
         _Content.save()
         _Redirect = _Content.redirect
@@ -40,22 +40,23 @@ class TestContentRedirect(TestCase):
 
     def test_remove_old_path(self):
         '''
-        Test to make sure that ContentRedirect deletes itself and the redirect
-        model, when the old_path is not set
+        Test to make sure that the Redirect deletes itself,
+         when the old_path is not set
         '''
-        _Content = ContentRedirectModelFactory()
+        _Content = RedirectModelFactory()
         _Content.old_path = ''
         _Content.save()
         self.assertFalse(Redirect.objects.count())
 
     def test_recreate(self):
         '''
-        Test to make sure that ContentRedirect recreates itself if from_url
-        is supplied and redirect does as well
+        Test to make sure that Redirect recreates itself if `from_url`
+        is supplied
         '''
-        _Content = ContentRedirectModelFactory(old_path='')
+        _Content = RedirectModelFactory(old_path='')
         self.assertFalse(Redirect.objects.count())
         _Content.old_path = 'path'
+        _Content.save()
         _Redirect = _Content.redirect
         self.assertEqual(_Content.get_absolute_url(), _Redirect.new_path)
         self.assertEqual(_Redirect.old_path, _Redirect.old_path)
@@ -65,11 +66,11 @@ class TestContentRedirect(TestCase):
         If multiple old_paths are blank, then no error should be raised,
         because they are not conflicting
         '''
-        _Content_1 = ContentRedirectModelFactory(old_path='')
-        _Content_2 = ContentRedirectModelFactory(old_path='')
+        _Content_1 = RedirectModelFactory(old_path='')
+        _Content_2 = RedirectModelFactory(old_path='')
         self.assertFalse(Redirect.objects.count())
 
     def test_conflicting_old_path(self):
         with self.assertRaisesRegexp(ValidationError, 'old_path'):
-            _Content_1 = ContentRedirectModelFactory(old_path='path')
-            _Content_2 = ContentRedirectModel_2Factory(old_path='path')
+            _Content_1 = RedirectModelFactory(old_path='path')
+            _Content_2 = RedirectModel_2Factory(old_path='path')

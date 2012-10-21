@@ -4,13 +4,14 @@ from django.db.models import loading
 from django.test.utils import override_settings
 from django.conf import settings
 
-
 from .models import UniqueBooleanModel
 
 
-@override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('tests.unique_boolean.base',))
+@override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('tests.apps.unique_boolean'))
 class UniqueBooleanTest(TestCase):
     def setUp(self):
+
+        print settings.INSTALLED_APPS
         loading.cache.loaded = False
         call_command('syncdb')
 

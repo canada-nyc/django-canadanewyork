@@ -86,3 +86,17 @@ class Email(object):
         return (
             'django.contrib.sites',
         ) + super(Email, self).INSTALLED_APPS
+
+
+class Redirects(object):
+    @property
+    def INSTALLED_APPS(self):
+        return (
+            'django.contrib.redirects',
+        ) + super(Redirects, self).INSTALLED_APPS
+
+    @property
+    def MIDDLEWARE_CLASSES(self):
+        return (
+            'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+        ) + super(Redirects, self).MIDDLEWARE_CLASSES

@@ -1,1 +1,1 @@
-python manage.py collectstatic --noinput
+# The post_compile hook is run by heroku-buildpack-python

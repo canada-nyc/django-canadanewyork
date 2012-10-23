@@ -12,6 +12,7 @@ def django_image(name, size=10):
     # using PIL, and stored in variable 'thumb')
     thumb_io = StringIO.StringIO()
     thumb.save(thumb_io, format='JPEG')
+    thumb_io.seek(0)
 
     # Create a new Django file-like object to be used in models as ImageField using
     # InMemoryUploadedFile.  If you look at the source in Django, a

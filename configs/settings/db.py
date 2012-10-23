@@ -17,6 +17,6 @@ class SQLite(RelPath):
         return db
 
 
-class Postgres(object):
+class Postgres(RelPath):
     import dj_database_url
     DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}

@@ -47,8 +47,9 @@ class Canada(django.DjangoDefault,
 
 class LocalSettings(Canada,
                     db.SQLite,
-                    development.Debug,
-                    testing.Testing,
+                    #development.Debug,
+                    #testing.Testing,
+                    services.S3,
                     Settings):
     INTERNAL_IPS = ('127.0.0.1',)
 
@@ -66,5 +67,6 @@ class TravisSetttings(Canada,
                       db.Postgres,
                       production.HerokuMemcache,
                       services.Gunicorn,
+                      services.S3,
                       Settings):
     pass

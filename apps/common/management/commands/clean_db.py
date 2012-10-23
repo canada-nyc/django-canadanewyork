@@ -13,17 +13,21 @@ class Command(NoArgsCommand):
 
     def handle(self, *args, **options):
         if options.get('wipe'):
-                self.stdout.write('Removing sqlite.db\n')
-                call('rm -f tmp/sqlite.db', shell=True)
                 self.stdout.write('Removing static\n')
                 call('rm -rf tmp/static', shell=True)
                 self.stdout.write('Removing media\n')
                 call('rm -rf tmp/media', shell=True)
 
-        self.log('Syncing/Migratin DB')
+        self.log('Initial sync/migrate, to clean up existing db')
         call_command('syncdb', interactive=False, verbosity=0, migrate=True)
+        self.log('Flushing DB')
+        call_command('flush', interactive=False, verbosity=0)
+        self.log('Syncing DB')
+        call_command('syncdb', interactive=False, verbosity=0)
+        self.log('Migrating DB')
+        call_command('migrate', fake=True, interactive=False, verbosity=0)
         self.log('Collecting Static DB')
-        call_command('collectstatic', interactive=False, verbosity=0)
+        call_command('collectstatic', interactive=False, verbosity=1)
         self.log('Adding SU')
         call_command('add_superuser')
         self.log('Adding test_data')

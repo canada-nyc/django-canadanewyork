@@ -6,7 +6,7 @@ services:
 
 env:
   global:
-    - DJANGO_CONFIGURATION: TravisSettings
+    - "DJANGO_CONFIGURATION=TravisSettings"
 
 install:
   - sudo apt-get install -qq libmemcached-dev

@@ -9,8 +9,8 @@ heroku:
 	                  SECRET_KEY=(openssl rand -base64 32) \
 	                  AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
 	                  AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-	                  AWS_STORAGE_BUCKET_NAME=canadanewyork \
-	                  EMAIL_HOST_PASSWORD=$EMAIL_HOST_PASSWORD
+	                  EMAIL_HOST_PASSWORD=$EMAIL_HOST_PASSWORD \
+	                  BUILDPACK_URL=git://github.com/saulshanabrook/heroku-buildpack-django.git
 	heroku pg:promote (heroku pg | grep '^===' | sed 's/^=== //g')
 	git push heroku master:master
 	heroku run 'python manage.py clean_db --no-wipe'

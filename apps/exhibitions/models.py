@@ -2,7 +2,6 @@ import os
 
 from django.db import models
 from django.db.models import permalink
-from django.template.defaultfilters import slugify
 from django.core.exceptions import ValidationError
 from django.db.models.loading import get_model
 
@@ -10,6 +9,7 @@ from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 
 from ..artists.models import Artist
 from ..common.models import BasePhoto
+from ..slugify.fields import SlugifyField
 
 
 class Exhibition(models.Model):
@@ -18,17 +18,13 @@ class Exhibition(models.Model):
     artists = models.ManyToManyField(Artist, related_name='exhibitions')
     start_date = models.DateField()
     end_date = models.DateField()
-    slug = models.SlugField(blank=True, editable=False)
+    slug = SlugifyField(populate_from=('name',))
 
     class Meta:
         ordering = ["-start_date"]
 
     def __unicode__(self):
         return '{}({})'.format(self.name, self.start_date.year)
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Exhibition, self).save(*args, **kwargs)
 
     @permalink
     def get_absolute_url(self):

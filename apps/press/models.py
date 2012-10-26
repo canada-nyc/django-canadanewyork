@@ -1,12 +1,12 @@
 import os
 
 from django.db.models import permalink
-from django.template.defaultfilters import slugify
 from django.db import models
 from django.core.exceptions import ValidationError
 
 from ..artists.models import Artist
 from ..exhibitions.models import Exhibition
+from ..slugify.fields import SlugifyField
 
 
 class Press(models.Model):
@@ -31,7 +31,7 @@ class Press(models.Model):
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True,
                                    related_name='press',)
 
-    slug = models.SlugField(editable=False, unique_for_year='date')
+    slug = SlugifyField(populate_from=('title',))
 
     class Meta:
         ordering = ['-date']
@@ -39,10 +39,6 @@ class Press(models.Model):
 
     def __unicode__(self):
         return u'{} ({})'.format(self.title, self.date.year)
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        super(Press, self).save(*args, **kwargs)
 
     def clean(self):
         if not self.image and not self.link:

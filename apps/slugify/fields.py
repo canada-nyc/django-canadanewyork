@@ -1,5 +1,6 @@
 from django.db.models.fields import SlugField
 from django.template.defaultfilters import slugify
+from django.core.exceptions import FieldError
 
 from south.modelsinspector import add_introspection_rules
 
@@ -14,7 +15,6 @@ class SlugifyField(SlugField):
 
         # Use default seperator unless given one
         self.index_sep = kwargs.pop('sep', SLUG_INDEX_SEPARATOR)
-
         super(SlugifyField, self).__init__(*args, **kwargs)
 
     def pre_save(self, model_instance, add):
@@ -23,8 +23,10 @@ class SlugifyField(SlugField):
 
         # autopopulate
         if not current_value:
-            values = [slugify(getattr(model_instance, field_name)) for field_name in self.populate_from]
-            slug = self.index_sep.join(values)
+            if isinstance(self.populate_from, basestring):
+                raise FieldError('In model {}, field {}, the populate_from kwarg needs to be passed a list, not a string'.format(model_instance, self.attname))
+            values = [value(model_instance) if callable(value) else getattr(model_instance, value) for value in self.populate_from]
+            slug = self.index_sep.join(map(slugify, values))
             setattr(model_instance, self.attname, slug)
             return slug
 

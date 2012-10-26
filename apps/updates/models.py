@@ -1,13 +1,12 @@
 import os
-import datetime
 
 from django.db import models
 from django.db.models import permalink
-from django.template.defaultfilters import slugify
 
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 
 from ..common.models import BasePhoto
+from ..slugify.fields import SlugifyField
 
 
 class Update(models.Model):
@@ -16,18 +15,13 @@ class Update(models.Model):
     description = models.TextField(blank=True, null=True,
                                    help_text=markdown_allowed())
     post_date = models.DateTimeField(auto_now_add=True)
-    slug = models.SlugField(blank=True, editable=False)
+    slug = SlugifyField(populate_from=(lambda U: U.post_date.year, 'name'))
 
     class Meta:
         ordering = ["-post_date"]
 
     def __unicode__(self):
         return '{} ({})'.format(self.name, self.post_date.year)
-
-    def save(self, *args, **kwargs):
-        year = getattr(self.post_date, 'year', datetime.datetime.now().year)
-        self.slug = slugify('-'.join([str(year), self.name]))
-        super(Update, self).save(*args, **kwargs)
 
     @permalink
     def get_absolute_url(self):

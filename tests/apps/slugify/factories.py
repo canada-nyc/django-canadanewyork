@@ -1,6 +1,6 @@
 import factory
 
-from .models import SlugifyModel, RelatedModel
+from .models import SlugifyModel, RelatedModel, SlugifyDateModel
 from ...common.factories import DjangoFactory
 
 
@@ -10,9 +10,13 @@ class RelatedModelFactory(DjangoFactory):
     text = factory.Sequence(lambda n: 'text{}'.format(n))
 
 
-class SlugModelFactory(DjangoFactory):
+class SlugifyModelFactory(DjangoFactory):
     FACTORY_FOR = SlugifyModel
 
     text = factory.Sequence(lambda n: 'text{}'.format(n))
-    text2 = factory.Sequence(lambda n: 'text2{}'.format(n))
     related_model = factory.LazyAttribute(lambda a: RelatedModelFactory())
+
+class SlugifyDateModelFactory(DjangoFactory):
+    FACTORY_FOR = SlugifyDateModel
+
+    text = factory.Sequence(lambda n: 'text{}'.format(n))

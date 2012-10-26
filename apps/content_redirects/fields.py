@@ -11,7 +11,6 @@ from south.modelsinspector import add_introspection_rules
 class RedirectOldPathField(CharField):
     def __init__(self, redirect_field, *args, **kwargs):
         if 'django.contrib.redirects' not in settings.INSTALLED_APPS:
-            print settings.INSTALLED_APPS
             raise ImproperlyConfigured('Include `django.contrib.redirects` in'
                                        ' INSTALLED_APPS, for `content_redirects`')
         self.redirect_field = redirect_field
@@ -39,7 +38,7 @@ class RedirectOldPathField(CharField):
                 if redirect:
                     redirect.delete()
         except IntegrityError as error:
-            raise ValidationError('{} conflicts with another redirect, within site {}'.format(self.attname, site))
+            raise ValidationError('{} conflicts with another redirect, within site {}, Error: {}'.format(self.attname, site, str(error)))
         return old_path
 
 add_introspection_rules([], [r"^apps\.content_redirects\.fields\.RedirectOldPathField"])

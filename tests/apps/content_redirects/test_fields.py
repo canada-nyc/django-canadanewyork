@@ -6,7 +6,6 @@ from django.conf import settings
 from django.contrib.redirects.models import Redirect
 from django.core.exceptions import ValidationError
 
-from .models import RedirectModel
 from .factories import RedirectModelFactory, RedirectModel_2Factory
 
 
@@ -14,7 +13,7 @@ from .factories import RedirectModelFactory, RedirectModel_2Factory
 class TestContentRedirects(TestCase):
     def setUp(self):
         loading.cache.loaded = False
-        call_command('syncdb')
+        call_command('syncdb', interactive=False)
 
     def test_save(self):
         _Content = RedirectModelFactory()

@@ -35,7 +35,6 @@ class Canada(django.DjangoDefault,
             'apps.frontpage',
             'apps.info',
             'apps.common',
-            'tests.apps.content_redirects'
         ) + super(Canada, self).INSTALLED_APPS
 
     @property
@@ -47,8 +46,8 @@ class Canada(django.DjangoDefault,
 
 class LocalSettings(Canada,
                     db.SQLite,
-                    #development.Debug,
-                    #testing.Testing,
+                    development.Debug,
+                    testing.Testing,
                     services.S3,
                     Settings):
     INTERNAL_IPS = ('127.0.0.1',)

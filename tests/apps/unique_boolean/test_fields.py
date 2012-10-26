@@ -7,13 +7,11 @@ from django.conf import settings
 from .models import UniqueBooleanModel
 
 
-@override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('tests.apps.unique_boolean'))
+@override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('tests.apps.unique_boolean',))
 class UniqueBooleanTest(TestCase):
     def setUp(self):
-
-        print settings.INSTALLED_APPS
         loading.cache.loaded = False
-        call_command('syncdb')
+        call_command('syncdb', interactive=False)
 
     def test_field(self):
         # Create one model

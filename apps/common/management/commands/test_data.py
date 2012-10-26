@@ -1,4 +1,5 @@
 from django.core import management
+from django.contrib.sites.models import Site
 
 from tests.apps.bulkmail.factories import ContactListFactory
 from tests.apps.exhibitions.factories import ExhibitionFactory
@@ -18,6 +19,8 @@ class Command(management.base.BaseCommand):
         ExhibitionFactory(photos__n=3)
         FrontpageFactory()
         InfoFactory()
-        PressFactory(artists__n=3)
+        PressFactory(artists__n=1)
         PressFactory(exhibition=ExhibitionFactory())
         UpdateFactory(photos__n=3)
+
+        Site.objects.filter(id=1).update(domain='127.0.0.1:8000', name='localhost')

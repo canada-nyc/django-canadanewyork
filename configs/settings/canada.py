@@ -48,7 +48,6 @@ class LocalSettings(Canada,
                     db.SQLite,
                     development.Debug,
                     testing.Testing,
-                    services.S3,
                     Settings):
     INTERNAL_IPS = ('127.0.0.1',)
 

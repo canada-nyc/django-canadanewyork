@@ -1,28 +1,21 @@
 {% extends "base.html" %}
 
 {% load markdown_deux_tags %}
+{% load sekizai_tags %}
 
 {% block title %}Updates{{ block.super }}{% endblock %}
 
 {% block body %}
 <section>
- {% for update in update_list %}
+  {% for update in update_list %}
   <article>
-   <header>
-    <h1 id="{{ update.slug }}">{{ update.name }}</h1>
-    <p>{% include "base/full_date.html" with date=update.post_date %}
-   </header>
-   {% include "base/images.html" with images=update.images.all %}
-   {{ update.description|markdown }}
+    <header>
+      <h1 id="{{ update.slug }}">{{ update.name }}</h1>
+      <p>{% include "base/full_date.html" with date=update.post_date %}
+    </header>
+    {% include "base/images.html" with images=update.images.all id=update.id %}
+    {{ update.description|markdown }}
   </article>
- {% endfor %}
+  {% endfor %}
 </section>
 {% endblock %}
-
-{% block js %}
- {% include "base/images.html" with images=update.images.all js="True" %}
-{% endblock %}
-
-{% block css %}
- {% include "base/images.html" with images=update.images.all css="True" %}
-{% endblock css %}

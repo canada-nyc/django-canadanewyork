@@ -1,13 +1,17 @@
 {% load canada_filters %}
 
 <dl>
-{% for model in models %}
- {% with date=model|getattribute:date_atr %}
-  {% ifchanged date.year %}<dt><h2>{{ date.year }}</h2></dt>{% endifchanged %}
-  <dd><a href="{{ model.get_absolute_url }}">
-   {% include "base/model_detail.html" with model=model only %}<br>
-   <small>{% include "base/model_detail.html" with model=model extra_info="True" only %}</small>
-  </a></dd>
- {% endwith %}
-{% endfor %}
+  {% for model in models %}
+    {% with date=model|getattribute:date_atr %}
+      {% ifchanged date.year %}
+        <dt><h2>{{ date.year }}</h2></dt>
+      {% endifchanged %}
+      <dd>
+        <a href="{{ model.get_absolute_url }}">
+          {% include "base/model_detail.html" with model=model only %}<br>
+          <small>{% include "base/model_detail.html" with model=model extra_info="True" only %}</small>
+        </a>
+      </dd>
+    {% endwith %}
+  {% endfor %}
 </dl>

@@ -1,5 +1,6 @@
 {% load static from staticfiles %}
 {% load compress %}
+{% load sekizai_tags %}
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
@@ -12,7 +13,7 @@
   <link type="text/less" rel="stylesheet" href="{% static "canada/less/bootstrap-responsive.less" %}">
   <link type="text/less" rel="stylesheet" href="{% static "canada/less/canada.less" %}">
   {% endcompress %}
-  {% block css %}{% endblock %}
+  {% render_block "css" %}
   <!--[if lt IE 9]>
   <script src="{% static "canada/js/html5shiv.min.js" %}"></script>
   <![endif]-->
@@ -23,7 +24,7 @@
     <div class="container-fluid">
       <div class="row-fluid">
         <div class="span2 visible-desktop"></div><!--So that navbar is offset in desktop rendering to match up with text-->
-        <div class="span10">
+        <div class="span12">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -48,18 +49,16 @@
     <div class="span2 hidden-phone">
       <img src="{% static "canada/images/fire_logo.gif" %}">
     </div><!--/span2-->
-    <div class="span10">
+    <div class="span6">
       {% block body %}{% endblock %}
       <footer>
         <p>333 Broome St, NYC 10002 | 212.925.4631 | <a href="mailto:gallery@canadanewyork.com">gallery@canadanewyork.com</a>
       </footer>
-    </div><!--/span9-->
+    </div><!--/span3-->
   </div><!--/row-->
 </div><!--/.container-fluid-->
-{% compress js %}
 <script src="{% static "canada/js/jquery.min.js" %}"></script>
 <script src="{% static "canada/js/bootstrap.min.js" %}"></script>
-{% block js %}{% endblock %}
-{% endcompress %}
+{% render_block "js" %}
 </body>
 </html>

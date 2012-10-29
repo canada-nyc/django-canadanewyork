@@ -99,3 +99,18 @@ class Markdown(object):
             "safe_mode": "escape",
         },
     }
+
+class Sekizai(object):
+    @property
+    def INSTALLED_APPS(self):
+        return (
+            'sekizai',
+        ) + super(Sekizai, self).INSTALLED_APPS
+
+    @property
+    def TEMPLATE_CONTEXT_PROCESSORS(self):
+        return (
+            'sekizai.context_processors.sekizai',
+        ) + super(Sekizai, self).TEMPLATE_CONTEXT_PROCESSORS
+
+

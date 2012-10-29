@@ -16,8 +16,9 @@ class Canada(django.DjangoDefault,
              apps.Thumbnail,
              apps.TwitterBootstrap,
              apps.South,
-             apps.Compress):
-    CANADA_IMAGE_SIZE = 'x300'
+             apps.Compress,
+             apps.Sekizai):
+    CANADA_IMAGE_SIZE = 'x400'
     CANADA_FRONTPAGE_IMAGE_SIZE = 'x400'
     CANADA_ADMIN_THUMBS_SIZE = 'x60'
 

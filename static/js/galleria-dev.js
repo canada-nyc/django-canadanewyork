@@ -1,5 +1,5 @@
 /**
- * Galleria v 1.2.9b 2012-08-31
+ * Galleria v 1.2.9b 2012-09-11
  * http://galleria.io
  *
  * Licensed under the MIT license
@@ -1574,7 +1574,7 @@ Galleria = function() {
 
             return _transitions.active ? function() {
                 if ( typeof callback == 'function' ) {
-                    callback();
+                    callback.call(self);
                 }
                 var active = self._controls.getActive(),
                     next = self._controls.getNext();
@@ -2566,7 +2566,7 @@ Galleria.prototype = {
 
             // set ratio if height is < 2
             if ( self._options.height < 2 ) {
-                self._ratio = self._options.height;
+                self._userRatio = self._ratio = self._options.height;
             }
 
             // the gallery is ready, let's just wait for the css
@@ -2913,8 +2913,8 @@ Galleria.prototype = {
         // allow setting a height ratio instead of exact value
         // useful when doing responsive galleries
 
-        if ( self._ratio ) {
-            num.height = num.width * self._ratio;
+        if ( self._userRatio ) {
+            num.height = num.width * self._userRatio;
         }
 
         return num;
@@ -4624,17 +4624,6 @@ this.prependChild( 'info', 'myElement' );
                         }
                     }
 
-                    // trigger the LOADFINISH event
-                    self.trigger({
-                        type: Galleria.LOADFINISH,
-                        cached: cached,
-                        index: queue.index,
-                        rewind: queue.rewind,
-                        imageTarget: next.image,
-                        thumbTarget: self._thumbnails[ queue.index ].image,
-                        galleriaData: self.getData( queue.index )
-                    });
-
                     var transition = self._options.transition;
 
                     // can JavaScript loop through objects in order? yes.
@@ -4666,6 +4655,19 @@ this.prependChild( 'info', 'myElement' );
                         _transitions.init.call( self, transition, params, complete );
 
                     }
+
+                    // trigger the LOADFINISH event
+                    self.trigger({
+                        type: Galleria.LOADFINISH,
+                        cached: cached,
+                        index: queue.index,
+                        rewind: queue.rewind,
+                        imageTarget: next.image,
+                        thumbTarget: self._thumbnails[ queue.index ].image,
+                        galleriaData: self.getData( queue.index )
+                    });
+
+
                 }
             });
         });
@@ -5208,16 +5210,26 @@ Galleria.loadTheme = function( src, options ) {
     }
 
     var loaded = false,
-        length = _galleries.length,
-        err = window.setTimeout( function() {
-            Galleria.raise( "Theme at " + src + " could not load, check theme path.", true );
-        }, 10000 );
+        err;
+
+    // start listening for the timeout onload
+    $( window ).load( function() {
+        if ( !loaded ) {
+            // give it another 20 seconds
+            err = window.setTimeout(function() {
+                if ( !loaded && !Galleria.theme ) {
+                    Galleria.raise( "Galleria had problems loading theme at " + src + ". Please check theme path or load manually.", true );
+                }
+            }, 20000);
+        }
+    });
 
     // first clear the current theme, if exists
     Galleria.unloadTheme();
 
     // load the theme
     Utils.loadScript( src, function() {
+        loaded = true;
         window.clearTimeout( err );
     });
 

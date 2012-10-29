@@ -3,9 +3,12 @@
 {% block title %}Unsubscribe{{ block.super }}{% endblock %}
 
 {% block body %}
-<h1>Unsubscribe</h1>
-<p>Remove <em>{{ contact.email }}</em> from our contact list?</p>
-<form method="POST">
-{% csrf_token %}
-<button type="submit" class="btn">Yep.</button>
-</form>{% endblock %}
+<section>
+  <h1>Unsubscribe</h1>
+  <p>Remove <em>{{ contact.email }}</em> from our contact list?</p>
+  <form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn">Yep.</button>
+  </form>
+</section>
+{% endblock %}

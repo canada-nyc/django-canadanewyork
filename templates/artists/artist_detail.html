@@ -5,18 +5,10 @@
 
 {% block body %}
 <article>
- <h1>{% include "base/model_detail.html" with model=artist %}</h1>
- {% include "base/images.html" with images=artist.images.all %}
- <p><a href={{ artist.resume.url }}>Resume</a>
- {% if artist.get_press %}<p><a href={{ artist.get_press_url }}>List of Press</a>{% endif %}
- {% include "base/related_models.html" with exhibitions=artist.exhibitions.all %}
+  <h1>{% include "base/model_detail.html" with model=artist %}</h1>
+  {% include "base/images.html" with images=artist.images.all %}
+  <p><a href={{ artist.resume.url }}>Resume</a>
+  {% if artist.get_press %}<p><a href={{ artist.get_press_url }}>List of Press</a>{% endif %}
+  {% include "base/related_models.html" with exhibitions=artist.exhibitions.all %}
 </article>
 {% endblock body %}
-
-{% block js %}
-{% include "base/images.html" with images=artist.images.all js="True" %}
-{% endblock js %}
-
-{% block css %}
-{% include "base/images.html" with images=artist.images.all css="True" %}
-{% endblock css %}

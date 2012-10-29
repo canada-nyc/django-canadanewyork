@@ -1,34 +1,49 @@
 {% load thumbnail %}
 {% load static from staticfiles %}
+{% load sekizai_tags %}
 
 {% if images %}
- {% if js %}
-  <script src="{% static "canada/js/galleria.js" %}"></script>
-  <script src="{% static "canada/js/galleria.classic.js" %}"></script>
-  <script>
-   var data = [
-    {% for image in images %}
-     {% thumbnail image.image image_size as im %}
-     {
-      image: '{{ im.url }}',
-      big: 'big.jpg',
-      title: '{{ image.title }}',
-      description: '{{ image.caption }}',
-     }{% if not forloop.last %},{% endif %}
-     {% endthumbnail %}
-    {% endfor %}
-   ];
-   Galleria.run('#galleria', {
-    dataSource: data
-   });
-  Galleria.configure({
-   thumbnails: false,
-   _toggleInfo: false
-  });
-  </script>
- {% elif css %}
- <link type="text/css" rel="stylesheet" href="{% static "canada/css/galleria.classic.css" %}">
- {% else %}
- <div id="galleria"></div>
- {% endif %}
+  {% with id=id|default:"1" height=image_size|cut:"x" %}
+    <div id="galleria{{ id }}"></div>
+    {% addtoblock "js" %}
+      <script src="{% static "canada/js/galleria-dev.js" %}"></script>
+      <script src="{% static "canada/js/galleria.classic.js" %}"></script>
+    {% endaddtoblock %}
+    {% addtoblock "js" %}
+      <script>
+        var data = [
+          {% for image in images %}
+            {% thumbnail image.image image_size as im %}
+            {
+              image: '{{ im.url }}',
+              title: '{{ image.title }}',
+              description: '{{ image.caption }}',
+            }{% if not forloop.last %},{% endif %}
+            {% endthumbnail %}
+          {% endfor %}
+        ];
+        Galleria.run('#galleria{{ id }}', {
+          dataSource: data
+        });
+      </script>
+    {% endaddtoblock %}
+    {% addtoblock "js" %}
+    <script>
+      Galleria.configure({
+        thumbnails: false,
+        _toggleInfo: false,
+        height: {{ height }},
+        layerFollow: true,
+      });
+    </script>
+    {% endaddtoblock %}
+    {% addtoblock "css" %}
+    <link type="text/css" rel="stylesheet" href="{% static "canada/css/galleria.classic.css" %}">
+    {% endaddtoblock %}
+    {% addtoblock "css" %}
+      <style type="text/css">
+        #galleria{{ id }} {height:{{ height }}}
+      </style>
+    {% endaddtoblock %}
+ {% endwith %}
 {% endif %}

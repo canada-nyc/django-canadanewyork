@@ -1,8 +1,14 @@
+/* Add top padding for navbar-top-fixed */
 body {
-padding-top: 60px;
-padding-bottom: 40px;
+  padding-top: 60px;
+  padding-bottom: 40px;
+  }
+/* Remove top padding when top navbar goes static in narrow viewports */
+@media (max-width: 979px) {
+  body {
+    padding-top: 0;
+  }
 }
-
 // Image Gallery
 #galleria {
     width: 700px;

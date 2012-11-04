@@ -1,13 +1,15 @@
 import StringIO
+import random
 
 from PIL import Image
 from reportlab.pdfgen import canvas
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
+INK = "red", "blue", "green", "yellow"
 
 def django_image(name, size=10):
-    thumb = Image.new('RGB', size=(size, size,))
+    thumb = Image.new('RGB', (size, size,), random.choice(INK))
     # Create a file-like object to write thumb data (thumb data previously created
     # using PIL, and stored in variable 'thumb')
     thumb_io = StringIO.StringIO()

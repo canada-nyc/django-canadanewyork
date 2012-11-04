@@ -37,10 +37,6 @@ class Exhibition(models.Model):
         if not self.start_date <= self.end_date:
             raise ValidationError('Start date can not be after end date')
 
-    def get_first_image_or_none(self):
-        if self.images.all().count() > 0:
-            return self.images.all()[0]
-
     def get_press(self):
         return get_model('press', 'Press').objects.filter(exhibition=self)
 

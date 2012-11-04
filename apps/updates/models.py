@@ -29,10 +29,6 @@ class Update(models.Model):
             'slug': self.slug,
         })
 
-    def get_first_image_or_none(self):
-        if self.images.all().count() > 0:
-            return self.images.all()[0]
-
 
 class UpdatePhoto(BasePhoto):
     def image_path(instance, filename):

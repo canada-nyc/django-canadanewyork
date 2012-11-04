@@ -6,8 +6,8 @@
   {% with id=id|default:"1" height=image_size|cut:"x" %}
     <div id="galleria{{ id }}"></div>
     {% addtoblock "js" %}
-      <script src="{% static "canada/js/galleria-dev.js" %}"></script>
-      <script src="{% static "canada/js/galleria.classic.js" %}"></script>
+      <script src="{% static "canada/galleria/galleria-dev.js" %}"></script>
+      <script src="{% static "canada/galleria/galleria.classic.js" %}"></script>
     {% endaddtoblock %}
     {% addtoblock "js" %}
       <script>
@@ -15,7 +15,7 @@
           {% for image in images %}
             {% thumbnail image.image image_size as im %}
             {
-              image: '{{ im.url }}',
+              image: '{{ im.url|safe }}',
               title: '{{ image.title }}',
               description: '{{ image.caption }}',
             }{% if not forloop.last %},{% endif %}
@@ -36,9 +36,6 @@
         layerFollow: true,
       });
     </script>
-    {% endaddtoblock %}
-    {% addtoblock "css" %}
-    <link type="text/css" rel="stylesheet" href="{% static "canada/css/galleria.classic.css" %}">
     {% endaddtoblock %}
     {% addtoblock "css" %}
       <style type="text/css">

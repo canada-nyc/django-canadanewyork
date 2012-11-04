@@ -1,8 +1,5 @@
 import os
 
-from . import services
-from . import db
-
 
 class HerokuMemcache(object):
     CACHES = {

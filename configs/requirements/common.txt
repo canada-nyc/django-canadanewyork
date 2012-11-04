@@ -22,10 +22,11 @@ reportlab
 git+git://github.com/trentm/django-markdown-deux.git@61d20148eb7edf7b2bd9b783afd716020aac487b
 django-bootstrap-form==2.0.5
 git+git://github.com/ojii/django-sekizai.git@49e28d9111a8932de1f86d14e6c75fcc316197e2
+
 ##
 #Compression
 ##
-django-compressor==1.2
+git+git://github.com/saulshanabrook/django_compressor.git
 BeautifulSoup==3.2.1
 
 ##

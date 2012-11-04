@@ -1,5 +1,4 @@
-.sass-cache/
 /tmp/
 *.pyc
-.idea
 .DS_Store
+/.env

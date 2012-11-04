@@ -16,6 +16,7 @@ class SlugifyModelFactory(DjangoFactory):
     text = factory.Sequence(lambda n: 'text{}'.format(n))
     related_model = factory.LazyAttribute(lambda a: RelatedModelFactory())
 
+
 class SlugifyDateModelFactory(DjangoFactory):
     FACTORY_FOR = SlugifyDateModel
 

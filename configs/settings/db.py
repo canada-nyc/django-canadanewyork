@@ -1,3 +1,5 @@
+import dj_database_url
+
 from .django import RelPath
 
 
@@ -18,5 +20,4 @@ class SQLite(RelPath):
 
 
 class Postgres(RelPath):
-    import dj_database_url
     DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}

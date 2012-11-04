@@ -1,19 +1,18 @@
 import os
 
 from django.core.files.storage import default_storage
-from django.core.files.base import ContentFile
 from django.test.utils import override_settings
 from django.conf import settings
 from django.test import TestCase
-from django.db.models import loading
 
 
 @override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('storages',),
                    DEFAULT_FILE_STORAGE='storages.backends.s3boto.S3BotoStorage',
                    AWS_ACCESS_KEY_ID=os.environ.get('AWS_ACCESS_KEY_ID'),
                    AWS_SECRET_ACCESS_KEY=os.environ.get('AWS_SECRET_ACCESS_KEY'),
-                   AWS_STORAGE_BUCKET_NAME=os.environ.get('AWS_STORAGE_BUCKET_NAME'),
-                   STATICFILES_STORAGE=settings.DEFAULT_FILE_STORAGE)
+                   AWS_STORAGE_BUCKET_NAME='canadanewyork',
+                   STATICFILES_STORAGE=settings.DEFAULT_FILE_STORAGE,
+                   AWS_PRELOAD_METADATA=True)
 class S3StorageTest(TestCase):
     def test_storage(self):
         # Standard file access options are available, and work as expected:

@@ -12,6 +12,7 @@ class SlugifyModel(models.Model):
     related_model = models.ForeignKey(RelatedModel)
     slug = SlugifyField(populate_from=('text', 'related_model'))
 
+
 class SlugifyDateModel(models.Model):
     text = models.CharField(max_length=200)
     date = models.DateTimeField(auto_now=True)

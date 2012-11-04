@@ -31,8 +31,9 @@ class Compress(django.Static):
 
     @property
     def COMPRESS_URL(self):
-        if hasattr(super(Compress, self), 'AWS_STORAGE_BUCKET_NAME'):
-            return 'https://{}.s3.amazonaws.com/'.format(super(Compress, self).AWS_STORAGE_BUCKET_NAME)
+        bucket = getattr(super(Compress, self), 'AWS_STORAGE_BUCKET_NAME', 0)
+        if bucket:
+            return 'https://{}.s3.amazonaws.com/'.format(bucket)
 
 
 class South(object):
@@ -44,16 +45,20 @@ class South(object):
 
 
 class Thumbnail(django.Media):
-
     @property
     def INSTALLED_APPS(self):
         return (
             'sorl.thumbnail',
         ) + super(Thumbnail, self).INSTALLED_APPS
 
+    @property
+    def THUMBNAIL_DEFAULT_STORAGE(self):
+        if hasattr(super(Thumbnail, self), 'AWS_STORAGE_BUCKET_NAME'):
+            return 'storages.backends.s3boto.S3BotoStorage'
+        return 'easy_thumbnails.storage.ThumbnailFileSystemStorage'
+
 
 class SmartSelects(django.Admin):
-
     @property
     def INSTALLED_APPS(self):
         return (
@@ -62,7 +67,6 @@ class SmartSelects(django.Admin):
 
 
 class TwitterBootstrap(object):
-
     @property
     def INSTALLED_APPS(self):
         return (
@@ -100,6 +104,7 @@ class Markdown(object):
         },
     }
 
+
 class Sekizai(object):
     @property
     def INSTALLED_APPS(self):
@@ -112,5 +117,3 @@ class Sekizai(object):
         return (
             'sekizai.context_processors.sekizai',
         ) + super(Sekizai, self).TEMPLATE_CONTEXT_PROCESSORS
-
-

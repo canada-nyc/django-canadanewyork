@@ -2,7 +2,6 @@ from django.contrib import admin
 from django import forms
 
 from .models import Update, UpdatePhoto
-from ..common.admin import image_file
 
 
 class UpdatePhotoInlineForm(forms.ModelForm):
@@ -18,8 +17,5 @@ class UpdatePhotoInline(admin.TabularInline):
 class UpdateAdmin(admin.ModelAdmin):
     inlines = [UpdatePhotoInline]
     date_hierarchy = 'post_date'
-    list_display = ('first_image_thumb', 'name', 'post_date')
-
-    first_image_thumb = image_file('obj.get_first_image_or_none().image',
-                                   'First Image')
+    list_display = ('name', 'post_date')
 admin.site.register(Update, UpdateAdmin)

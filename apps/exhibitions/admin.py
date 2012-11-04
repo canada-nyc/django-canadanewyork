@@ -4,7 +4,6 @@ from django import forms
 from sorl.thumbnail.admin import AdminImageMixin
 
 from .models import Exhibition, ExhibitionPhoto
-from ..common.admin import image_file
 
 
 class ExhibitionPhotoInlineForm(forms.ModelForm):
@@ -20,9 +19,6 @@ class ExhibitionPhotoInline(AdminImageMixin, admin.TabularInline):
 class ExhibitionAdmin(AdminImageMixin, admin.ModelAdmin):
     inlines = [ExhibitionPhotoInline]
     date_hierarchy = 'start_date'
-    list_display = ('first_image_thumb', 'name', 'start_date')
-
-    first_image_thumb = image_file('obj.get_first_image_or_none().image',
-                                   'First Image')
+    list_display = ('name', 'start_date')
 
 admin.site.register(Exhibition, ExhibitionAdmin)

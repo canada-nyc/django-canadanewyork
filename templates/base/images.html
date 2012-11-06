@@ -9,6 +9,9 @@
       <script src="{% static "canada/galleria/galleria-dev.js" %}"></script>
       <script src="{% static "canada/galleria/galleria.classic.js" %}"></script>
     {% endaddtoblock %}
+    {% addtoblock "css_no_compress" %}
+      <link rel="stylesheet" href="{% static "canada/galleria/galleria.classic.css" %}">
+    {% endaddtoblock %}
     {% addtoblock "js" %}
       <script>
         var data = [

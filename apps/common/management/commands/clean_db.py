@@ -1,3 +1,4 @@
+import os
 from optparse import make_option
 from subprocess import call
 
@@ -10,6 +11,8 @@ class Command(NoArgsCommand):
     help = 'Wipes DB and static and reinstalls with default data'
     option_list = NoArgsCommand.option_list + (
         make_option('--no-wipe', dest='wipe', default=True, action='store_false'),
+        make_option('--no-init', dest='init', default=True, action='store_false'),
+
     )
 
     def handle(self, *args, **options):
@@ -29,9 +32,10 @@ class Command(NoArgsCommand):
         call_command('migrate', fake=True, interactive=False, verbosity=0)
         self.log('Collecting Static DB')
         call_command('collectstatic', interactive=False, verbosity=0)
-        self.create_superuser('saul', 'saul123', 's.shanabrook@gmail.com')
-        self.log('Adding test_data')
-        call_command('test_data')
+        self.create_superuser('saul', os.environ.get('ADMIN_PASSWORD'), 's.shanabrook@gmail.com')
+        if options.get('init'):
+            self.log('Adding test_data')
+            call_command('test_data')
 
     def create_superuser(self, username, password, email):
         self.log('Adding super user')
@@ -42,9 +46,6 @@ class Command(NoArgsCommand):
         user = User.objects.get(username=username)
         user.set_password(password)
         user.save()
-
-        self.log(('    username: {}\n'
-                  '    password: {}\n'.format(username, password)))
 
     def log(self, string):
         self.stdout.write(string + '\n')

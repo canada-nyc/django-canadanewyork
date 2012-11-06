@@ -15,7 +15,7 @@ class Migration(SchemaMigration):
             ('activated', self.gf('apps.unique_boolean.fields.UniqueBooleanField')(default=True)),
             ('uploaded_image', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
             ('text', self.gf('django.db.models.fields.TextField')(max_length=800, null=True, blank=True)),
-            ('exhibition', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['exhibitions.Exhibition'])),
+            ('exhibition', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['exhibitions.Exhibition'], null=True, blank=True)),
             ('exhibition_image', self.gf('smart_selects.db_fields.ChainedForeignKey')(to=orm['exhibitions.ExhibitionPhoto'], null=True, blank=True)),
         ))
         db.send_create_signal('frontpage', ['Frontpage'])
@@ -33,17 +33,17 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'resume': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'blank': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50', 'blank': 'True'}),
+            'slug': ('apps.slugify.fields.SlugifyField', [], {'max_length': '50', 'populate_from': "('first_name', 'last_name')"}),
             'visible': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
         },
         'exhibitions.exhibition': {
             'Meta': {'ordering': "['-start_date']", 'object_name': 'Exhibition'},
             'artists': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'exhibitions'", 'symmetrical': 'False', 'to': "orm['artists.Artist']"}),
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'end_date': ('django.db.models.fields.DateField', [], {}),
+            'end_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50', 'blank': 'True'}),
+            'slug': ('apps.slugify.fields.SlugifyField', [], {'max_length': '50', 'populate_from': "('name',)"}),
             'start_date': ('django.db.models.fields.DateField', [], {})
         },
         'exhibitions.exhibitionphoto': {
@@ -59,7 +59,7 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-date_added']", 'object_name': 'Frontpage'},
             'activated': ('apps.unique_boolean.fields.UniqueBooleanField', [], {'default': 'True'}),
             'date_added': ('django.db.models.fields.DateField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'exhibition': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['exhibitions.Exhibition']"}),
+            'exhibition': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['exhibitions.Exhibition']", 'null': 'True', 'blank': 'True'}),
             'exhibition_image': ('smart_selects.db_fields.ChainedForeignKey', [], {'to': "orm['exhibitions.ExhibitionPhoto']", 'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'text': ('django.db.models.fields.TextField', [], {'max_length': '800', 'null': 'True', 'blank': 'True'}),

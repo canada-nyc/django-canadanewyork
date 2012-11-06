@@ -39,8 +39,9 @@ class SlugifyField(SlugField):
     def south_field_triple(self):
         "Returns a suitable description of this field for South."
         args, kwargs = introspector(self)
+        field_class = self.__class__.__module__ + "." + self.__class__.__name__
         kwargs.update({
             'populate_from': 'None' if any(map(callable, self.populate_from)) else repr(self.populate_from)
         })
 
-        return ("apps.slugify.fields.SlugifyField", args, kwargs)
+        return (field_class, args, kwargs)

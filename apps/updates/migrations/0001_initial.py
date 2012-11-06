@@ -14,7 +14,7 @@ class Migration(SchemaMigration):
             ('name', self.gf('django.db.models.fields.CharField')(max_length=30)),
             ('description', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
             ('post_date', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50, blank=True)),
+            ('slug', self.gf('apps.slugify.fields.SlugifyField')(max_length=50, populate_from=None)),
         ))
         db.send_create_signal('updates', ['Update'])
 
@@ -45,7 +45,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'post_date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50', 'blank': 'True'})
+            'slug': ('apps.slugify.fields.SlugifyField', [], {'max_length': '50', 'populate_from': 'None'})
         },
         'updates.updatephoto': {
             'Meta': {'ordering': "['position']", 'object_name': 'UpdatePhoto'},

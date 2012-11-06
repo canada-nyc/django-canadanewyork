@@ -14,8 +14,8 @@ class Migration(SchemaMigration):
             ('name', self.gf('django.db.models.fields.CharField')(max_length=30)),
             ('description', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('start_date', self.gf('django.db.models.fields.DateField')()),
-            ('end_date', self.gf('django.db.models.fields.DateField')()),
-            ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50, blank=True)),
+            ('end_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
+            ('slug', self.gf('apps.slugify.fields.SlugifyField')(max_length=50, populate_from=('name',))),
         ))
         db.send_create_signal('exhibitions', ['Exhibition'])
 
@@ -57,17 +57,17 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'resume': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'blank': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50', 'blank': 'True'}),
+            'slug': ('apps.slugify.fields.SlugifyField', [], {'max_length': '50', 'populate_from': "('first_name', 'last_name')"}),
             'visible': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
         },
         'exhibitions.exhibition': {
             'Meta': {'ordering': "['-start_date']", 'object_name': 'Exhibition'},
             'artists': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'exhibitions'", 'symmetrical': 'False', 'to': "orm['artists.Artist']"}),
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'end_date': ('django.db.models.fields.DateField', [], {}),
+            'end_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50', 'blank': 'True'}),
+            'slug': ('apps.slugify.fields.SlugifyField', [], {'max_length': '50', 'populate_from': "('name',)"}),
             'start_date': ('django.db.models.fields.DateField', [], {})
         },
         'exhibitions.exhibitionphoto': {

@@ -19,7 +19,7 @@ class Migration(SchemaMigration):
             ('publisher', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('author', self.gf('django.db.models.fields.CharField')(max_length=60, null=True, blank=True)),
             ('exhibition', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='press', null=True, to=orm['exhibitions.Exhibition'])),
-            ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50)),
+            ('slug', self.gf('apps.slugify.fields.SlugifyField')(max_length=50, populate_from=('title',))),
         ))
         db.send_create_signal('press', ['Press'])
 
@@ -47,17 +47,17 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'resume': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'blank': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50', 'blank': 'True'}),
+            'slug': ('apps.slugify.fields.SlugifyField', [], {'max_length': '50', 'populate_from': "('first_name', 'last_name')"}),
             'visible': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
         },
         'exhibitions.exhibition': {
             'Meta': {'ordering': "['-start_date']", 'object_name': 'Exhibition'},
             'artists': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'exhibitions'", 'symmetrical': 'False', 'to': "orm['artists.Artist']"}),
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'end_date': ('django.db.models.fields.DateField', [], {}),
+            'end_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50', 'blank': 'True'}),
+            'slug': ('apps.slugify.fields.SlugifyField', [], {'max_length': '50', 'populate_from': "('name',)"}),
             'start_date': ('django.db.models.fields.DateField', [], {})
         },
         'press.press': {
@@ -71,7 +71,7 @@ class Migration(SchemaMigration):
             'image_height': ('django.db.models.fields.IntegerField', [], {'default': '500'}),
             'link': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'publisher': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50'}),
+            'slug': ('apps.slugify.fields.SlugifyField', [], {'max_length': '50', 'populate_from': "('title',)"}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         }
     }

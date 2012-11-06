@@ -36,7 +36,7 @@ class Frontpage(models.Model):
         blank=True,
         null=True,
     )
-    exhibition = models.ForeignKey(Exhibition)
+    exhibition = models.ForeignKey(Exhibition, blank=True, null=True)
     exhibition_image = ChainedForeignKey(
         ExhibitionPhoto,
         chained_model_field='exhibition',
@@ -59,12 +59,8 @@ class Frontpage(models.Model):
     def get_absolute_url(self):
         return ('frontpage-detail', (), {'pk': self.pk})
 
-    def clean(self):
-        if not self.exhibition_image and not self.uploaded_image:
-            raise ValidationError('Either upload an image, or select one from '
-                                  'the exhibition')
-
     def image(self):
         if self.uploaded_image:
             return self.uploaded_image
-        return self.exhibition_image.image
+        elif self.exhibition_image:
+            return self.exhibition_image.image

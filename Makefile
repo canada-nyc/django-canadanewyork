@@ -10,4 +10,4 @@ heroku:
 	heroku config:push -o
 	heroku pg:promote (heroku pg | grep '^===' | sed 's/^=== //g')
 	git push heroku master:master
-	heroku run 'python manage.py clean_db --no-wipe'
+	heroku run 'python manage.py clean_db --no-wipe --no-init'

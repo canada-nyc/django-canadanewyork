@@ -14,7 +14,7 @@ class Migration(SchemaMigration):
             ('first_name', self.gf('django.db.models.fields.CharField')(max_length=30)),
             ('last_name', self.gf('django.db.models.fields.CharField')(max_length=30)),
             ('resume', self.gf('django.db.models.fields.files.FileField')(max_length=100, blank=True)),
-            ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50, blank=True)),
+            ('slug', self.gf('apps.slugify.fields.SlugifyField')(max_length=50, populate_from=('first_name', 'last_name'))),
             ('visible', self.gf('django.db.models.fields.BooleanField')(default=True)),
         ))
         db.send_create_signal('artists', ['Artist'])
@@ -52,7 +52,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'resume': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'blank': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50', 'blank': 'True'}),
+            'slug': ('apps.slugify.fields.SlugifyField', [], {'max_length': '50', 'populate_from': "('first_name', 'last_name')"}),
             'visible': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
         },
         'artists.artistphoto': {

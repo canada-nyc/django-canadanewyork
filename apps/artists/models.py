@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models import permalink
 from django.core.exceptions import ValidationError
 from django.db.models import Q
+from django.db.models.loading import get_model
 
 from ..common.models import BasePhoto
 from ..slugify.fields import SlugifyField
@@ -25,7 +26,7 @@ class Artist(models.Model):
     slug = SlugifyField(populate_from=('first_name', 'last_name'))
     visible = models.BooleanField(
         default=True,
-        help_text="Whether it appears in the Artists list, and has page")
+        help_text="Whether it appears in the artists list, and has an artist page")
     objects = models.Manager()
     in_gallery = VisibleManager()
 
@@ -47,15 +48,13 @@ class Artist(models.Model):
         return ('artist-detail', (), {'slug': self.slug})
 
     def get_press(self):
-        from ..press.models import Press
-        return Press.objects.filter(Q(artists__in=[self]) |
-                                    Q(exhibition__artists__in=[self]))
+        return get_model('press', 'Press').objects.filter(
+            Q(artists__in=[self]) | Q(exhibition__artists__in=[self])
+        )
 
     @permalink
     def get_press_url(self):
-        return ('artist-press-list', (), {
-            'slug': self.slug
-        })
+        return ('artist-press-list', (), {'slug': self.slug})
 
 
 class ArtistPhoto(BasePhoto):

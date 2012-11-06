@@ -10,8 +10,7 @@ class UniqueBooleanField(BooleanField):
         if getattr(model_instance, self.attname):
             objects.update(**{self.attname: False})
         # If no true object exists that isnt saved model, save as True
-        elif not objects.exclude(id=model_instance.id)\
-                        .filter(**{self.attname: True}):
+        elif not objects.exclude(id=model_instance.id).filter(**{self.attname: True}):
             return True
         return getattr(model_instance, self.attname)
 

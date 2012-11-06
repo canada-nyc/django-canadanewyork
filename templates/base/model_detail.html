@@ -9,7 +9,7 @@
     {% if not extra_info %}
       {{ model.name }}
     {% else %}
-      {% include "base/full_date.html" with date=model.start_date %} - {% include "base/full_date.html" with date=model.end_date %}
+      {% include "base/full_date.html" with date=model.start_date %}{% if model.end_date %} - {% include "base/full_date.html" with date=model.end_date %}{% endif %}
     {% endif %}
   {% endif %}
 

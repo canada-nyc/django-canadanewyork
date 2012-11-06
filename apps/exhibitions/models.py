@@ -17,7 +17,7 @@ class Exhibition(models.Model):
     description = models.TextField(blank=True, help_text=markdown_allowed())
     artists = models.ManyToManyField(Artist, related_name='exhibitions')
     start_date = models.DateField()
-    end_date = models.DateField()
+    end_date = models.DateField(null=True, blank=True)
     slug = SlugifyField(populate_from=('name',))
 
     class Meta:
@@ -34,7 +34,7 @@ class Exhibition(models.Model):
         })
 
     def clean(self):
-        if not self.start_date <= self.end_date:
+        if self.end_date and not self.start_date <= self.end_date:
             raise ValidationError('Start date can not be after end date')
 
     def get_press(self):
@@ -53,6 +53,7 @@ class ExhibitionPhoto(BasePhoto):
         return os.path.join(
             'exhibitions',
             str(instance.exhibition.slug),
+            str(instance.start_date.year),
             (str(instance.position) + filename))
 
     exhibition = models.ForeignKey(Exhibition, related_name='images')

@@ -2,7 +2,7 @@ from django.db.models.fields import SlugField
 from django.template.defaultfilters import slugify
 from django.core.exceptions import FieldError
 
-from south.modelsinspector import add_introspection_rules
+from south.modelsinspector import introspector
 
 
 SLUG_INDEX_SEPARATOR = '-'    # the "-" in "foo-2"
@@ -14,7 +14,6 @@ class SlugifyField(SlugField):
 
         # autopopulated slug is not editable unless told so
         self.populate_from = kwargs.pop('populate_from')
-
         # Use default seperator unless given one
         self.index_sep = kwargs.pop('sep', SLUG_INDEX_SEPARATOR)
         super(SlugifyField, self).__init__(*args, **kwargs)
@@ -37,4 +36,11 @@ class SlugifyField(SlugField):
 
         return current_value
 
-add_introspection_rules([], [r"^apps\.slugify\.fields\.SlugifyField"])
+    def south_field_triple(self):
+        "Returns a suitable description of this field for South."
+        args, kwargs = introspector(self)
+        kwargs.update({
+            'populate_from': 'None' if any(map(callable, self.populate_from)) else repr(self.populate_from)
+        })
+
+        return ("apps.slugify.fields.SlugifyField", args, kwargs)

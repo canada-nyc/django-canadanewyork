@@ -17,7 +17,7 @@ class BasePhotoFactory(DjangoFactory):
     ABSTRACT_FACTORY = True
 
     title = factory.Sequence(lambda n: 'Title{}'.format(n))
-    caption = '*italics* **bold**'
+    caption = 'caption for this image'
     image = factory.Sequence(lambda n: django_image(n, 200))
 
     position = factory.Sequence(lambda n: n)

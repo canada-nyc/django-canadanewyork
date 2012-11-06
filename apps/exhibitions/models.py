@@ -53,7 +53,7 @@ class ExhibitionPhoto(BasePhoto):
         return os.path.join(
             'exhibitions',
             str(instance.exhibition.slug),
-            str(instance.start_date.year),
+            str(instance.exhibition.start_date.year),
             (str(instance.position) + filename))
 
     exhibition = models.ForeignKey(Exhibition, related_name='images')

@@ -40,7 +40,8 @@ django-rq==0.3.2
 #Storage
 ##
 boto==2.6.0
-hg+https://bitbucket.org/david/django-storages@1574890 #New version required for fast checking
+django-storages
+#hg+https://bitbucket.org/david/django-storages@1574890 #New version required for fast checking
 python-dateutil==1.5 #Required for collecstatic modified checks
 
 ##

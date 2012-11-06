@@ -1,2 +1,0 @@
-# The pre_compile hook is run by heroku-buildpack-python
-pip install hg

@@ -44,6 +44,13 @@ class Canada(django.DjangoDefault,
             'apps.common.context_processors.image_size',
         ) + super(Canada, self).TEMPLATE_CONTEXT_PROCESSORS
 
+    TEMPLATE_LOADERS = (
+        ('django.template.loaders.cached.Loader', (
+            'django.template.loaders.filesystem.Loader',
+            'django.template.loaders.app_directories.Loader',
+        )),
+    )
+
 
 class LocalSettings(Canada,
                     db.SQLite,

@@ -1,6 +1,10 @@
 import dj_database_url
 
 from .django import RelPath
+try:
+    import dj_database_url
+except ImportError:
+    dj_database_url = lambda _:_
 
 
 class SQLite(RelPath):

@@ -18,4 +18,6 @@ class UpdateAdmin(admin.ModelAdmin):
     inlines = [UpdatePhotoInline]
     date_hierarchy = 'post_date'
     list_display = ('name', 'post_date')
+    fields = ('name', 'description', 'old_path')
+
 admin.site.register(Update, UpdateAdmin)

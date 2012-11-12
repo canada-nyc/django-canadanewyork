@@ -7,9 +7,10 @@ from django.core.exceptions import ValidationError
 from ..artists.models import Artist
 from ..exhibitions.models import Exhibition
 from ..slugify.fields import SlugifyField
+from ..content_redirects.models import BaseRedirectModel
 
 
-class Press(models.Model):
+class Press(BaseRedirectModel):
     def image_path(instance, filename):
         return os.path.join('press',
                             str(instance.date.year),
@@ -18,10 +19,7 @@ class Press(models.Model):
 
     title = models.CharField(max_length=50)
     image = models.ImageField(null=True, blank=True, upload_to=image_path)
-    image_height = models.IntegerField(
-        default=500,
-        help_text='Width will be calculated.<br><em>in pixels</em>')
-    link = models.URLField(null=True, blank=True)
+    link = models.URLField(null=True, blank=True, verbose_name=u'External link')
     date = models.DateField()
 
     publisher = models.CharField(max_length=50)
@@ -30,7 +28,6 @@ class Press(models.Model):
                                      related_name='press',)
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True,
                                    related_name='press',)
-
     slug = SlugifyField(populate_from=('title',))
 
     class Meta:
@@ -53,4 +50,4 @@ class Press(models.Model):
 
     @property
     def image_size(self):
-        return 'x{}'.format(self.image_height)
+        return 'x{}'.format(500)

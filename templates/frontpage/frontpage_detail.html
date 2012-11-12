@@ -13,6 +13,6 @@
     {% endthumbnail %}
   </a>
   <p>{% include "base/model_detail.html" with model=frontpage.exhibition %}</p>
-  {{ frontpage.text|markdown }}
+  {{ frontpage.extra_text|markdown }}
 </article>
 {% endblock body %}

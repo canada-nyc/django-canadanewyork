@@ -43,5 +43,4 @@ class SlugifyField(SlugField):
         kwargs.update({
             'populate_from': 'None' if any(map(callable, self.populate_from)) else repr(self.populate_from)
         })
-
         return (field_class, args, kwargs)

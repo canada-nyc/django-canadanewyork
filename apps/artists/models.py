@@ -8,6 +8,7 @@ from django.db.models.loading import get_model
 
 from ..common.models import BasePhoto
 from ..slugify.fields import SlugifyField
+from ..content_redirects.models import BaseRedirectModel
 
 
 class VisibleManager(models.Manager):
@@ -15,7 +16,7 @@ class VisibleManager(models.Manager):
         return super(VisibleManager, self).get_query_set().filter(visible=True)
 
 
-class Artist(models.Model):
+class Artist(BaseRedirectModel):
     def image_path(instance, filename):
         return os.path.join('artists',
                             instance.slug,

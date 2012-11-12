@@ -20,5 +20,6 @@ class ExhibitionAdmin(AdminImageMixin, admin.ModelAdmin):
     inlines = [ExhibitionPhotoInline]
     date_hierarchy = 'start_date'
     list_display = ('name', 'start_date')
+    fields = ('name', 'description', ('start_date', 'end_date'), 'artists', 'old_path')
 
 admin.site.register(Exhibition, ExhibitionAdmin)

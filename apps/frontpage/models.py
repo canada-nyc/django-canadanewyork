@@ -2,7 +2,6 @@ import os
 
 from django.db import models
 from django.db.models import permalink
-from django.core.exceptions import ValidationError
 
 from smart_selects.db_fields import ChainedForeignKey
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
@@ -29,7 +28,7 @@ class Frontpage(models.Model):
         blank=True,
         null=True)
 
-    text = models.TextField(
+    extra_text = models.TextField(
         max_length=800,
         help_text=('Will be added underneath any exhibition info<br>' +
                    markdown_allowed()),
@@ -41,7 +40,6 @@ class Frontpage(models.Model):
         ExhibitionPhoto,
         chained_model_field='exhibition',
         chained_field='exhibition',
-        verbose_name='Select image from exhibition',
         help_text=('Select exhibition first, then choose an image from that'
                    ' exhibition. If an uploaded image is selected, that will'
                    ' take precedence'),

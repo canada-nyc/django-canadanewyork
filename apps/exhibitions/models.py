@@ -10,9 +10,10 @@ from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 from ..artists.models import Artist
 from ..common.models import BasePhoto
 from ..slugify.fields import SlugifyField
+from ..content_redirects.models import BaseRedirectModel
 
 
-class Exhibition(models.Model):
+class Exhibition(BaseRedirectModel):
     name = models.CharField(max_length=30, unique_for_year='start_date')
     description = models.TextField(blank=True, help_text=markdown_allowed())
     artists = models.ManyToManyField(Artist, related_name='exhibitions')

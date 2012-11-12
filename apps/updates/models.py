@@ -7,10 +7,10 @@ from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 
 from ..common.models import BasePhoto
 from ..slugify.fields import SlugifyField
+from ..content_redirects.models import BaseRedirectModel
 
 
-class Update(models.Model):
-
+class Update(BaseRedirectModel):
     name = models.CharField(max_length=30, unique_for_year='post_date')
     description = models.TextField(blank=True, null=True,
                                    help_text=markdown_allowed())

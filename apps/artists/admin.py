@@ -17,6 +17,7 @@ class ArtistPhotoInline(admin.TabularInline):
 
 class ArtistAdmin(admin.ModelAdmin):
     inlines = [ArtistPhotoInline]
+    fields = (('first_name', 'last_name'), 'old_path',)
     list_display = ('first_name', 'last_name', 'visible')
 
 

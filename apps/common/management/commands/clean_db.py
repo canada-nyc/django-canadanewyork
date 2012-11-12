@@ -42,7 +42,8 @@ class Command(NoArgsCommand):
         call_command('createsuperuser', interactive=False, username=username,
                      email=email)
 
-        self.log('    Setting password')
+        self.log('    Setting username: {}'.format(username))
+        self.log('    Setting password: {}'.format(password))
         user = User.objects.get(username=username)
         user.set_password(password)
         user.save()

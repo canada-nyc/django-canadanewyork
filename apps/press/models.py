@@ -14,7 +14,7 @@ from ..content_redirects.models import BaseRedirectModel
 class CompleteManager(models.Manager):
     def get_query_set(self):
         queryset = super(CompleteManager, self).get_query_set()
-        return queryset.exclude(date__isnull=True).exclude(date='')
+        return queryset.exclude(date__isnull=True)
 
 
 class Press(BaseRedirectModel):
@@ -28,7 +28,7 @@ class Press(BaseRedirectModel):
     image = models.ImageField(null=True, blank=True, upload_to=image_path)
     link = models.URLField(null=True, blank=True, verbose_name=u'External link')
     content = models.TextField(help_text=markdown_allowed())
-    date = models.DateField(null=True, blank=True,
+    date = models.DateField(null=True,
                             help_text=('If the date is blank, then it will'
                                        ' be treated as a draft and not appear'
                                        ' on the site'))

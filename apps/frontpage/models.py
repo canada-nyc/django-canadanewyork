@@ -7,8 +7,9 @@ from smart_selects.db_fields import ChainedForeignKey
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 
 
-from ..exhibitions.models import Exhibition, ExhibitionPhoto
+from ..exhibitions.models import Exhibition
 from ..unique_boolean.fields import UniqueBooleanField
+from ..common.models import Photo
 
 
 class Frontpage(models.Model):
@@ -37,12 +38,13 @@ class Frontpage(models.Model):
     )
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True)
     exhibition_image = ChainedForeignKey(
-        ExhibitionPhoto,
-        chained_model_field='exhibition',
+        Photo,
+        chained_model_field='content_object',
         chained_field='exhibition',
         help_text=('Select exhibition first, then choose an image from that'
                    ' exhibition. If an uploaded image is selected, that will'
                    ' take precedence'),
+        show_all=False,
         blank=True,
         null=True,
     )

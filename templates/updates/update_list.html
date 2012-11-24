@@ -13,7 +13,7 @@
       <h1 id="{{ update.slug }}">{{ update.name }}</h1>
       <p>{% include "base/full_date.html" with date=update.post_date %}
     </header>
-    {% include "base/images.html" with images=update.images.all id=update.id %}
+    {% include "base/photo.html" with photos=update.photos.all id=update.id %}
     {{ update.description|markdown }}
   </article>
   {% endfor %}

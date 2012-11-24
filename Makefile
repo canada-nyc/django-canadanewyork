@@ -11,3 +11,5 @@ heroku:
 	heroku pg:promote (heroku pg | grep '^===' | sed 's/^=== //g')
 	git push heroku master:master
 	heroku run 'python manage.py clean_db --no-wipe --no-init'
+migrate:
+	for app in (python manage.py syncdb | grep - | sed 's/ - //g'); python manage.py schemamigration $app --auto; end

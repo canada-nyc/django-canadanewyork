@@ -1,6 +1,7 @@
 {% load thumbnail %}
 {% load static from staticfiles %}
 {% load sekizai_tags %}
+{% load markdown_deux_tags %}
 
 {% if photos %}
   {% with id=id|default:"1" height=image_size|cut:"x" %}
@@ -20,7 +21,7 @@
             {
               image: '{{ im.url|safe }}',
               title: '{{ image.title }}',
-              description: '{{ image.caption }}',
+              description: '{{ image.caption|markdown }}',
             }{% if not forloop.last %},{% endif %}
             {% endthumbnail %}
           {% endfor %}

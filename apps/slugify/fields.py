@@ -19,22 +19,15 @@ class SlugifyField(SlugField):
         super(SlugifyField, self).__init__(*args, **kwargs)
 
     def pre_save(self, model_instance, add):
-        # get currently entered slug
-        current_value = getattr(model_instance, self.attname)
-
-        # autopopulate
-        if not current_value:
-            if isinstance(self.populate_from, basestring):
-                raise FieldError(
-                    ('In model {}, field {}, the populate_from kwarg needs to '
-                     'be passed a list, not a string').format(model_instance,
-                                                              self.attname))
-            values = [value(model_instance) if callable(value) else getattr(model_instance, value) for value in self.populate_from]
-            slug = self.index_sep.join(map(slugify, values))
-            setattr(model_instance, self.attname, slug)
-            return slug
-
-        return current_value
+        if isinstance(self.populate_from, basestring):
+            raise FieldError(
+                ('In model {}, field {}, the populate_from kwarg needs to '
+                 'be passed a list, not a string').format(model_instance,
+                                                          self.attname))
+        values = [value(model_instance) if callable(value) else getattr(model_instance, value) for value in self.populate_from]
+        slug = self.index_sep.join(map(slugify, values))
+        setattr(model_instance, self.attname, slug)
+        return slug
 
     def south_field_triple(self):
         "Returns a suitable description of this field for South."

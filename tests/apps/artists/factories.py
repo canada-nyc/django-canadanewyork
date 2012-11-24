@@ -1,6 +1,6 @@
 import factory
 
-from apps.artists.models import Artist, ArtistPhoto
+from apps.artists.models import Artist
 from ...common.factories import DjangoFactory, BasePhotoFactory
 from ...common.functions import django_pdf
 
@@ -17,10 +17,8 @@ class ArtistFactory(DjangoFactory):
     def create_photos(self, create, extracted, **kwargs):
         # ArtistFactory(photos__n=3)
         if 'n' in kwargs:
-            [ArtistPhotoFactory(artist=self) for _ in range(int(kwargs['n']))]
+            [ArtistPhotoFactory(content_object=self) for _ in range(int(kwargs['n']))]
 
 
 class ArtistPhotoFactory(BasePhotoFactory):
-    FACTORY_FOR = ArtistPhoto
-
-    artist = factory.SubFactory(ArtistFactory)
+    content_object = factory.SubFactory(ArtistFactory)

@@ -27,14 +27,14 @@ class Press(BaseRedirectModel):
     title = models.CharField(max_length=50)
     image = models.ImageField(null=True, blank=True, upload_to=image_path)
     link = models.URLField(null=True, blank=True, verbose_name=u'External link')
-    content = models.TextField(help_text=markdown_allowed())
+    content = models.TextField(help_text=markdown_allowed(), blank=True)
     date = models.DateField(null=True,
                             help_text=('If the date is blank, then it will'
                                        ' be treated as a draft and not appear'
                                        ' on the site'))
 
     publisher = models.CharField(max_length=50, blank=True)
-    author = models.CharField(max_length=60, blank=True, null=True)
+    author = models.CharField(max_length=60, blank=True)
     artists = models.ManyToManyField(Artist, blank=True, null=True,
                                      related_name='press',)
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True,
@@ -55,7 +55,7 @@ class Press(BaseRedirectModel):
         self.title = self.title.strip().title()
         self.content = self.content.strip()
         self.publisher = self.publisher.strip().title()
-        self.author = self.author.strip.title()
+        self.author = self.author.strip().title()
 
     @permalink
     def get_absolute_url(self):

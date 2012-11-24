@@ -1,7 +1,9 @@
 import factory
 
 from django.db.models import Max
+
 from .functions import django_image
+from apps.common.models import Photo
 
 
 class DjangoFactory(factory.Factory):
@@ -14,7 +16,7 @@ class DjangoFactory(factory.Factory):
 
 
 class BasePhotoFactory(DjangoFactory):
-    ABSTRACT_FACTORY = True
+    FACTORY_FOR = Photo
 
     title = factory.Sequence(lambda n: 'Title{}'.format(n))
     caption = 'caption for this image'

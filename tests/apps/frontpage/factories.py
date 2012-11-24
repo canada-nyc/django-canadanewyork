@@ -9,4 +9,4 @@ class FrontpageFactory(DjangoFactory):
     FACTORY_FOR = Frontpage
 
     exhibition = factory.LazyAttribute(lambda a: ExhibitionFactory(photos__n=1))
-    exhibition_image = factory.LazyAttribute(lambda a: a.exhibition.images.all()[0])
+    exhibition_image = factory.LazyAttribute(lambda a: a.exhibition.photos.all()[0])

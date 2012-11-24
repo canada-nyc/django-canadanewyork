@@ -3,7 +3,7 @@ import collections
 
 import factory
 
-from apps.exhibitions.models import Exhibition, ExhibitionPhoto
+from apps.exhibitions.models import Exhibition
 from ...common.factories import DjangoFactory, BasePhotoFactory
 from ..artists.factories import ArtistFactory
 
@@ -22,7 +22,7 @@ class ExhibitionFactory(DjangoFactory):
     def create_photos(self, create, extracted, **kwargs):
         # ExhibitionFactory(photos__n=3)
         if 'n' in kwargs:
-            [ExhibitionPhotoFactory(exhibition=self) for _ in range(int(kwargs['n']))]
+            [ExhibitionPhotoFactory(content_object=self) for _ in range(int(kwargs['n']))]
 
     @factory.post_generation(extract_prefix='artists')
     def create_artists(self, create, extracted, **kwargs):
@@ -35,6 +35,4 @@ class ExhibitionFactory(DjangoFactory):
 
 
 class ExhibitionPhotoFactory(BasePhotoFactory):
-    FACTORY_FOR = ExhibitionPhoto
-
-    exhibition = factory.SubFactory(ExhibitionFactory)
+    content_object = factory.SubFactory(ExhibitionFactory)

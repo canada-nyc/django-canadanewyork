@@ -9,4 +9,7 @@ class PressAdmin(admin.ModelAdmin):
 
     fields = (('title', 'date'), ('publisher', 'author'), 'image', 'link', 'old_path')
 
+    def queryset(self, request):
+        return Press.all_objects
+
 admin.site.register(Press, PressAdmin)

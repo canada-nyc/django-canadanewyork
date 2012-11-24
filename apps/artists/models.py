@@ -24,7 +24,7 @@ class Artist(BaseRedirectModel):
                             filename)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    resume = models.FileField(upload_to=resume_path, blank=True, editable=False)
+    resume = models.FileField(upload_to=resume_path, blank=True, null=True)
     slug = SlugifyField(populate_from=('first_name', 'last_name'))
     visible = models.BooleanField(
         default=True,

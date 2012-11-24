@@ -4,6 +4,7 @@ from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 
 from django.db.models import permalink
 from django.db import models
+from django.core.exceptions import ValidationError
 
 from ..artists.models import Artist
 from ..exhibitions.models import Exhibition
@@ -28,6 +29,8 @@ class Press(BaseRedirectModel):
     image = models.ImageField(null=True, blank=True, upload_to=image_path)
     link = models.URLField(null=True, blank=True, verbose_name=u'External link')
     content = models.TextField(help_text=markdown_allowed(), blank=True)
+    pdf = models.FileField(upload_to=image_path, blank=True, null=True)
+
     date = models.DateField(null=True,
                             help_text=('If the date is blank, then it will'
                                        ' be treated as a draft and not appear'
@@ -52,6 +55,11 @@ class Press(BaseRedirectModel):
         return u'{} ({})'.format(self.title, self.date.year)
 
     def clean(self):
+        if self.pdf and self.pdf._file and self.pdf._file.content_type != 'application/pdf':
+            file_type = self.pdf._file.content_type.split('/')[1]
+            error = 'You uploaded a {}. A PDF is required'.format(file_type)
+            raise ValidationError(error)
+
         self.title = self.title.strip().title()
         self.content = self.content.strip()
         self.publisher = self.publisher.strip().title()

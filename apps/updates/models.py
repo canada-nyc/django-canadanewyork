@@ -21,6 +21,10 @@ class Update(BaseRedirectModel):
     class Meta:
         ordering = ["-post_date"]
 
+    def clean(self):
+        self.name = self.name.strip()
+        self.description = self.description.strip()
+
     def __unicode__(self):
         return '{} ({})'.format(self.name, self.post_date.year)
 

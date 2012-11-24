@@ -51,6 +51,12 @@ class Press(BaseRedirectModel):
     def __unicode__(self):
         return u'{} ({})'.format(self.title, self.date.year)
 
+    def clean(self):
+        self.title = self.title.strip().title()
+        self.content = self.content.strip()
+        self.publisher = self.publisher.strip().title()
+        self.author = self.author.strip.title()
+
     @permalink
     def get_absolute_url(self):
         return ('press-detail', (), {

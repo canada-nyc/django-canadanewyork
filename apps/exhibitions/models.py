@@ -45,6 +45,8 @@ class Exhibition(BaseRedirectModel):
     def clean(self):
         if self.end_date and not self.start_date <= self.end_date:
             raise ValidationError('Start date can not be after end date')
+        self.name = self.name.strip()
+        self.description = self.description.strip()
 
     def get_press(self):
         return get_model('press', 'Press').objects.filter(exhibition=self)

@@ -47,6 +47,8 @@ class Artist(BaseRedirectModel):
             file_type = self.resume._file.content_type.split('/')[1]
             error = 'You uploaded a {}. A PDF is required'.format(file_type)
             raise ValidationError(error)
+        self.first_name = self.first_name.strip().title()
+        self.last_name = self.last_name.strip().title()
 
     @permalink
     def get_absolute_url(self):

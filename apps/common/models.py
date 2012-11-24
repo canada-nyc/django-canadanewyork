@@ -31,3 +31,7 @@ class Photo(models.Model):
             return u'{} in {} ({})'.format(self.title,
                                            self.content_object,
                                            self.content_type.model)
+
+    def clean(self):
+        self.title = self.title.strip()
+        self.caption = self.caption.strip()

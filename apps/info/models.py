@@ -22,5 +22,8 @@ class Info(models.Model):
     class Meta:
         ordering = ["-date_added"]
 
+    def clean(self):
+        self.text = self.text.strip()
+
     def __unicode__(self):
         return str(self.date_added)

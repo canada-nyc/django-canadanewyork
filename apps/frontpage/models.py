@@ -55,6 +55,9 @@ class Frontpage(models.Model):
     def __unicode__(self):
         return str(self.date_added)
 
+    def clean(self):
+        self.extra_text = self.extra_text.strip()
+
     @permalink
     def get_absolute_url(self):
         return ('frontpage-detail', (), {'pk': self.pk})

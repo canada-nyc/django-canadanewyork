@@ -8,8 +8,8 @@ from django.core.exceptions import ValidationError
 
 from ..artists.models import Artist
 from ..exhibitions.models import Exhibition
-from ..slugify.fields import SlugifyField
-from ..content_redirects.models import BaseRedirectModel
+from libs.slugify.fields import SlugifyField
+from libs.content_redirects.models import BaseRedirectModel
 
 
 class CompleteManager(models.Manager):

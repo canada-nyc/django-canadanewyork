@@ -2,7 +2,7 @@ from django.db import models
 
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 
-from ..unique_boolean.fields import UniqueBooleanField
+from libs.unique_boolean.fields import UniqueBooleanField
 
 
 class Info(models.Model):

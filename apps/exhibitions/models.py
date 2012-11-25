@@ -7,9 +7,9 @@ from django.contrib.contenttypes import generic
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 
 from ..artists.models import Artist
-from ..slugify.fields import SlugifyField
-from ..content_redirects.models import BaseRedirectModel
-from ..common.models import Photo
+from libs.slugify.fields import SlugifyField
+from libs.content_redirects.models import BaseRedirectModel
+from libs.common.models import Photo
 
 
 class Exhibition(BaseRedirectModel):

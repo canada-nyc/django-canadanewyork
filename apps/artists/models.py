@@ -7,9 +7,9 @@ from django.db.models import Q
 from django.db.models.loading import get_model
 from django.contrib.contenttypes import generic
 
-from ..slugify.fields import SlugifyField
-from ..content_redirects.models import BaseRedirectModel
-from ..common.models import Photo
+from libs.slugify.fields import SlugifyField
+from libs.content_redirects.models import BaseRedirectModel
+from libs.common.models import Photo
 
 
 class VisibleManager(models.Manager):

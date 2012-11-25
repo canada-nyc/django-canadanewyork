@@ -8,14 +8,23 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding model 'Photo'
+        db.create_table('common_photo', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=20, blank=True)),
+            ('caption', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
+            ('content_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
+            ('object_id', self.gf('django.db.models.fields.PositiveIntegerField')()),
+            ('position', self.gf('django.db.models.fields.PositiveSmallIntegerField')()),
+        ))
+        db.send_create_signal('common', ['Photo'])
 
-        # Changing field 'Photo.caption'
-        db.alter_column('common_photo', 'caption', self.gf('django.db.models.fields.TextField')())
 
     def backwards(self, orm):
+        # Deleting model 'Photo'
+        db.delete_table('common_photo')
 
-        # Changing field 'Photo.caption'
-        db.alter_column('common_photo', 'caption', self.gf('django.db.models.fields.CharField')(max_length=100))
 
     models = {
         'common.photo': {

@@ -3,7 +3,7 @@ from django.contrib import admin
 from sorl.thumbnail.admin import AdminImageMixin
 
 from .models import Exhibition
-from ..common.admin import PhotoInline
+from libs.common.admin import PhotoInline
 
 
 class ExhibitionAdmin(AdminImageMixin, admin.ModelAdmin):

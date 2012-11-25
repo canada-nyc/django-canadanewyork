@@ -12,7 +12,7 @@ class Migration(SchemaMigration):
         db.create_table('bulkmail_contactlist', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=50)),
-            ('default', self.gf('apps.unique_boolean.fields.UniqueBooleanField')(default=False)),
+            ('default', self.gf('libs.unique_boolean.fields.UniqueBooleanField')(default=False)),
         ))
         db.send_create_signal('bulkmail', ['ContactList'])
 
@@ -56,7 +56,7 @@ class Migration(SchemaMigration):
         },
         'bulkmail.contactlist': {
             'Meta': {'ordering': "['name']", 'object_name': 'ContactList'},
-            'default': ('apps.unique_boolean.fields.UniqueBooleanField', [], {'default': 'False'}),
+            'default': ('libs.unique_boolean.fields.UniqueBooleanField', [], {'default': 'False'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '50'})
         },

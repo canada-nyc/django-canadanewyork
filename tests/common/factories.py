@@ -3,7 +3,7 @@ import factory
 from django.db.models import Max
 
 from .functions import django_image
-from apps.common.models import Photo
+from libs.common.models import Photo
 
 
 class DjangoFactory(factory.Factory):

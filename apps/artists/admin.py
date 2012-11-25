@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import Artist
-from ..common.admin import PhotoInline
+from libs.common.admin import PhotoInline
 
 
 class ArtistAdmin(admin.ModelAdmin):

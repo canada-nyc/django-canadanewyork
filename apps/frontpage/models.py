@@ -8,8 +8,8 @@ from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 
 
 from ..exhibitions.models import Exhibition
-from ..unique_boolean.fields import UniqueBooleanField
-from ..common.models import Photo
+from libs.unique_boolean.fields import UniqueBooleanField
+from libs.common.models import Photo
 
 
 class Frontpage(models.Model):

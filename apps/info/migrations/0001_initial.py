@@ -12,7 +12,7 @@ class Migration(SchemaMigration):
         db.create_table('info_info', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('date_added', self.gf('django.db.models.fields.DateField')(auto_now_add=True, blank=True)),
-            ('activated', self.gf('apps.unique_boolean.fields.UniqueBooleanField')(default=False)),
+            ('activated', self.gf('libs.unique_boolean.fields.UniqueBooleanField')(default=False)),
             ('text', self.gf('django.db.models.fields.TextField')(max_length=800, null=True, blank=True)),
         ))
         db.send_create_signal('info', ['Info'])
@@ -26,7 +26,7 @@ class Migration(SchemaMigration):
     models = {
         'info.info': {
             'Meta': {'ordering': "['-date_added']", 'object_name': 'Info'},
-            'activated': ('apps.unique_boolean.fields.UniqueBooleanField', [], {'default': 'False'}),
+            'activated': ('libs.unique_boolean.fields.UniqueBooleanField', [], {'default': 'False'}),
             'date_added': ('django.db.models.fields.DateField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'text': ('django.db.models.fields.TextField', [], {'max_length': '800', 'null': 'True', 'blank': 'True'})

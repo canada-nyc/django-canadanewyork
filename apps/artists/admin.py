@@ -1,23 +1,12 @@
 from django.contrib import admin
-from django import forms
 
-from .models import Artist, ArtistPhoto
-
-
-class ArtistPhotoForm(forms.ModelForm):
-    position = forms.IntegerField(widget=forms.HiddenInput)
-
-
-class ArtistPhotoInline(admin.TabularInline):
-    model = ArtistPhoto
-    form = ArtistPhotoForm
-    sortable_field_name = "position"
-    verbose_name_plural = 'Images'
+from .models import Artist
+from libs.common.admin import PhotoInline
 
 
 class ArtistAdmin(admin.ModelAdmin):
-    inlines = [ArtistPhotoInline]
-    fields = (('first_name', 'last_name'), 'old_path',)
+    inlines = [PhotoInline]
+    fields = (('first_name', 'last_name'), 'resume',)
     list_display = ('first_name', 'last_name', 'visible')
 
 

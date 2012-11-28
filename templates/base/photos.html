@@ -1,8 +1,9 @@
 {% load thumbnail %}
 {% load static from staticfiles %}
 {% load sekizai_tags %}
+{% load markdown_deux_tags %}
 
-{% if images %}
+{% if photos %}
   {% with id=id|default:"1" height=image_size|cut:"x" %}
     <div id="galleria{{ id }}"></div>
     {% addtoblock "js" %}
@@ -15,12 +16,12 @@
     {% addtoblock "js" %}
       <script>
         var data = [
-          {% for image in images %}
+          {% for image in photos %}
             {% thumbnail image.image image_size as im %}
             {
               image: '{{ im.url|safe }}',
               title: '{{ image.title }}',
-              description: '{{ image.caption }}',
+              description: '{{ image.caption|markdown }}',
             }{% if not forloop.last %},{% endif %}
             {% endthumbnail %}
           {% endfor %}

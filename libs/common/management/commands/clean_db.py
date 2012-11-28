@@ -10,29 +10,30 @@ from django.contrib.auth.models import User
 class Command(NoArgsCommand):
     help = 'Wipes DB and static and reinstalls with default data'
     option_list = NoArgsCommand.option_list + (
-        make_option('--no-wipe', dest='wipe', default=True, action='store_false'),
+        make_option('--no-wipe-db', dest='wipe_db', default=True, action='store_false'),
         make_option('--no-init', dest='init', default=True, action='store_false'),
 
     )
 
     def handle(self, *args, **options):
-        if options.get('wipe'):
+        if options.get('wipe_db'):
                 self.stdout.write('Removing static\n')
                 call('rm -rf tmp/static', shell=True)
                 self.stdout.write('Removing media\n')
                 call('rm -rf tmp/media', shell=True)
-
-        self.log('Initial sync/migrate, to clean up existing db')
-        call_command('syncdb', interactive=False, verbosity=0, migrate=True)
-        self.log('Flushing DB')
-        call_command('flush', interactive=False, verbosity=0)
-        self.log('Syncing DB')
+        self.log('Reseting DB')
+        call_command('reset_db', interactive=False, router="default")
+        self.log('Initial sync')
         call_command('syncdb', interactive=False, verbosity=0)
-        self.log('Migrating DB')
-        call_command('migrate', fake=True, interactive=False, verbosity=0)
+        self.log('Initial migrate')
+        call_command('migrate', interactive=False, verbosity=0)
         self.log('Collecting Static DB')
         call_command('collectstatic', interactive=False, verbosity=0)
-        self.create_superuser('saul', os.environ.get('ADMIN_PASSWORD'), 's.shanabrook@gmail.com')
+        self.create_superuser(
+            os.environ['ADMIN_USERNAME'],
+            os.environ['ADMIN_PASSWORD'],
+            os.environ['ADMIN_EMAIL'],
+        )
         if options.get('init'):
             self.log('Adding test_data')
             call_command('test_data')

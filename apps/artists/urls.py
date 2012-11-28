@@ -1,16 +1,10 @@
 from django.conf.urls.defaults import patterns, url
-from django.views.generic import ListView, DetailView
 
-from .models import Artist
-
+from .views import ArtistList, ArtistDetail, ArtistPressDetail
 
 urlpatterns = patterns(
     '',
-    url(r'^$', ListView.as_view(queryset=Artist.in_gallery.all())),
-    url(r'^(?P<slug>[-\w]+)/$',
-        DetailView.as_view(queryset=Artist.in_gallery.all()),
-        name='artist-detail'),
-    url(r'^(?P<slug>[-\w]+)/press/$',
-        DetailView.as_view(queryset=Artist.in_gallery.all(),
-                           template_name='press/press_list.html'),
+    url(r'^$', ArtistList.as_view()),
+    url(r'^(?P<slug>[-\w]+)/$', ArtistDetail.as_view(), name='artist-detail'),
+    url(r'^(?P<slug>[-\w]+)/press/$', ArtistPressDetail.as_view(),
         name='artist-press-list'),)

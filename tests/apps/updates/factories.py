@@ -2,7 +2,7 @@ import datetime
 
 import factory
 
-from apps.updates.models import Update, UpdatePhoto
+from apps.updates.models import Update
 from ...common.factories import DjangoFactory, BasePhotoFactory
 
 
@@ -17,10 +17,8 @@ class UpdateFactory(DjangoFactory):
     @factory.post_generation(extract_prefix='photos')
     def create_photos(self, create, extracted, **kwargs):
         if 'n' in kwargs:
-            [UpdatePhotoFactory(update=self) for _ in range(int(kwargs['n']))]
+            [UpdatePhotoFactory(content_object=self) for _ in range(int(kwargs['n']))]
 
 
 class UpdatePhotoFactory(BasePhotoFactory):
-    FACTORY_FOR = UpdatePhoto
-
-    update = factory.SubFactory(UpdateFactory)
+    content_object = factory.SubFactory(UpdateFactory)

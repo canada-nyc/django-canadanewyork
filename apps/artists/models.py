@@ -5,10 +5,11 @@ from django.db.models import permalink
 from django.core.exceptions import ValidationError
 from django.db.models import Q
 from django.db.models.loading import get_model
+from django.contrib.contenttypes import generic
 
-from ..common.models import BasePhoto
-from ..slugify.fields import SlugifyField
-from ..content_redirects.models import BaseRedirectModel
+from libs.slugify.fields import SlugifyField
+from libs.content_redirects.models import BaseRedirectModel
+from libs.common.models import Photo
 
 
 class VisibleManager(models.Manager):
@@ -17,17 +18,20 @@ class VisibleManager(models.Manager):
 
 
 class Artist(BaseRedirectModel):
-    def image_path(instance, filename):
+    def resume_path(instance, filename):
         return os.path.join('artists',
                             instance.slug,
                             filename)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    resume = models.FileField(upload_to=image_path, blank=True, editable=False)
+    resume = models.FileField(upload_to=resume_path, blank=True, null=True)
     slug = SlugifyField(populate_from=('first_name', 'last_name'))
     visible = models.BooleanField(
         default=True,
         help_text="Whether it appears in the artists list, and has an artist page")
+
+    photos = generic.GenericRelation(Photo)
+
     objects = models.Manager()
     in_gallery = VisibleManager()
 
@@ -43,6 +47,8 @@ class Artist(BaseRedirectModel):
             file_type = self.resume._file.content_type.split('/')[1]
             error = 'You uploaded a {}. A PDF is required'.format(file_type)
             raise ValidationError(error)
+        self.first_name = self.first_name.strip().title()
+        self.last_name = self.last_name.strip().title()
 
     @permalink
     def get_absolute_url(self):
@@ -56,14 +62,3 @@ class Artist(BaseRedirectModel):
     @permalink
     def get_press_url(self):
         return ('artist-press-list', (), {'slug': self.slug})
-
-
-class ArtistPhoto(BasePhoto):
-    def image_path(instance, filename):
-        return os.path.join('artists', instance.artist.slug, filename)
-
-    artist = models.ForeignKey(Artist, related_name='images')
-    image = models.ImageField(upload_to=image_path)
-
-    def __unicode__(self):
-            return u'{} by {}'.format(self.title, self.artist)

@@ -15,25 +15,14 @@ class Migration(SchemaMigration):
             ('old_path', self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True)),
             ('first_name', self.gf('django.db.models.fields.CharField')(max_length=30)),
             ('last_name', self.gf('django.db.models.fields.CharField')(max_length=30)),
-            ('resume', self.gf('django.db.models.fields.files.FileField')(max_length=100, blank=True)),
-            ('slug', self.gf('apps.slugify.fields.SlugifyField')(max_length=50, populate_from=('first_name', 'last_name'))),
+            ('resume', self.gf('django.db.models.fields.files.FileField')(max_length=100, null=True, blank=True)),
+            ('slug', self.gf('libs.slugify.fields.SlugifyField')(max_length=50, populate_from=('first_name', 'last_name'))),
             ('visible', self.gf('django.db.models.fields.BooleanField')(default=True)),
         ))
         db.send_create_signal('artists', ['Artist'])
 
         # Adding unique constraint on 'Artist', fields ['first_name', 'last_name']
         db.create_unique('artists_artist', ['first_name', 'last_name'])
-
-        # Adding model 'ArtistPhoto'
-        db.create_table('artists_artistphoto', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=20, blank=True)),
-            ('caption', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('position', self.gf('django.db.models.fields.PositiveSmallIntegerField')()),
-            ('artist', self.gf('django.db.models.fields.related.ForeignKey')(related_name='images', to=orm['artists.Artist'])),
-            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
-        ))
-        db.send_create_signal('artists', ['ArtistPhoto'])
 
 
     def backwards(self, orm):
@@ -42,9 +31,6 @@ class Migration(SchemaMigration):
 
         # Deleting model 'Artist'
         db.delete_table('artists_artist')
-
-        # Deleting model 'ArtistPhoto'
-        db.delete_table('artists_artistphoto')
 
 
     models = {
@@ -55,18 +41,26 @@ class Migration(SchemaMigration):
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'old_path': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'redirect': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['redirects.Redirect']", 'unique': 'True', 'null': 'True', 'blank': 'True'}),
-            'resume': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'blank': 'True'}),
-            'slug': ('apps.slugify.fields.SlugifyField', [], {'max_length': '50', 'populate_from': "('first_name', 'last_name')"}),
+            'resume': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
+            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '50', 'populate_from': "('first_name', 'last_name')"}),
             'visible': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
         },
-        'artists.artistphoto': {
-            'Meta': {'ordering': "['position']", 'object_name': 'ArtistPhoto'},
-            'artist': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'images'", 'to': "orm['artists.Artist']"}),
-            'caption': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+        'common.photo': {
+            'Meta': {'ordering': "['position']", 'object_name': 'Photo'},
+            'caption': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
+            'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'})
+        },
+        'contenttypes.contenttype': {
+            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
+            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         'redirects.redirect': {
             'Meta': {'ordering': "('old_path',)", 'unique_together': "(('site', 'old_path'),)", 'object_name': 'Redirect', 'db_table': "'django_redirect'"},

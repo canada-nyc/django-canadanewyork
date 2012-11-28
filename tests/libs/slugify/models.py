@@ -1,6 +1,6 @@
 from django.db import models
 
-from apps.slugify.fields import SlugifyField
+from libs.slugify.fields import SlugifyField
 
 
 class RelatedModel(models.Model):

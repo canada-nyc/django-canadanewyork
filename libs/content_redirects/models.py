@@ -8,7 +8,7 @@ from django.core.exceptions import ValidationError
 
 class BaseRedirectModel(models.Model):
     redirect = models.OneToOneField(Redirect, blank=True, null=True, editable=False)
-    old_path = models.CharField(blank=True, null=True, max_length=200,
+    old_path = models.CharField(blank=True, null=True, max_length=200, editable=False,
                                 help_text='If provided, will redirect from this URL to the new URL. For instance "/exhibitions/old-one" would take any visitor from that URL to the URL of this object')
 
     class Meta:

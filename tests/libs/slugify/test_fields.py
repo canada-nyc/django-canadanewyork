@@ -20,13 +20,13 @@ class TestContentRedirects(TestCase):
         model_slug = _SlugifyModel.slug
         self.assertEqual(calculated_slug, model_slug)
 
-    def test_no_change_on_save(self):
+    def test_change_on_save(self):
         _SlugifyModel = SlugifyModelFactory()
-        calculated_slug = slugify('-'.join([_SlugifyModel.text, str(_SlugifyModel.related_model)]))
         _SlugifyModel.text = 'new_text'
         _SlugifyModel.save()
+        new_calculated_slug = slugify('-'.join([_SlugifyModel.text, str(_SlugifyModel.related_model)]))
         model_slug = _SlugifyModel.slug
-        self.assertEqual(calculated_slug, model_slug)
+        self.assertEqual(new_calculated_slug, model_slug)
 
     def test_lambda(self):
         _SlugifyDateModel = SlugifyDateModelFactory()

@@ -14,4 +14,4 @@ class UniqueBooleanField(BooleanField):
             return True
         return getattr(model_instance, self.attname)
 
-add_introspection_rules([], ["^apps\.unique_boolean\.fields\.UniqueBooleanField"])
+add_introspection_rules([], ["^libs\.unique_boolean\.fields\.UniqueBooleanField"])

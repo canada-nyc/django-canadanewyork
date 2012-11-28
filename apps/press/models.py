@@ -1,13 +1,21 @@
 import os
 
+from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
+
 from django.db.models import permalink
 from django.db import models
 from django.core.exceptions import ValidationError
 
 from ..artists.models import Artist
 from ..exhibitions.models import Exhibition
-from ..slugify.fields import SlugifyField
-from ..content_redirects.models import BaseRedirectModel
+from libs.slugify.fields import SlugifyField
+from libs.content_redirects.models import BaseRedirectModel
+
+
+class CompleteManager(models.Manager):
+    def get_query_set(self):
+        queryset = super(CompleteManager, self).get_query_set()
+        return queryset.exclude(date__isnull=True)
 
 
 class Press(BaseRedirectModel):
@@ -20,15 +28,24 @@ class Press(BaseRedirectModel):
     title = models.CharField(max_length=50)
     image = models.ImageField(null=True, blank=True, upload_to=image_path)
     link = models.URLField(null=True, blank=True, verbose_name=u'External link')
-    date = models.DateField()
+    content = models.TextField(help_text=markdown_allowed(), blank=True)
+    pdf = models.FileField(upload_to=image_path, blank=True, null=True)
 
-    publisher = models.CharField(max_length=50)
-    author = models.CharField(max_length=60, blank=True, null=True)
+    date = models.DateField(null=True,
+                            help_text=('If the date is blank, then it will'
+                                       ' be treated as a draft and not appear'
+                                       ' on the site'))
+
+    publisher = models.CharField(max_length=50, blank=True)
+    author = models.CharField(max_length=60, blank=True)
     artists = models.ManyToManyField(Artist, blank=True, null=True,
                                      related_name='press',)
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True,
                                    related_name='press',)
     slug = SlugifyField(populate_from=('title',))
+
+    objects = CompleteManager()
+    all_objects = models.Manager()
 
     class Meta:
         ordering = ['-date']
@@ -38,8 +55,15 @@ class Press(BaseRedirectModel):
         return u'{} ({})'.format(self.title, self.date.year)
 
     def clean(self):
-        if not self.image and not self.link:
-            raise ValidationError('Either upload an image or add a link.')
+        if self.pdf and self.pdf._file and self.pdf._file.content_type != 'application/pdf':
+            file_type = self.pdf._file.content_type.split('/')[1]
+            error = 'You uploaded a {}. A PDF is required'.format(file_type)
+            raise ValidationError(error)
+
+        self.title = self.title.strip().title()
+        self.content = self.content.strip()
+        self.publisher = self.publisher.strip().title()
+        self.author = self.author.strip().title()
 
     @permalink
     def get_absolute_url(self):
@@ -48,6 +72,3 @@ class Press(BaseRedirectModel):
             'year': self.date.year
         })
 
-    @property
-    def image_size(self):
-        return 'x{}'.format(500)

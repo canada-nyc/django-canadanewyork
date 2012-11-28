@@ -1,25 +1,15 @@
 from django.contrib import admin
-from django import forms
 
 from sorl.thumbnail.admin import AdminImageMixin
 
-from .models import Exhibition, ExhibitionPhoto
-
-
-class ExhibitionPhotoInlineForm(forms.ModelForm):
-    position = forms.IntegerField(widget=forms.HiddenInput)
-
-
-class ExhibitionPhotoInline(AdminImageMixin, admin.TabularInline):
-    model = ExhibitionPhoto
-    form = ExhibitionPhotoInlineForm
-    sortable_field_name = "position"
+from .models import Exhibition
+from libs.common.admin import PhotoInline
 
 
 class ExhibitionAdmin(AdminImageMixin, admin.ModelAdmin):
-    inlines = [ExhibitionPhotoInline]
+    inlines = [PhotoInline]
     date_hierarchy = 'start_date'
     list_display = ('name', 'start_date')
-    fields = ('name', 'description', ('start_date', 'end_date'), 'artists', 'old_path')
+    fields = ('name', 'description', ('start_date', 'end_date'), 'artists',)
 
 admin.site.register(Exhibition, ExhibitionAdmin)

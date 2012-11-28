@@ -3,13 +3,12 @@ import os
 import sys
 
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "configs.settings.canada")
-os.environ.setdefault('DJANGO_CONFIGURATION', 'LocalSettings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "configs.settings.dev")
 
 if __name__ == "__main__":
-    from configurations.management import execute_from_command_line
+    from django.core.management import execute_from_command_line
     execute_from_command_line(sys.argv)
 
-from configurations.wsgi import get_wsgi_application
+from django.core.wsgi import get_wsgi_application
 
 application = get_wsgi_application()

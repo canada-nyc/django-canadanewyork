@@ -7,6 +7,10 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    needed_by = (
+        ("frontpage", "0001_initial"),
+    )
+
     def forwards(self, orm):
         # Adding model 'Photo'
         db.create_table('common_photo', (

@@ -1,6 +1,8 @@
 import imp
 import os
 
+import dj_database_url
+
 from django.conf.global_settings import *
 
 
@@ -117,6 +119,8 @@ COMPRESS_PRECOMPILERS = (
 INSTALLED_APPS += (
     'south',
 )
+DATABASES = {'default': dj_database_url.config(default='postgres://saul:password@localhost/django_canadanewyork')}
+
 
 #########
 # EMAIL #
@@ -147,3 +151,9 @@ TEST_RUNNER = 'discover_runner.DiscoverRunner'
 TEST_DISCOVER_TOP_LEVEL = SITE_ROOT
 TEST_DISCOVER_ROOT = rel_path('tests')
 SOUTH_TESTS_MIGRATE = False
+
+
+########
+# MISC #
+########
+INSTALLED_APPS += ('django_extensions',)

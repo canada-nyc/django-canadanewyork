@@ -39,8 +39,8 @@ class Frontpage(models.Model):
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True)
     exhibition_image = ChainedForeignKey(
         Photo,
-        chained_model_field='content_object',
-        chained_field='exhibition',
+        chained_model_field='exhibition',
+        chained_field='content_object',
         help_text=('Select exhibition first, then choose an image from that'
                    ' exhibition. If an uploaded image is selected, that will'
                    ' take precedence'),

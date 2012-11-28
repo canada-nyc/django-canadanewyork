@@ -1,12 +1,4 @@
-import dj_database_url
-
 from .common import *
-
-
-############
-# DATABASE #
-############
-DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
 
 
 ###########

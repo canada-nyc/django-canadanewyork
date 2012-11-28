@@ -7,21 +7,6 @@ from .common import *
 INTERNAL_IPS = ('127.0.0.1',)
 
 
-############
-# DATABASE #
-############
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': rel_path('tmp/sqlite.db'),
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-    }
-}
-
-
 ###########
 # STORAGE #
 ###########

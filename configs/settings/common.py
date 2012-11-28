@@ -53,6 +53,8 @@ TEMPLATE_CONTEXT_PROCESSORS += ('libs.common.context_processors.image_size',)
 #########
 # ADMIN #
 #########
+INSTALLED_APPS += ('grappelli',)
+
 INSTALLED_APPS += (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -61,7 +63,6 @@ INSTALLED_APPS += (
     'django.contrib.messages',
 )
 
-INSTALLED_APPS += ('grappelli',)
 GRAPPELLI_ADMIN_TITLE = 'canada'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'grappelli/'
 

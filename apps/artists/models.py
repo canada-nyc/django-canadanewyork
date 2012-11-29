@@ -27,7 +27,7 @@ class Artist(BaseRedirectModel):
     resume = models.FileField(upload_to=resume_path, blank=True, null=True)
     slug = SlugifyField(populate_from=('first_name', 'last_name'))
     visible = models.BooleanField(
-        default=True,
+        default=False,
         help_text="Whether it appears in the artists list, and has an artist page")
 
     photos = generic.GenericRelation(Photo)

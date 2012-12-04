@@ -26,7 +26,17 @@ class Press(BaseRedirectModel):
                             filename)
 
     title = models.CharField(max_length=50)
-    image = models.ImageField(null=True, blank=True, upload_to=image_path)
+    add_image = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to=image_path,
+        help_text=('If an image is uploaded, it will be added to the pdf as '
+                   'the next page of the pdf. If no pdf is attached to the '
+                   'artist, one will be created using this image. So either '
+                   'you can upoad a multipage pdf, or upload many images'
+                   'one at a time that will be combined to make a multipage '
+                   'pdf')
+    )
     link = models.URLField(null=True, blank=True, verbose_name=u'External link')
     content = models.TextField(help_text=markdown_allowed(), blank=True)
     pdf = models.FileField(upload_to=image_path, blank=True, null=True)
@@ -54,6 +64,8 @@ class Press(BaseRedirectModel):
     def __unicode__(self):
         return u'{} ({})'.format(self.title, self.date.year)
 
+    def save(self, *args, **kwargs):
+        super(Press, self).save(*args, **kwargs)
     def clean(self):
         if self.pdf and self.pdf._file and self.pdf._file.content_type != 'application/pdf':
             file_type = self.pdf._file.content_type.split('/')[1]

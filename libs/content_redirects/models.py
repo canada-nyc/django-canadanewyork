@@ -15,9 +15,15 @@ class BaseRedirectModel(models.Model):
         abstract = True
 
     def save(self, *args, **kwargs):
+        super(BaseRedirectModel, self).save(*args, **kwargs)
         if 'django.contrib.redirects' not in settings.INSTALLED_APPS:
             raise ValidationError('Include `django.contrib.redirects` in'
                                   ' INSTALLED_APPS, for `content_redirects`')
+
+        # Need to get QuerySet so that I can use the update method on it
+        # The update method does not call save again, so I can just save the
+        # fields without recalling this method.
+        self_quersyet = self.__class__.objects.filter(id=self.id)
 
         if self.old_path:
             redirect_kwargs = {
@@ -28,19 +34,27 @@ class BaseRedirectModel(models.Model):
             try:
                 if self.redirect:
                     for k, v in redirect_kwargs.items():
+
                         setattr(self.redirect, k, v)
                         self.redirect.save()
                 else:
                     redirect = Redirect.objects.create(**redirect_kwargs)
-                    self.redirect = redirect
+                    self_quersyet.update(redirect=redirect)
             except IntegrityError as error:
-                raise ValidationError('old_path conflicts with another redirect, within site {}, Error: {}'.format(redirect_kwargs['site'], str(error)))
+                raise ValidationError(
+                    'old_path: {} conflicts with another redirect, within site {}, Error: {}'.format(
+                        redirect_kwargs['old_path'],
+                        redirect_kwargs['site'],
+                        str(error)
+                    )
+                )
         else:
             if self.redirect:
                 self.redirect.delete()
-        super(BaseRedirectModel, self).save(*args, **kwargs)
+                self_quersyet.update(redirect=None)
 
     def delete(self, *args, **kwargs):
         if self.redirect:
             self.redirect.delete()
+            self.redirect = None
         super(BaseRedirectModel, self).delete(*args, **kwargs)

@@ -6,10 +6,10 @@ from django.conf import settings
 from django.contrib.redirects.models import Redirect
 from django.core.exceptions import ValidationError
 
-from .models import RedirectModel
+from .models import RedirectModel, RedirectSlugifyModel
 
 
-@override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('tests.apps.content_redirects',))
+@override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('tests.libs.content_redirects',))
 class TestContentRedirects(TransactionTestCase):
     def setUp(self):
         loading.cache.loaded = False
@@ -66,6 +66,7 @@ class TestContentRedirects(TransactionTestCase):
         Makes sure the redirect gets deleted after the model does
         '''
         _Content = RedirectModel.objects.create(old_path='old')
+        _Content = RedirectModel.objects.all()[0]
         _Content.delete()
         self.assertFalse(Redirect.objects.count())
 
@@ -99,3 +100,12 @@ class TestContentRedirects(TransactionTestCase):
         with self.assertRaisesRegexp(ValidationError, 'path'):
             RedirectModel.objects.create(old_path='path')
             RedirectModel.objects.create(old_path='path')
+
+    def test_slugify_happens_first(self):
+        _Content = RedirectSlugifyModel.objects.create(old_path='path')
+
+        _Content = RedirectSlugifyModel.objects.all()[0]
+        _Redirect = _Content.redirect
+        self.assertTrue(_Redirect)
+        self.assertEqual(_Content.get_absolute_url(), _Redirect.new_path)
+        self.assertEqual(_Content.old_path, _Redirect.old_path)

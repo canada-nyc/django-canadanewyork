@@ -14,7 +14,7 @@ git+git://github.com/lincolnloop/django-smart-selects.git@dbe42ad4604d132ce72adc
 ##
 sorl-thumbnail==11.12
 Pillow==1.7.7
-reportlab
+reportlab==2.5
 
 ##
 #Templates
@@ -50,3 +50,5 @@ django-storages
 python-dateutil==1.5 #Required for collecstatic modified checks
 git+git://github.com/aaronsw/html2text.git
 chardet==2.1.1
+pdfminer==20110515
+pdfrw==0.1

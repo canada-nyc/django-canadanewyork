@@ -22,7 +22,7 @@ class Photo(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
-    position = models.PositiveSmallIntegerField("Position")
+    position = models.PositiveSmallIntegerField("Position", null=True, blank=True)
 
     class Meta:
         ordering = ['position']

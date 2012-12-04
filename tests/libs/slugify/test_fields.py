@@ -8,7 +8,7 @@ from django.template.defaultfilters import slugify
 from .factories import SlugifyModelFactory, SlugifyDateModelFactory
 
 
-@override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('tests.apps.slugify',))
+@override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('tests.libs.slugify',))
 class TestContentRedirects(TestCase):
     def setUp(self):
         loading.cache.loaded = False

@@ -11,7 +11,7 @@ class Command(NoArgsCommand):
     help = 'Wipes DB and static and reinstalls with default data'
     option_list = NoArgsCommand.option_list + (
         make_option('--no-wipe-db', dest='wipe_db', default=True, action='store_false'),
-        make_option('--no-init', dest='init', default=True, action='store_false'),
+        make_option('--init', dest='init', default=False, action='store_true'),
 
     )
 

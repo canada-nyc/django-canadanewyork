@@ -11,7 +11,6 @@ SLUG_INDEX_SEPARATOR = '-'    # the "-" in "foo-2"
 class SlugifyField(SlugField):
     def __init__(self, *args, **kwargs):
         kwargs['editable'] = False
-
         # autopopulated slug is not editable unless told so
         self.populate_from = kwargs.pop('populate_from')
         # Use default seperator unless given one

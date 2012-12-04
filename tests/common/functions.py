@@ -35,5 +35,5 @@ def django_pdf(name, text='hello world'):
     # Create a new Django file-like object to be used in models as FileField using
     # InMemoryUploadedFile.  If you look at the source in Django, a
     # SimpleUploadedFile is essentially instantiated similarly to what is shown here
-    return InMemoryUploadedFile(pdf_io, None, name + '.pdf', 'image/jpeg',
+    return InMemoryUploadedFile(pdf_io, None, name + '.pdf', 'file/pdf',
                                 pdf_io.len, None)

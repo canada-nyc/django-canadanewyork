@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 from ..artists.models import Artist
 from ..exhibitions.models import Exhibition
 from libs.slugify.fields import SlugifyField
-from libs.content_redirects.models import BaseRedirectModel
+from libs.content_redirects.fields import RedirectField
 
 
 class CompleteManager(models.Manager):
@@ -18,7 +18,7 @@ class CompleteManager(models.Manager):
         return queryset.exclude(date__isnull=True)
 
 
-class Press(BaseRedirectModel):
+class Press(models.Model):
     def image_path(instance, filename):
         return os.path.join('press',
                             str(instance.date.year),
@@ -43,6 +43,9 @@ class Press(BaseRedirectModel):
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True,
                                    related_name='press',)
     slug = SlugifyField(populate_from=('title',))
+
+    old_path = models.CharField(blank=True, null=True, editable=False, max_length=200)
+    redirect = RedirectField()
 
     objects = CompleteManager()
     all_objects = models.Manager()
@@ -71,4 +74,3 @@ class Press(BaseRedirectModel):
             'slug': self.slug,
             'year': self.date.year
         })
-

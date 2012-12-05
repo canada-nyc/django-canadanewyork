@@ -5,16 +5,19 @@ from django.contrib.contenttypes import generic
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 
 from libs.slugify.fields import SlugifyField
-from libs.content_redirects.models import BaseRedirectModel
+from libs.content_redirects.fields import RedirectField
 from libs.common.models import Photo
 
 
-class Update(BaseRedirectModel):
+class Update(models.Model):
     name = models.CharField(max_length=30, unique_for_year='post_date')
     description = models.TextField(blank=True, null=True,
                                    help_text=markdown_allowed())
     post_date = models.DateTimeField(auto_now_add=True)
     slug = SlugifyField(populate_from=(lambda U: U.post_date.year, 'name'))
+
+    old_path = models.CharField(blank=True, null=True, editable=False, max_length=200)
+    redirect = RedirectField()
 
     photos = generic.GenericRelation(Photo)
 

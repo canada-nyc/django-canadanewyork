@@ -1,16 +1,16 @@
-from django.test import TransactionTestCase
+from django.test import TestCase
 from django.core.management import call_command
 from django.db.models import loading
 from django.test.utils import override_settings
 from django.conf import settings
 from django.contrib.redirects.models import Redirect
-from django.core.exceptions import ValidationError
+from django.db import IntegrityError
 
-from .models import RedirectModel
+from .models import RedirectModel, RedirectSlugifyModel
 
 
-@override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('tests.apps.content_redirects',))
-class TestContentRedirects(TransactionTestCase):
+@override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('tests.libs.content_redirects',))
+class TestContentRedirects(TestCase):
     def setUp(self):
         loading.cache.loaded = False
         call_command('syncdb', interactive=False, verbosity=0)
@@ -66,6 +66,7 @@ class TestContentRedirects(TransactionTestCase):
         Makes sure the redirect gets deleted after the model does
         '''
         _Content = RedirectModel.objects.create(old_path='old')
+        _Content = RedirectModel.objects.all()[0]
         _Content.delete()
         self.assertFalse(Redirect.objects.count())
 
@@ -96,6 +97,15 @@ class TestContentRedirects(TransactionTestCase):
         self.assertFalse(Redirect.objects.count())
 
     def test_conflicting_old_path(self):
-        with self.assertRaisesRegexp(ValidationError, 'path'):
+        with self.assertRaisesRegexp(IntegrityError, 'path'):
             RedirectModel.objects.create(old_path='path')
             RedirectModel.objects.create(old_path='path')
+
+    def test_slugify_happens_first(self):
+        _Content = RedirectSlugifyModel.objects.create(old_path='path')
+
+        _Content = RedirectSlugifyModel.objects.all()[0]
+        _Redirect = _Content.redirect
+        self.assertTrue(_Redirect)
+        self.assertEqual(_Content.get_absolute_url(), _Redirect.new_path)
+        self.assertEqual(_Content.old_path, _Redirect.old_path)

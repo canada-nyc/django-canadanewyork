@@ -77,8 +77,6 @@ class PDFImageApendField(ImageField):
             pdf = self._save_pdf(canvas, buffer)
         setattr(model_instance, self.pdf_field, pdf)
 
-
-
     def south_field_triple(self):
         "Returns a suitable description of this field for South."
         args, kwargs = introspector(self)

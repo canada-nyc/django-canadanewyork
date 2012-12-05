@@ -8,7 +8,7 @@ from django.db.models.loading import get_model
 from django.contrib.contenttypes import generic
 
 from libs.slugify.fields import SlugifyField
-from libs.content_redirects.models import BaseRedirectModel
+from libs.content_redirects.fields import RedirectField
 from libs.common.models import Photo
 
 
@@ -17,7 +17,7 @@ class VisibleManager(models.Manager):
         return super(VisibleManager, self).get_query_set().filter(visible=True)
 
 
-class Artist(BaseRedirectModel):
+class Artist(models.Model):
     def resume_path(instance, filename):
         return os.path.join('artists',
                             instance.slug,
@@ -29,6 +29,9 @@ class Artist(BaseRedirectModel):
     visible = models.BooleanField(
         default=False,
         help_text="Whether it appears in the artists list, and has an artist page")
+
+    old_path = models.CharField(blank=True, null=True, editable=False, max_length=200)
+    redirect = RedirectField()
 
     photos = generic.GenericRelation(Photo)
 

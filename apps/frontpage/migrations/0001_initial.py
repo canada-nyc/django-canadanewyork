@@ -7,6 +7,10 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ("common", "0001_initial"),
+    )
+
     def forwards(self, orm):
         # Adding model 'Frontpage'
         db.create_table('frontpage_frontpage', (
@@ -33,10 +37,10 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'old_path': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'redirect': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['redirects.Redirect']", 'unique': 'True', 'null': 'True', 'blank': 'True'}),
-            'resume': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '50', 'populate_from': "('first_name', 'last_name')"}),
-            'visible': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
+            'redirect': ('libs.content_redirects.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
+            'resume': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '1000', 'populate_from': "('first_name', 'last_name')"}),
+            'visible': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
         },
         'common.photo': {
             'Meta': {'ordering': "['position']", 'object_name': 'Photo'},
@@ -45,7 +49,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
             'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {}),
+            'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'})
         },
         'contenttypes.contenttype': {
@@ -63,8 +67,8 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'old_path': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'redirect': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['redirects.Redirect']", 'unique': 'True', 'null': 'True', 'blank': 'True'}),
-            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '50', 'populate_from': "('name',)"}),
+            'redirect': ('libs.content_redirects.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
+            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '1000', 'populate_from': "('name',)"}),
             'start_date': ('django.db.models.fields.DateField', [], {})
         },
         'frontpage.frontpage': {

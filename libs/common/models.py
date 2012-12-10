@@ -14,7 +14,7 @@ class Photo(models.Model):
                             instance.content_object.slug,
                             filename)
 
-    title = models.CharField(blank=True, max_length=20)
+    title = models.CharField(blank=True, max_length=400)
     caption = models.TextField(blank=True, help_text=markdown_allowed())
     image = models.ImageField(upload_to=image_path)
 

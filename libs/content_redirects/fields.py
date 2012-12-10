@@ -5,6 +5,8 @@ from django.contrib.sites.models import Site
 from django.conf import settings
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
+from django.db.utils import DatabaseError
+from django.db import transaction
 
 from south.modelsinspector import introspector
 
@@ -39,11 +41,20 @@ class RedirectField(OneToOneField):
 
         redirect = getattr(model_instance, self.name)
         if all(redirect_kwargs.values()):
-            if redirect:
-                redirect.__dict__.update(redirect_kwargs)
-                redirect.save()
-            else:
-                redirect = Redirect.objects.create(**redirect_kwargs)
+            try:
+                # In case over character limit, make transaction savepoint
+                # so that postgresql can roll back to it.
+                # docs.djangoproject.com/en/dev/topics/db/transactions/#savepoint-rollback
+                sid = transaction.savepoint()
+                if redirect:
+                    redirect.__dict__.update(redirect_kwargs)
+                    redirect.save()
+                else:
+                    redirect = Redirect.objects.create(**redirect_kwargs)
+                transaction.savepoint_commit(sid)
+            except DatabaseError:
+                transaction.savepoint_rollback(sid)
+                redirect = None
         else:
             if redirect:
                 redirect.delete()
@@ -56,9 +67,9 @@ class RedirectField(OneToOneField):
         "Returns a suitable description of this field for South."
         args, kwargs = introspector(self)
         field_class = self.__class__.__module__ + "." + self.__class__.__name__
-        kwargs.update(
-            {field: 'None' for field in DEFAULT_GETTERS.keys()}
-        )
+        for key in DEFAULT_GETTERS.keys():
+            kwargs.pop(key, None)
+        kwargs.pop('to', None)
         return (field_class, args, kwargs)
 
 

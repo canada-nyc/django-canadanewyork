@@ -13,6 +13,7 @@ INTERNAL_IPS = ('127.0.0.1',)
 MEDIA_ROOT = rel_path('tmp/media/')
 STATIC_ROOT = rel_path('tmp/static/')
 
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -23,7 +24,7 @@ DATABASES = {
         'PORT': '',
     }
 }
-
+'''
 
 #########
 # DEBUG #

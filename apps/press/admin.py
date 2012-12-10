@@ -12,7 +12,7 @@ class PressAdmin(admin.ModelAdmin):
             'fields': ('title', 'date', 'publisher', 'author', 'link')
         }),
         ('Full Article', {
-            'fields': ('content', 'add_image', 'pdf')
+            'fields': ('content', 'pdf',)
         }),
         ('Related', {
             'fields': ('exhibition', 'artists')

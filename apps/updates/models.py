@@ -10,7 +10,7 @@ from libs.common.models import Photo
 
 
 class Update(models.Model):
-    name = models.CharField(max_length=30, unique_for_year='post_date')
+    name = models.CharField(max_length=800, unique_for_year='post_date')
     description = models.TextField(blank=True, null=True,
                                    help_text=markdown_allowed())
     post_date = models.DateTimeField(auto_now_add=True)

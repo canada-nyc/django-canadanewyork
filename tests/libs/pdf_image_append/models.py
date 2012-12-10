@@ -1,8 +1,7 @@
 from django.db import models
 
-from libs.pdf_image_append.fields import PDFImageApendField
+from libs.pdf_image_append.models import PDFImageAppendModel
 
 
-class PDFImageModel(models.Model):
-    pdf = models.FileField(upload_to='tmp', blank=True, null=True)
-    image_append = PDFImageApendField()
+class PDFImageModel(models.Model, PDFImageAppendModel):
+    pdf = models.FileField(upload_to='testing/libs/pdf_image_append', blank=True, null=True)

@@ -11,18 +11,17 @@ class Migration(SchemaMigration):
         # Adding model 'Press'
         db.create_table('press_press', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('redirect', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['redirects.Redirect'], unique=True, null=True, blank=True)),
-            ('old_path', self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True)),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
             ('link', self.gf('django.db.models.fields.URLField')(max_length=200, null=True, blank=True)),
             ('content', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('pdf', self.gf('django.db.models.fields.files.FileField')(max_length=100, null=True, blank=True)),
-            ('date', self.gf('django.db.models.fields.DateField')(null=True)),
+            ('date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
             ('publisher', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
             ('author', self.gf('django.db.models.fields.CharField')(max_length=60, blank=True)),
             ('exhibition', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='press', null=True, to=orm['exhibitions.Exhibition'])),
-            ('slug', self.gf('libs.slugify.fields.SlugifyField')(max_length=50, populate_from=('title',))),
+            ('slug', self.gf('libs.slugify.fields.SlugifyField')(unique=True, max_length=1000, populate_from=('title',))),
+            ('old_path', self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True)),
+            ('redirect', self.gf('libs.content_redirects.fields.RedirectField')(unique=True, null=True, on_delete=models.SET_NULL, blank=True)),
         ))
         db.send_create_signal('press', ['Press'])
 
@@ -50,10 +49,10 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'old_path': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'redirect': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['redirects.Redirect']", 'unique': 'True', 'null': 'True', 'blank': 'True'}),
-            'resume': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '50', 'populate_from': "('first_name', 'last_name')"}),
-            'visible': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
+            'redirect': ('libs.content_redirects.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
+            'resume': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '1000', 'populate_from': "('first_name', 'last_name')"}),
+            'visible': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
         },
         'common.photo': {
             'Meta': {'ordering': "['position']", 'object_name': 'Photo'},
@@ -62,7 +61,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
             'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {}),
+            'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'})
         },
         'contenttypes.contenttype': {
@@ -80,8 +79,8 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'old_path': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'redirect': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['redirects.Redirect']", 'unique': 'True', 'null': 'True', 'blank': 'True'}),
-            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '50', 'populate_from': "('name',)"}),
+            'redirect': ('libs.content_redirects.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
+            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '1000', 'populate_from': "('name',)"}),
             'start_date': ('django.db.models.fields.DateField', [], {})
         },
         'press.press': {
@@ -89,16 +88,15 @@ class Migration(SchemaMigration):
             'artists': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "'press'", 'null': 'True', 'symmetrical': 'False', 'to': "orm['artists.Artist']"}),
             'author': ('django.db.models.fields.CharField', [], {'max_length': '60', 'blank': 'True'}),
             'content': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'date': ('django.db.models.fields.DateField', [], {'null': 'True'}),
+            'date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'exhibition': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'press'", 'null': 'True', 'to': "orm['exhibitions.Exhibition']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'link': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'old_path': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'pdf': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'publisher': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
-            'redirect': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['redirects.Redirect']", 'unique': 'True', 'null': 'True', 'blank': 'True'}),
-            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '50', 'populate_from': "('title',)"}),
+            'redirect': ('libs.content_redirects.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
+            'slug': ('libs.slugify.fields.SlugifyField', [], {'unique': 'True', 'max_length': '1000', 'populate_from': "('title',)"}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
         'redirects.redirect': {

@@ -1,14 +1,11 @@
 import xml.etree.ElementTree
-import pprint
 import textwrap
 
 from django.core.management.base import BaseCommand, CommandError
-from django.db.models.loading import get_model
-from django.core.files import File
 
 from .classify import classify
-from .conversion import (parent_kwargs_from_element,
-                         model_kwargs_from_element,
+from .conversion import (parent_from_element,
+                         model_from_element,
                          field_value_from_element)
 
 
@@ -36,6 +33,9 @@ class Command(BaseCommand):
             return element.findtext('guid')
         item_elements.sort(key=lambda element: element.findtext('link'))
         self.log('Adding Items', 0)
+
+        added_models = []  # So that we can clean them all after.
+
         for element_number, element in enumerate(item_elements):
             if classify(element):
                 app, model, field = classify(element)
@@ -47,35 +47,20 @@ class Command(BaseCommand):
                                                          len(item_elements)),
                     1
                 )
-                Model = get_model(app, model)
                 if field:
-                    pass
-                    '''
-                    parent = Model.objects.get(
-                        **parent_kwargs_from_element(element, app, model, field)
-                    )
+                    parent = parent_from_element(element, item_elements)
                     setattr(
                         parent,
-                        field,
-                        field_value_from_element(element, app, model, field)
+                        *field_value_from_element(element, app, model, field)
                     )
                     parent.save()
-                    '''
                 else:
-                    self.log('Gettings fields', 2)
-                    model_kwargs = model_kwargs_from_element(element, app, model, item_elements)
-                    self.log(pprint.pformat(model_kwargs), 3)
-                    try:
-                        image, name = model_kwargs.pop('image')
-                    except KeyError:
-                        image = None
-                    self.log('Saving', 2)
-                    model = Model.objects.create(**model_kwargs)
-                    model.clean()
-                    model.save()
-                    if image:
-                        self.log('Saving Image', 3)
-                        model.image.save(name, File(image))
+                    added_models.append(
+                        model_from_element(element, item_elements)
+                    )
+
+        # Clean all models
+        map(lambda model: model.clean(), added_models)
 
     def log(self, string, indent=0):
         wrapper = textwrap.TextWrapper(

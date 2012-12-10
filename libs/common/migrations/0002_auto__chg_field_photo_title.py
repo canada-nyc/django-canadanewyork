@@ -9,13 +9,13 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
 
-        # Changing field 'Photo.position'
-        db.alter_column('common_photo', 'position', self.gf('django.db.models.fields.PositiveSmallIntegerField')(null=True))
+        # Changing field 'Photo.title'
+        db.alter_column('common_photo', 'title', self.gf('django.db.models.fields.CharField')(max_length=400))
 
     def backwards(self, orm):
 
-        # User chose to not deal with backwards NULL issues for 'Photo.position'
-        raise RuntimeError("Cannot reverse this migration. 'Photo.position' and its values cannot be restored.")
+        # Changing field 'Photo.title'
+        db.alter_column('common_photo', 'title', self.gf('django.db.models.fields.CharField')(max_length=20))
 
     models = {
         'common.photo': {
@@ -26,7 +26,7 @@ class Migration(SchemaMigration):
             'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
             'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'})
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '400', 'blank': 'True'})
         },
         'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},

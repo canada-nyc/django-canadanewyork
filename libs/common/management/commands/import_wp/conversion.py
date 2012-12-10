@@ -1,23 +1,74 @@
 import urlparse
 import dateutil.parser
-import urllib2
 import os
 
 import html2text
 import markdown2
+import requests
+import requests_cache
 
 from django.db.models.loading import get_model
+from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 
 from .classify import classify
 
+requests_cache.configure(cache_name='wp')
 
-def parent_kwargs_from_element(element, app, model, field):
-    pass
+
+def parent_from_element(element, all_elements):
+    parent_id = element.findtext('{http://wordpress.org/export/1.1/}post_parent')
+    for other_element in all_elements:
+        if other_element.findtext('{http://wordpress.org/export/1.1/}post_id') == parent_id:
+            parent = other_element
+    return model_from_element(parent, all_elements, create=False)
+
+
+def model_from_element(element, all_elements, create=True):
+    app, model, field = classify(element)
+    Model = get_model(app, model)
+    model_kwargs = model_kwargs_from_element(element, app, model, all_elements)
+
+    if create:
+
+        field_files = {}
+        for field, value in model_kwargs.items():
+            # Images are set as kwargs as a tuple of (file, file_name)
+            if isinstance(value, tuple) and isinstance(value[0], File):
+                field_files[field] = model_kwargs.pop(field)
+
+        model = Model()
+        for field, value in model_kwargs.items():
+            try:
+                setattr(model, field, value)
+            except ValueError:  # Raised if try to save ManyToMany before it has been saved
+                try:
+                    model.save()
+                except:
+                    import ipdb; ipdb.set_trace()
+                setattr(model, field, value)
+        model.save()
+
+        for field, (file_content, file_name) in field_files.items():
+            getattr(model, field).save(file_name, file_content)
+
+    else:
+        for field, value in model_kwargs.items():
+            if not isinstance(value, basestring):
+                del model_kwargs[field]
+        model = Model.objects.get(**model_kwargs)
+    return model
 
 
 def field_value_from_element(element, app, model, field):
-    pass
+    if app == 'artists' and model == 'Artist' and field == 'resume':
+        return 'resume', html_to_markdown(
+            element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
+        )
+
+    elif app == 'press' and model == 'Press' and field == ('add_image', 'pdf'):
+        press_file = file_from_link(element.findtext('guid'))
+        import ipdb; ipdb.set_trace()
 
 
 def model_kwargs_from_element(element, app, model, all_elements):
@@ -67,12 +118,12 @@ def model_kwargs_from_element(element, app, model, all_elements):
             element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
         )
         k['title'], k['caption'] = content.split('\n', 1)
-        k['image'] = image_from_link(element.findtext('guid'))
-        k['content_object'] = object_from_photo(element, k, all_elements)
+        k['image'] = file_from_link(element.findtext('guid'))
+        k['content_object'] = parent_from_element(element, all_elements)
         del k['old_path']
 
     elif app == 'press' and model == 'PressPhoto':
-        k['image'] = image_from_link(element.findtext('guid'))
+        k['image'] = file_from_link(element.findtext('guid'))
     return k
 
 
@@ -116,12 +167,12 @@ def year_from_element(element):
     return path[1]
 
 
-def image_from_link(url):
+def file_from_link(url):
     img_temp = NamedTemporaryFile(delete=True)
-    img_temp.write(urllib2.urlopen(url).read())
+    img_temp.write(requests.get(url).content)
     img_temp.flush()
 
-    return img_temp, os.path.basename(url)
+    return File(img_temp), os.path.basename(url)
 
 
 def html_to_markdown(html):
@@ -147,22 +198,7 @@ def artists_from_exhibition(element, model_kwargs):
 
 
 def artist_from_press(element, model_kwargs):
-    path = model_kwargs['old_url'].split('/')[1:]
+    path = model_kwargs['old_path'].split('/')[1:]
     if path[0] == 'artists':
         slug = path[1]
         return get_model('artists', 'Artist').objects.get(slug=slug)
-
-
-def object_from_photo(element, model_kwargs, all_elements):
-    parent_id = element.findtext('{http://wordpress.org/export/1.1/}post_parent')
-    for other_element in all_elements:
-        if other_element.findtext('{http://wordpress.org/export/1.1/}post_id') == parent_id:
-            parent = other_element
-    app, model, field = classify(parent)
-    parent_kwargs = model_kwargs_from_element(parent, app, model, all_elements)
-    return retrieve_model(app, model, parent_kwargs)
-
-
-def retrieve_model(app, model, model_kwargs):
-    Model = get_model(app, model)
-    return Model.objects.get(**model_kwargs)

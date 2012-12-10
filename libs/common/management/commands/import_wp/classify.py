@@ -1,5 +1,6 @@
 import urlparse
 import re
+import collections
 
 
 def classify(item_element):
@@ -11,24 +12,24 @@ def classify(item_element):
     full_url = item_element.findtext('link')
     url = urlparse.urlparse(full_url)
 
-    url_mapping = {
-        '/artists/{0}': ('artists', 'Artist', None),
-        '/artists/{0}/(resume)|(resume-2)': ('artists', 'Artist', 'resume'),
+    url_mapping = collections.OrderedDict([
+        ('/artists/{0}', ('artists', 'Artist', None),),
+        ('/artists/{0}/(resume)|(resume-2)', ('artists', 'Artist', 'resume'),),
 
-        '/exhibitions/{0}': ('exhibitions', 'Exhibition', None),
+        ('/exhibitions/{0}', ('exhibitions', 'Exhibition', None),),
 
-        '/artists/{0}/(press)|(press-2)': ('press', 'Press', None),
-        '/artists/{0}/(press)|(press-2)/{0}': ('press', 'Press', 'add_image'),
-        '/press/{0}/{0}': ('press', 'Press', None),
-        '/press/{0}/{0}/{0}': ('press', 'Press', 'add_image'),
+        ('/artists/{0}/(press)|(press-2)/{0}', ('press', 'Press', None),),
+        ('/artists/{0}/(press)|(press-2)/{0}/{0}', ('press', 'Press', ('add_image', 'pdf'),),),
+        ('/press/{0}/{0}', ('press', 'Press', None),),
+        ('/press/{0}/{0}/{0}', ('press', 'Press', ('add_image', 'pdf'),),),
 
-        '/archives/{0}': ('updates', 'Update', None),
+        ('/archives/{0}', ('updates', 'Update', None),),
 
-        '/artists/{0}/{0}': ('common', 'Photo', None),
-        '/exhibitions/{0}/{0}': ('common', 'Photo', None),
-        '/archives/{0}/{0}': ('common', 'Photo', None),
-        '/{0}/{0}/attachment/{0}': ('common', 'Photo', None),
-    }
+        ('/artists/{0}/{0}', ('common', 'Photo', None),),
+        ('/exhibitions/{0}/{0}', ('common', 'Photo', None),),
+        ('/archives/{0}/{0}', ('common', 'Photo', None),),
+        ('/{0}/{0}/attachment/{0}', ('common', 'Photo', None),),
+    ])
     for path, representation in url_mapping.items():
         path += '$'
         pattern = path.format(r'[^/]*?')

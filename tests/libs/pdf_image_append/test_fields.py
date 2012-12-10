@@ -1,13 +1,11 @@
 import pdfminer.pdfparser
 
 from django.test import TestCase
-from django.core.management import call_command
-from django.db.models import loading
-from django.test.utils import override_settings
-from django.conf import settings
+from django.db import transaction
 
 from .models import PDFImageModel
 from ...common.functions import django_image
+from ...common.base_test import AddAppMixin
 
 
 def page_count(pdf):
@@ -26,38 +24,36 @@ def page_count(pdf):
     return len(pages)
 
 
-@override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('tests.libs.pdf_image_append',))
-class TestContentRedirects(TestCase):
+class TestContentRedirects(AddAppMixin, TestCase):
+    custom_apps = ('tests.libs.pdf_image_append',)
+
     def setUp(self):
-        loading.cache.loaded = False
-        call_command('syncdb', interactive=False)
+        transaction.enter_transaction_management()
+        self.TestPDFImageModel = PDFImageModel.objects.create()
+
+    def tearDown(self):
+        self.TestPDFImageModel.delete()
 
     def test_create(self):
-        _PDFImageModel = PDFImageModel()
-        _PDFImageModel.image_append = django_image('test')
-        _PDFImageModel.save()
+        self.TestPDFImageModel.pdf_image_append(django_image('test'))
 
-        _PDFImageModel = PDFImageModel.objects.all()[0]
-        self.assertFalse(_PDFImageModel.image_append)
-        self.assertTrue(_PDFImageModel.pdf)
-        self.assertEqual(1, page_count(_PDFImageModel.pdf))
+        self.assertTrue(self.TestPDFImageModel.pdf)
+        self.assertEqual(1, page_count(self.TestPDFImageModel.pdf))
+        transaction.commit()
+        self.assertTrue(self.TestPDFImageModel.pdf)
+        self.assertEqual(1, page_count(self.TestPDFImageModel.pdf))
 
     def test_append(self):
-        _PDFImageModel = PDFImageModel()
-        _PDFImageModel.image_append = django_image('test')
-        _PDFImageModel.save()
+        self.TestPDFImageModel.pdf_image_append(django_image('test'))
+        self.TestPDFImageModel.pdf_image_append(django_image('test'))
 
-        _PDFImageModel = PDFImageModel.objects.all()[0]
-        _PDFImageModel.image_append = django_image('test2')
-        _PDFImageModel.save()
-
-        self.assertFalse(_PDFImageModel.image_append)
-        self.assertTrue(_PDFImageModel.pdf)
-        self.assertEqual(2, page_count(_PDFImageModel.pdf))
+        self.assertTrue(self.TestPDFImageModel.pdf)
+        self.assertEqual(2, page_count(self.TestPDFImageModel.pdf))
+        transaction.commit()
+        self.assertTrue(self.TestPDFImageModel.pdf)
+        self.assertEqual(2, page_count(self.TestPDFImageModel.pdf))
 
     def test_blank(self):
-        _PDFImageModel = PDFImageModel()
-        _PDFImageModel.save()
-
-        self.assertFalse(_PDFImageModel.image_append)
-        self.assertFalse(_PDFImageModel.pdf)
+        self.assertFalse(self.TestPDFImageModel.pdf)
+        transaction.commit()
+        self.assertFalse(self.TestPDFImageModel.pdf)

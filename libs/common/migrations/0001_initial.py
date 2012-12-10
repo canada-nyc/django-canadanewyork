@@ -7,10 +7,6 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
-    needed_by = (
-        ("frontpage", "0001_initial"),
-    )
-
     def forwards(self, orm):
         # Adding model 'Photo'
         db.create_table('common_photo', (
@@ -20,7 +16,7 @@ class Migration(SchemaMigration):
             ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
             ('content_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
             ('object_id', self.gf('django.db.models.fields.PositiveIntegerField')()),
-            ('position', self.gf('django.db.models.fields.PositiveSmallIntegerField')()),
+            ('position', self.gf('django.db.models.fields.PositiveSmallIntegerField')(null=True, blank=True)),
         ))
         db.send_create_signal('common', ['Photo'])
 
@@ -38,7 +34,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
             'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {}),
+            'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'})
         },
         'contenttypes.contenttype': {

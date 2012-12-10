@@ -2,7 +2,7 @@ import os
 
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 
-from django.db.models import permalink
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.core.exceptions import ValidationError
 
@@ -10,6 +10,7 @@ from ..artists.models import Artist
 from ..exhibitions.models import Exhibition
 from libs.slugify.fields import SlugifyField
 from libs.content_redirects.fields import RedirectField
+from libs.pdf_image_append.models import PDFImageAppendModel
 
 
 class CompleteManager(models.Manager):
@@ -18,30 +19,18 @@ class CompleteManager(models.Manager):
         return queryset.exclude(date__isnull=True)
 
 
-class Press(models.Model):
+class Press(models.Model, PDFImageAppendModel):
     def image_path(instance, filename):
         return os.path.join('press',
-                            str(instance.date.year),
                             instance.exhibition.slug,
                             filename)
 
     title = models.CharField(max_length=50)
-    add_image = models.ImageField(
-        null=True,
-        blank=True,
-        upload_to=image_path,
-        help_text=('If an image is uploaded, it will be added to the pdf as '
-                   'the next page of the pdf. If no pdf is attached to the '
-                   'artist, one will be created using this image. So either '
-                   'you can upoad a multipage pdf, or upload many images'
-                   'one at a time that will be combined to make a multipage '
-                   'pdf')
-    )
     link = models.URLField(null=True, blank=True, verbose_name=u'External link')
     content = models.TextField(help_text=markdown_allowed(), blank=True)
     pdf = models.FileField(upload_to=image_path, blank=True, null=True)
 
-    date = models.DateField(null=True,
+    date = models.DateField(null=True, blank=True,
                             help_text=('If the date is blank, then it will'
                                        ' be treated as a draft and not appear'
                                        ' on the site'))
@@ -52,7 +41,7 @@ class Press(models.Model):
                                      related_name='press',)
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True,
                                    related_name='press',)
-    slug = SlugifyField(populate_from=('title',))
+    slug = SlugifyField(populate_from=('title',), unique=True)
 
     old_path = models.CharField(blank=True, null=True, editable=False, max_length=200)
     redirect = RedirectField()
@@ -65,6 +54,8 @@ class Press(models.Model):
         verbose_name_plural = "press"
 
     def __unicode__(self):
+        if not self.date:
+            return u'{} (No Date)'.format(self.title)
         return u'{} ({})'.format(self.title, self.date.year)
 
     def clean(self):
@@ -78,9 +69,10 @@ class Press(models.Model):
         self.publisher = self.publisher.strip().title()
         self.author = self.author.strip().title()
 
-    @permalink
     def get_absolute_url(self):
-        return ('press-detail', (), {
+        if not self.date:
+            return None
+        return reverse('press-detail', kwargs={
             'slug': self.slug,
             'year': self.date.year
         })

@@ -46,8 +46,8 @@ class Press(models.Model, PDFImageAppendModel):
     old_path = models.CharField(blank=True, null=True, editable=False, max_length=200)
     redirect = RedirectField()
 
-    objects = CompleteManager()
-    all_objects = models.Manager()
+    objects = models.Manager()
+    complete = CompleteManager()
 
     class Meta:
         ordering = ['-date']

@@ -8,59 +8,117 @@ import requests
 import requests_cache
 
 from django.db.models.loading import get_model
+from django.db import models
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
+from django.core.exceptions import ObjectDoesNotExist
 
 from .classify import classify
 
 requests_cache.configure(cache_name='wp')
 
 
-def parent_from_element(element, all_elements):
+def get_or_create_parent(element, all_elements, command):
+    command.log('Getting or creating parent element')
+    command.log_level += 1
+    parent_element = get_parent_element(
+        element,
+        all_elements,
+        command
+    )
+    parent_kwargs = get_model_kwargs(
+        parent_element,
+        all_elements=all_elements,
+        command=command,
+        **classify(parent_element)
+    )
+    parent_model = get_or_create(
+        model_kwargs=parent_kwargs,
+        command=command,
+        **classify(parent_element)
+    )
+    command.log_level -= 1
+    return parent_model
+
+
+def get_parent_element(element, all_elements, command):
+    command.log('Getting parent element')
     parent_id = element.findtext('{http://wordpress.org/export/1.1/}post_parent')
     for other_element in all_elements:
         if other_element.findtext('{http://wordpress.org/export/1.1/}post_id') == parent_id:
-            parent = other_element
-    return model_from_element(parent, all_elements, create=False)
+            return other_element
 
 
-def model_from_element(element, all_elements, create=True):
-    app, model, field = classify(element)
+def get_or_create(app, model, model_kwargs, command, field=None):
+    command.log('Trying to get or create: {}'.format(model))
+    command.log_level += 1
     Model = get_model(app, model)
-    model_kwargs = model_kwargs_from_element(element, app, model, all_elements)
 
-    if create:
+    # Try getting the model
 
-        field_files = {}
-        for field, value in model_kwargs.items():
-            # Images are set as kwargs as a tuple of (file, file_name)
-            if isinstance(value, tuple) and isinstance(value[0], File):
-                field_files[field] = model_kwargs.pop(field)
+    get_kwargs = model_kwargs.copy()
+    for field, value in model_kwargs.items():
+        # If the field isn't a string, don't try to use it to find the model
 
+        if not isinstance(value, basestring) or field == 'old_path':
+            del get_kwargs[field]
+    try:
+        model = Model.objects.get(**get_kwargs)
+    except ObjectDoesNotExist:
+        command.log('Model doesnt exist, creating model')
+        # If it doesn't exist, then try to create the model...
         model = Model()
-        for field, value in model_kwargs.items():
-            try:
-                setattr(model, field, value)
-            except ValueError:  # Raised if try to save ManyToMany before it has been saved
-                try:
-                    model.save()
-                except:
-                    import ipdb; ipdb.set_trace()
-                setattr(model, field, value)
-        model.save()
-
-        for field, (file_content, file_name) in field_files.items():
-            getattr(model, field).save(file_name, file_content)
-
     else:
-        for field, value in model_kwargs.items():
-            if not isinstance(value, basestring):
-                del model_kwargs[field]
-        model = Model.objects.get(**model_kwargs)
+        command.log('Found existing model')
+    model = set_model_fields(model, model_kwargs, command)
+    command.log_level -= 1
+    command.log('Model is: {}'.format(model))
     return model
 
 
-def field_value_from_element(element, app, model, field):
+def set_model_fields(model, model_kwargs, command):
+    command.log('Setting fields')
+    command.log_level += 1
+    # Take out all the file fields, cause they can't be created with them
+    field_files = {}
+    field_many_to_many = {}
+
+    for field, value in model_kwargs.items():
+        # Images are set as kwargs as a tuple of (file, file_name)
+        if isinstance(value, tuple) and isinstance(value[0], File):
+            command.log('Found file field {}'.format(field))
+            field_files[field] = model_kwargs.pop(field)
+
+        elif isinstance(value, list) and isinstance(value[0], models.Model):
+            command.log('Found many to many field {}'.format(field))
+            field_many_to_many[field] = model_kwargs.pop(field)
+
+    for field, value in model_kwargs.items():
+            setattr(model, field, value)
+            command.log(u'Setting {} -> {}'.format(field, value))
+    command.log_level -= 1
+    command.log(u'Saving model')
+    model.save()
+    command.log_level += 1
+    # Now save the file objects
+    for field, contents in field_files.items():
+        command.log(u'File {} -> {}'.format(field, contents[0]))
+        getattr(model, field).save(*contents)
+
+    for field, related_list in field_many_to_many.items():
+        command.log(u'Many to Many Key {}'.format(field))
+        command.log_level += 1
+        for related in related_list:
+            command.log(u'-> {}'.format(related))
+            getattr(model, field).add(related)
+        command.log_level -= 1
+
+    command.log('Finished Saving')
+    command.log_level -= 1
+    return model
+
+
+def get_field_value(element, app, model, field):
     if app == 'artists' and model == 'Artist' and field == 'resume':
         return 'resume', html_to_markdown(
             element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
@@ -71,7 +129,9 @@ def field_value_from_element(element, app, model, field):
         import ipdb; ipdb.set_trace()
 
 
-def model_kwargs_from_element(element, app, model, all_elements):
+def get_model_kwargs(element, app, model, all_elements, command, field=None):
+    command.log('Getting model kwargs')
+    command.log_level += 1
     # Keywords for model to be created
     k = {'old_path': urlparse.urlparse(element.findtext('link')).path, }
 
@@ -79,7 +139,7 @@ def model_kwargs_from_element(element, app, model, all_elements):
         try:
             k['first_name'], k['last_name'] = element.findtext('title').split()
         except ValueError:
-            k['first_name'], k['last_name'] = 'blank', element.findtext('title').split(),
+            k['first_name'], k['last_name'] = 'blank', element.findtext('title'),
         k['visible'] = True
 
     elif app == 'exhibitions' and model == 'Exhibition':
@@ -112,6 +172,10 @@ def model_kwargs_from_element(element, app, model, all_elements):
             element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
         )
         k['artists'] = [artist_from_press(element, k), ]
+        k['date'] = dateutil.parser.parse(year_from_element(element), fuzzy=True)
+        if k['old_path'].startswith('/artists'):
+            press_file = file_from_link(element.findtext('guid'))
+            import ipdb; ipdb.set_trace()
 
     elif app == 'common' and model == 'Photo':
         content = html_to_markdown(
@@ -119,11 +183,13 @@ def model_kwargs_from_element(element, app, model, all_elements):
         )
         k['title'], k['caption'] = content.split('\n', 1)
         k['image'] = file_from_link(element.findtext('guid'))
-        k['content_object'] = parent_from_element(element, all_elements)
+        k['content_object'] = get_or_create_parent(element, all_elements, command)
         del k['old_path']
 
     elif app == 'press' and model == 'PressPhoto':
         k['image'] = file_from_link(element.findtext('guid'))
+    command.log_level -= 1
+
     return k
 
 
@@ -172,7 +238,7 @@ def file_from_link(url):
     img_temp.write(requests.get(url).content)
     img_temp.flush()
 
-    return File(img_temp), os.path.basename(url)
+    return os.path.basename(url), File(img_temp)
 
 
 def html_to_markdown(html):

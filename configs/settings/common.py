@@ -121,7 +121,6 @@ INSTALLED_APPS += (
 )
 DATABASES = {'default': dj_database_url.config(default='postgres://saul@localhost/django_canadanewyork')}
 
-
 #########
 # EMAIL #
 #########

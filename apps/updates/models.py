@@ -29,7 +29,7 @@ class Update(models.Model):
         self.description = self.description.strip()
 
     def __unicode__(self):
-        return '{} ({})'.format(self.name, self.post_date.year)
+        return unicode('{} ({})').format(self.name, self.post_date.year)
 
     @permalink
     def get_absolute_url(self):

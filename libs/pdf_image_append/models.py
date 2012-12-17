@@ -9,8 +9,11 @@ from django.core.files.base import ContentFile
 
 class PDFImageAppendModel(object):
 
-    def pdf_image_append(self, image_file, pdf_field='pdf'):
+    def pdf_image_append(self, image_file, image_name='', pdf_field='pdf'):
         pdf_file = getattr(self, pdf_field)
+
+        if image_name.lower().endswith('.pdf'):
+            pdf_file.save(image_name, image_file)
 
         file_buffer = BytesIO()
         canvas = reportlab.pdfgen.canvas.Canvas(file_buffer)
@@ -24,7 +27,7 @@ class PDFImageAppendModel(object):
 
             pdf_name = pdf_file.name
         else:
-            pdf_name = image_file.name
+            pdf_name = image_name or image_file.name
 
         canvas.drawImage(image_file.open(), 0, 0)
         canvas.showPage()

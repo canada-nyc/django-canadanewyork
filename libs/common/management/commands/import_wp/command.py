@@ -1,12 +1,12 @@
 import xml.etree.ElementTree
 import textwrap
+import pprint
+
 
 from django.core.management.base import BaseCommand, CommandError
 
 from .classify import classify
-from .conversion import (parent_from_element,
-                         model_from_element,
-                         field_value_from_element)
+from . import conversion
 
 
 class Command(BaseCommand):
@@ -17,57 +17,80 @@ class Command(BaseCommand):
         if len(args) != 1:
             raise CommandError('Called with one argument, specifiying the path to an exported wordpress file')
 
-        self.log('Parsing', 0)
+        self.log('Parsing')
         tree = xml.etree.ElementTree.parse(
             args[0],
             parser=xml.etree.ElementTree.XMLParser(encoding="UTF-8")
         )
         root = tree.getroot()[0]
-        self.log('Finding Items', 1)
+        self.log_level += 1
+        self.log('Finding Items')
         item_elements = [element for element in root if element.tag == 'item']
-        self.log('Sorting Items', 1)
+        self.log('Sorting Items')
 
         def sort_by_url(element):
             if 'home' not in element.findtext('link'):
                 return element.findtext('link')
             return element.findtext('guid')
         item_elements.sort(key=lambda element: element.findtext('link'))
-        self.log('Adding Items', 0)
+        self.log_level = 0
+        self.log('Adding Items')
 
         added_models = []  # So that we can clean them all after.
 
         for element_number, element in enumerate(item_elements):
+            self.log_level = 1
             if classify(element):
-                app, model, field = classify(element)
                 self.log(
-                    'Adding {}.{}_{} ({} of ~{})'.format(app,
-                                                         model,
-                                                         field,
-                                                         element_number,
-                                                         len(item_elements)),
-                    1
+                    'Adding {0[0]}.{0[1]}_{0[2]} ({1} of ~{2})'.format(
+                        classify(element).values(),
+                        element_number,
+                        len(item_elements),
+                    )
                 )
-                if field:
-                    parent = parent_from_element(element, item_elements)
-                    setattr(
-                        parent,
-                        *field_value_from_element(element, app, model, field)
+                self.log_level = 2
+                if classify(element)['field']:
+                    field_value = conversion.get_field_value(
+                        element,
+                        **classify(element)
                     )
-                    parent.save()
+                    model_kwargs = {
+                        classify(element)['field']: field_value
+                    }
+                    parent_model = conversion.get_or_create_parent(
+                        element,
+                        item_elements,
+                        self
+                    )
+                    conversion.set_model_fields(parent_model, model_kwargs, self)
+
                 else:
-                    added_models.append(
-                        model_from_element(element, item_elements)
+                    model_kwargs = conversion.get_model_kwargs(
+                        element,
+                        all_elements=item_elements,
+                        command=self,
+                        **classify(element)
                     )
+                    model = conversion.get_or_create(
+                        model_kwargs=model_kwargs,
+                        command=self,
+                        **classify(element)
+                    )
+                    added_models.append(model)
 
         # Clean all models
         map(lambda model: model.clean(), added_models)
 
-    def log(self, string, indent=0):
+    @staticmethod
+    def pprint(object):
+        return pprint.pformat(object, width=150)
+
+    log_level = 0
+
+    def log(self, string):
         wrapper = textwrap.TextWrapper(
-            drop_whitespace=False,
-            replace_whitespace=False,
-            initial_indent='    ' * indent,
-            subsequent_indent='    ' * indent,
-            width=170,
+            initial_indent='    ' * self.log_level,
+            subsequent_indent='     ' * self.log_level + '  ',
+            width=160,
         )
-        self.stdout.write(wrapper.fill(string) + '\n')
+        print wrapper.fill(string)

@@ -18,8 +18,10 @@ def classify(item_element):
 
         ('/exhibitions/{0}', ('exhibitions', 'Exhibition', None),),
 
-        ('/artists/{0}/(press)|(press-2)/{0}', ('press', 'Press', None),),
-        ('/artists/{0}/(press)|(press-2)/{0}/{0}', ('press', 'Press', ('add_image', 'pdf'),),),
+        ('/artists/{0}/press/{0}', ('press', 'Press', None),),
+        ('/artists/{0}/press-2/{0}', ('press', 'Press', None),),
+        ('/artists/{0}/press/{0}/{0}', ('press', 'Press', ('add_image', 'pdf'),),),
+        ('/artists/{0}/press-2/{0}/{0}', ('press', 'Press', ('add_image', 'pdf'),),),
         ('/press/{0}/{0}', ('press', 'Press', None),),
         ('/press/{0}/{0}/{0}', ('press', 'Press', ('add_image', 'pdf'),),),
 
@@ -32,6 +34,10 @@ def classify(item_element):
     ])
     for path, representation in url_mapping.items():
         path += '$'
-        pattern = path.format(r'[^/]*?')
+        pattern = path.format(r'[^/]+?')
         if re.match(pattern, url.path):
-            return representation
+            return collections.OrderedDict([
+                ('app', representation[0]),
+                ('model', representation[1]),
+                ('field', representation[2]),
+            ])

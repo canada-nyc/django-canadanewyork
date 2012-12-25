@@ -1,3 +1,4 @@
+[![Build Status](https://next.travis-ci.org/saulshanabrook/django-canadanewyork.png?branch=production)](https://next.travis-ci.org/saulshanabrook/django-canadanewyork)
 # Install
 1. `pip install -r requirements/dev.txt`
 2. `foreman run python manage.py clean_db`

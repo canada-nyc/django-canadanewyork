@@ -21,6 +21,7 @@ def create_artist(element, all_elements):
         A.first_name, A.last_name = title.split()
     except ValueError:
         A.last_name = title
+        A.visible = False
     A.save()
     return A
 
@@ -208,6 +209,11 @@ def _create_photo(element, content_object):
         ),
         content_object=content_object,
     )
+    text = element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded').split(',', 1)
+    try:
+        P.title, P.caption = text
+    except ValueError:
+        P.title = text[0].strip() or element.findtext('title')
     P.save()
     P.image.save(
         *helpers.file_from_link(element.findtext('guid'))

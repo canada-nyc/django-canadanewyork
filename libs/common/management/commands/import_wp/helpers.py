@@ -73,16 +73,17 @@ def dates_from_text(text, year):
     '''
     default = dateutil.parser.parse(year)
 
-    if len(text.split('-')) > 2:
-        dates = (
-            date_from_text(text.split('-')[-2], default),
-            date_from_text(text.split('-')[-1], default),
-        )
-        if not all(dates):
-            return dates[0] or dates[1] or default
+    text_split = text.split('-', 1)
+    if len(text_split) == 2:
+        last_date = date_from_text(text_split[1], default)
+        first_date = date_from_text(text_split[0], (last_date or default))
+        if not last_date:
+            return first_date or default
+        elif not first_date:
+            return default
         return (
-            min(dates) or default,
-            max(dates),
+            first_date,
+            last_date,
         )
     return date_from_text(text, default) or default, None
 

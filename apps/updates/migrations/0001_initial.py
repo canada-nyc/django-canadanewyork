@@ -15,7 +15,7 @@ class Migration(SchemaMigration):
             ('description', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
             ('post_date', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('slug', self.gf('libs.slugify.fields.SlugifyField')(max_length=1000, populate_from=None)),
-            ('old_path', self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True)),
+            ('old_path', self.gf('django.db.models.fields.CharField')(max_length=2000, null=True, blank=True)),
             ('redirect', self.gf('libs.content_redirects.fields.RedirectField')(unique=True, null=True, on_delete=models.SET_NULL, blank=True)),
         ))
         db.send_create_signal('updates', ['Update'])
@@ -62,7 +62,7 @@ class Migration(SchemaMigration):
             'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '800'}),
-            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
+            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'null': 'True', 'blank': 'True'}),
             'post_date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'redirect': ('libs.content_redirects.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
             'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '1000', 'populate_from': 'None'})

@@ -20,7 +20,7 @@ class Migration(SchemaMigration):
             ('author', self.gf('django.db.models.fields.CharField')(max_length=60, blank=True)),
             ('exhibition', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='press', null=True, to=orm['exhibitions.Exhibition'])),
             ('slug', self.gf('libs.slugify.fields.SlugifyField')(max_length=1000, populate_from=('title',))),
-            ('old_path', self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True)),
+            ('old_path', self.gf('django.db.models.fields.CharField')(max_length=2000, null=True, blank=True)),
             ('redirect', self.gf('libs.content_redirects.fields.RedirectField')(unique=True, null=True, on_delete=models.SET_NULL, blank=True)),
         ))
         db.send_create_signal('press', ['Press'])
@@ -48,7 +48,7 @@ class Migration(SchemaMigration):
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
+            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'null': 'True', 'blank': 'True'}),
             'redirect': ('libs.content_redirects.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
             'resume': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '1000', 'populate_from': "('first_name', 'last_name')"}),
@@ -78,7 +78,7 @@ class Migration(SchemaMigration):
             'end_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '1000'}),
-            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
+            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'null': 'True', 'blank': 'True'}),
             'redirect': ('libs.content_redirects.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
             'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '1000', 'populate_from': "('name',)"}),
             'start_date': ('django.db.models.fields.DateField', [], {})
@@ -92,7 +92,7 @@ class Migration(SchemaMigration):
             'exhibition': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'press'", 'null': 'True', 'to': "orm['exhibitions.Exhibition']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'link': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
+            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'null': 'True', 'blank': 'True'}),
             'pdf': ('django.db.models.fields.files.FileField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
             'publisher': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             'redirect': ('libs.content_redirects.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),

@@ -30,7 +30,7 @@ cat configs/travis/base.travis.yml >> '.travis.yml'
 for line in (cat configs/env/common.env configs/env/testing.env);
     echo '  '(travis encrypt saulshanabrook/django-canadanewyork $line | grep '  secure') >> '.travis.yml';
 end
-
+echo '  '(travis encrypt saulshanabrook/django-canadanewyork HEROKU_API_KEY=(heroku auth:token) | grep '  secure') >> '.travis.yml'
 ```
 
 # Schema

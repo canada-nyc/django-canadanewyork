@@ -1,0 +1,23 @@
+language: python
+
+services:
+  - redis-server
+  - memcached
+  - postgresql
+
+install:
+  - sudo apt-get install -qq libmemcached-dev
+  - pip install -r configs/requirements/common.txt -r configs/requirements/testing.txt pylibmc --use-mirrors
+
+before_script:
+  - flake8 .
+
+script:
+  - python manage.py test tests
+
+notifications:
+  email: false
+
+env:
+  global:
+    # Must end defining global env variables, so that it can be concatonated with secure keys

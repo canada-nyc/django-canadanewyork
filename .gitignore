@@ -1,7 +1,4 @@
 /tmp/
 *.pyc
 .DS_Store
-/.env
 .c9revisions/
-
-/urls.txt

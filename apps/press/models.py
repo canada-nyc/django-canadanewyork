@@ -12,10 +12,6 @@ from libs.slugify.fields import SlugifyField
 from libs.content_redirects.fields import RedirectField
 from libs.pdf_image_append.models import PDFImageAppendModel
 
-class CompleteManager(models.Manager):
-    def get_query_set(self):
-        queryset = super(CompleteManager, self).get_query_set()
-        return queryset.exclude(date__isnull=True)
 
 class Press(models.Model, PDFImageAppendModel):
     def image_path(instance, filename):

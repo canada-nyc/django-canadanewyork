@@ -1,7 +1,5 @@
 from django.conf.urls.defaults import patterns, url
-from django.views.generic import ListView
 
-from .models import Press
 from .views import PressDetail
 
 

@@ -1,12 +1,10 @@
+# do not modify this file. it is generated from configs/travis/base.travis.yml
 language: python
 
 services:
   - redis-server
   - memcached
 
-env:
-  global:
-    - "DJANGO_CONFIGURATION=TravisSettings"
 
 install:
   - sudo apt-get install -qq libmemcached-dev
@@ -20,3 +18,16 @@ script:
 
 notifications:
   email: false
+
+env:
+  global:
+    - DJANGO_CONFIGURATION=TravisSettings
+# Must end defining global env variables, so that it can be concatonated with secure keys
+    secure: "JDPgryEUA11+EzdyTQMmTLhruGBmZZIWWS8WcxYG4KHV+y2jqPyiaOW7Nz4M\nyCZdbiGnyUvnGgX9tSGdemARJYtY986Et8yrKFbv+iaU4WI0zT/cXcHRVaal\nSX1h1+JffGHS6896jFFKM0IpIvZFE3JZ+zAEMr2+FEJYxufqgEg="
+    secure: "MlsVOzKsz5Kp3WDqB0amRvFNsHlPRJkt9uKpg33Id6QNF5Ro4IkXlCwR4zJq\n1eiJJkh+n9CncJv9BLsY8kJEKVUwJC50JdnlD6neU12RFnwXNfYHOfnB/sX/\n9CSTFeHBIvDIqu6q2PS9BtfhpwiWwB4mnCKKiykMlPfZ9DDHC9U="
+    secure: "Cac/jvvIykmZKR6f4SjcpcjREUb+6HBzzq7LkzNrzQ0ugkTmYaAFzdicmmIz\nUC4jX4h8YNxvyeNwcQdyDN1fDRqzwrHeDi3fD46prxyFNqxu3lRD5ReG82oR\nMg3T+PkptmufTRpsfWoeFwKCpijmmE5zH7BQ3kU0rFjLga+vQDc="
+    secure: "Nsr+zm4OBeNJ7gd97gLW+wH0yA2twXrUOy02PFivtUAQsbnWn1mhw1u4Tbcz\neqNHLDCMDOn+GIEHTnTiOB4z/30EIecc7jTWS1NGrUJkVEk4lQH46saFZsqk\nC9fswJ+oyL3Lr/oMFZSOjgyx4S3UYDTeaJdx/ICAvSmTlTAOkYs="
+    secure: "S4ja55EKrHKs/SR3W7NUPuhoznYjO+9iUMn907pUeWjZ3GT/civARtajO99s\nqhAPfsOZz440Pmro67Kk72PREHm+6NGZ3KL2l8F4AoKDceEJP0UIIaLDxyAS\na+uP4lcXxLbZhmtzvKQ/pWLz1i3wDsjQZjuLzdCVVK2vansGbw4="
+    secure: "O6OqJ6FcpvwNjv5w//2a18LOfG1ct9jtDALSMTpv1WXajFBp1T6DC/G3cuqU\nldAnSRCy0La0cP/LGy7z9hS139S8lWfvQef3COBftKmlN6G38Ao+kMM/OxVr\ndaPie2py/5kJ+Zaa+5gKM/YomI2r6XWgIkF3fa/dNLxttTjtH0M="
+    secure: "TYBy/i5otepC8sZEU1Cjf5nlzrjamZWiP205K3pzhMjdAixMT4WS9OcziwEY\ngYmCKJVDsDGEQ2anomT1SoDtYPeLsRpMH75iDw5i07EUNvAxtq4KQx5QPfHG\nA4oxKNu7y/NyGagOH+ZHkxB8nlcFPg+2cYvR0Om/3ndyGkFBeeA="
+    secure: "rbk/W1UCgyPDa2HAzrv4CCuTewBKQhKgKepNa3bZ4w0CGP25xupypzDFyDfm\n8b8bXdy31AgciTVKXYi/+KOUOZo5V/NKxufwXQ+LaKCq7tea/65WRRNoJzjI\n5gRhncC3URCIIs1dytooqkIN97W/LLnJVKY8YGbtZ233YiFcDsg="

@@ -1,19 +1,13 @@
 from django.test import TestCase
-from django.core.management import call_command
-from django.db.models import loading
-from django.test.utils import override_settings
-from django.conf import settings
-from django.contrib.redirects.models import Redirect
 from django.db import IntegrityError
 
 from .models import RedirectModel, RedirectSlugifyModel
+from ...common.base_test import AddAppMixin
+from ...libs.redirects.models import Redirect
 
 
-@override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('tests.libs.content_redirects',))
-class TestContentRedirects(TestCase):
-    def setUp(self):
-        loading.cache.loaded = False
-        call_command('syncdb', interactive=False, verbosity=0)
+class TestContentRedirects(AddAppMixin, TestCase):
+    custom_apps = ('tests.libs.content_redirects',)
 
     def test_save(self):
         RedirectModel.objects.create(old_path='old')

@@ -2,7 +2,6 @@
 import os
 import sys
 
-
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "configs.settings.dev")
 
 if __name__ == "__main__":

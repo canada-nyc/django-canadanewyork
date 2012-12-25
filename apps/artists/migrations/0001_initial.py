@@ -11,13 +11,13 @@ class Migration(SchemaMigration):
         # Adding model 'Artist'
         db.create_table('artists_artist', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('redirect', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['redirects.Redirect'], unique=True, null=True, blank=True)),
-            ('old_path', self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True)),
             ('first_name', self.gf('django.db.models.fields.CharField')(max_length=30)),
             ('last_name', self.gf('django.db.models.fields.CharField')(max_length=30)),
-            ('resume', self.gf('django.db.models.fields.files.FileField')(max_length=100, null=True, blank=True)),
-            ('slug', self.gf('libs.slugify.fields.SlugifyField')(max_length=50, populate_from=('first_name', 'last_name'))),
-            ('visible', self.gf('django.db.models.fields.BooleanField')(default=True)),
+            ('resume', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
+            ('slug', self.gf('libs.slugify.fields.SlugifyField')(max_length=1000, populate_from=('first_name', 'last_name'))),
+            ('visible', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('old_path', self.gf('django.db.models.fields.CharField')(max_length=2000, null=True, blank=True)),
+            ('redirect', self.gf('libs.content_redirects.fields.RedirectField')(unique=True, null=True, on_delete=models.SET_NULL, blank=True)),
         ))
         db.send_create_signal('artists', ['Artist'])
 
@@ -39,21 +39,28 @@ class Migration(SchemaMigration):
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'redirect': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['redirects.Redirect']", 'unique': 'True', 'null': 'True', 'blank': 'True'}),
-            'resume': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '50', 'populate_from': "('first_name', 'last_name')"}),
-            'visible': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
+            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'null': 'True', 'blank': 'True'}),
+            'redirect': ('libs.content_redirects.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
+            'resume': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '1000', 'populate_from': "('first_name', 'last_name')"}),
+            'visible': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
         },
         'common.photo': {
             'Meta': {'ordering': "['position']", 'object_name': 'Photo'},
             'caption': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
+            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '1000'}),
             'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'})
+            'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '400', 'blank': 'True'})
+        },
+        'contenttypes.contenttype': {
+            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
+            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
@@ -65,8 +72,8 @@ class Migration(SchemaMigration):
         'redirects.redirect': {
             'Meta': {'ordering': "('old_path',)", 'unique_together': "(('site', 'old_path'),)", 'object_name': 'Redirect', 'db_table': "'django_redirect'"},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'new_path': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'}),
-            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '200', 'db_index': 'True'}),
+            'new_path': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'blank': 'True'}),
+            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'db_index': 'True'}),
             'site': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sites.Site']"})
         },
         'sites.site': {

@@ -14,6 +14,6 @@ heroku:
 migrate:
 	for app in (python manage.py syncdb | grep - | sed 's/ - //g'); python manage.py schemamigration $app --auto; end
 wipe-migrations:
-	rm -r {apps,libs}/*/migrations; make migrate-initial
+	rm -r {apps,libs}/*/migrations; for app in (python manage.py syncdb | grep '^ . apps\|libs' | sed 's/ > //g' | sed 's/ - //g'); python manage.py schemamigration $app --initial; end
 migrate-initial:
 	for app in (python manage.py syncdb | grep '^ . apps\|libs' | sed 's/ > //g' | sed 's/ - //g'); python manage.py schemamigration $app --initial; end

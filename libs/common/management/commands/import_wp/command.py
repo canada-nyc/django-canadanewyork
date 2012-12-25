@@ -1,0 +1,66 @@
+import xml.etree.ElementTree
+import urlparse
+import collections
+import re
+
+from django.core.management.base import BaseCommand, CommandError
+
+from . import log, conversion
+
+
+class Command(BaseCommand):
+    help = 'Add data from site'
+    args = '(<wordpress export file>)'
+
+    def handle(self, *args, **options):
+        L = log.Log()
+        if len(args) != 1:
+            raise CommandError('Called with one argument, specifiying the path to an exported wordpress file')
+
+        L('Parsing')
+        tree = xml.etree.ElementTree.parse(
+            args[0],
+            parser=xml.etree.ElementTree.XMLParser(encoding="UTF-8")
+        )
+        elements = tree.getroot()[0]
+        L('Adding Items')
+        model_create_functions = collections.OrderedDict([
+            ('/artists/{0}', conversion.create_artist),
+            ('/artists/{0}/(resume|resume-2)', conversion.create_artist_resume),
+            ('/artists/{0}/(press|press-2)/{0}', conversion.create_artist_press),
+            ('/artists/{0}/(?!(press|resume)){0}', conversion.create_artist_photo),
+            ('/artists/{0}/attachment/{0}', conversion.create_artist_photo),
+
+            ('/exhibitions/{0}/{0}', conversion.create_exhibition),
+            ('/exhibitions/{0}/{0}/{0}', conversion.create_exhibition_photo),
+            ('/exhibitions/{0}/{0}/attachment/{0}', conversion.create_exhibition_photo),
+
+            ('/press/{0}/{0}', conversion.create_press),
+            ('/press/{0}/{0}/attachment/{0}', conversion.create_press_file),
+            ('/press/{0}/{0}/{0}', conversion.create_press_file),
+
+            ('/archives/{0}', conversion.create_update)
+        ])
+
+        added_models = []
+        L += 1
+        for url_format, e_function in model_create_functions.items():
+            url_format += '$'
+            url_format = url_format.format(r'[^/]+?')
+            L('searching for {}'.format(url_format))
+            url_test = re.compile(url_format)
+            for element in elements:
+                full_url = element.findtext('link')
+                try:
+                    url = urlparse.urlparse(full_url)
+                except AttributeError:
+                    pass
+                else:
+                    if url_test.match(url.path):
+                        L += 1
+                        L('adding {}'.format(url.path))
+                        added_models.append(e_function(element, elements))
+                        L -= 1
+        L -= 1
+        # Clean all models
+        map(lambda model: model.clean() if model else model, added_models)

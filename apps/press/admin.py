@@ -9,17 +9,14 @@ class PressAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'date', 'publisher', 'author')
+            'fields': ('title', 'date', 'publisher', 'author', 'link')
         }),
         ('Full Article', {
-            'fields': ('content', 'image', 'link', 'pdf')
+            'fields': ('content', 'pdf',)
         }),
         ('Related', {
             'fields': ('exhibition', 'artists')
         }),
     )
-
-    def queryset(self, request):
-        return Press.all_objects
 
 admin.site.register(Press, PressAdmin)

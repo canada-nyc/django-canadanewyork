@@ -7,20 +7,16 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
-    needed_by = (
-        ("frontpage", "0001_initial"),
-    )
-
     def forwards(self, orm):
         # Adding model 'Photo'
         db.create_table('common_photo', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=20, blank=True)),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=400, blank=True)),
             ('caption', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
+            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=1000)),
             ('content_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
             ('object_id', self.gf('django.db.models.fields.PositiveIntegerField')()),
-            ('position', self.gf('django.db.models.fields.PositiveSmallIntegerField')()),
+            ('position', self.gf('django.db.models.fields.PositiveSmallIntegerField')(null=True, blank=True)),
         ))
         db.send_create_signal('common', ['Photo'])
 
@@ -36,10 +32,10 @@ class Migration(SchemaMigration):
             'caption': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
+            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '1000'}),
             'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'})
+            'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '400', 'blank': 'True'})
         },
         'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},

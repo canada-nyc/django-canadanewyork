@@ -1,18 +1,12 @@
 from django.test import TestCase
-from django.core.management import call_command
-from django.db.models import loading
-from django.test.utils import override_settings
-from django.conf import settings
 from django.template.defaultfilters import slugify
 
 from .factories import SlugifyModelFactory, SlugifyDateModelFactory
+from ...common.base_test import AddAppMixin
 
 
-@override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('tests.apps.slugify',))
-class TestContentRedirects(TestCase):
-    def setUp(self):
-        loading.cache.loaded = False
-        call_command('syncdb', interactive=False)
+class TestContentRedirects(AddAppMixin, TestCase):
+    custom_apps = ('tests.libs.slugify',)
 
     def test_save(self):
         _SlugifyModel = SlugifyModelFactory()

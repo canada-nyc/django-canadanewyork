@@ -12,6 +12,7 @@ class SlugifyField(SlugField):
     def __init__(self, *args, **kwargs):
         kwargs['editable'] = False
 
+        kwargs['max_length'] = kwargs.get('max_length', 1000)
         # autopopulated slug is not editable unless told so
         self.populate_from = kwargs.pop('populate_from')
         # Use default seperator unless given one
@@ -19,15 +20,18 @@ class SlugifyField(SlugField):
         super(SlugifyField, self).__init__(*args, **kwargs)
 
     def pre_save(self, model_instance, add):
+        slug = self._get_value(model_instance)
+        setattr(model_instance, self.attname, slug)
+        return slug
+
+    def _get_value(self, model_instance):
         if isinstance(self.populate_from, basestring):
             raise FieldError(
                 ('In model {}, field {}, the populate_from kwarg needs to '
                  'be passed a list, not a string').format(model_instance,
                                                           self.attname))
         values = [value(model_instance) if callable(value) else getattr(model_instance, value) for value in self.populate_from]
-        slug = self.index_sep.join(map(slugify, values))
-        setattr(model_instance, self.attname, slug)
-        return slug
+        return self.index_sep.join(map(slugify, values))
 
     def south_field_triple(self):
         "Returns a suitable description of this field for South."

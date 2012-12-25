@@ -1,17 +1,11 @@
 from django.test import TestCase
-from django.core.management import call_command
-from django.db.models import loading
-from django.test.utils import override_settings
-from django.conf import settings
 
 from .models import UniqueBooleanModel
+from ...common.base_test import AddAppMixin
 
 
-@override_settings(INSTALLED_APPS=settings.INSTALLED_APPS + ('tests.apps.unique_boolean',))
-class UniqueBooleanTest(TestCase):
-    def setUp(self):
-        loading.cache.loaded = False
-        call_command('syncdb', interactive=False)
+class UniqueBooleanTest(AddAppMixin, TestCase):
+    custom_apps = ('tests.libs.unique_boolean',)
 
     def test_field(self):
         # Create one model

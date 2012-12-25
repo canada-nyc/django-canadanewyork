@@ -26,8 +26,6 @@ ROOT_URLCONF = 'configs.urls'
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
-INSTALLED_APPS += ('django.contrib.redirects',)
-MIDDLEWARE_CLASSES += ('django.contrib.redirects.middleware.RedirectFallbackMiddleware',)
 
 ##########
 # CANADA #
@@ -36,7 +34,7 @@ CANADA_IMAGE_SIZE = 'x400'
 CANADA_FRONTPAGE_IMAGE_SIZE = 'x400'
 CANADA_ADMIN_THUMBS_SIZE = 'x60'
 
-INSTALLED_APPS += (
+INSTALLED_APPS = (
     'apps.artists',
     'apps.exhibitions',
     'apps.press',
@@ -47,8 +45,10 @@ INSTALLED_APPS += (
     'apps.info',
 
     'libs.common',
+    'libs.redirects',
 )
 
+MIDDLEWARE_CLASSES += ('libs.redirects.middleware.RedirectFallbackMiddleware',)
 TEMPLATE_CONTEXT_PROCESSORS += ('libs.common.context_processors.image_size',)
 
 
@@ -119,8 +119,7 @@ COMPRESS_PRECOMPILERS = (
 INSTALLED_APPS += (
     'south',
 )
-DATABASES = {'default': dj_database_url.config(default='postgres://saul:password@localhost/django_canadanewyork')}
-
+DATABASES = {'default': dj_database_url.config(default='postgres://saul@localhost/django_canadanewyork')}
 
 #########
 # EMAIL #

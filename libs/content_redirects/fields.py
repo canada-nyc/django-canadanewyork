@@ -1,6 +1,5 @@
 from django.db.models import SET_NULL
 from django.db.models.fields.related import OneToOneField
-from django.contrib.redirects.models import Redirect
 from django.contrib.sites.models import Site
 from django.conf import settings
 from django.db.models.signals import pre_delete
@@ -9,6 +8,8 @@ from django.db.utils import DatabaseError
 from django.db import transaction
 
 from south.modelsinspector import introspector
+
+from libs.redirects.models import Redirect
 
 
 DEFAULT_GETTERS = {
@@ -37,7 +38,12 @@ class RedirectField(OneToOneField):
     def pre_save(self, model_instance, add):
         redirect_kwargs = {}
         for field, getter in self.redirect_getters.items():
-            redirect_kwargs[field] = getter(model_instance)
+            try:
+                field_value = getter(model_instance)
+            except Exception:
+                field_value = None
+            else:
+                redirect_kwargs[field] = field_value
 
         redirect = getattr(model_instance, self.name)
         if all(redirect_kwargs.values()):

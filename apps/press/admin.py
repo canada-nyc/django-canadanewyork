@@ -19,7 +19,4 @@ class PressAdmin(admin.ModelAdmin):
         }),
     )
 
-    def queryset(self, request):
-        return Press.all_objects
-
 admin.site.register(Press, PressAdmin)

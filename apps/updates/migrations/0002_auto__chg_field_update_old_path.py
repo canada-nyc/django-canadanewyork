@@ -8,43 +8,16 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Artist'
-        db.create_table('artists_artist', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=30)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=30)),
-            ('resume', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('slug', self.gf('libs.slugify.fields.SlugifyField')(max_length=1000, populate_from=('first_name', 'last_name'))),
-            ('visible', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('old_path', self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True)),
-            ('redirect', self.gf('libs.content_redirects.fields.RedirectField')(unique=True, null=True, on_delete=models.SET_NULL, blank=True)),
-        ))
-        db.send_create_signal('artists', ['Artist'])
 
-        # Adding unique constraint on 'Artist', fields ['first_name', 'last_name']
-        db.create_unique('artists_artist', ['first_name', 'last_name'])
-
+        # Changing field 'Update.old_path'
+        db.alter_column('updates_update', 'old_path', self.gf('django.db.models.fields.CharField')(max_length=2000, null=True))
 
     def backwards(self, orm):
-        # Removing unique constraint on 'Artist', fields ['first_name', 'last_name']
-        db.delete_unique('artists_artist', ['first_name', 'last_name'])
 
-        # Deleting model 'Artist'
-        db.delete_table('artists_artist')
-
+        # Changing field 'Update.old_path'
+        db.alter_column('updates_update', 'old_path', self.gf('django.db.models.fields.CharField')(max_length=200, null=True))
 
     models = {
-        'artists.artist': {
-            'Meta': {'ordering': "['last_name', 'first_name']", 'unique_together': "(('first_name', 'last_name'),)", 'object_name': 'Artist'},
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'redirect': ('libs.content_redirects.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
-            'resume': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '1000', 'populate_from': "('first_name', 'last_name')"}),
-            'visible': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
-        },
         'common.photo': {
             'Meta': {'ordering': "['position']", 'object_name': 'Photo'},
             'caption': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
@@ -74,7 +47,17 @@ class Migration(SchemaMigration):
             'domain': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
+        },
+        'updates.update': {
+            'Meta': {'ordering': "['-post_date']", 'object_name': 'Update'},
+            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '800'}),
+            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'null': 'True', 'blank': 'True'}),
+            'post_date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'redirect': ('libs.content_redirects.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
+            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '1000', 'populate_from': 'None'})
         }
     }
 
-    complete_apps = ['artists']
+    complete_apps = ['updates']

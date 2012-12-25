@@ -2,18 +2,18 @@ from io import BytesIO
 
 import pdfrw.buildxobj
 import pdfrw.toreportlab
-import reportlab.pdfgen
+import reportlab.pdfgen.canvas
 
 from django.core.files.base import ContentFile
 
 
 class PDFImageAppendModel(object):
 
-    def pdf_image_append(self, image_file, image_name='', pdf_field='pdf'):
+    def pdf_image_append(self, image_name='', image_content='', pdf_field='pdf'):
         pdf_file = getattr(self, pdf_field)
 
         if image_name.lower().endswith('.pdf'):
-            pdf_file.save(image_name, image_file)
+            pdf_file.save(image_name, image_content)
 
         file_buffer = BytesIO()
         canvas = reportlab.pdfgen.canvas.Canvas(file_buffer)
@@ -27,9 +27,9 @@ class PDFImageAppendModel(object):
 
             pdf_name = pdf_file.name
         else:
-            pdf_name = image_name or image_file.name
+            pdf_name = image_name or image_content.name
 
-        canvas.drawImage(image_file.open(), 0, 0)
+        canvas.drawImage(image_content.open(), 0, 0)
         canvas.showPage()
 
         canvas.save()

@@ -1,9 +1,9 @@
 from django.test import TestCase
-from django.contrib.redirects.models import Redirect
 from django.db import IntegrityError
 
 from .models import RedirectModel, RedirectSlugifyModel
 from ...common.base_test import AddAppMixin
+from ...libs.redirects.models import Redirect
 
 
 class TestContentRedirects(AddAppMixin, TestCase):

@@ -1,12 +1,11 @@
 import xml.etree.ElementTree
-import textwrap
-import pprint
-
+import urlparse
+import collections
+import re
 
 from django.core.management.base import BaseCommand, CommandError
 
-from .classify import classify
-from . import conversion
+from . import log, conversion
 
 
 class Command(BaseCommand):
@@ -14,83 +13,54 @@ class Command(BaseCommand):
     args = '(<wordpress export file>)'
 
     def handle(self, *args, **options):
+        L = log.Log()
         if len(args) != 1:
             raise CommandError('Called with one argument, specifiying the path to an exported wordpress file')
 
-        self.log('Parsing')
+        L('Parsing')
         tree = xml.etree.ElementTree.parse(
             args[0],
             parser=xml.etree.ElementTree.XMLParser(encoding="UTF-8")
         )
-        root = tree.getroot()[0]
-        self.log_level += 1
-        self.log('Finding Items')
-        item_elements = [element for element in root if element.tag == 'item']
-        self.log('Sorting Items')
+        elements = tree.getroot()[0]
+        L('Adding Items')
+        model_create_functions = collections.OrderedDict([
+            ('/artists/{0}', conversion.create_artist),
+            ('/artists/{0}/(resume|resume-2)', conversion.create_artist_resume),
+            ('/artists/{0}/(press|press-2)/{0}', conversion.create_artist_press),
+            ('/artists/{0}/(?!(press|resume)){0}', conversion.create_artist_photo),
+            ('/artists/{0}/attachment/{0}', conversion.create_artist_photo),
 
-        def sort_by_url(element):
-            if 'home' not in element.findtext('link'):
-                return element.findtext('link')
-            return element.findtext('guid')
-        item_elements.sort(key=lambda element: element.findtext('link'))
-        self.log_level = 0
-        self.log('Adding Items')
+            ('/exhibitions/{0}/{0}', conversion.create_exhibition),
+            ('/exhibitions/{0}/{0}/{0}', conversion.create_exhibition_photo),
+            ('/exhibitions/{0}/{0}/attachment/{0}', conversion.create_exhibition_photo),
 
-        added_models = []  # So that we can clean them all after.
+            ('/press/{0}/{0}', conversion.create_press),
+            ('/press/{0}/{0}/attachment/{0}', conversion.create_press_file),
+            ('/press/{0}/{0}/{0}', conversion.create_press_file),
 
-        for element_number, element in enumerate(item_elements):
-            self.log_level = 1
-            if classify(element):
-                self.log(
-                    'Adding {0[0]}.{0[1]}_{0[2]} ({1} of ~{2})'.format(
-                        classify(element).values(),
-                        element_number,
-                        len(item_elements),
-                    )
-                )
-                self.log_level = 2
-                if classify(element)['field']:
-                    field_value = conversion.get_field_value(
-                        element,
-                        **classify(element)
-                    )
-                    model_kwargs = {
-                        classify(element)['field']: field_value
-                    }
-                    parent_model = conversion.get_or_create_parent(
-                        element,
-                        item_elements,
-                        self
-                    )
-                    conversion.set_model_fields(parent_model, model_kwargs, self)
+            ('/archives/{0}', conversion.create_update)
+        ])
 
+        added_models = []
+        L += 1
+        for url_format, e_function in model_create_functions.items():
+            url_format += '$'
+            url_format = url_format.format(r'[^/]+?')
+            L('searching for {}'.format(url_format))
+            url_test = re.compile(url_format)
+            for element in elements:
+                full_url = element.findtext('link')
+                try:
+                    url = urlparse.urlparse(full_url)
+                except AttributeError:
+                    pass
                 else:
-                    model_kwargs = conversion.get_model_kwargs(
-                        element,
-                        all_elements=item_elements,
-                        command=self,
-                        **classify(element)
-                    )
-                    model = conversion.get_or_create(
-                        model_kwargs=model_kwargs,
-                        command=self,
-                        **classify(element)
-                    )
-                    added_models.append(model)
-
+                    if url_test.match(url.path):
+                        L += 1
+                        L('adding {}'.format(url.path))
+                        added_models.append(e_function(element, elements))
+                        L -= 1
+        L -= 1
         # Clean all models
-        map(lambda model: model.clean(), added_models)
-
-    @staticmethod
-    def pprint(object):
-        return pprint.pformat(object, width=150)
-
-    log_level = 0
-
-    def log(self, string):
-        wrapper = textwrap.TextWrapper(
-            initial_indent='    ' * self.log_level,
-            subsequent_indent='     ' * self.log_level + '  ',
-            width=160,
-        )
-        print wrapper.fill(string)
+        map(lambda model: model.clean() if model else model, added_models)

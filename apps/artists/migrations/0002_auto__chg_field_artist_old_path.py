@@ -7,28 +7,15 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
-    depends_on = (
-        ("common", "0001_initial"),
-    )
-
     def forwards(self, orm):
-        # Adding model 'Frontpage'
-        db.create_table('frontpage_frontpage', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('date_added', self.gf('django.db.models.fields.DateField')(auto_now_add=True, blank=True)),
-            ('activated', self.gf('libs.unique_boolean.fields.UniqueBooleanField')(default=True)),
-            ('uploaded_image', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
-            ('extra_text', self.gf('django.db.models.fields.TextField')(max_length=800, null=True, blank=True)),
-            ('exhibition', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['exhibitions.Exhibition'], null=True, blank=True)),
-            ('exhibition_image', self.gf('smart_selects.db_fields.ChainedForeignKey')(to=orm['common.Photo'], null=True, blank=True)),
-        ))
-        db.send_create_signal('frontpage', ['Frontpage'])
 
+        # Changing field 'Artist.old_path'
+        db.alter_column('artists_artist', 'old_path', self.gf('django.db.models.fields.CharField')(max_length=2000, null=True))
 
     def backwards(self, orm):
-        # Deleting model 'Frontpage'
-        db.delete_table('frontpage_frontpage')
 
+        # Changing field 'Artist.old_path'
+        db.alter_column('artists_artist', 'old_path', self.gf('django.db.models.fields.CharField')(max_length=200, null=True))
 
     models = {
         'artists.artist': {
@@ -36,7 +23,7 @@ class Migration(SchemaMigration):
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
+            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'null': 'True', 'blank': 'True'}),
             'redirect': ('libs.content_redirects.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
             'resume': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '1000', 'populate_from': "('first_name', 'last_name')"}),
@@ -59,28 +46,6 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        'exhibitions.exhibition': {
-            'Meta': {'ordering': "['-start_date']", 'object_name': 'Exhibition'},
-            'artists': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "'exhibitions'", 'null': 'True', 'symmetrical': 'False', 'to': "orm['artists.Artist']"}),
-            'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'end_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '1000'}),
-            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'redirect': ('libs.content_redirects.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
-            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '1000', 'populate_from': "('name',)"}),
-            'start_date': ('django.db.models.fields.DateField', [], {})
-        },
-        'frontpage.frontpage': {
-            'Meta': {'ordering': "['-date_added']", 'object_name': 'Frontpage'},
-            'activated': ('libs.unique_boolean.fields.UniqueBooleanField', [], {'default': 'True'}),
-            'date_added': ('django.db.models.fields.DateField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'exhibition': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['exhibitions.Exhibition']", 'null': 'True', 'blank': 'True'}),
-            'exhibition_image': ('smart_selects.db_fields.ChainedForeignKey', [], {'to': "orm['common.Photo']", 'null': 'True', 'blank': 'True'}),
-            'extra_text': ('django.db.models.fields.TextField', [], {'max_length': '800', 'null': 'True', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'uploaded_image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'})
-        },
         'redirects.redirect': {
             'Meta': {'ordering': "('old_path',)", 'unique_together': "(('site', 'old_path'),)", 'object_name': 'Redirect', 'db_table': "'django_redirect'"},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -96,4 +61,4 @@ class Migration(SchemaMigration):
         }
     }
 
-    complete_apps = ['frontpage']
+    complete_apps = ['artists']

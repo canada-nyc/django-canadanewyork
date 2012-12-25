@@ -13,7 +13,7 @@ from libs.common.models import Photo
 
 
 class Exhibition(models.Model):
-    name = models.CharField(max_length=30, unique_for_year='start_date')
+    name = models.CharField(max_length=1000, unique_for_year='start_date')
     description = models.TextField(blank=True, help_text=markdown_allowed())
     artists = models.ManyToManyField(Artist, related_name='exhibitions',
                                      blank=True, null=True)
@@ -21,7 +21,7 @@ class Exhibition(models.Model):
     end_date = models.DateField(null=True, blank=True)
     slug = SlugifyField(populate_from=('name',))
 
-    old_path = models.CharField(blank=True, null=True, editable=False, max_length=200)
+    old_path = models.CharField(blank=True, null=True, editable=False, max_length=2000)
     redirect = RedirectField()
 
     photos = generic.GenericRelation(Photo)
@@ -46,7 +46,7 @@ class Exhibition(models.Model):
         return self
 
     def clean(self):
-        if self.end_date and not self.start_date <= self.end_date:
+        if self.end_date and self.start_date > self.end_date:
             raise ValidationError('Start date can not be after end date')
 
         self.name = self.name.strip()

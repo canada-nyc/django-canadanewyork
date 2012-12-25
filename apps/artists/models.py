@@ -19,8 +19,8 @@ class VisibleManager(models.Manager):
 
 class Artist(models.Model):
     def resume_path(instance, filename):
-        return os.path.join('artists',
-                            instance.slug,
+        return os.path.join(instance.get_absolute_url()[1:],
+                            'resume',
                             filename)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -30,7 +30,7 @@ class Artist(models.Model):
         default=False,
         help_text="Whether it appears in the artists list, and has an artist page")
 
-    old_path = models.CharField(blank=True, null=True, editable=False, max_length=200)
+    old_path = models.CharField(blank=True, null=True, editable=False, max_length=2000)
     redirect = RedirectField()
 
     photos = generic.GenericRelation(Photo)

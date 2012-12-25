@@ -4,3 +4,4 @@
 django-debug-toolbar==0.9.4
 django-pdb==0.3.2
 ipdb==0.7
+pudb

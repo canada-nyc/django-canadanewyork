@@ -24,7 +24,7 @@ def page_count(pdf):
     return len(pages)
 
 
-class TestContentRedirects(AddAppMixin, TestCase):
+class TestPDFImageAppend(AddAppMixin, TestCase):
     custom_apps = ('tests.libs.pdf_image_append',)
 
     def setUp(self):
@@ -35,7 +35,7 @@ class TestContentRedirects(AddAppMixin, TestCase):
         self.TestPDFImageModel.delete()
 
     def test_create(self):
-        self.TestPDFImageModel.pdf_image_append(django_image('test'))
+        self.TestPDFImageModel.pdf_image_append(image_file=django_image('test'))
 
         self.assertTrue(self.TestPDFImageModel.pdf)
         self.assertEqual(1, page_count(self.TestPDFImageModel.pdf))
@@ -44,8 +44,8 @@ class TestContentRedirects(AddAppMixin, TestCase):
         self.assertEqual(1, page_count(self.TestPDFImageModel.pdf))
 
     def test_append(self):
-        self.TestPDFImageModel.pdf_image_append(django_image('test'))
-        self.TestPDFImageModel.pdf_image_append(django_image('test'))
+        self.TestPDFImageModel.pdf_image_append(image_file=django_image('test'))
+        self.TestPDFImageModel.pdf_image_append(image_file=django_image('test'))
 
         self.assertTrue(self.TestPDFImageModel.pdf)
         self.assertEqual(2, page_count(self.TestPDFImageModel.pdf))

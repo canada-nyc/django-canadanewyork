@@ -16,7 +16,7 @@ class Update(models.Model):
     post_date = models.DateTimeField(auto_now_add=True)
     slug = SlugifyField(populate_from=(lambda U: U.post_date.year, 'name'))
 
-    old_path = models.CharField(blank=True, null=True, editable=False, max_length=200)
+    old_path = models.CharField(blank=True, null=True, editable=False, max_length=2000)
     redirect = RedirectField()
 
     photos = generic.GenericRelation(Photo)

@@ -58,3 +58,4 @@ pdfminer==20110515
 pdfrw==0.1
 requests==0.14.2
 requests-cache==0.1.3
+beautifulsoup4==4.1.3

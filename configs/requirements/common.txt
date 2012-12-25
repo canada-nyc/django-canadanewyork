@@ -31,7 +31,7 @@ dj-database-url==0.2.1
 ##
 #Compression
 ##
-git+git://github.com/saulshanabrook/django_compressor.git
+git://github.com/jezdez/django_compressor.git
 BeautifulSoup==3.2.1
 
 ##

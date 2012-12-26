@@ -1,9 +1,11 @@
 [![Build Status](https://next.travis-ci.org/saulshanabrook/django-canadanewyork.png?branch=production)](https://next.travis-ci.org/saulshanabrook/django-canadanewyork)
 # Install
-1. `pip install -r requirements/dev.txt`
-2. `foreman run python manage.py clean_db`
-3. `foreman run python manage.py runserver`
-
+```sh
+pip install -r requirements/dev.txt
+gem install foreman
+foreman run python manage.py clean_db
+foreman run python manage.py runserver
+```
 # Deploy
 
 ## Heroku

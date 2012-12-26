@@ -3,12 +3,6 @@ South==0.7.6
 django-extensions==1.0.1
 
 ##
-#Admin
-##
-django-grappelli==2.4.2
-git+git://github.com/lincolnloop/django-smart-selects.git@dbe42ad4604d132ce72adc3ecd0de807a9766094
-
-##
 #Images
 ##
 sorl-thumbnail==11.12
@@ -48,14 +42,3 @@ boto==2.6.0
 django-storages
 #hg+https://bitbucket.org/david/django-storages@1574890 #New version required for fast checking
 python-dateutil==1.5 #Required for collecstatic modified checks
-
-##
-#Import WP
-##
-git+git://github.com/aaronsw/html2text.git
-chardet==2.1.1
-pdfminer==20110515
-pdfrw==0.1
-requests==0.14.2
-requests-cache==0.1.3
-beautifulsoup4==4.1.3

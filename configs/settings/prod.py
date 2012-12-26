@@ -40,3 +40,20 @@ COMPRESS_URL = 'https://{}.s3.amazonaws.com/'.format(AWS_STORAGE_BUCKET_NAME)
 ############
 SECURE_FRAME_DENY = True
 MIDDLEWARE_CLASSES += ('django.middleware.csrf.CsrfViewMiddleware',)
+
+
+#########
+# ADMIN #
+#########
+INSTALLED_APPS += ('grappelli',)
+
+INSTALLED_APPS += (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+)
+
+GRAPPELLI_ADMIN_TITLE = 'canada'
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'grappelli/'

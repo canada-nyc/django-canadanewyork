@@ -1,5 +1,6 @@
 -r common.txt
--r testing.txt
+-r import_wp.txt
+-r admin.txt
 
 gunicorn==0.14.6
 newrelic==1.5.0.103

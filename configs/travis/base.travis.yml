@@ -9,13 +9,11 @@ install:
   - sudo apt-get install -qq libmemcached-dev
   - pip install -r configs/requirements/common.txt -r configs/requirements/testing.txt pylibmc --use-mirrors -q
 
-before_script:
-  - flake8 .
-
 script:
+  - flake8 .
   - python manage.py test tests
 
-after_script:
+after_success:
   - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
   - git remote add heroku git@heroku.com:canada-development.git
   - echo "Host heroku.com" >> ~/.ssh/config

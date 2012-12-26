@@ -10,13 +10,11 @@ install:
   - sudo apt-get install -qq libmemcached-dev
   - pip install -r configs/requirements/common.txt -r configs/requirements/testing.txt pylibmc --use-mirrors -q
 
-before_script:
-  - flake8 .
-
 script:
+  - flake8 .
   - python manage.py test tests
 
-after_script:
+after_success:
   - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
   - git remote add heroku git@heroku.com:canada-development.git
   - echo "Host heroku.com" >> ~/.ssh/config
@@ -33,14 +31,14 @@ notifications:
 env:
   global:
     # Must end defining global env variables, so that it can be concatonated with secure keys
-    secure: "NRE6h5gaZInP0WpjNumfLmGDiwzEfITUAihuDyrz+SL1UYhNL6JpBryWJM40\nGlLHjEPATIdFNIzxSOHEwo6RivPQPb8Z4TB78oWU1/ipJpUui2+EZXSaFv/n\nC/iV/UT/MNSK5CxyOJ8alp0FL/Mo8HapLgVcPi+KX1+ug9ygQ0s="
-    secure: "o/XM7/5SEHZlzegqt5jLuD5Zrh1/D1K9fzI1tEpkYCMqeA4c2IalnA/sZYPh\nhrUXKvKjtBS06Dn5lTXfjKjQkbAvppQIhj8eRBf14EC4ZK6iYgXX4dGwCIBB\nGVeIS3TgEBZXOceuSi/Vr8Y9Zsh6uOuoag/d2n94QovFPI+lV20="
-    secure: "sZZlZ83dp7ij0CGCxDLdtF5qePMMmGiqLz34PWJVMkYAwNvTorKU/LdApu0g\n41h5CljoDtbiu1Iz6P5YfZkSl+HRMRkcUK+c/9JmlGVxervTrEYxMGb0TX/w\nZ52/QMJP/bd5jsweYHwyrobM0RQdBYKV+S6ZSNoAnWLRETMetsQ="
-    secure: "GG55qlSg58PPjzXnqCoPBpjFJMLxKHaGNggSkzdb4i327tDSMNfsW3AvRkk/\nCNvys95qYjwVarnE1EaHHIyLd8y+T03nTmHy4omx61meIA314a07PewjN26S\nRVDVSSJxWj8h0Wnqdaylpo/IsFHImWVc6fQ5SCnRheTVoVNc6SA="
-    secure: "hI4955KoLbtVrOZzX5rbE/O/SaN9dHboNyQYjrwlly+Xdx6YJHIsMlQWuJaZ\nbK/cyhBM28OJola/uRgZBbPhymUbJ7DzznJvINLRq+b4IhUvwxw3FYEwv66F\nc37BC6YEKOOqP5HAdsS3MpPbOgTgJhwT2x3asWWPneAGgH4EDFU="
-    secure: "xgI2emF44npvDXl0m3YZLCxAaWWAqo3JBfkDHkgNpLoi6Ibf5f6TbLwnhxN8\nxjAgENCETQk0PGmfIT3kwyJicEKOnjr8NgSp7jkqzuJRWJhRGeH4XiqsrQMd\nQgESOC7n0zpJHi+vv96WyXgNGpYJKmRD9lBFHxrXIXa+gCcxVJ8="
-    secure: "AgdG88gXSBG3AlOBYAZbd40edDIDB58cdB6lwHjlv9XV04Lg3f9gWLtUHKYU\nczod9kLt/B2dvHIwUBTTWvHhLsp9rs81jZqZ8VnvVvVJ+k9AvMG0OgAq53Rn\nDmo4o5b27p3E7PvuGBzUVV6h8nXCC+q56jvaR4B0/eSjxYJKQ8M="
-    secure: "TIgYa+OxF892Cz5PsK5SrX8UEk8w2LLSSgv6p9tSsAIxlBoSmBB/LUZH6qFz\nIuEyDlby2LhbOxx/2P1UdOQVVWpIl8ZUp/FSa1UZYbticgz6XbOMseRCvakW\nd9F8d169UD/g+Z6aujpS4tv0OV9r3qaAm8/FJ/kxArfqStVwXG0="
-    secure: "SzxNzxyEyCur/Nx5fVZtBB8Mp6uQtnaQxqnilLxwLWDp+z1INFR2E6GJvNtO\nNwBfjP87r04cZMx3HTjpsDjezmgpYuQ2Vw7iuD7vK11VHoLBGNt0Be4rDTUs\n+9oomH3udvCojdYlwBo2IQClAjr5AfnCwFj9ykCUQIRc7qaq03U="
-    secure: "rlUNq2QsFO7DOXEa5LD0z/BdN2sP957+hHo95PtoI9pbNYG7ctwuKz5cgOEx\nrfAQ3ac1PIfHiSnkreVwLvhYap+5olMd0Rt3WP1Webq+/BFObw6A0SrJKAoZ\nrsJB6gr4swgqFnzRZ/tDSaPGkNi+WRfe2vs82kRjeLVhJR49Wms="
-    secure: "C9kpnLz5D+qaNf48kJNOP7a3VS8gec4mluHlzhAaZcpb8ck0/+pgAgkcHN+g\nQgeMVHZOSRq+64J2C1H7bbd1Kdp0FiBCICDbe33oAf/AAnKE6Rxs3wAFA67E\nVB1wwX0rVuW8kLA7Yl6k2+YrSi4O4kmYl94Q+BR4qYExYTW0bIw="
+    secure: "V4wchaduy3z8SgnW4dBsQqBCYu9lsMlm6GePNX7om2Zrko3x22ZLhHkWN6JF\nrrk7NDWHkWz7M5De0Er3O7k5+C+d+1neOCbT7lSHO9bNYcg9YYtIjuhyPibb\nWsyzYyjk1ESgpclKeAdmKG0tSkROVvZI6RsPTAPH5HwiLVUU2I4="
+    secure: "A3rxsmfbCHsXnj9aRL4yKurYIrM3P9lK5ktKtmAAHwIIjXq3FnD/bzLeHv4O\ni96YPbASP/L3ZOHhjYPuIckd+SqMtuKXI2zKhL7Q7PAAKrlT1Ts7+mxEVbwA\nU7csWX67525BqBeJoTbdHwCAZ/Z4PEwuTwxqgQoolFSbyJf2hMg="
+    secure: "gHw5FHK8RB+oRAKPqyOP2UnPX6MEl6USjZIhYqKkXoLgcixeqruTeMy7ltK0\nyGSztipnNVl2z1+HSRcGXG2KrrvfaUwVSHLbN49bECvha4+Xr4tR9Dbt/w1r\nK2LBgLYJSQPwqYDnAC9xQCgwLRRdMU8yTzpQqzGJQ85Z/d2iygk="
+    secure: "H7+FrLlFsciq/5QAxRO7Dbg92tO4/ElqNTlfrKDRbtpKA7cJDms41DPs0CIx\ncqNUNx34vg5bdGi3DpYqChUVy9G75s+46thDF3B0UiQu3R5b8knn7o3hkTeF\nWK/CJ3PU6mfL7Eo362IcJC2X7Nmw3Ms0uFWf2MQF5nGP8wEcgro="
+    secure: "zu7EHa1OC+W7FT/nzcrHJpj8YGnkEh5MUhFjxL2G0pvXiiIn9c4aTr8jDpSw\nzKPiQUjGMweDBoKTzWjQXm5sY1Z52Rvh9PQBHlN7KWFxXHu8dGYJWdZAZTqE\n50E+VuPxBvdoMOxcp5sZnqkgkIAYZ10ke3XNHdK3YLn68pJESk0="
+    secure: "cwvDoTpni3jK0rLdhMGbTFS6je/grP5Q+BdpRTzG54NEK4j61JjHs0n/Hr7x\nvIbjKPBqqNacTYyV0/zDKONzhNqWAvm7sgwJw4ouVqYlH5z8o1ia7MeYIcSU\nHjgJ4VwmcDS9ktcAWh7GodnCLjAvdCED0W3tUGX2H+wOPn3Up1A="
+    secure: "XlYCZ2vm3xt4IbsEeVFDZ9FoZ0EWGlHcpKdmemGd+GoVdydp2tvOUMw6L9ge\nwwW01BAo0za7RiOkTRLNnpgbVGKIIxiFCrqMGsSOebcGQmd6SP6PDiaMrX/S\n6OgN/QPI7gpQ1WgPDERZHWXQWIkeuayLVyr0HTZgpnCT3iisOm8="
+    secure: "ZbwhL0aCuTNtbwhZG2pwP9BVnJzcioh8Hq3xUA7OP1Y/ZKR/Fkp5VBgxCugt\nwN+AKhkbGLKie0R9Lyj9p0YWHUQFVcf01/w9JHFnuschFCwmy2WH4BDZAy3n\nZwW/eW6c5wXy5mwApSuRFAHYpn8iUDb7Rpx0qd7fNERJkQ5uC6s="
+    secure: "vn4hSI8WG1X9jgvhTfLzGT4bPiRq6iEL9ylDOYQrLWnD1LbtOd5dTkelC1J0\nGCscfFNnPKo+ezWyusiMJrklbIa4X8U0gYLAxhmuJfAMmqxTsBd39Knue5Bg\ngr9lTdLcOIJgpHKcNHkT9IY1WMrjQHEGbmvw/bgaxJqX1dIQMK0="
+    secure: "IhCjZy26Tj6+s4P9JF6BZulpYDJJIfWeIQ9oaUhpD+LI9WjpOT10W7YM+0tM\nWs3UmV5opTCPNEiwZ2UopavfJBxm+tonCVlSK32Dw6Q/SsBbL4Qy54VweFcQ\nqKa734boXQ+/AXrz+14G32Gz6pDSIwGR7yg0Q2bx5r9wVdZO5Nw="
+    secure: "pzdoyOlLGArCF/Rz4mqjq9+xVjJqQMl0jHmziaW5qTsbxf1/ZmCq5XO/woQT\n2Ocw1C6ll5bUe/YJTr5TJARYyng0SQnXa6OJwDwUWX9gOF0B7J3AIUXOuH8H\nYyIfOGK/OEly+iZmUQKjAI7rMXz/iDFrioB0EGKG1O1wmWmMOOw="

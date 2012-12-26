@@ -1,2 +1,1 @@
 django-grappelli==2.4.2
-git+git://github.com/lincolnloop/django-smart-selects.git@dbe42ad4604d132ce72adc3ecd0de807a9766094

@@ -27,13 +27,14 @@ heroku run 'python manage.py clean_db'
 ## Travis
 ```sh
 #!/usr/bin/env fish
-gem install travis
+gem install specific_install
+gem specific_install -l https://github.com/saulshanabrook/travis-cli.git
 echo '# do not modify this file. it is generated from configs/travis/base.travis.yml' > '.travis.yml'
 cat configs/travis/base.travis.yml >> '.travis.yml'
 for line in (cat configs/env/common.env configs/env/testing.env);
-    echo '  '(travis encrypt saulshanabrook/django-canadanewyork $line | grep '  secure') >> '.travis.yml';
+    travis encrypt saulshanabrook/django-canadanewyork $line >> '.travis.yml';
 end
-echo '  '(travis encrypt saulshanabrook/django-canadanewyork HEROKU_API_KEY=(heroku auth:token) | grep '  secure') >> '.travis.yml'
+travis encrypt saulshanabrook/django-canadanewyork HEROKU_API_KEY=(heroku auth:token) >> '.travis.yml'
 ```
 
 # Schema

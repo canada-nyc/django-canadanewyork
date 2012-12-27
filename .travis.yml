@@ -30,15 +30,15 @@ notifications:
 
 env:
   global:
-    # Must end defining global env variables, so that it can be concatonated with secure keys
-    - secure: "hus7XP5ph4ZbqOxdKFebtzcOl8RK2ahzSXnNYBWXs71OZhEbIncDSQbLMjoM\n3YWYNNVxDhbkyhg02sfrp5Rr/qp8kDSEjTS2JSEcGgp4IpddoYf27AG0OxKn\nbMQIIDhZiC68TsKuXp2BQNSHaW+bii8lEthxk/YC2H6+2g+ISYc="
-    - secure: "TdtC1TGf14mOcjynKx3ruf8jEpn+CBanVAKv8sQdwB3D0witnCRXpHGlausf\nm6ACP63c5euMposIi67CA6R7Ro36Rt1e5RkcLk01XdecVPR/ico2nelX6IM+\n33aAQMK7y6+XAmQUAPAnLH8Me7q6DnP4BfLAbHrQ8ft7IF9VH/w="
-    - secure: "tNXJDqT0YTtDbTc4ypmEhcb9NskBvn/RxEp1D5ZhyoqIVPQ7BHki0PGVGhyc\nzXgZKbeUF4+jSoLE9R/pNNtoRnXSo7zUdpkBUzi8rQOat3whHKP49eCu+Rrf\nmtvISpy0ZtPzWKeZeu62es3jnv7gWhkC6aaNin9qatzXqWcbBEA="
-    - secure: "DT5TAGsNK0pz08fYbGO5IHeGpYB9GJvvwqZYM24bdE05c6wYoZgLVtCwxkjU\nolSIGdMk+jH9Fk162Yxg9oz5O2j8iZl71MCceqw5goE242oSL9xToxN3Q7nB\nfc3MACOdPhmLFcVBewdHqr11U2/ZnWgY+ShidAhWYTvCKzkENnA="
-    - secure: "Bi5covoKneLoBz9RvyCxDdgRtvL82FZICel3F64k0bGJ4wEbl3utupMkRknX\nNIzWR0rMOwaYfTeBT9ZfNdl1Jw92+kP8WZt3qimw0nVJvKHNoIlthkmmE67D\ngzTTFc9TKCSDXadq1omfuGOwKrSvP1G0J4lQifknIBoGOuK3M2E="
-    - secure: "AvMoXOZ+dWJVhjp4DrCnHzfoLNO3au17+SfcmmDomCxdteXqPBQijIUmfdDa\nb5xB/bqIqtxyOwtFusqS0j7OwHmx2TsLI71UiN1s8wSxBDwzC9Wm82lOdGzq\nElHTujI1eHtziNf/HiibXDvyooyQfkxeciVQIdR0NL4TTuwP4Rk="
-    - secure: "hDIOC9Tkcf8p2a+OiZ4HQV9oMpdKO40+HKC2gDnUPP0mvELR7ZspgvxRYKs4\nLnbhbMn7MhYzlMyodvIPW/Nu+mlUcIK3yQN9rdt6cxjkz6WFDRGNfo1WYKnj\n67XKCoRzDBfMdd69AubGjvSbPxaEgW48THAheyhqThtYdGA9KZY="
-    - secure: "w1bH6+TBgKF2jK8wUmjQ4gwJBoOxc0GL5CVFBiAnLqz87W9aKX1BkHXtI9L9\nTKpEB1UFNYEAwIqVbzQ5MnLRU0wXtiTW3Bq+0sYZluYSpH5TkJ4YMGoVynGX\nOTJnB7vcJOOdAF5OY8WbY281SJxXH4vPxfDf84qNXQLhPRKgCGI="
-    - secure: "hO3VgtK2RDO6XARvSMgp762mdbTv/xNNbpbBT5w+WggsgrCesYuTZaLbDXhK\nOzZqlgUyT5nmV1gTBTomna5FKbc1Nrrcnb5woQ0VR7M4m7hPG+uJflDDQD+9\ngI7hVPUv3jQPhkkM5EJlzoBOtZk6QwVVhx73brBzlZW2zFlFzOw="
-    - secure: "p+grP2mfhTnZLpW4Y+DYVLA+YlagkLkL7zdyLh43LZsVWD9RDcAsPCvOn5M5\nj3FZoMptT5EXn0MDtUkb5qCMoP2k+irM+49XBHaAS9QPlY10H9GugmgNnPQh\nzCuMuoYHAhM3M61ojyYehKsr3u4UHkzI2q4Eq4S9P0Jo9JPlq6k="
-    - secure: "KC7aB6uEDlaiyjFCcJos3zRmRznJ7KbVy25jvn4TGepGcgpuf0Prb+MciYLw\nqxxYSLPDeX9BQoffSiK+U9Z/4wO1D0vl05eMQ6AEF83pXUdESfORcoHmtxYs\nbakv7ax4u5d5E3PZ828P1HHeP/09tPlvTcapIdmfSf4TPaWtgTY="
+    # Must end defining global env variables, so that it can be concatenated with secure keys
+    - secure: "LdzUAnDm4m1iueNELb0RdHMc271MqaDsqE052JULYGbIc7opmBW/EUIeGE0i\nhAnBSOaihLTXX2SJsdYWA/+euBkzODwNRJcgqzlJs2iLeQnjNxjdyrfM47r3\nMA4lBGDa2VS6v7Y+rbspUly8DYvMlICQRdbMTFZtQvWMaEAvt3Q="
+    - secure: "ofGt+cApBgLphsUtgeeCgn/aKcywvNXu7KosSuYbk/aORC3ODfv6dJP+1kpW\nhlidusMyBfhx37je2SIpY5gqQ96ylxqGeCxG5/0sYEko3lLW5ppr3gdE7/4g\n6NCzlXS630CmAe+5PSCub8HVb5SqVjzeQCQOb7e5/JMizuS9suk="
+    - secure: "ata/rYVp6RqtRS4dSqQsQ00uLtssohj/qOwrld2LmSd3DhEuAUdYxsRuCY9x\nazOfRKpMGhISrcrrEHwEYBuT87Xi22uIEXo8wgrPy+v8J3fXU/Siiv7/Z+PY\nMlzVMTnbpSzgMU7h2JANVRhsfT7lwH6J7KN/GM2hndx/kvc6T3k="
+    - secure: "HgwhNfuAzgXKPlHFj1c9gGEWwmi6aeIKmUNSfuV554aYyvcd7t0GMpWYeHDJ\nAh53zIyMwIycc5otXASvOThX4s95usJ3dblyJsr8gpbn6AurTtaq6gDziDvH\nqitezK5Lqw4mOpu6VsyxAPuXHPfZvN3/Pw3XnQwXjc/3+5DPg6c="
+    - secure: "l+2irypyKJb2iYAvKj4cYQbz5G4HUcU9PRAWZcIeN5gkuQr70B0o8/sljVYA\nRoOoVVCWYS+Hkkvo9aR55Yg90D8WgPn4NVlv+RsR6cV90wHJM6vf8gf0YUK2\nFxElfQWVRVGfMlZgFH9iWEKv2Anf/VAZeZaUr6igI0vSj5fKZAA="
+    - secure: "I2/rdpQHl/KGadWps6yQFtI3lWz162gzY8CJQpAnHmrFphQ1xzj/JD3eZ+ai\nEnpEkC7sCbEpzGJ2nsZCjV3a2f7sUNk6tWkPQWLUSOyjpRDi+oY+KGNqSkVY\nv3KzC+4m2jy8yGr9MB3kXRJQyQk9Y8lemQ8wpNgdtqSmzJh57RE="
+    - secure: "kJVraIH/6yMdI8xE0aEISONgFhOTKJt6k7yi3u6W+zOc0NCqAeybj4cmg8uH\nzdlXozeUAchAxbgAoiFiB2K1jwsWjnSh9OgyywOKnUHfbDMBjNryavdGb+f8\nQ0ivwPpmR8csXIoR2E0qe8KUn/6kq1qWfKIiosPboXGr5PwVC7I="
+    - secure: "D4T+XS8R2Su2VyBnA0k9tTSN7CgRp+WiIY48hrydmbM0MY45YeTro3GJ04dN\nKR90psjB7Hm95PMziyKy3lUC0A7RgZgw5OBbqJf8tmnV8aBMKoOKc4sqi5tc\nMuWJBgIb/AAc5E2anO8bhEmKqR2xIGWYRbrt5uFs2Lo5hkvvr2A="
+    - secure: "XaHC93T1F9/rYJ3TbB7mDyQnuwp7o8ZdvP5+6Rx8z8pTXVM9JEVutRKgkTFA\nR9V20KWe1LrVXjCqVg+l1qGo1fBZXzm3XHKpK2eYQ7L4B53qq++IOpDtpFB2\n+UV9wMqHm1hn6F+RprQTfyrDZW5wYdzY62UIIERhkNHHEO3bOVg="
+    - secure: "osNQMAyATOcbRWLrk2Z2C8a0jLX6uhnz1NNc0CXEYeV5LP/SUM5UYJwbuKMR\nKewMQk1ErTcwHQITNb6BYWIOazBRqIlyYSju3gkbn1hbJfC977//UJIjRxeF\nK9qhsa/kNw6u5iCQMneAyJqI5yYNxIdJckz4ffcu2azYZDLuxEc="
+    - secure: "aZ/PTFm5EK5C38AG8aradFqgjpu0tiLwnntMyc7GWsbXA5MJ5iCc3lqc0Qo3\nlgZGZQX9Sbji+/6XmPoblr8HTAKPK2MIv8ExemvcvGBsRKwlPtyqEbaCSeF1\neMIU9rdansA/frFFgH5cJVXfUSi5/hhqPsXcc8pfLJOdAcUY+zk="

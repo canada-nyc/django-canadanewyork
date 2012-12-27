@@ -29,4 +29,4 @@ notifications:
 
 env:
   global:
-    # Must end defining global env variables, so that it can be concatonated with secure keys
+    # Must end defining global env variables, so that it can be concatenated with secure keys

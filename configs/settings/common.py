@@ -102,7 +102,7 @@ COMPRESS_PRECOMPILERS = (
 INSTALLED_APPS += (
     'south',
 )
-DATABASES = {'default': dj_database_url.config(default='postgres://saul@localhost/django_canadanewyork')}
+DATABASES = {'default': dj_database_url.config()}
 
 #########
 # EMAIL #

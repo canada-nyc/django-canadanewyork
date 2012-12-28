@@ -7,7 +7,7 @@ services:
 
 install:
   - sudo apt-get install -qq libmemcached-dev
-  - pip install -r configs/requirements/testing.txt -r configs/requirements/common.txt --use-mirrors -q
+  - pip install -r configs/requirements/travis.txt --use-mirrors -q
 
 script:
   - flake8 .

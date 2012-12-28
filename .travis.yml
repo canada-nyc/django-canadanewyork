@@ -8,7 +8,7 @@ services:
 
 install:
   - sudo apt-get install -qq libmemcached-dev
-  - pip install -r configs/requirements/testing.txt -r configs/requirements/common.txt --use-mirrors -q
+  - pip install -r configs/requirements/travis.txt --use-mirrors -q
 
 script:
   - flake8 .
@@ -31,14 +31,14 @@ notifications:
 env:
   global:
     # Must end defining global env variables, so that it can be concatenated with secure keys
-    - secure: "LdzUAnDm4m1iueNELb0RdHMc271MqaDsqE052JULYGbIc7opmBW/EUIeGE0i\nhAnBSOaihLTXX2SJsdYWA/+euBkzODwNRJcgqzlJs2iLeQnjNxjdyrfM47r3\nMA4lBGDa2VS6v7Y+rbspUly8DYvMlICQRdbMTFZtQvWMaEAvt3Q="
-    - secure: "ofGt+cApBgLphsUtgeeCgn/aKcywvNXu7KosSuYbk/aORC3ODfv6dJP+1kpW\nhlidusMyBfhx37je2SIpY5gqQ96ylxqGeCxG5/0sYEko3lLW5ppr3gdE7/4g\n6NCzlXS630CmAe+5PSCub8HVb5SqVjzeQCQOb7e5/JMizuS9suk="
-    - secure: "ata/rYVp6RqtRS4dSqQsQ00uLtssohj/qOwrld2LmSd3DhEuAUdYxsRuCY9x\nazOfRKpMGhISrcrrEHwEYBuT87Xi22uIEXo8wgrPy+v8J3fXU/Siiv7/Z+PY\nMlzVMTnbpSzgMU7h2JANVRhsfT7lwH6J7KN/GM2hndx/kvc6T3k="
-    - secure: "HgwhNfuAzgXKPlHFj1c9gGEWwmi6aeIKmUNSfuV554aYyvcd7t0GMpWYeHDJ\nAh53zIyMwIycc5otXASvOThX4s95usJ3dblyJsr8gpbn6AurTtaq6gDziDvH\nqitezK5Lqw4mOpu6VsyxAPuXHPfZvN3/Pw3XnQwXjc/3+5DPg6c="
-    - secure: "l+2irypyKJb2iYAvKj4cYQbz5G4HUcU9PRAWZcIeN5gkuQr70B0o8/sljVYA\nRoOoVVCWYS+Hkkvo9aR55Yg90D8WgPn4NVlv+RsR6cV90wHJM6vf8gf0YUK2\nFxElfQWVRVGfMlZgFH9iWEKv2Anf/VAZeZaUr6igI0vSj5fKZAA="
-    - secure: "I2/rdpQHl/KGadWps6yQFtI3lWz162gzY8CJQpAnHmrFphQ1xzj/JD3eZ+ai\nEnpEkC7sCbEpzGJ2nsZCjV3a2f7sUNk6tWkPQWLUSOyjpRDi+oY+KGNqSkVY\nv3KzC+4m2jy8yGr9MB3kXRJQyQk9Y8lemQ8wpNgdtqSmzJh57RE="
-    - secure: "kJVraIH/6yMdI8xE0aEISONgFhOTKJt6k7yi3u6W+zOc0NCqAeybj4cmg8uH\nzdlXozeUAchAxbgAoiFiB2K1jwsWjnSh9OgyywOKnUHfbDMBjNryavdGb+f8\nQ0ivwPpmR8csXIoR2E0qe8KUn/6kq1qWfKIiosPboXGr5PwVC7I="
-    - secure: "D4T+XS8R2Su2VyBnA0k9tTSN7CgRp+WiIY48hrydmbM0MY45YeTro3GJ04dN\nKR90psjB7Hm95PMziyKy3lUC0A7RgZgw5OBbqJf8tmnV8aBMKoOKc4sqi5tc\nMuWJBgIb/AAc5E2anO8bhEmKqR2xIGWYRbrt5uFs2Lo5hkvvr2A="
-    - secure: "XaHC93T1F9/rYJ3TbB7mDyQnuwp7o8ZdvP5+6Rx8z8pTXVM9JEVutRKgkTFA\nR9V20KWe1LrVXjCqVg+l1qGo1fBZXzm3XHKpK2eYQ7L4B53qq++IOpDtpFB2\n+UV9wMqHm1hn6F+RprQTfyrDZW5wYdzY62UIIERhkNHHEO3bOVg="
-    - secure: "osNQMAyATOcbRWLrk2Z2C8a0jLX6uhnz1NNc0CXEYeV5LP/SUM5UYJwbuKMR\nKewMQk1ErTcwHQITNb6BYWIOazBRqIlyYSju3gkbn1hbJfC977//UJIjRxeF\nK9qhsa/kNw6u5iCQMneAyJqI5yYNxIdJckz4ffcu2azYZDLuxEc="
-    - secure: "aZ/PTFm5EK5C38AG8aradFqgjpu0tiLwnntMyc7GWsbXA5MJ5iCc3lqc0Qo3\nlgZGZQX9Sbji+/6XmPoblr8HTAKPK2MIv8ExemvcvGBsRKwlPtyqEbaCSeF1\neMIU9rdansA/frFFgH5cJVXfUSi5/hhqPsXcc8pfLJOdAcUY+zk="
+    - secure: "WFcsVTHPcBKnQExJkmg5VuHakWb77wC4rkNqsr9zThkY8X0J8NEjtqjUlWep\nR824/O3QAaadu+OSI3yFcAWTdiAEXsSKxDFThyHArfX6BvPjeBwwwaC1icmy\nAvYtdzbjswIUyRQdojdAl4aoNay5snDqO3kfpl4YvmWrxaC6Vyw="
+    - secure: "MopU8QkFIgCthZh/TP4bCcsRw/7rmj26O5r8Nd226tpgCcbygavmae6PTgye\nF3j9abxImbQIS1xkq6rsx888lvjIdbpfexoHsdMAOvZyU8g+NDvMsUmooIJ1\n6kscaWa395q8qj3sTpGaCmJ6U9/Udu1FIGtOscU5m/DD3mzOeVo="
+    - secure: "rGgEXHYQna0ELvhbQDYqS8ZGH/GwaIM2qMTtDjvY6j+EetuczxI3zgFdtsHm\nUEGfo4JBzT9BfUhpXOwIiKZ63xfl3V2rz0oxaxSBcOXLjORmHV60JWLIJNOa\n3n+T76VdC6Mnhg+4dRYGPhtmmJyhU74iwN5fi7bbEPBQzCYkgEI="
+    - secure: "gWMK9W1eTbWhJKI/zVXyXbDPln/C/+TPHugFE0LPsEAZOyhpGjdr6aj/TyBu\nxso4i/iKtv+pYC+czyP5lEhXQrct1xDcc6t//hemYuq84izInohYwAWjml/B\n686MoLnEdmDbPhVUcZp3Ij7G5fEXm8URCfyT+G3we7SdPYclLOY="
+    - secure: "ll+NSDpbtgP2Vi+HGonG0pm/clYV9CfhX/29rC+GVawN8kvGd7WPWhgnlpAr\nHAdhZRwEt5/nkhWUpVnCvHsjbtD+JXmaaSeOi79BYpAbhwSn9qTNO0YLcxqL\nzRxbQJT1sOOSW7IOYzL8Bg6r3eapCn1fP3lj1jfzcu7LRDMzp/A="
+    - secure: "mYSQLrONROZkSzMh0QtWVL5i0x5ymkGsnhp52+7qf41lDK0OqUzVMS0ws9YS\nVPdsBUpNXoQjVjBZZr8cllwqyieVh5FCRDGCRb2Z1qSelQiaKOUQEISmJiAU\nKZI1KCGETAg0KsCC4yqsC9RHmvsHpcsAYQbCuuSeNMI9ns/QwH8="
+    - secure: "acOLFFED7b9Te4qVnaTvm2bdbVmbwwwSCgPK61/5/BlNLGEuEo+1IiBLAiY+\ntONWtocTYEfFD8NhL/9jzKIQ8Z6T/2vWQHbBQWIaRKlTO++mp8Uj16TclnWj\nQ+ABqdCGg5td31nGSnjiauMp0cvpjtFw5t70uTiVnARuBH4SSYQ="
+    - secure: "t2pBHvmTrfDLpfVCmVRkBX3czleCkdErdx6h4WP9PtHAvudTujKEivhBMvNV\ny0AY0oRyrxa41TopsMjhEhdJRjWWZqE/g3RY90jY9j0EhYy7Lxhcs4wxtxzN\nnbBe2wDUfY9JITqJtfW5kmg5fa8E/moUGd9tGZrUtAC0BKkjWPE="
+    - secure: "Q1Az6yABtnx6WaQW2WCS+glWfeCEPW1ljBvyUHGFSNAbkWBtYwJO35gB1Bm8\nKe2eAqqMd1fb8t9aa3sVyXp22nUsMzbG9rpBA+fmndmMVVClxMErr//CY4h1\n0msFE4Oq1tfdy1bllUjfCgLmLe2IKjuEtDDOX6otn0OXml3CAJc="
+    - secure: "zIDhUD/I454NpEagenYaPYU6BLUsDeh+RqyRFUTLB599/mvrOEGIf8zF/Iiv\nM/YAkxuGtqalzqkmCI8dx2ycoF3waEBaRmLyKJ7sMnu908E++ow3U6fm43p+\nXasCOnFJgMl32yJLXA3Xvxln6RilYryJe4w1Pcsjhdnorcdf96M="
+    - secure: "PIL8aWW6k81wINLI72l7oK2vFWCKTnYWEF4j4C+w8enlbKFV00SxvahSw5+C\nh50RwzAjGsqG7EJzmwNYORYi3e0oXQgrkhxK9zCkGHRi/Ak62u22Ui6ushyN\nAeB8v3s+2ZbAMBFq9wxBVToweI/JmEDbZPtWwY4gnNVAGJeP2qE="

@@ -52,6 +52,23 @@ MIDDLEWARE_CLASSES += ('libs.redirects.middleware.RedirectFallbackMiddleware',)
 TEMPLATE_CONTEXT_PROCESSORS += ('libs.common.context_processors.image_size',)
 
 
+#########
+# ADMIN #
+#########
+INSTALLED_APPS += ('grappelli',)
+
+INSTALLED_APPS += (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+)
+
+GRAPPELLI_ADMIN_TITLE = 'canada'
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'grappelli/'
+
+
 #############
 # TEMPLATES #
 #############
@@ -102,7 +119,7 @@ COMPRESS_PRECOMPILERS = (
 INSTALLED_APPS += (
     'south',
 )
-DATABASES = {'default': dj_database_url.config()}
+DATABASES = {'default': dj_database_url.config(default='postgres://saul@localhost/django_canadanewyork')}
 
 #########
 # EMAIL #

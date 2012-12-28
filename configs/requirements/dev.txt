@@ -1,7 +1,6 @@
 -r common.txt
 -r testing.txt
 -r import_wp.txt
--r admin.txt
 
 django-debug-toolbar==0.9.4
 django-pdb==0.3.2

@@ -28,20 +28,3 @@ DEBUG_TOOLBAR_CONFIG = {
 # https://github.com/tomchristie/django-pdb
 INSTALLED_APPS += ('django_pdb',)
 MIDDLEWARE_CLASSES += ('django_pdb.middleware.PdbMiddleware',)
-
-
-#########
-# ADMIN #
-#########
-INSTALLED_APPS += ('grappelli',)
-
-INSTALLED_APPS += (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-)
-
-GRAPPELLI_ADMIN_TITLE = 'canada'
-ADMIN_MEDIA_PREFIX = STATIC_URL + 'grappelli/'

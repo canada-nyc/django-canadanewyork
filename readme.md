@@ -3,8 +3,8 @@
 ```sh
 pip install -r requirements/dev.txt
 gem install foreman
-foreman run python manage.py clean_db
-foreman run python manage.py runserver
+foreman -e configs/env/common.env run python manage.py clean_db
+python manage.py runserver
 ```
 # Deploy
 

@@ -46,7 +46,7 @@ class Command(NoArgsCommand):
             call_command('reset_db', interactive=False, router="default")
         except psycopg2.OperationalError:
             if options.get('interactive'):
-                if input(
+                if raw_input(
                     ("Don't have permission to drop db. \n Note: if using "
                      "Heroku, have you `heroku pg:reset DATABASE` manually?")
                 ) not in ('yes', 'y'):

@@ -48,7 +48,8 @@ class Command(NoArgsCommand):
             if options.get('interactive'):
                 if raw_input(
                     ("Don't have permission to drop db. \n Note: if using "
-                     "Heroku, have you `heroku pg:reset DATABASE` manually?")
+                     "Heroku, have you `heroku pg:reset DATABASE` manually?\n"
+                     "(y or yes)\n")
                 ) not in ('yes', 'y'):
                     print 'Do that first'
                     return

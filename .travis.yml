@@ -1,4 +1,3 @@
-# do not modify this file. it is generated from configs/travis/base.travis.yml
 language: python
 
 services:
@@ -33,14 +32,14 @@ notifications:
 
 env:
   global:
-    - secure: "r6W1b6Gc0Gr997233yhz0dYehwmj1G97U92FjWxIJufvK5aVlArPn9obtMu3\nsBAouXZta+OwW48vCY5ctkryLP9ZbPhzto9JuYM5mpFlq1wl9bE+xFQBKSV1\nwMu5l3vjsz2XT2A/U4bPE+dF8RbAqSJ3+LQasmKfh+WQnWj7Db0="
-    - secure: "mymx5Jv/4p6qfqJH6I11+Es5BnJD20oy7yS6sKmlhMJ5ZFUoKC/q534Aq0Gf\ntaftU1sTdQb9sDJ/2K4E6ghzWMkczSi9XUYbJADseDwyJk7RJfaEaivCEsbT\nSJ9HqdYeO9CvKtwVWQOiPAOuVmeWDswqHeskVY+AsBYcKQjW6vo="
-    - secure: "EP/YNSHwh+VYKi4S/u6KyssFkI0pdPh2lcVJLiSIyxbXzmL3d10aiSoVVJGg\nGQG4gBYYpumss/N86kc889uE3JZ5YypEPb2H+S+OoPzVYxdvU4n5zLqQ/EW9\nbNemawZqhZwhmn8mg7Y5XXPENN5y4dwOrbbh7nLaRCgXDMkGYLc="
-    - secure: "ShXPt0KDVMlbt4zHziYhhQcM8E1SGflgPuw9aStBSwpePlUHBcIL4arMOnsu\ng5U9sTdhIRADU1HITmbwCnkWPgzu8OUQtg1LkoFsrONeNmBeJk5sPwv3BXPn\nLMqhfFHDZtxn8VVz4L1jg/TJb/3ykjlLMZwW8xFjYCVBHwEXZn0="
-    - secure: "BLXm0k3ZPKFf2nfLTGsREtJVNwC1DJ6tdwDDs9i3bnsWHStaluRjz7S1+6j+\nUOvyKw0slhN+kvO1df9cNCGg3PIWrJ8GCtT1o/tz5Edj4pf7KBlLZVoQOqCk\nt3kmNkiRfxavNTdHSyFQ6xPWVNNiR1IM52cWcjLG7Y9eXCmCmxo="
-    - secure: "iqos4XOepDYe62krI6SwD4uomxXdQa5ASAPDecjxqkdPO+35FrhGrBb2uMuM\nNozvVcAjDmqghTlof/xeRZbrAxusmKtwFBNDLQeFKr2A8271dbYwx17PlOp0\n0AtOrFmGPM8otcl0BHNjPL2aRyNOK5sE7ZxVod4GfYJzB5NNMz8="
-    - secure: "a3DqknQcsVQhB9MAowrZBBgiM0u4vwniIj3afqpC0xwWxps1o/n92bjFPHGW\n/sqMukR8QmpAzz7OIEgM38IE9j/icYHOxhe1tFuBOTSSz8ZqrD1F1s3HES8F\nV+PL0Sz+ruWXtOV+Lh7qR8dWyMG0oh661TcDB7YahE13iwgsCrE="
-    - secure: "xZozOaJmXTzN0wwOYwA1JTP0sjCRMoG7i7iMx8hkKTK3cq6uPbEWY0VkB97/\nkto0T/6Z6gAny7Px2dgWPz9iq+EBaNQtg24IVoUwIqXiGlrNar+tUOeyGF9Y\nsknHVPUAdCSNA0MkpufTSULzCROuK0tjuN6z9d1y1ymrht4hIjA="
-    - secure: "nmJHGLUC6wTJQVWDFJZdNMzizoheZN6lkcd+TUaojcoDzoziv6hdY9CKFrrD\nnDFOfhDwFx8r462cUwIQ2bAm03j7HnT/z4wcSzHaLHLCJrLXrNkURTlroJWU\nbOMA6z/t5smUBrgJq087epfo9SyAfvgJ21qlFQuEkR8A3wnMwjk="
-    - secure: "Pn0zstALRD7+aGddwNWS1iibT2OQ0Ze/Reljzl/fm/eURMOky/pcfGKaMzxE\nETPsqshEZASX6NLsXrTP4iH5ASn3m/ZUXOG27D1yJKNhsTEn1RkOyXUXUvCn\n2SgL3w0x9wj8A8HzjlMCzA8KHgOMlv/r13kiaaEBYDnodhGWhD8="
-    - secure: "JJAFKmEV4kxyPYkP8hCv1fqTStuXomH2cD+1udAZ/rOqBubXC/JyQYtyZoyo\nxWd6dku8YgBn1WSkI3Eqz2M0Lg0ozDQHRd9hbGwLuJpS+dgsIh791FJ+PaUj\nNcJy5iJvZWw52dfn8JoUwR/mquySAtPIwp0hoqBjnoSSzzFQd2g="
+    - secure: "HEe13jBcyPn0R/MEmKONUVDYQNcs7sYivnjhx8IIsF0hrcHrzFBmptV/pHOT\nKDtbLtwE3JePCbbYrpNzlLgBDzZdSEWH9Sva1qulWTkR/GFRBjZEJddPWDq1\neGX6yKo48j6ybLRqnvOWAQoegBn89d7wUGmrDfaSl1iHbzxbGos="
+    - secure: "Gv9n1iyOdOriGHRNji4pB5xEh6l3LiGSeqO+pHEPqfO11drhZCcHEpDxMqj8\n2j6D0VEHbt3G+yHQIAsCKgI6YLo/X6UI8JmZFKSa/R/59tHYFOShneUgtZmh\nbwwcEduU8ecDxGJtSvwMA5dh6gcxZcd/e4x76kAsYLs65+pJyqM="
+    - secure: "BCk7YJ2gkDYV4H9OJk7AMOKmJgtb633Vwx2ucN0Twm3b4s58mt09TEqQluMG\njS3RCr0xx+OcE/+oTMHGK4VD0fsBV9HDu4p+p/cCE7jLsTP1//wsF6fNZbdE\nGk0IPBrQO65Q1YfxBdb25I808sItc73DZ2T6KsXL77QvU2zL7FU="
+    - secure: "GMpL9zQlIkwFHl0dbKzeTmYUc8NLfhr4E08J96Z1dz1Sg0inuHfvJ0JfUuT0\nSnyk4LqHMzj39YdnHgOUDACUDSgCqSIkqQB2shyh84MzF2GDRaF1Oxok1XuX\nBPjEZ7QZGourSYaGsCT5plBU3xopOsnS+skFXyPs6sxCLhgjK1Y="
+    - secure: "qGcxX6qIyOFmpAZ/qXBzlLr3Ih8jTLuHkAqcpOk0ldkvbRepj4x7aGR9C80J\ngOCwPvJLZOU7njeNlm/KjqVLSTRXar9Fr12vRCRXni8klnIQbmtMACrG+Rbj\nFXOwe/YLZBVCR5JP90EaoTau1RQ8QiRPMStOM9tKJ45Xg0YnlWU="
+    - secure: "zR6gY2vtiS41HVJjLL/Fblx5nadffwAK/OgUZfGA5ErUQ5wv2nGuvY4PEScQ\nXRKV0EWZwaBc6rjCMmRAtABzyC8aTj2tH8MApd8EfaZBALlEB9XrEbHIe72O\nn5ifNLme8Wvqenx/B2cCSRKp32VgRvEQwHm3qMHGmC7SSksYhjY="
+    - secure: "UR8mKdUjpNkU4ntyM3iH3h/bQ3FYKP2XmREhQmzw0Z+/JEx0Vek/X3YVJQTc\nRfuauJyZsp45PFOKfYmBQup3fs2IoFmnsuNTKWZ4EweCqGRoN6O+5Dlxglnm\nQC3ZC8YCA2zWntq4owZPBcbmsBeDXHWQRiba+IIYEQ6TlXf/LFY="
+    - secure: "zMUQL/1Ebdxm5fxfa3n0f3xWl53IXeE2rFHjrr0xbU4bTxNZw4U1xI1RXEZD\n3M7yPDZG66/WpiVPIfDo/pDrjtXLjBkyxhakuwqV2fpCSaRFHyVf25V8qGUb\nGSrV5QHCrni36sWChkbRlEQKQ9vwzk0QCD0u3hSK6VhORlXYmVk="
+    - secure: "G/vI0O2zV9flH63uvPaF6MV/2vMgUFhJSsR8fOg7YSrG2N2qUrgcCTZixcnY\nWtbIeYk2p0FZsvCFYo0M5z59PzkyiuWd9Fs6FP9x66/JPwVlphwDUAUFK+mz\n8EHP0EzBxsa5ewhmeVUI31MofL/4IyMnuFEwlEuKr/Ltsq/9Az4="
+    - secure: "PQQI/9uMLOOnuP0tHuOOL7lfezkfhXQLHuF1WCAyuPmeD4gw88Px9YG7pfIU\nF5v+RxX3ekRPcfnz4sHSDtxx2K675/oe3io/4i7tIFk1+0gfNY+b07/1WHlr\nXLgIMCBylu65LCheyAqolBbwKJl84L7g4R8D8PwAc1Ijh2JT4hw="
+    - secure: "OqcRzF1FUx5QVeSBZYaXvsrMgw48lvzCj7sjn5mhYECjN2BEh6tj0f8F2HlK\nHxkdZewEZPnJpvH7gKl/I7xTg0BNQMzSufCoQVS8LAcUO02oG6hQpNBijTBV\nvtVSTLEUs/+nkQbLM3GDlJY80NHj5jQskvsTzSGhajCAZzWcQg8="

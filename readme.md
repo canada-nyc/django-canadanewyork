@@ -18,6 +18,7 @@ heroku addons:add memcachier:dev
 heroku addons:add heroku-postgresql:dev
 heroku labs:enable user-env-compile #enabled so that collectstatic has access to amazon ec2 key
 heroku config:push -o --filename configs/env/common.env
+heroku config:push -o --filename configs/env/heroku.env
 heroku config:push -o --filename configs/env/prod.env
 heroku pg:promote (heroku pg | grep '^===' | sed 's/^=== //g')
 git push heroku master
@@ -30,7 +31,7 @@ heroku run 'python manage.py clean_db'
 gem install specific_install
 gem specific_install -l https://github.com/saulshanabrook/travis-cli.git
 sed -i '' '/^    - secure: /d'  .travis.yml
-for line in (cat configs/env/common.env configs/env/travis.env configs/env/testing.env);
+for line in (cat configs/env/common.env configs/env/travis.env);
     travis encrypt saulshanabrook/django-canadanewyork $line >> '.travis.yml';
 end
 travis encrypt saulshanabrook/django-canadanewyork HEROKU_API_KEY=(heroku auth:token) >> '.travis.yml'

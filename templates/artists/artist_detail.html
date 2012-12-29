@@ -9,7 +9,7 @@
   {% include "base/photos.html" with photos=artist.photos.all %}
   <p><a href={{ artist.resume.url }}>Resume</a>
   {% if artist.get_press.exists %}
-    <p><a href={{ artist.get_press_url }}>Press</a>
+    <p><a href="{{ artist.get_press_url }}">Press</a>
   {% endif %}
   {% include "base/related_models.html" with exhibitions=artist.exhibitions.all %}
 </article>

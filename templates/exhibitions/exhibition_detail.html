@@ -15,7 +15,7 @@
   {{ exhibition.description|markdown }}
   {% include "base/photos.html" with photos=exhibition.photos.all %}
   {% if exhibition.get_press %}
-    <p><a href={{ exhibition.get_press_url }}>Press</a>
+    <p><a href="{{ exhibition.get_press_url }}">Press</a>
   {% endif %}
   {% include "base/related_models.html" with artists=exhibition.artists.all %}
 </article>

@@ -1,2 +1,3 @@
 -r configs/requirements/prod.txt
+hg #Required untill can update till master where hg+ checking has been fixed
 pylibmc

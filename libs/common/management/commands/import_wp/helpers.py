@@ -4,15 +4,17 @@ import urlparse
 import markdown2
 import html2text
 import requests
-import requests_cache
+try:
+    import requests_cache
+except ImportError:
+    pass
+else:
+    requests_cache.configure(cache_name='static/wordpress/image_cache')
 import dateutil.parser
 from bs4 import BeautifulSoup
 
 from django.core.files.temp import NamedTemporaryFile
 from django.core.files import File
-
-
-requests_cache.configure(cache_name='static/wordpress/image_cache')
 
 
 def html_to_markdown(html):

@@ -2,6 +2,8 @@ import os
 from optparse import make_option
 from subprocess import call
 
+import psycopg2
+
 from django.core.management.base import NoArgsCommand
 from django.core.management import call_command
 from django.contrib.auth.models import User
@@ -10,19 +12,51 @@ from django.contrib.auth.models import User
 class Command(NoArgsCommand):
     help = 'Wipes DB and static and reinstalls with default data'
     option_list = NoArgsCommand.option_list + (
-        make_option('--no-wipe-db', dest='wipe_db', default=True, action='store_false'),
-        make_option('--init', dest='init', default=False, action='store_true'),
-
+        make_option(
+            '--noinput',
+            action='store_false',
+            dest='interactive',
+            default=True,
+            help='Tells Django to NOT prompt the user for input of any kind.'
+        ),
+        make_option(
+            '--no-wipe-static',
+            action='store_false',
+            dest='wipe_static',
+            default=True,
+            help='Tells Django to NOT wipe static and media locally'
+        ),
+        make_option(
+            '--init',
+            action='store_true',
+            dest='init',
+            default=False,
+            help='Tells Django to add factory models'
+        ),
     )
 
     def handle(self, *args, **options):
-        if options.get('wipe_db'):
+        if options.get('wipe_static'):
                 self.stdout.write('Removing static\n')
                 call('rm -rf tmp/static', shell=True)
                 self.stdout.write('Removing media\n')
                 call('rm -rf tmp/media', shell=True)
         self.log('Reseting DB')
-        call_command('reset_db', interactive=False, router="default")
+        try:
+            call_command('reset_db', interactive=False, router="default")
+        except psycopg2.OperationalError:
+            if options.get('interactive'):
+                if input(
+                    ("Don't have permission to drop db. \n Note: if using "
+                     "Heroku, have you `heroku pg:reset DATABASE` manually?")
+                ) not in ('yes', 'y'):
+                    print 'Do that first'
+                    return
+            else:
+                self.log(
+                    ('Assuming db is already wiped\n'
+                     '`heroku pg:reset DATABASE` on Heroku')
+                )
         self.log('Initial sync')
         call_command('syncdb', interactive=False, verbosity=0)
         self.log('Initial migrate')

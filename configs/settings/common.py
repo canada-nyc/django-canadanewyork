@@ -121,6 +121,7 @@ INSTALLED_APPS += (
 )
 DATABASES = {'default': dj_database_url.config(default='postgres://saul@localhost/django_canadanewyork')}
 
+
 #########
 # EMAIL #
 #########
@@ -133,6 +134,7 @@ EMAIL_USE_TLS = True
 INSTALLED_APPS += ('django.contrib.sites',)
 SITE_ID = 1
 
+
 #########
 # QUEUE #
 #########
@@ -143,6 +145,8 @@ RQ_QUEUES = {
         'DB': 0,
     },
 }
+
+
 ###########
 # TESTING #
 ###########

@@ -1,5 +1,6 @@
 {
   "name": "django-canadanewyork",
+  "version": "0.0.1",
   "dependencies" : {
     "less" : "*"
   },

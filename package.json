@@ -1,7 +1,7 @@
 {
   "name": "django-canadanewyork",
   "dependencies" : {
-    "less"   :  "*",
+    "less"   :  "*"
   },
   "engines": {
     "node": ">=0.6"

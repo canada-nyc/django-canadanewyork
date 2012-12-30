@@ -45,3 +45,4 @@ django-rq==0.3.2
 boto==2.6.0
 hg+https://bitbucket.org/david/django-storages@5790493 # required for http://code.larlet.fr/django-storages/issue/143/bump-pypi-version
 python-dateutil==1.5 #Required for collecstatic modified checks
+django-s3-folder-storage==0.1

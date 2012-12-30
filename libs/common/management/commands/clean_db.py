@@ -1,6 +1,5 @@
 import os
 from optparse import make_option
-from subprocess import call
 
 import psycopg2
 
@@ -37,10 +36,7 @@ class Command(NoArgsCommand):
 
     def handle(self, *args, **options):
         if options.get('wipe_static'):
-                self.stdout.write('Removing static\n')
-                call('rm -rf tmp/static', shell=True)
-                self.stdout.write('Removing media\n')
-                call('rm -rf tmp/media', shell=True)
+            call_command('wipe_storage')
         self.log('Reseting DB')
         try:
             call_command('reset_db', interactive=False, router="default")

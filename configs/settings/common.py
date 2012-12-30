@@ -23,9 +23,6 @@ WSGI_APPLICATION = 'manage.application'
 DATE_FORMAT = 'F j, Y'
 ROOT_URLCONF = 'configs.urls'
 
-MEDIA_URL = '/media/'
-STATIC_URL = '/static/'
-
 
 ##########
 # CANADA #
@@ -66,7 +63,6 @@ INSTALLED_APPS += (
 )
 
 GRAPPELLI_ADMIN_TITLE = 'canada'
-ADMIN_MEDIA_PREFIX = STATIC_URL + 'grappelli/'
 
 
 #############
@@ -103,7 +99,6 @@ STATICFILES_DIRS = (
 COMPRESS_ENABLED = True
 INSTALLED_APPS += ('compressor',)
 STATICFILES_FINDERS += ('compressor.finders.CompressorFinder',)
-COMPRESS_STORAGE = STATICFILES_STORAGE
 COMPRESS_CSS_FILTERS = [
     'compressor.filters.css_default.CssAbsoluteFilter',
     'compressor.filters.cssmin.CSSMinFilter',

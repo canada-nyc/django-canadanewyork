@@ -48,7 +48,7 @@ class Command(NoArgsCommand):
             if options.get('interactive'):
                 if raw_input(
                     ("Don't have permission to drop db. \n Note: if using "
-                     "Heroku, have you `heroku pg:reset DATABASE` manually?\n"
+                     "Heroku, have you `heroku pg:reset DATABASE_URL` manually?\n"
                      "(y or yes)\n")
                 ) not in ('yes', 'y'):
                     print 'Do that first'
@@ -56,7 +56,7 @@ class Command(NoArgsCommand):
             else:
                 self.log(
                     ('Assuming db is already wiped\n'
-                     '`heroku pg:reset DATABASE` on Heroku')
+                     '`heroku pg:reset DATABASE_URL` on Heroku')
                 )
         self.log('Initial sync')
         call_command('syncdb', interactive=False, verbosity=0)

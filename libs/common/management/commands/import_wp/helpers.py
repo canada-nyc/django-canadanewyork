@@ -76,18 +76,18 @@ def dates_from_text(text, year):
     default = dateutil.parser.parse(year)
 
     text_split = text.split('-', 1)
+    dates = []
     if len(text_split) == 2:
-        last_date = date_from_text(text_split[1], default)
-        first_date = date_from_text(text_split[0], (last_date or default))
-        if not last_date:
-            return first_date or default
-        elif not first_date:
-            return default
-        return (
-            first_date,
-            last_date,
-        )
-    return date_from_text(text, default) or default, None
+        dates.append(date_from_text(text_split[1], default))
+        dates.append(date_from_text(text_split[0], (dates[0] or default)))
+    else:
+        dates.append((date_from_text(text, default)))
+    dates = sorted(filter(None, dates))
+    if len(dates) == 0:
+        return default, None
+    elif len(dates) == 1:
+        return dates[0], None
+    return dates[0], dates[1]
 
 
 def models_from_text(text, model, model_function):

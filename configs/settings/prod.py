@@ -33,20 +33,25 @@ INSTALLED_APPS += (
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = AWS_S3_CUSTOM_DOMAIN = os.environ.get('AWS_BUCKET')
+
+# Faster sync
 AWS_PRELOAD_METADATA = True
+# Hopefully prettier urls?
 AWS_QUERYSTRING_AUTH = False
 
+
+AWS_S3_SECURE_URLS = False
+
 DEFAULT_FILE_STORAGE = THUMBNAIL_DEFAULT_STORAGE = 's3_folder_storage.s3.DefaultStorage'
-DEFAULT_S3_PATH = "media"
 STATICFILES_STORAGE = COMPRESS_STORAGE = 's3_folder_storage.s3.StaticStorage'
+
+# Use by s3_folder_storage to save the static and other media to a path on the
+# bucket
 STATIC_S3_PATH = "static"
-
-
-MEDIA_ROOT = '/{}/'.format(DEFAULT_S3_PATH)
-MEDIA_URL = 'https://{}/{}/'.format(AWS_STORAGE_BUCKET_NAME, DEFAULT_S3_PATH)
+DEFAULT_S3_PATH = "media"
 
 STATIC_ROOT = '/{}/'.format(STATIC_S3_PATH)
-STATIC_URL = 'https://{}/{}/'.format(AWS_STORAGE_BUCKET_NAME, STATIC_S3_PATH)
+STATIC_URL = COMPRESS_URL = 'http://{}/{}/'.format(AWS_STORAGE_BUCKET_NAME, STATIC_S3_PATH)
 
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 

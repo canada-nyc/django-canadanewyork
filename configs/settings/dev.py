@@ -38,10 +38,10 @@ STATIC_S3_PATH = "static"
 
 
 MEDIA_ROOT = '/{}/'.format(DEFAULT_S3_PATH)
-MEDIA_URL = 'https://{}/'.format(DEFAULT_S3_PATH)
+MEDIA_URL = 'https://{}/{}/'.format(AWS_STORAGE_BUCKET_NAME, DEFAULT_S3_PATH)
 
 STATIC_ROOT = '/{}/'.format(STATIC_S3_PATH)
-STATIC_URL = 'https://{}/'.format(STATIC_S3_PATH)
+STATIC_URL = 'https://{}/{}/'.format(AWS_STORAGE_BUCKET_NAME, STATIC_S3_PATH)
 
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
@@ -49,7 +49,7 @@ ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 #########
 # DEBUG #
 #########
-DEBUG = TEMPLATE_DEBUG = True
+#DEBUG = TEMPLATE_DEBUG = True
 
 INSTALLED_APPS += ('debug_toolbar',)
 MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)

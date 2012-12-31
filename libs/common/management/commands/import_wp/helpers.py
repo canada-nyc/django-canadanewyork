@@ -73,7 +73,7 @@ def dates_from_text(text, year):
 
     A string of the year is required in case one isn't found
     '''
-    default = dateutil.parser.parse(year)
+    default = dateutil.parser.parse(year.split('-')[0])
 
     text_split = text.split('-', 1)
     dates = []

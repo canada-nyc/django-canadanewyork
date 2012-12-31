@@ -8,6 +8,17 @@ INTERNAL_IPS = ('127.0.0.1',)
 
 
 ###########
+# Caching #
+###########
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}
+
+
+###########
 # STORAGE #
 ###########
 MEDIA_ROOT = rel_path('tmp/media/')

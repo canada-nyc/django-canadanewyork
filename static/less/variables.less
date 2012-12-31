@@ -33,7 +33,7 @@
 // Scaffolding
 // -------------------------
 @bodyBackground:        @black;
-@textColor:             @grayLighter;
+@textColor:             @grayLight;
 
 
 // Links
@@ -68,9 +68,9 @@
 
 // Buttons
 // -------------------------
-@btnBackground:                     @white;
-@btnBackgroundHighlight:            darken(@white, 10%);
-@btnBorder:                         #bbb;
+@btnBackground:                     @black;
+@btnBackgroundHighlight:            @btnBackground;
+@btnBorder:                         lighten(@btnBackground, 10%);
 
 @btnPrimaryBackground:              @linkColor;
 @btnPrimaryBackgroundHighlight:     spin(@btnPrimaryBackground, 20%);
@@ -93,7 +93,7 @@
 
 // Forms
 // -------------------------
-@inputBackground:               @white;
+@inputBackground:               @black;
 @inputBorder:                   #ccc;
 @inputBorderRadius:             3px;
 @inputDisabledBackground:       @grayLighter;
@@ -175,8 +175,8 @@
 @navbarInverseBackgroundHighlight:       @navbarInverseBackground;
 @navbarInverseBorder:                    @navbarInverseBackground;
 
-@navbarInverseText:                      @grayLight;
-@navbarInverseLinkColor:                 @grayLight;
+@navbarInverseText:                      inherit;
+@navbarInverseLinkColor:                 inherit;
 @navbarInverseLinkColorHover:            @orange;
 @navbarInverseLinkColorActive:           @navbarInverseLinkColorHover;
 @navbarInverseLinkBackgroundHover:       transparent;
@@ -230,10 +230,10 @@
 @tooltipArrowWidth:       5px;
 @tooltipArrowColor:       @tooltipBackground;
 
-@popoverBackground:       #fff;
+@popoverBackground:       @black;
 @popoverArrowWidth:       10px;
 @popoverArrowColor:       #fff;
-@popoverTitleBackground:  darken(@popoverBackground, 3%);
+@popoverTitleBackground:  lighten(@popoverBackground, 3%);
 
 // Special enhancement for popovers
 @popoverArrowOuterWidth:  @popoverArrowWidth + 1;

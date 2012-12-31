@@ -36,3 +36,22 @@ class ArtistTest(WebTest):
         assert PressExhibition.title in press_list
         assert PressArtist.title in press_list.click(PressArtist.title)
         assert PressExhibition.title in press_list.click(PressExhibition.title)
+
+    def test_no_resume(self):
+        Artist = ArtistFactory(
+            visible=True,
+            resume=''
+        )
+        artist_detail = self.app.get(Artist.get_absolute_url())
+
+        assert 'Resume' not in artist_detail
+
+    def test_resume(self):
+        Artist = ArtistFactory(
+            visible=True,
+            resume='resume text'
+        )
+        artist_detail = self.app.get(Artist.get_absolute_url())
+
+        assert 'Resume' in artist_detail
+        assert Artist.resume in artist_detail

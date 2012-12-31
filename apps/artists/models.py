@@ -7,6 +7,8 @@ from django.db.models import Q
 from django.db.models.loading import get_model
 from django.contrib.contenttypes import generic
 
+from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
+
 from libs.slugify.fields import SlugifyField
 from libs.content_redirects.fields import RedirectField
 from libs.common.models import Photo
@@ -21,7 +23,7 @@ class Artist(models.Model):
 
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    resume = models.TextField(blank=True, null=True)
+    resume = models.TextField(blank=True, null=True, help_text=markdown_allowed())
     slug = SlugifyField(populate_from=('first_name', 'last_name'))
     visible = models.BooleanField(
         default=False,
@@ -43,10 +45,6 @@ class Artist(models.Model):
         return ' '.join([self.first_name, self.last_name])
 
     def clean(self):
-        if self.resume and self.resume._file and self.resume._file.content_type != 'application/pdf':
-            file_type = self.resume._file.content_type.split('/')[1]
-            error = 'You uploaded a {}. A PDF is required'.format(file_type)
-            raise ValidationError(error)
         self.first_name = self.first_name.strip().title()
         self.last_name = self.last_name.strip().title()
 

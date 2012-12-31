@@ -1,19 +1,47 @@
+
+// Grays
+// -------------------------
+@black:                 #000;
+@grayDarker:            #222;
+@grayDark:              #333;
+@gray:                  #555;
+@grayLight:             #999;
+@grayLighter:           #eee;
+@white:                 #fff;
+
+
 /* Add top padding for navbar-top-fixed */
 body {
   padding-top: 60px;
   padding-bottom: 40px;
   }
+
 /* Remove top padding when top navbar goes static in narrow viewports */
 @media (max-width: 979px) {
   body {
     padding-top: 0;
   }
 }
-// Image Gallery
-#galleria {
-    width: 700px;
-    height: 400px;
-    background: #000;
+
+// Change modal colors
+
+.modal {
+  background-color: @black;
+  color: inherit;
+}
+
+.modal-footer {
+  border-top: 0;
+  background-color: @black;
+}
+
+.modal-header {
+  border-bottom: 0;
+}
+
+// Small headers
+h1 {
+  font-size: 100%;
 }
 
 // Sticky Footer

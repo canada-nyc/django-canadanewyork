@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load thumbnail %}
+{% load markdown_deux_tags %}
 
 {% block title %}{% include "base/model_detail.html" with model=artist %}{{ block.super }}{% endblock %}
 
@@ -7,7 +8,23 @@
 <article>
   <h1>{% include "base/model_detail.html" with model=artist %}</h1>
   {% include "base/photos.html" with photos=artist.photos.all %}
-  <p><a href={{ artist.resume.url }}>Resume</a>
+  {% if artist.resume %}
+    <!-- Button to trigger modal -->
+    <p><a href="#resume" data-toggle="modal">Resume</a></p>
+
+    <!-- Modal -->
+    <div id="resume" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="resume_label" aria-hidden="true">
+      <div class="modal-header">
+        <h3 id="myModalLabel">Resume | {% include "base/model_detail.html" with model=artist %}</h3>
+      </div>
+      <div class="modal-body">
+        {{ artist.resume|markdown }}
+      </div>
+      <div class="modal-footer">
+        <a data-dismiss="modal" href="#" aria-hidden="true">Close</a>
+      </div>
+    </div>
+  {% endif %}
   {% if artist.get_press.exists %}
     <p><a href="{{ artist.get_press_url }}">Press</a>
   {% endif %}

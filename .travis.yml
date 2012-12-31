@@ -16,6 +16,9 @@ script:
   - flake8 .
   - python manage.py test tests
 
+after:
+  - python manage.py wipe_storage
+
 after_success:
   - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
   - git remote add heroku git@heroku.com:canada-development.git

@@ -35,7 +35,7 @@ class TestPDFImageAppend(AddAppMixin, TestCase):
         self.TestPDFImageModel.delete()
 
     def test_create(self):
-        self.TestPDFImageModel.pdf_image_append(image_file=django_image('test'))
+        self.TestPDFImageModel.pdf_image_append(image_content=django_image('test'))
 
         self.assertTrue(self.TestPDFImageModel.pdf)
         self.assertEqual(1, page_count(self.TestPDFImageModel.pdf))
@@ -44,8 +44,8 @@ class TestPDFImageAppend(AddAppMixin, TestCase):
         self.assertEqual(1, page_count(self.TestPDFImageModel.pdf))
 
     def test_append(self):
-        self.TestPDFImageModel.pdf_image_append(image_file=django_image('test'))
-        self.TestPDFImageModel.pdf_image_append(image_file=django_image('test'))
+        self.TestPDFImageModel.pdf_image_append(image_content=django_image('test'))
+        self.TestPDFImageModel.pdf_image_append(image_content=django_image('test'))
 
         self.assertTrue(self.TestPDFImageModel.pdf)
         self.assertEqual(2, page_count(self.TestPDFImageModel.pdf))

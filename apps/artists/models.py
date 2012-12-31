@@ -18,10 +18,7 @@ class VisibleManager(models.Manager):
 
 
 class Artist(models.Model):
-    def resume_path(instance, filename):
-        return os.path.join(instance.get_absolute_url()[1:],
-                            'resume',
-                            filename)
+
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     resume = models.TextField(blank=True, null=True)

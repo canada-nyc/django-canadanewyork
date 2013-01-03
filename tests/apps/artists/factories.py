@@ -10,6 +10,7 @@ class ArtistFactory(DjangoFactory):
 
     first_name = factory.Sequence(lambda n: 'Firstname{}'.format(n))
     last_name = factory.Sequence(lambda n: 'Lastname{}'.format(n))
+    resume = 'Really long resume. Has lots of _markdown_'
 
     resume = factory.Sequence(lambda n: django_pdf(n, 'Ima s World'))
 

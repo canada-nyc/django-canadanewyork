@@ -1,9 +1,21 @@
 from .common import *
 
 
+############
+# SECURITY #
+############
+SECURE_FRAME_DENY = True
+MIDDLEWARE_CLASSES += ('django.middleware.csrf.CsrfViewMiddleware',)
+
+
 ###########
 # Caching #
 ###########
+MIDDLEWARE_CLASSES += (
+    'django.middleware.gzip.GZipMiddleware',
+    'django.middleware.http.ConditionalGetMiddleware ',
+)
+
 TEMPLATE_LOADERS = (
     ('django.template.loaders.cached.Loader', (
         'django.template.loaders.filesystem.Loader',
@@ -20,7 +32,9 @@ CACHES = {
     }
 }
 
-MIDDLEWARE_CLASSES += ('django.middleware.gzip.GZipMiddleware',)
+MIDDLEWARE_CLASSES += ('django.middleware.cache.FetchFromCacheMiddleware',)
+# Must be first
+MIDDLEWARE_CLASSES = ('django.middleware.cache.UpdateCacheMiddleware',) + MIDDLEWARE_CLASSES
 
 
 ###########
@@ -54,10 +68,3 @@ STATIC_ROOT = '/{}/'.format(STATIC_S3_PATH)
 STATIC_URL = 'http://{}/{}/'.format(AWS_STORAGE_BUCKET_NAME, STATIC_S3_PATH)
 
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
-
-
-############
-# SECURITY #
-############
-SECURE_FRAME_DENY = True
-MIDDLEWARE_CLASSES += ('django.middleware.csrf.CsrfViewMiddleware',)

@@ -3,7 +3,19 @@
 ```sh
 pip install -r requirements/dev.txt
 gem install foreman
-foreman -e configs/env/common.env run python manage.py clean_db
+# Install NPM if you don't have it installed
+# Tutorial on installing http://stackoverflow.com/questions/8986709/how-to-install-lessc-and-nodejs-in-a-python-virtualenv
+# On homebrew do `brew install nodejs`
+npm install -g less
+
+echo 'SECRET_KEY=<long and random>
+EMAIL_HOST_PASSWORD=<only used for sending batch email, required in settings>
+ADMIN_USERNAME=<for automatic admin creation>
+ADMIN_PASSWORD=<default password>
+ADMIN_EMAIL=
+' > configs/env/common.env
+mkdir tmp
+foreman -e configs/env/common.env run python manage.py clean_db --init
 python manage.py runserver
 ```
 # Deploy

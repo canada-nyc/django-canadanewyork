@@ -13,7 +13,6 @@ MIDDLEWARE_CLASSES += ('django.middleware.csrf.CsrfViewMiddleware',)
 ###########
 MIDDLEWARE_CLASSES += (
     'django.middleware.gzip.GZipMiddleware',
-    'django.middleware.http.ConditionalGetMiddleware ',
 )
 
 TEMPLATE_LOADERS = (

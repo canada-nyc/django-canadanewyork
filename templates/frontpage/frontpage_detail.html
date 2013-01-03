@@ -8,7 +8,7 @@
 {% block body %}
 <article>
   <a href="{{ frontpage.exhibition.get_absolute_url }}">
-    {% thumbnail frontpage.image image_size as im %}
+    {% thumbnail frontpage.image "x500" as im %}
       <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
     {% endthumbnail %}
   </a>

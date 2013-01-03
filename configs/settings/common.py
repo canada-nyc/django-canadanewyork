@@ -27,10 +27,6 @@ ROOT_URLCONF = 'configs.urls'
 ##########
 # CANADA #
 ##########
-CANADA_IMAGE_SIZE = 'x400'
-CANADA_FRONTPAGE_IMAGE_SIZE = 'x400'
-CANADA_ADMIN_THUMBS_SIZE = 'x60'
-
 INSTALLED_APPS = (
     'apps.artists',
     'apps.exhibitions',
@@ -46,7 +42,6 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES += ('libs.redirects.middleware.RedirectFallbackMiddleware',)
-TEMPLATE_CONTEXT_PROCESSORS += ('libs.common.context_processors.image_size',)
 
 
 #########
@@ -71,7 +66,7 @@ GRAPPELLI_ADMIN_TITLE = 'canada'
 TEMPLATE_DIRS = rel_path('templates')
 
 INSTALLED_APPS += ('sorl.thumbnail',)
-THUMBNAIL_DEFAULT_STORAGE = 'easy_thumbnails.storage.ThumbnailFileSystemStorage'
+THUMBNAIL_UPSCALE = False
 
 INSTALLED_APPS += ('smart_selects',)
 

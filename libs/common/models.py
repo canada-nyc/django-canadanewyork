@@ -4,8 +4,6 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
-from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
-
 
 class Photo(models.Model):
 
@@ -17,7 +15,7 @@ class Photo(models.Model):
         )
 
     title = models.CharField(blank=True, max_length=400)
-    caption = models.TextField(blank=True, help_text=markdown_allowed())
+    caption = models.TextField(blank=True)
     image = models.ImageField(upload_to=image_path, max_length=1000)
 
     content_type = models.ForeignKey(ContentType)

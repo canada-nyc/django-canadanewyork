@@ -4,63 +4,67 @@
 {% load markdown_deux_tags %}
 
 {% if photos %}
-  {% with id=id|default:"1" height=image_size|cut:"x" %}
-    {% for image in photos %}
-      {% thumbnail image.image image_size as im %}
-      <a class="fancybox" data-title-id="{{ image.pk }}" href="{{ im.url }}" rel="{{ id }}"><img src="{{ im.url }}"/></a>
-      <div id="{{ image.pk }}" class="hidden">
-          <strong>{{ image.title }}</strong> {{ image.caption|markdown }}
-      </div>
-      {% if forloop.first %}<div class="hidden">​{% endif %}
-      {% if forloop.last %}</div>​{% endif %}
+  {% addtoblock "js" %}
+    <!-- Add mousewheel plugin (this is optional) -->
+    <script src="{% static "canada/fancybox/lib/jquery.mousewheel-3.0.6.pack.js" %}"></script>
+
+    <!-- Add fancyBox -->
+    <script src="{% static "canada/fancybox/source/jquery.fancybox.pack.js" %}"></script>
+
+    <!-- Optionally add helpers - button, thumbnail and/or media -->
+    <script src="{% static "canada/fancybox/source/helpers/jquery.fancybox-buttons.js" %}"></script>
+    <script src="{% static "canada/fancybox/source/helpers/jquery.fancybox-media.js" %}"></script>
+    <script src="{% static "canada/fancybox/source/helpers/jquery.fancybox-thumbs.js" %}"></script>
+
+  {% endaddtoblock %}
+  {% addtoblock "css_no_compress" %}
+    <!-- Add fancyBox -->
+    <link rel="stylesheet" href="{% static "canada/fancybox/source/jquery.fancybox.css" %}"  media="screen" />
+
+    <!-- Optionally add helpers - button, thumbnail and/or media -->
+    <link rel="stylesheet" href="{% static "canada/fancybox/source/helpers/jquery.fancybox-buttons.css" %}"  media="screen" />
+  {% endaddtoblock %}
+
+  {% with id=id|default:"1" %}
+    {% with image=photos|first %}
+      {% thumbnail image.image "x400" as im %}
+      <a class="open_fancybox{{ id }}" href="{{ im.url }}">
+          <img src="{{ im.url }}" alt={{ image.title }}/>
+      </a>
       {% endthumbnail %}
-    {% endfor %}
+    {% endwith %}
 
-    {% addtoblock "js" %}
-      <!-- Add mousewheel plugin (this is optional) -->
-      <script src="{% static "canada/fancybox/lib/jquery.mousewheel-3.0.6.pack.js" %}"></script>
-
-      <!-- Add fancyBox -->
-      <script src="{% static "canada/fancybox/source/jquery.fancybox.pack.js" %}"></script>
-
-      <!-- Optionally add helpers - button, thumbnail and/or media -->
-      <script src="{% static "canada/fancybox/source/helpers/jquery.fancybox-buttons.js" %}"></script>
-      <script src="{% static "canada/fancybox/source/helpers/jquery.fancybox-media.js" %}"></script>
-      <script src="{% static "canada/fancybox/source/helpers/jquery.fancybox-thumbs.js" %}"></script>
-
-    {% endaddtoblock %}
-    {% addtoblock "css_no_compress" %}
-      <!-- Add fancyBox -->
-      <link rel="stylesheet" href="{% static "canada/fancybox/source/jquery.fancybox.css" %}"  media="screen" />
-
-      <!-- Optionally add helpers - button, thumbnail and/or media -->
-      <link rel="stylesheet" href="{% static "canada/fancybox/source/helpers/jquery.fancybox-buttons.css" %}"  media="screen" />
-      <link rel="stylesheet" href="{% static "canada/fancybox/source/helpers/jquery.fancybox-thumbs.css" %}"  media="screen" />
-    {% endaddtoblock %}
-
-    {% addtoblock "js" %}
+    {% addtoblock "js_no_compress" %}
     <script type="text/javascript">
-      $(document).ready(function() {
-        $(".fancybox").fancybox({
-          padding : 0,
-          aspectRatio: true,
-          helpers : {
+    $(".open_fancybox{{ id }}").click(function() {
+        $.fancybox.open(
+          [
+            {% for image in photos %}
+              {% thumbnail image.image "x800" as im %}
+              {
+                href : '{{ im.url|escapejs }}',
+                title : '<p>{{ image.title|escapejs }}</p>{{ image.caption|escapejs }}'
+              },
+              {% endthumbnail %}
+            {% endfor %}
+          ],
+          {
+            padding : 0,
+            margin : [20, 120, 20, 120], // Increase left/right margin
+            aspectRatio: true,
+            helpers : {
               title: {
-                  type: 'outside'
+                type: 'outside'
+              },
+              overlay : {
+                css : {
+                  'background' : 'black'
+                }
               }
-          },
-          beforeLoad: function() {
-              var el, id = $(this.element).data('title-id');
-
-              if (id) {
-                  el = $('#' + id);
-
-                  if (el.length) {
-                      this.title = el.html();
-                  }
-              }
+            }
           }
-        });
+        );
+        return false;
       });
     </script>
     {% endaddtoblock %}

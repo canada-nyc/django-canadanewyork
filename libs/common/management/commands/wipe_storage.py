@@ -10,8 +10,8 @@ class Command(NoArgsCommand):
     help = 'Wipes either local or S3 static and media storage'
 
     def handle(self, *args, **options):
-        self.log('Wiping all storage')
-        if settings.AWS_ACCESS_KEY_ID and settings.AWS_SECRET_ACCESS_KEY and settings.AWS_STORAGE_BUCKET_NAME:
+        self.log('Wiping storage')
+        if settings.__getattr__('AWS_STORAGE_BUCKET_NAME', None):
             self.log('    Found bucket {}'.format(settings.AWS_STORAGE_BUCKET_NAME))
             self.log('    Getting connection...')
             connection = S3Connection(
@@ -26,6 +26,9 @@ class Command(NoArgsCommand):
                 key.delete()
         else:
             self.log('    Found local storage')
+            self.log('        Deleting')
+            self.log('            {}'.format(settings.MEDIA_ROOT))
+            self.log('            {}'.format(settings.STATIC_ROOT))
             call('rm -rf {}'.format(settings.MEDIA_ROOT), shell=True)
             call('rm -rf {}'.format(settings.STATIC_ROOT), shell=True)
 

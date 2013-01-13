@@ -35,15 +35,16 @@ def html_to_markdown(html):
 def image_links_from_html(html):
     html = html.replace('[gallery]', '')
     soup = BeautifulSoup(html)
-    for link in soup.find_all('a'):
-        yield link.get('href')
+    for link in soup.find_all('img'):
+        yield link.get('src')
 
 
 def file_from_link(url):
     img_temp = NamedTemporaryFile(delete=True)
     img_temp.write(requests.get(url).content)
     img_temp.flush()
-    return os.path.basename(url), File(img_temp)
+    filename = os.path.splitext(os.path.basename(url))[0]
+    return filename, File(img_temp)
 
 
 def year_from_element(element):

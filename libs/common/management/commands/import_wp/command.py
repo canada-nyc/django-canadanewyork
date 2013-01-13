@@ -62,5 +62,12 @@ class Command(BaseCommand):
                         added_models.append(e_function(element, elements))
                         L -= 1
         L -= 1
+
+        L('Cleaning models')
+
+        def clean_model(model):
+            if model:
+                model.clean()
+                model.save()
         # Clean all models
-        map(lambda model: model.clean() if model else model, added_models)
+        map(clean_model, added_models)

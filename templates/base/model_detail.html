@@ -14,7 +14,8 @@
   {% endif %}
 
   {% if model_name == "press" %}
-    {% if not extra_info %}{{ model.publisher }} | <em>{{ model.title }}</em>
+    {% if not extra_info %}
+      {% if model.publisher %}{{ model.publisher }} | {% endif %}<em>{{ model.title }}</em>
     {% else %}{% include "base/full_date.html" with date=model.date %}{% endif %}
   {% endif %}
 {% endwith %}

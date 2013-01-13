@@ -6,13 +6,15 @@ from south.modelsinspector import introspector
 
 
 SLUG_INDEX_SEPARATOR = '-'    # the "-" in "foo-2"
+# So that if used in filesystem, will not exceed max file length
+MAX_LENGTH = 255 - len('.jpg')
 
 
 class SlugifyField(SlugField):
     def __init__(self, *args, **kwargs):
         kwargs['editable'] = False
 
-        kwargs['max_length'] = kwargs.get('max_length', 1000)
+        kwargs['max_length'] = kwargs.get('max_length', MAX_LENGTH)
         # autopopulated slug is not editable unless told so
         self.populate_from = kwargs.pop('populate_from')
         # Use default seperator unless given one
@@ -31,7 +33,7 @@ class SlugifyField(SlugField):
                  'be passed a list, not a string').format(model_instance,
                                                           self.attname))
         values = [value(model_instance) if callable(value) else getattr(model_instance, value) for value in self.populate_from]
-        return self.index_sep.join(map(slugify, values))
+        return self.index_sep.join(map(slugify, values))[:MAX_LENGTH]
 
     def south_field_triple(self):
         "Returns a suitable description of this field for South."

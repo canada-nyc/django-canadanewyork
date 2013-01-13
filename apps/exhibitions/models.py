@@ -30,7 +30,7 @@ class Exhibition(models.Model):
         ordering = ["-start_date"]
 
     def __unicode__(self):
-        return '{}({})'.format(self.name, self.start_date.year)
+        return u'{}({})'.format(self.name, self.start_date.year)
 
     @permalink
     def get_absolute_url(self):

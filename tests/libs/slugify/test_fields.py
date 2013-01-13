@@ -27,3 +27,8 @@ class TestContentRedirects(AddAppMixin, TestCase):
         calculated_slug = slugify('-'.join([_SlugifyDateModel.text, str(_SlugifyDateModel.date.year)]))
         model_slug = _SlugifyDateModel.slug
         self.assertEqual(calculated_slug, model_slug)
+
+    def test_max_length(self):
+        _SlugifyModel = SlugifyModelFactory(text='s' * 300)
+        model_slug = _SlugifyModel.slug
+        self.assertLess(len(model_slug), 255)

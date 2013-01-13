@@ -33,10 +33,12 @@ heroku addons:add heroku-postgresql:dev
 heroku labs:enable user-env-compile #enabled so that collectstatic has access to amazon ec2 key
 heroku config:push -o --filename configs/env/common.env
 heroku config:push -o --filename configs/env/heroku.env
+heroku config:push -o --filename configs/env/secret.env
 heroku config:push -o --filename configs/env/prod.env
 heroku pg:promote (heroku pg | grep '^===' | sed 's/^=== //g')
 git push heroku master
 heroku run 'python manage.py clean_db'
+heroku run 'python manage.py import_wp static/wordpress/.canada.wordpress.*'
 ```
 
 ## Travis
@@ -49,6 +51,13 @@ for line in (cat configs/env/common.env configs/env/travis.env);
     travis encrypt saulshanabrook/django-canadanewyork $line >> '.travis.yml';
 end
 travis encrypt saulshanabrook/django-canadanewyork HEROKU_API_KEY=(heroku auth:token) >> '.travis.yml'
+```
+
+# Wiping
+```sh
+# wipes either S3 or local storage, depending on current settings
+# also wipes database
+foreman run python manage.py clean_db --env=configs/env/common.env,configs/env/secret.env
 ```
 
 # Schema

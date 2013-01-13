@@ -67,6 +67,10 @@ class Command(BaseCommand):
 
         def clean_model(model):
             if model:
+                # so that it will get the current DB version
+                # for instance artists will have two entries, one with the
+                # resume and one without. so on each it will get the real one
+                model = model.__class__.objects.get(pk=model.pk)
                 model.clean()
                 model.save()
         # Clean all models

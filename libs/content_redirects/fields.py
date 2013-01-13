@@ -47,11 +47,12 @@ class RedirectField(OneToOneField):
 
         redirect = getattr(model_instance, self.name)
         if all(redirect_kwargs.values()):
+            # In case over character limit, make transaction savepoint
+            # so that postgresql can roll back to it.
+            # docs.djangoproject.com/en/dev/topics/db/transactions/#savepoint-rollback
+            sid = transaction.savepoint()
             try:
-                # In case over character limit, make transaction savepoint
-                # so that postgresql can roll back to it.
-                # docs.djangoproject.com/en/dev/topics/db/transactions/#savepoint-rollback
-                sid = transaction.savepoint()
+
                 if redirect:
                     redirect.__dict__.update(redirect_kwargs)
                     redirect.save()

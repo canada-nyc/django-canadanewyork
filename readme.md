@@ -10,12 +10,14 @@ npm install -g less
 
 echo 'SECRET_KEY=<long and random>
 EMAIL_HOST_PASSWORD=<only used for sending batch email, required in settings>
-ADMIN_USERNAME=<for automatic admin creation>
-ADMIN_PASSWORD=<default password>
-ADMIN_EMAIL=
-' > configs/env/common.env
+ADMIN_PASSWORD=<default password for admin user>
+ADMIN_EMAIL=<email for admin user>' > configs/env/secret.env
 mkdir tmp
-foreman -e configs/env/common.env run python manage.py clean_db --init
+
+# for factory data
+foreman run python manage.py clean_db --init --env=configs/env/common.env,configs/env/secret.env
+# or for importing from wordpress
+foreman run python manage.py import_wp static/wordpress/.canada.wordpress.* --env=configs/env/common.env,configs/env/secret.env
 python manage.py runserver
 ```
 # Deploy

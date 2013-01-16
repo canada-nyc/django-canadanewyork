@@ -29,7 +29,7 @@ psycopg2==2.4.5
 ##
 #Compression
 ##
-git+git://github.com/jezdez/django_compressor.git
+git+git://github.com/jezdez/django_compressor.git@1a7f1ff7cbd2605dc5697a9f2df649d97ff3a669
 BeautifulSoup==3.2.1
 
 ##

@@ -2,6 +2,7 @@
 {% load static from staticfiles %}
 {% load sekizai_tags %}
 {% load markdown_deux_tags %}
+{% load humanize %}
 
 {% if photos %}
   {% addtoblock "js" %}
@@ -28,9 +29,16 @@
   {% with id=id|default:"1" %}
     {% with image=photos|first %}
       {% thumbnail image.image "x400" as im %}
-      <a class="open_fancybox{{ id }}" href="{{ im.url }}">
-          <img src="{{ im.url }}" alt={{ image.title }}/>
-      </a>
+      <figure>
+        <a class="open_fancybox{{ id }}" href="{{ im.url }}">
+            <img src="{{ im.url }}" alt={{ image.title }}/>
+        {% if not photos|length_is:"1" %}
+          <figcaption>
+            Click for {{ photos|length|add:"-1"|apnumber }} more photo{{ photos|length|add:"-1"|pluralize }}
+          </figcaption>
+        {% endif %}
+        </a>
+      </figure>
       {% endthumbnail %}
     {% endwith %}
 

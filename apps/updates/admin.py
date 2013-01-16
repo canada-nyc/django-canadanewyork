@@ -7,7 +7,7 @@ from libs.common.admin import PhotoInline
 class UpdateAdmin(admin.ModelAdmin):
     inlines = [PhotoInline]
     date_hierarchy = 'post_date'
-    list_display = ('post_date')
-    fields = ('description', 'post_date',)
+    list_display = ('post_date',)
+    fields = ('description',)
 
 admin.site.register(Update, UpdateAdmin)

@@ -6,6 +6,6 @@ from .models import Update
 urlpatterns = patterns(
     '',
     url(r'^$', ListView.as_view(model=Update)),
-    url(r'^\#(?P<slug>[-\w]+)$', ListView.as_view(model=Update),
+    url(r'^\#(?P<pk>[-\w]+)$', ListView.as_view(model=Update),
         name='update-single'),
 )

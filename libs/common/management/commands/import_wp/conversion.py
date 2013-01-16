@@ -1,4 +1,3 @@
-import HTMLParser
 import urlparse
 
 import dateutil.parser
@@ -173,16 +172,13 @@ def create_press_file(element, all_elements):
 
 def create_update(element, all_elements):
     U = Update(
-        name=HTMLParser.HTMLParser().unescape(
-            element.findtext('title')
-        ),
         description=helpers.html_to_markdown(
             element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
         ),
         old_path=urlparse.urlparse(element.findtext('link')).path,
     )
     U.save()
-    # ovverride first save value of 'now', because auto_now_add cannot be overridden
+    # override first save value of 'now', because auto_now_add cannot be overridden
     U.post_date = dateutil.parser.parse(element.findtext('pubDate'))
     U.save()
     for link in helpers.image_links_from_html(element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')):

@@ -44,13 +44,26 @@ heroku run 'python manage.py import_wp static/wordpress/.canada.wordpress.*'
 ## Travis
 ```sh
 #!/usr/bin/env fish
-gem install specific_install
-gem specific_install -l https://github.com/saulshanabrook/travis-cli.git
-sed -i '' '/^    - secure: /d'  .travis.yml
-for line in (cat configs/env/common.env configs/env/travis.env);
-    travis encrypt saulshanabrook/django-canadanewyork $line >> '.travis.yml';
+gem install travis
+
+sed '/  global:/q' .travis.yml | cat | tee .travis.yml
+
+function t_encrypt
+    echo "    - secret: "(travis encrypt --no-interactive $argv)
 end
-travis encrypt saulshanabrook/django-canadanewyork HEROKU_API_KEY=(heroku auth:token) >> '.travis.yml'
+
+function t_var
+    echo "    - $argv"
+end
+
+for line in (cat configs/env/secret.env);
+    t_encrypt $line >> '.travis.yml';
+end
+for line in (cat configs/env/common.env configs/env/travis.env);
+    t_var $line >> '.travis.yml';
+end
+
+t_encrypt HEROKU_API_KEY=(heroku auth:token) >> '.travis.yml'
 ```
 
 # Wiping

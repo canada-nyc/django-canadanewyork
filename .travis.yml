@@ -35,14 +35,14 @@ notifications:
 
 env:
   global:
-    - secure: "HEe13jBcyPn0R/MEmKONUVDYQNcs7sYivnjhx8IIsF0hrcHrzFBmptV/pHOT\nKDtbLtwE3JePCbbYrpNzlLgBDzZdSEWH9Sva1qulWTkR/GFRBjZEJddPWDq1\neGX6yKo48j6ybLRqnvOWAQoegBn89d7wUGmrDfaSl1iHbzxbGos="
-    - secure: "Gv9n1iyOdOriGHRNji4pB5xEh6l3LiGSeqO+pHEPqfO11drhZCcHEpDxMqj8\n2j6D0VEHbt3G+yHQIAsCKgI6YLo/X6UI8JmZFKSa/R/59tHYFOShneUgtZmh\nbwwcEduU8ecDxGJtSvwMA5dh6gcxZcd/e4x76kAsYLs65+pJyqM="
-    - secure: "BCk7YJ2gkDYV4H9OJk7AMOKmJgtb633Vwx2ucN0Twm3b4s58mt09TEqQluMG\njS3RCr0xx+OcE/+oTMHGK4VD0fsBV9HDu4p+p/cCE7jLsTP1//wsF6fNZbdE\nGk0IPBrQO65Q1YfxBdb25I808sItc73DZ2T6KsXL77QvU2zL7FU="
-    - secure: "GMpL9zQlIkwFHl0dbKzeTmYUc8NLfhr4E08J96Z1dz1Sg0inuHfvJ0JfUuT0\nSnyk4LqHMzj39YdnHgOUDACUDSgCqSIkqQB2shyh84MzF2GDRaF1Oxok1XuX\nBPjEZ7QZGourSYaGsCT5plBU3xopOsnS+skFXyPs6sxCLhgjK1Y="
-    - secure: "qGcxX6qIyOFmpAZ/qXBzlLr3Ih8jTLuHkAqcpOk0ldkvbRepj4x7aGR9C80J\ngOCwPvJLZOU7njeNlm/KjqVLSTRXar9Fr12vRCRXni8klnIQbmtMACrG+Rbj\nFXOwe/YLZBVCR5JP90EaoTau1RQ8QiRPMStOM9tKJ45Xg0YnlWU="
-    - secure: "zR6gY2vtiS41HVJjLL/Fblx5nadffwAK/OgUZfGA5ErUQ5wv2nGuvY4PEScQ\nXRKV0EWZwaBc6rjCMmRAtABzyC8aTj2tH8MApd8EfaZBALlEB9XrEbHIe72O\nn5ifNLme8Wvqenx/B2cCSRKp32VgRvEQwHm3qMHGmC7SSksYhjY="
-    - secure: "UR8mKdUjpNkU4ntyM3iH3h/bQ3FYKP2XmREhQmzw0Z+/JEx0Vek/X3YVJQTc\nRfuauJyZsp45PFOKfYmBQup3fs2IoFmnsuNTKWZ4EweCqGRoN6O+5Dlxglnm\nQC3ZC8YCA2zWntq4owZPBcbmsBeDXHWQRiba+IIYEQ6TlXf/LFY="
-    - secure: "zMUQL/1Ebdxm5fxfa3n0f3xWl53IXeE2rFHjrr0xbU4bTxNZw4U1xI1RXEZD\n3M7yPDZG66/WpiVPIfDo/pDrjtXLjBkyxhakuwqV2fpCSaRFHyVf25V8qGUb\nGSrV5QHCrni36sWChkbRlEQKQ9vwzk0QCD0u3hSK6VhORlXYmVk="
-    - secure: "G/vI0O2zV9flH63uvPaF6MV/2vMgUFhJSsR8fOg7YSrG2N2qUrgcCTZixcnY\nWtbIeYk2p0FZsvCFYo0M5z59PzkyiuWd9Fs6FP9x66/JPwVlphwDUAUFK+mz\n8EHP0EzBxsa5ewhmeVUI31MofL/4IyMnuFEwlEuKr/Ltsq/9Az4="
-    - secure: "PQQI/9uMLOOnuP0tHuOOL7lfezkfhXQLHuF1WCAyuPmeD4gw88Px9YG7pfIU\nF5v+RxX3ekRPcfnz4sHSDtxx2K675/oe3io/4i7tIFk1+0gfNY+b07/1WHlr\nXLgIMCBylu65LCheyAqolBbwKJl84L7g4R8D8PwAc1Ijh2JT4hw="
-    - secure: "OqcRzF1FUx5QVeSBZYaXvsrMgw48lvzCj7sjn5mhYECjN2BEh6tj0f8F2HlK\nHxkdZewEZPnJpvH7gKl/I7xTg0BNQMzSufCoQVS8LAcUO02oG6hQpNBijTBV\nvtVSTLEUs/+nkQbLM3GDlJY80NHj5jQskvsTzSGhajCAZzWcQg8="
+    - secret: "gyfr2f6X5Tu9t5+4i40nB8d4T3VPElzszhK+z3q7wQEzsvfKRQdFZDj2CWif\n+FH56rtkDF6LZfk47pEIjKASAoTma2qxrZtV1PDGSbxk0Eo09ToLMuOsfsP2\nRPG74gLw+J/JPD90TTS5bqUqVOyGJvuDFKKi3UB5O4FisprfAKc="
+    - secret: "wac1kCYd+cqjuRSZhzpqejMQgQWorJ1n5ErdsAoqLHENs3P9S9whGyI9TxK8\nAug1495OO8k2vDiwD3DcFbmHZeiSI6cBcEvxXLvseKC2y9BvYhwJm2dYbbsi\np3vYZp9tzPs46jnWWYTrAIuD9a5YYBFsMF9RY0OjdmWsWNf3T+I="
+    - secret: "Ski5YykCbJ5SkqASnOhg7QTk5nqstyjglkfdx3+6hI1TA/Q9lOo8/TDu0yWJ\nElPq9v8wiP0NMnG0pNmfokWUCZ74lh/dt/X5JkskGjspVoNq98xd4Cnw+FAQ\nr5LlqqGRF3hG5CZ0O3TGEH8aY1EVBRfLw5n1++2ebA5ukBNxlUQ="
+    - secret: "WE0fMLaiswICg2dibYF4yJDe3jA9LKiVWoC/9hxrfCMcCtZGryGYTdciPUPT\nAMNw5bo74l2W1OKzXxSVZxD7iZwkMDbR8WvK3ppq/UBCGhzNBMJib3Jn2OhA\nFAsZZtjWaAihGrCZpJFAHo0AX9Yx4KOxWP4YdVxrx/6C5DAa3PI="
+    - secret: "BcDJbFBhqOS99VPDFkt+oE1C8pLhTnIa0e+ftueEGCPqLPmIJF+xsh0R6KCX\nOUg46mQHnImC39D77281p6VQoXDhpTGQTEzBbfZvlA/PdEEJ3HHKE3ChWqbT\n8qkqrD0q7+P21pcDcPESI2Q9xQ8OyCPXYaN6kDQTl+dak4c80lY="
+    - ADMIN_USERNAME=saul
+    - ADMIN_EMAIL=s.shanabrook@gmail.com
+    - DATABASE_URL=postgres://postgres@localhost/django_canadanewyork
+    - DJANGO_SETTINGS_MODULE=configs.settings.prod
+    - AWS_BUCKET=assets-testing.canadanewyork.com
+    - secret: "YVx9ndPE6IEVTal/LIZHGOWt3iVTx1QHdnSzwZXLg61ZPoi4NVP/hbpanvWC\nFp82KruErsVRx+7ST2UteRqRgMkJaf7BKQbub0IdMUxk118Vv0AEtfo0waNa\nl+icsE3idYYYugwkKcNloMrslT0lNSQZnL5vhoSQGDCr3Wwpndk="

@@ -12,6 +12,8 @@ from south.modelsinspector import introspector
 from libs.redirects.models import Redirect
 
 
+RELATED_MODEL = Redirect
+
 DEFAULT_GETTERS = {
     'old_path': 'old_path',
     'new_path': lambda model: model.get_absolute_url(),
@@ -21,7 +23,6 @@ DEFAULT_GETTERS = {
 
 class RedirectField(OneToOneField):
     def __init__(self, **kwargs):
-        kwargs['editable'] = False
         kwargs['blank'] = kwargs['null'] = True
         kwargs['on_delete'] = SET_NULL
 
@@ -33,7 +34,7 @@ class RedirectField(OneToOneField):
                 getter = lambda model: getattr(model, field_name)
             self.redirect_getters[field] = getter
 
-        super(RedirectField, self).__init__(Redirect, **kwargs)
+        super(RedirectField, self).__init__(RELATED_MODEL, **kwargs)
 
     def pre_save(self, model_instance, add):
         redirect_kwargs = {}

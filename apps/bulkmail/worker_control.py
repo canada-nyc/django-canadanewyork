@@ -34,6 +34,7 @@ class Worker(object):
             return len(self.worker_process._items)
 
     def scale(self, number):
+        logger('App is {}'.format(self.app_name))
         if self.app_name:
             logger.info('Scaling heroku worker')
             number = int(number)

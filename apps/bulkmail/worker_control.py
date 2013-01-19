@@ -6,11 +6,10 @@ try:
 except ImportError:
     pass
 
-logger = logging.getLogger(__name__)
-
 
 class Worker(object):
     app_name = os.environ.get('heroku_app_name', None)
+    l = logging.getLogger(__name__)
 
     @property
     def cloud(self):
@@ -34,9 +33,9 @@ class Worker(object):
             return len(self.worker_process._items)
 
     def scale(self, number):
-        logger('App is {}'.format(self.app_name))
+        self.l.info('App is {}'.format(self.app_name))
         if self.app_name:
-            logger.info('Scaling heroku worker')
+            self.l.info('Scaling heroku worker')
             number = int(number)
             if number != self.number_workers:
                 if self.number_workers:
@@ -44,7 +43,7 @@ class Worker(object):
                 else:
                     self.app.processes.add('worker', number)
             else:
-                logger.info('Already {} running'.format(number))
+                self.l.info('Already {} running'.format(number))
 
     def start(self):
         self.scale(1)

@@ -1,3 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}500{{ block.super }}{% endblock %}
+{% block title %}Server Error{{ block.super }}{% endblock %}
+
+{% block body %}
+<p>You've encountered an error!</p>
+{% if request.sentry.id %}
+    <p>If you need assistance, you may reference this error as <strong>{{ request.sentry.id }}</strong>.</p>
+{% endif %}
+{% endblock %}

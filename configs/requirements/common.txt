@@ -1,4 +1,4 @@
-Django==1.4.1
+Django==1.4.3
 South==0.7.6
 django-extensions==1.0.2
 git+git://github.com/lincolnloop/django-smart-selects.git@dbe42ad4604d132ce72adc3ecd0de807a9766094
@@ -37,7 +37,7 @@ BeautifulSoup==3.2.1
 ##
 rq==0.3.2
 redis==2.7.0
-django-rq==0.3.2
+git+git://github.com/saulshanabrook/django-rq.git
 
 ##
 #Storage

@@ -45,7 +45,7 @@ RAVEN_CONFIG = {
 
 RQ_SENTRY_DSN = RAVEN_CONFIG['dsn']
 
-INSTALLED_APPS = (
+INSTALLED_APPS += (
     'raven.contrib.django.raven_compat',
 )
 

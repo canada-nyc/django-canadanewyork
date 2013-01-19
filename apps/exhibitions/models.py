@@ -8,7 +8,7 @@ from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 
 from ..artists.models import Artist
 from libs.slugify.fields import SlugifyField
-from libs.content_redirects.fields import RedirectField
+from libs.update_related.models import RedirectField
 from libs.common.models import Photo
 
 

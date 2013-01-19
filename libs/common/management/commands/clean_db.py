@@ -40,12 +40,12 @@ class Command(NoArgsCommand):
         self.log('Reseting DB')
         try:
             call_command('reset_db', interactive=False, router="default")
-        except psycopg2.OperationalError:
+        except psycopg2.OperationalError as e:
             if options.get('interactive'):
                 if raw_input(
-                    ("Don't have permission to drop db. \n Note: if using "
+                    ("Error when droppping DB:\n\n {} \n\n Note: if using "
                      "Heroku, have you `heroku pg:reset DATABASE_URL` manually?\n"
-                     "(y or yes)\n")
+                     "(y or yes)\n").format(e)
                 ) not in ('yes', 'y'):
                     print 'Do that first'
                     return

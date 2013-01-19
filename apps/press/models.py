@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 from ..artists.models import Artist
 from ..exhibitions.models import Exhibition
 from libs.slugify.fields import SlugifyField
-from libs.content_redirects.fields import RedirectField
+from libs.update_related.models import RedirectField
 from libs.pdf_image_append.models import PDFImageAppendModel
 
 

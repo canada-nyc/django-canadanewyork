@@ -6,20 +6,17 @@ from django.db import models
 
 
 class Migration(SchemaMigration):
-    needed_by = (
-        ('artists', '0001_initial'),
-        ('exhibitions', '0001_initial'),
-        ('press', '0001_initial'),
-        ('updates', '0001_initial'),
-    )
 
+    needed_by = (
+        ("common", "0001_initial"),
+    )
 
     def forwards(self, orm):
         # Adding model 'Redirect'
         db.create_table('django_redirect', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('site', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['sites.Site'])),
-            ('old_path', self.gf('django.db.models.fields.CharField')(max_length=2000, db_index=True)),
+            ('old_path', self.gf('django.db.models.fields.CharField')(unique=True, max_length=2000, db_index=True)),
             ('new_path', self.gf('django.db.models.fields.CharField')(max_length=2000, blank=True)),
         ))
         db.send_create_signal('redirects', ['Redirect'])
@@ -41,7 +38,7 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "('old_path',)", 'unique_together': "(('site', 'old_path'),)", 'object_name': 'Redirect', 'db_table': "'django_redirect'"},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'new_path': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'blank': 'True'}),
-            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'db_index': 'True'}),
+            'old_path': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '2000', 'db_index': 'True'}),
             'site': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sites.Site']"})
         },
         'sites.site': {

@@ -11,12 +11,10 @@ class Migration(SchemaMigration):
         # Adding model 'Update'
         db.create_table('updates_update', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=800)),
             ('description', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
             ('post_date', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('slug', self.gf('libs.slugify.fields.SlugifyField')(max_length=1000, populate_from=None)),
             ('old_path', self.gf('django.db.models.fields.CharField')(max_length=2000, null=True, blank=True)),
-            ('redirect', self.gf('libs.content_redirects.fields.RedirectField')(unique=True, null=True, on_delete=models.SET_NULL, blank=True)),
+            ('redirect', self.gf('libs.update_related.models.fields.RedirectField')(unique=True, null=True, on_delete=models.PROTECT, blank=True)),
         ))
         db.send_create_signal('updates', ['Update'])
 
@@ -33,7 +31,9 @@ class Migration(SchemaMigration):
             'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '1000'}),
+            'image_redirect': ('libs.update_related.models.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.PROTECT', 'blank': 'True'}),
             'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
+            'old_image_path': ('django.db.models.fields.CharField', [], {'max_length': '1000', 'blank': 'True'}),
             'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '400', 'blank': 'True'})
         },
@@ -48,7 +48,7 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "('old_path',)", 'unique_together': "(('site', 'old_path'),)", 'object_name': 'Redirect', 'db_table': "'django_redirect'"},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'new_path': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'blank': 'True'}),
-            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'db_index': 'True'}),
+            'old_path': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '2000', 'db_index': 'True'}),
             'site': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sites.Site']"})
         },
         'sites.site': {
@@ -61,11 +61,9 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-post_date']", 'object_name': 'Update'},
             'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '800'}),
             'old_path': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'null': 'True', 'blank': 'True'}),
             'post_date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'redirect': ('libs.content_redirects.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
-            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '1000', 'populate_from': 'None'})
+            'redirect': ('libs.update_related.models.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.PROTECT', 'blank': 'True'})
         }
     }
 

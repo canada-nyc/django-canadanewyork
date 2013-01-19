@@ -4,6 +4,8 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
+from libs.update_related.models import RedirectField
+
 
 class Photo(models.Model):
 
@@ -23,6 +25,12 @@ class Photo(models.Model):
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
     position = models.PositiveSmallIntegerField("Position", null=True, blank=True)
+
+    old_image_path = models.CharField(blank=True, max_length=1000)
+    image_redirect = RedirectField(model_to_related={
+        'old_path': lambda model: model.old_image_path,
+        'new_path': lambda model: model.image.url,
+    })
 
     class Meta:
         ordering = ['position']

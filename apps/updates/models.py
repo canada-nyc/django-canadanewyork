@@ -4,7 +4,7 @@ from django.contrib.contenttypes import generic
 
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 
-from libs.content_redirects.fields import RedirectField
+from libs.update_related.models import RedirectField
 from libs.common.models import Photo
 
 

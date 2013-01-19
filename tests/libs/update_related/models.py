@@ -1,7 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 
-from libs.content_redirects.fields import RedirectField
+from libs.update_related.models import RedirectField
 from libs.slugify.fields import SlugifyField
 
 

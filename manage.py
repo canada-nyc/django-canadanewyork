@@ -17,4 +17,5 @@ try:
 except ImportError:
     pass
 else:
-    application = Sentry(application)
+    from django.core.handlers.wsgi import WSGIHandler
+    application = Sentry(WSGIHandler())

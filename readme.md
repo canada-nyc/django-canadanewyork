@@ -100,6 +100,7 @@ heroku addons:add newrelic:standard
 heroku addons:add redistogo
 heroku addons:add memcachier:dev
 heroku addons:add heroku-postgresql:dev
+heroku addons:add sentry
 heroku labs:enable user-env-compile #enabled so that collectstatic has access to amazon ec2 key
 heroku config:push -o --filename configs/env/common.env
 heroku config:push -o --filename configs/env/heroku.env

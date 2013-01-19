@@ -24,5 +24,5 @@ def send_email(recipient_model, sender_email, message_model, domain):
                                       to=[recipient_model.email])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
-    if _Queue.is_empty():
+    if _Queue.count < 1:
         _Worker.scale(0)

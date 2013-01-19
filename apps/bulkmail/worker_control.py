@@ -1,8 +1,12 @@
 import os
+import logging
+
 try:
     import heroku
 except ImportError:
     pass
+
+logger = logging.getLogger(__name__)
 
 
 class Worker(object):
@@ -14,7 +18,7 @@ class Worker(object):
 
     @property
     def app(self):
-        self.cloud.apps[self.app_name]
+        return self.cloud.apps[self.app_name]
 
     @property
     def worker_process(self):
@@ -30,12 +34,16 @@ class Worker(object):
             return len(self.worker_process._items)
 
     def scale(self, number):
-        number = int(number)
-        if self.app_name and number != self.number_workers:
-            if not self.number_workers:
-                self.worker_process.scale(number)
+        if self.app_name:
+            logger.info('Scaling heroku worker')
+            number = int(number)
+            if number != self.number_workers:
+                if self.number_workers:
+                    self.worker_process.scale(number)
+                else:
+                    self.app.processes.add('worker', number)
             else:
-                self.worker_process.add('worker', number)
+                logger.info('Already {} running'.format(number))
 
     def start(self):
         self.scale(1)

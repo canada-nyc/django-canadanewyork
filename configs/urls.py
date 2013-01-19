@@ -21,8 +21,10 @@ urlpatterns = patterns(
 urlpatterns += patterns(
     '',
     url(r'^grappelli/', include('grappelli.urls')),
+    url(r'^admin/django_rq/', include('django_rq.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^chaining/', include('smart_selects.urls')),)
+    url(r'^chaining/', include('smart_selects.urls')),
+)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

@@ -3,12 +3,19 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic import RedirectView
 
 
 admin.autodiscover()
 
 urlpatterns = patterns(
     '',
+    url(r'^favicon\.ico$',
+        RedirectView.as_view(
+            url=staticfiles_storage.url('canada/images/fire_favicon.ico'),
+        )
+    ),
     url(r'^', include('apps.frontpage.urls')),
     url(r'^artists/', include('apps.artists.urls')),
     url(r'^updates/', include('apps.updates.urls')),

@@ -18,6 +18,7 @@ ADMIN_EMAIL=<email for admin user>
 AWS_ACCESS_KEY_ID=<for storages>
 AWS_SECRET_ACCESS_KEY=
 HEROKU_API_KEY=<for use in controlling worker with email>
+SENTRY_DSN=<for logging>
 ' > configs/env/secret.env
 mkdir tmp
 

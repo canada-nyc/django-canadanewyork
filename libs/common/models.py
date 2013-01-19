@@ -29,7 +29,7 @@ class Photo(models.Model):
     old_image_path = models.CharField(blank=True, max_length=1000)
     image_redirect = RedirectField(model_to_related={
         'old_path': lambda model: model.old_image_path,
-        'new_path': lambda model: model.image.url,
+        'new_path': lambda model: model.image and model.image.url,
     })
 
     class Meta:

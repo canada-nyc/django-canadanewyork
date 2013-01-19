@@ -183,8 +183,8 @@ def create_update(element, all_elements):
     U.save()
     for link in helpers.image_links_from_html(element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')):
         P = Photo(
-            title=helpers.file_from_link(link)[0],
-            content_object=U
+            content_object=U,
+            old_image_path=helpers.url_path(url_text=link),
         )
         P.clean()
         P.save()
@@ -206,6 +206,7 @@ def _create_photo(element, content_object):
             element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
         ),
         content_object=content_object,
+        old_image_path=helpers.url_path(element),
     )
     text = element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded').split(',', 1)
     try:

@@ -17,7 +17,7 @@
 
     {% for exhibition in exhibitions %}
       {% if forloop.first %}
-        <dt>Exhibition{{ exhibitions|pluralize }}:</dt>
+        <dt>Exhibitions:</dt>
       {% endif %}
       <dd>
         <a href={{ exhibition.get_absolute_url }}>

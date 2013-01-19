@@ -17,6 +17,12 @@ from django.core.files.temp import NamedTemporaryFile
 from django.core.files import File
 
 
+def url_path(element=None, url_text=None):
+    url_text = url_text or element.findtext('link')
+    url = urlparse.urlparse(url_text)
+    return url.path
+
+
 def html_to_markdown(html):
     html = html.replace('[gallery]', '')
 

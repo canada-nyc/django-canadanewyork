@@ -5,7 +5,7 @@ import re
 
 from django.core.management.base import BaseCommand, CommandError
 
-from . import log, conversion
+from . import log, conversion, helpers
 
 
 class Command(BaseCommand):
@@ -50,15 +50,14 @@ class Command(BaseCommand):
             L('searching for {}'.format(url_format))
             url_test = re.compile(url_format)
             for element in elements:
-                full_url = element.findtext('link')
                 try:
-                    url = urlparse.urlparse(full_url)
+                    url = helpers.url_path(element)
                 except AttributeError:
                     pass
                 else:
-                    if url_test.match(url.path):
+                    if url_test.match(url):
                         L += 1
-                        L('adding {}'.format(url.path))
+                        L('adding {}'.format(url))
                         added_models.append(e_function(element, elements))
                         L -= 1
         L -= 1

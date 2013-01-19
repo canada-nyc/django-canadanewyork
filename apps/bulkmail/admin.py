@@ -1,17 +1,20 @@
 import django_rq
 
 from django.contrib import admin
+from django.contrib.sites.models import Site
 
 from .models import ContactList, Contact, Message
 from .sending import send_email
+from .worker_control import Worker
 
 
 def send_messages(modeladmin=None, request=None, queryset=None):
+    W = Worker()
     for message in queryset:
         for recipient in message.contact_list.contacts.all():
-            host = request.get_host() if request else 'localhost'
+            domain = Site.objects.get_current().domain
             args = [recipient, 'gallery@canadanewyork.com', message,
-                    host]
+                    domain, W, django_rq.get_queue()]
             django_rq.enqueue(send_email, *args)
 
 

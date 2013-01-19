@@ -14,7 +14,11 @@ npm install -g less
 echo 'SECRET_KEY=<long and random>
 EMAIL_HOST_PASSWORD=<only used for sending batch email, required in settings>
 ADMIN_PASSWORD=<default password for admin user>
-ADMIN_EMAIL=<email for admin user>' > configs/env/secret.env
+ADMIN_EMAIL=<email for admin user>
+AWS_ACCESS_KEY_ID=<for storages>
+AWS_SECRET_ACCESS_KEY=
+HEROKU_API_KEY=<for use in controlling worker with email>
+' > configs/env/secret.env
 mkdir tmp
 
 # for factory data
@@ -100,6 +104,7 @@ heroku config:push -o --filename configs/env/common.env
 heroku config:push -o --filename configs/env/heroku.env
 heroku config:push -o --filename configs/env/secret.env
 heroku config:push -o --filename configs/env/prod.env
+heroku config:set 'heroku_app_'(heroku apps:info -s | grep '^name=')
 heroku pg:promote (heroku pg | grep '^===' | sed 's/^=== //g')
 git push heroku master
 heroku run 'python manage.py clean_db'

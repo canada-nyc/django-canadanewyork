@@ -23,7 +23,7 @@ class ContactList(models.Model):
 class Message(models.Model):
     def image_path(instance, filename):
         return os.path.join('bulkmail',
-                            str(instance.pk),
+                            str(instance.id),
                             filename)
 
     date_time = models.DateTimeField(auto_now_add=True, editable=False)

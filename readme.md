@@ -1,5 +1,8 @@
 [![Build Status](https://next.travis-ci.org/saulshanabrook/django-canadanewyork.png?branch=production)](https://next.travis-ci.org/saulshanabrook/django-canadanewyork)
-# Install
+
+# Development
+
+## Install
 ```sh
 pip install -r requirements/dev.txt
 gem install foreman
@@ -20,28 +23,42 @@ foreman run python manage.py clean_db --init --env=configs/env/common.env,config
 foreman run python manage.py import_wp static/wordpress/.canada.wordpress.* --env=configs/env/common.env,configs/env/secret.env
 python manage.py runserver
 ```
-# Deploy
 
-## Heroku
+### Wipe
 ```sh
-#!/usr/bin/env fish
-heroku plugins:install git://github.com/joelvh/heroku-config.git
-heroku addons:add newrelic:standard
-heroku addons:add redistogo
-heroku addons:add memcachier:dev
-heroku addons:add heroku-postgresql:dev
-heroku labs:enable user-env-compile #enabled so that collectstatic has access to amazon ec2 key
-heroku config:push -o --filename configs/env/common.env
-heroku config:push -o --filename configs/env/heroku.env
-heroku config:push -o --filename configs/env/secret.env
-heroku config:push -o --filename configs/env/prod.env
-heroku pg:promote (heroku pg | grep '^===' | sed 's/^=== //g')
-git push heroku master
-heroku run 'python manage.py clean_db'
-heroku run 'python manage.py import_wp static/wordpress/.canada.wordpress.*'
+# wipes either S3 or local storage, depending on current settings
+# also wipes database
+foreman run python manage.py clean_db --env=configs/env/common.env,configs/env/secret.env
 ```
 
-## Travis
+
+## Schema
+
+### Migrate
+
+```sh
+#!/usr/bin/env fish
+for app in (python manage.py syncdb | grep - | sed 's/ - //g');
+    python manage.py schemamigration $app --auto;
+end
+```
+### Wipe Migrations
+
+```sh
+#!/usr/bin/env fish
+rm -r {apps,libs}/*/migrations
+```
+
+### Initial Migrations
+```sh
+#!/usr/bin/env fish
+for app in (python manage.py syncdb | grep '^ . apps\|libs' | sed 's/ > //g' | sed 's/ - //g');
+    python manage.py schemamigration $app --initial;
+end
+```
+
+
+## Encrypt Variables for Travis
 ```sh
 #!/usr/bin/env fish
 gem install travis
@@ -66,34 +83,34 @@ end
 t_encrypt HEROKU_API_KEY=(heroku auth:token) >> '.travis.yml'
 ```
 
-# Wiping
-```sh
-# wipes either S3 or local storage, depending on current settings
-# also wipes database
-foreman run python manage.py clean_db --env=configs/env/common.env,configs/env/secret.env
-```
 
-# Schema
+# Production (Heroku)
 
-## Migrate
-
+## Create App
 ```sh
 #!/usr/bin/env fish
-for app in (python manage.py syncdb | grep - | sed 's/ - //g');
-    python manage.py schemamigration $app --auto;
-end
+heroku apps:create canada-development
+heroku plugins:install git://github.com/joelvh/heroku-config.git
+heroku addons:add newrelic:standard
+heroku addons:add redistogo
+heroku addons:add memcachier:dev
+heroku addons:add heroku-postgresql:dev
+heroku labs:enable user-env-compile #enabled so that collectstatic has access to amazon ec2 key
+heroku config:push -o --filename configs/env/common.env
+heroku config:push -o --filename configs/env/heroku.env
+heroku config:push -o --filename configs/env/secret.env
+heroku config:push -o --filename configs/env/prod.env
+heroku pg:promote (heroku pg | grep '^===' | sed 's/^=== //g')
+git push heroku master
+heroku run 'python manage.py clean_db'
+heroku run 'python manage.py import_wp static/wordpress/.canada.wordpress.*'
 ```
-## Wipe Migrations
 
+## Wipe
 ```sh
 #!/usr/bin/env fish
-rm -r {apps,libs}/*/migrations
-```
-
-## Initial Migrations
-```sh
-#!/usr/bin/env fish
-for app in (python manage.py syncdb | grep '^ . apps\|libs' | sed 's/ > //g' | sed 's/ - //g');
-    python manage.py schemamigration $app --initial;
-end
+heroku pg:reset DATABASE_URL --confirm canada-development
+heroku run 'python manage.py clean_db --noinput'
+# --no-wipe-static for not deleting all static
+heroku run 'python manage.py import_wp static/wordpress/.canada.wordpress.*'
 ```

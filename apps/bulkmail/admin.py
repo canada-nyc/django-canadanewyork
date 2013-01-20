@@ -5,11 +5,14 @@ from django.contrib.sites.models import Site
 
 from .models import ContactList, Contact, Message
 from .sending import send_email
+from .worker_control import Worker
 
 
 def send_messages(modeladmin=None, request=None, queryset=None):
+    _Worker = Worker()
     for message in queryset:
         for recipient in message.contact_list.contacts.all():
+            _Worker.scale(1)
             domain = Site.objects.get_current().domain
             args = [recipient, 'gallery@canadanewyork.com', message,
                     domain]

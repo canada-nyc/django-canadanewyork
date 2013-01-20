@@ -75,19 +75,24 @@ LOGGING = {
     'loggers': {
         'django.db.backends': {
             'level': 'ERROR',
-            'handlers': ['console'],
+            'handlers': ['sentry'],
             'propagate': False,
         },
         'raven': {
             'level': 'DEBUG',
-            'handlers': ['console'],
+            'handlers': ['sentry'],
             'propagate': False,
         },
         'sentry.errors': {
             'level': 'DEBUG',
-            'handlers': ['console'],
+            'handlers': ['sentry'],
             'propagate': False,
         },
+        'apps.bulkmail.worker_control': {
+            'level': 'INFO',
+            'handlers': ['sentry'],
+            'propagate': False
+        }
     },
 }
 

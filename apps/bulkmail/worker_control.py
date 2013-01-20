@@ -9,7 +9,7 @@ except ImportError:
 
 class Worker(object):
     app_name = os.environ.get('heroku_app_name', None)
-    l = logging.getLogger(__name__)
+    l = logging.getLogger('apps.bulkmail.worker_control')
 
     @property
     def cloud(self):

@@ -130,17 +130,14 @@ def create_press(element, all_elements):
         P.publisher, P.title = title
     except ValueError:
         P.title = title[0]
-    try:
-        P = Press.objects.get(title=P.title)
-    except Press.DoesNotExist:
-        P.content = helpers.html_to_markdown(
-            element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
-        )
-        P.date, _ = helpers.dates_from_text(
-            text=P.title,
-            year=helpers.year_from_element(element),
-        )
-        P.save()
+    P.content = helpers.html_to_markdown(
+        element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
+    )
+    P.date, _ = helpers.dates_from_text(
+        text=P.title,
+        year=helpers.year_from_element(element),
+    )
+    P.save()
 
     P.artists = helpers.models_from_text(
         text=P.content + P.title,
@@ -152,13 +149,7 @@ def create_press(element, all_elements):
 
 
 def get_press(element):
-    k = {}
-    title = element.findtext('title').split(':', 1)
-    try:
-        _, k['title'] = title
-    except ValueError:
-        k['title'] = title[0]
-    return Press.objects.get(**k)
+    return Press.objects.get(old_path=urlparse.urlparse(element.findtext('link')).path)
 
 
 def create_press_file(element, all_elements):

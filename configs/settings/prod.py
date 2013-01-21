@@ -43,8 +43,6 @@ RAVEN_CONFIG = {
     'dsn': os.environ.get('SENTRY_DSN'),
 }
 
-RQ_SENTRY_DSN = RAVEN_CONFIG['dsn']
-
 INSTALLED_APPS += (
     'raven.contrib.django.raven_compat',
 )
@@ -75,30 +73,26 @@ LOGGING = {
     'loggers': {
         'django.db.backends': {
             'level': 'ERROR',
-            'handlers': ['sentry'],
+            'handlers': ['console'],
             'propagate': False,
         },
         'raven': {
             'level': 'DEBUG',
-            'handlers': ['sentry'],
+            'handlers': ['console'],
             'propagate': False,
         },
         'sentry.errors': {
             'level': 'DEBUG',
-            'handlers': ['sentry'],
+            'handlers': ['console'],
             'propagate': False,
         },
-        'apps.bulkmail.worker_control': {
-            'level': 'INFO',
-            'handlers': ['sentry'],
-            'propagate': False
-        }
     },
 }
 
 MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
     'raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware',
 )
+
 
 ###########
 # STORAGE #

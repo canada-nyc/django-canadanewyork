@@ -20,7 +20,7 @@ def rel_path(relative_path):
 
 SECRET_KEY = os.environ.get('SECRET_KEY', '*YSHFUIH&GAHJBJCZKCY)P#R')
 WSGI_APPLICATION = 'manage.application'
-DATE_FORMAT = 'F j, Y'
+DATE_FORMAT = 'F j'
 ROOT_URLCONF = 'configs.urls'
 
 
@@ -97,7 +97,7 @@ INSTALLED_APPS += ('compressor',)
 STATICFILES_FINDERS += ('compressor.finders.CompressorFinder',)
 COMPRESS_CSS_FILTERS = [
     'compressor.filters.css_default.CssAbsoluteFilter',
-    'compressor.filters.cssmin.CSSMinFilter',
+#    'compressor.filters.cssmin.CSSMinFilter',
 ]
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),

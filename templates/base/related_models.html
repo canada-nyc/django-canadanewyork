@@ -1,10 +1,7 @@
 {% if exhibitions or artists or press %}
-  <dl>
+  <ul class="inline">
     {% for artist in artists %}
-      {% if forloop.first %}
-        <dt>Artist{{ artists|pluralize }}:</dt>
-      {% endif %}
-      <dd>
+      <li>
         {% if artist.visible %}
           <a href={{ artist.get_absolute_url }}>
             {% include "base/model_detail.html" with model=artist only %}
@@ -12,7 +9,7 @@
         {% else %}
           {% include "base/model_detail.html" with model=artist only %}
         {% endif %}
-      </dd>
+      </li>
     {% endfor %}
 
     {% for exhibition in exhibitions %}
@@ -36,5 +33,5 @@
         </a>
       </dd>
     {% endfor %}
-  </dl>
+  </ul>
 {% endif %}

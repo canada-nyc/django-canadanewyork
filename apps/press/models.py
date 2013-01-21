@@ -17,7 +17,7 @@ class Press(models.Model, PDFImageAppendModel):
     def image_path(instance, filename):
         return os.path.join(instance.get_absolute_url()[1:], 'pdf', filename)
 
-    title = models.CharField(max_length=500, unique_for_year='date')
+    title = models.CharField(max_length=500)
     link = models.URLField(null=True, blank=True, verbose_name=u'External link')
     content = models.TextField(help_text=markdown_allowed(), blank=True)
     pdf = models.FileField(upload_to=image_path, blank=True, null=True, max_length=500)
@@ -30,7 +30,7 @@ class Press(models.Model, PDFImageAppendModel):
                                      related_name='press',)
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True,
                                    related_name='press',)
-    slug = SlugifyField(populate_from=('title',))
+    slug = SlugifyField(populate_from=('publisher', 'title',), unique_for_year='date')
 
     old_path = models.CharField(blank=True, null=True, editable=False, max_length=2000)
     redirect = RedirectField()

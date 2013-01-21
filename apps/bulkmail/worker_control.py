@@ -1,5 +1,4 @@
 import os
-import logging
 
 try:
     import heroku
@@ -8,8 +7,7 @@ except ImportError:
 
 
 class Worker(object):
-    app_name = os.environ.get('heroku_app_name', None)
-    l = logging.getLogger('apps.bulkmail.worker_control')
+    app_name = os.environ.get('heroku_app_name')
 
     @property
     def cloud(self):
@@ -33,17 +31,15 @@ class Worker(object):
             return len(self.worker_process._items)
 
     def scale(self, number):
-        self.l.info('App is {}'.format(self.app_name))
-        if self.app_name:
-            self.l.info('Scaling heroku worker')
-            number = int(number)
-            if number != self.number_workers:
-                if self.number_workers:
-                    self.worker_process.scale(number)
-                else:
-                    self.app.processes.add('worker', number)
+        print('Scaling heroku worker')
+        number = int(number)
+        if number != self.number_workers:
+            if self.number_workers:
+                self.worker_process.scale(number)
             else:
-                self.l.info('Already {} running'.format(number))
+                self.app.processes.add('worker', number)
+        else:
+            print('Already {} running'.format(number))
 
     def start(self):
         self.scale(1)

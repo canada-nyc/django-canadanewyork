@@ -103,9 +103,8 @@ heroku config:push -o --filename configs/env/heroku.env
 heroku config:push -o --filename configs/env/secret.env
 heroku config:push -o --filename configs/env/dev.env
 heroku config:set 'heroku_app_'(heroku apps:info -s | grep '^name=')
-heroku pg:promote (heroku pg | grep '^===' | sed 's/^=== //g')
 git push heroku master
-heroku run 'python manage.py clean_db'
+heroku run 'python manage.py clean_db --noinput'
 heroku run 'python manage.py import_wp static/wordpress/.canada.wordpress.*'
 heroku pgbackups:capture --expire
 heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com'
@@ -121,9 +120,7 @@ heroku config:push -o --filename configs/env/heroku.env --app canada
 heroku config:push -o --filename configs/env/secret.env --app canada
 heroku config:push -o --filename configs/env/prod.env --app canada
 heroku config:set 'heroku_app_'(heroku apps:info -s --app canada | grep '^name=') --app canada
-heroku pg:promote (heroku pg | grep '^===' | sed 's/^=== //g') --app canada
-heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com' --app canada
-heroku pgbackups:restore DATABASE --app canada (heroku pgbackups:url --app canad-development)
+heroku pgbackups:restore DATABASE --app canada (heroku pgbackups:url --app canada-development) --confirm canada
 heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com' --app canada
 ```
 

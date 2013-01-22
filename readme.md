@@ -26,6 +26,7 @@ mkdir tmp
 foreman run python manage.py clean_db --init --env=configs/env/common.env,configs/env/secret.env
 # or for importing from wordpress
 foreman run python manage.py import_wp static/wordpress/.canada.wordpress.* --env=configs/env/common.env,configs/env/secret.env
+python manage.py set_site 127.0.0.1:8000
 python manage.py runserver
 ```
 
@@ -94,23 +95,36 @@ t_encrypt HEROKU_API_KEY=(heroku auth:token) >> '.travis.yml'
 ## Create App
 ```sh
 #!/usr/bin/env fish
-heroku apps:create canada-development
+heroku apps:create canada-development --addons newrelic:standard,redistogo,memcache,heroku-postgresql:dev,pgbackups
 heroku plugins:install git://github.com/joelvh/heroku-config.git
-heroku addons:add newrelic:standard
-heroku addons:add redistogo
-heroku addons:add memcache
-heroku addons:add heroku-postgresql:dev
-heroku addons:add sentry
 heroku labs:enable user-env-compile #enabled so that collectstatic has access to amazon ec2 key
 heroku config:push -o --filename configs/env/common.env
 heroku config:push -o --filename configs/env/heroku.env
 heroku config:push -o --filename configs/env/secret.env
-heroku config:push -o --filename configs/env/prod.env
+heroku config:push -o --filename configs/env/dev.env
 heroku config:set 'heroku_app_'(heroku apps:info -s | grep '^name=')
 heroku pg:promote (heroku pg | grep '^===' | sed 's/^=== //g')
 git push heroku master
 heroku run 'python manage.py clean_db'
 heroku run 'python manage.py import_wp static/wordpress/.canada.wordpress.*'
+heroku pgbackups:capture --expire
+heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com'
+
+
+# Create production
+heroku apps:create canada --no-remote --addons newrelic:standard,redistogo,memcache,heroku-postgresql:dev,pgbackups
+heroku pipeline:add canada
+heroku pipeline:promote
+heroku labs:enable user-env-compile --app canada
+heroku config:push -o --filename configs/env/common.env --app canada
+heroku config:push -o --filename configs/env/heroku.env --app canada
+heroku config:push -o --filename configs/env/secret.env --app canada
+heroku config:push -o --filename configs/env/prod.env --app canada
+heroku config:set 'heroku_app_'(heroku apps:info -s --app canada | grep '^name=') --app canada
+heroku pg:promote (heroku pg | grep '^===' | sed 's/^=== //g') --app canada
+heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com' --app canada
+heroku pgbackups:restore DATABASE --app canada (heroku pgbackups:url --app canad-development)
+heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com' --app canada
 ```
 
 ## Wipe

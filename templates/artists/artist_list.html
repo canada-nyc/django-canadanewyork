@@ -6,7 +6,7 @@
 <section>
  <ul class="unstyled">
     {% for artist in artist_list %}
-      <li><a href={{ artist.get_absolute_url }}>{% include "base/model_detail.html" with model=artist %}</a>
+      <li class="close_together"><a href={{ artist.get_absolute_url }}>{% include "base/model_detail.html" with model=artist %}</a>
     {% endfor %}
   </ul>
 </section>

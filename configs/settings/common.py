@@ -151,3 +151,4 @@ SOUTH_TESTS_MIGRATE = False
 # MISC #
 ########
 INSTALLED_APPS += ('django_extensions',)
+INSTALLED_APPS += ('django.contrib.sitemaps',)

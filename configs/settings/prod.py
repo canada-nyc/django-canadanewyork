@@ -35,6 +35,8 @@ MIDDLEWARE_CLASSES += ('django.middleware.cache.FetchFromCacheMiddleware',)
 # Must be first
 MIDDLEWARE_CLASSES = ('django.middleware.cache.UpdateCacheMiddleware',) + MIDDLEWARE_CLASSES
 
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+
 
 ###########
 # LOGGING #
@@ -73,21 +75,26 @@ LOGGING = {
     'loggers': {
         'django.db.backends': {
             'level': 'ERROR',
-            'handlers': ['console'],
+            'handlers': ['sentry'],
             'propagate': False,
         },
         'raven': {
             'level': 'DEBUG',
-            'handlers': ['console'],
+            'handlers': ['sentry'],
             'propagate': False,
+        },
+        "rq.worker": {
+            "handlers": ["sentry"],
+            "level": "DEBUG"
         },
         'sentry.errors': {
             'level': 'DEBUG',
-            'handlers': ['console'],
+            'handlers': ['sentry'],
             'propagate': False,
         },
     },
 }
+
 
 MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
     'raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware',

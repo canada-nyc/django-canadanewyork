@@ -4,23 +4,6 @@
 
 {% block body %}
 <section>
-  {% for exhibition in exhibition_list %}
-    {% with date=exhibition.start_date %}
-      {% ifchanged date.year %}
-        {% if not forloop.first %}</ol>{% endif %}
-        <h2 class="year_heading">{{ date.year }}</h2>
-        <hr>
-        <ol class="unstyled">
-      {% endifchanged %}
-        <li><a href="{{ exhibition.get_absolute_url }}">
-          <strong>{% if exhibition.artists.all|length_is:"1" %}{{ exhibition.artists.all|first }}: {% endif %}{{ exhibition.name }}</strong>
-          <br>
-          {% include "base/full_date.html" with date=date %}{% if exhibition.end_date %} - {% include "base/full_date.html" with date=exhibition.end_date %}{% endif %}
-        </a></li>
-      {% if forloop.last %}
-        </ol>
-      {% endif %}
-    {% endwith %}
-  {% endfor %}
+  {% include "base/model_year_list.html" with models=exhibition_list date_atr="start_date" date_atr2="end_date" only %}
 </section>
 {% endblock %}

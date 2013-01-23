@@ -12,6 +12,11 @@ from libs.update_related.models import RedirectField
 from libs.common.models import Photo
 
 
+class ArtistRelatedManager(models.Manager):
+    def get_query_set(self):
+        return super(ArtistRelatedManager, self).get_query_set().prefetch_related('artists')
+
+
 class Exhibition(models.Model):
     name = models.CharField(max_length=1000, unique_for_year='start_date')
     description = models.TextField(blank=True, help_text=markdown_allowed())
@@ -25,12 +30,16 @@ class Exhibition(models.Model):
     redirect = RedirectField()
 
     photos = generic.GenericRelation(Photo)
+    objects = ArtistRelatedManager()
 
     class Meta:
         ordering = ["-start_date"]
 
     def __unicode__(self):
-        return u'{}({})'.format(self.name, self.start_date.year)
+        if len(self.artists.all()):
+            artist = self.artists.all()[0]
+            return u'{}: {}'.format(artist, self.name)
+        return self.name
 
     @permalink
     def get_absolute_url(self):

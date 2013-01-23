@@ -4,19 +4,22 @@
 {% load markdown_deux_tags %}
 {% load sekizai_tags %}
 
-{% block title %}{% include "base/model_detail.html" with model=exhibition %}{{ block.super }}{% endblock %}
+{% block title %}{{ exhibition }}{{ block.super }}{% endblock %}
 
 {% block body %}
 <article>
-  <header>
-    <h1>{% include "base/model_detail.html" with model=exhibition %}</h1>
-    <p>{% include "base/model_detail.html" with model=exhibition extra_info="True" %}</p>
-  </header>
+  <h1>{{ exhibition }}</h1>
   {{ exhibition.description|markdown }}
   {% include "base/photos.html" with photos=exhibition.photos.all %}
-  {% if exhibition.get_press %}
+  {% if exhibition.get_press.exists %}
     <p><a href="{{ exhibition.get_press_url }}">Press</a>
   {% endif %}
-  {% include "base/related_models.html" with artists=exhibition.artists.all %}
+  {% if exhibition.artists.all %}
+    <ul class="inline">
+      {% for artist in exhibition.artists.all %}
+        <li><a href="{{ artist.get_absolute_url }}">{{ artist }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 </article>
 {% endblock %}

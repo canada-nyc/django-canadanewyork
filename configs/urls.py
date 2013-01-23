@@ -14,9 +14,9 @@ urlpatterns = patterns(
     '',
     url(r'^favicon\.ico$',
         RedirectView.as_view(
-            url=staticfiles_storage.url('canada/images/fire_favicon.ico'),
+            url=staticfiles_storage.url('canada/images/fire_favicon.ico')
         )
-    ),
+        ),
     url(r'^sitemap\.xml$',
         'django.contrib.sitemaps.views.sitemap',
         {'sitemaps': sitemaps}),

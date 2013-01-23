@@ -1,15 +1,13 @@
 from django.conf.urls.defaults import patterns, url
-from django.views.generic import ListView
 
-from .models import Exhibition
-from .views import ExhibitionDetail
+from .views import ExhibitionDetail, ExhibitionList, ExhibitionPressDetail
 
 
 urlpatterns = patterns(
     '',
-    url(r'^$', ListView.as_view(model=Exhibition)),
+    url(r'^$', ExhibitionList.as_view()),
     url(r'^(?P<year>\d{1,4})/(?P<slug>[-\w]+)/$', ExhibitionDetail.as_view(),
         name='exhibition-detail'),
     url(r'^(?P<year>\d{1,4})/(?P<slug>[-\w]+)/press/$',
-        ExhibitionDetail.as_view(template_name='press/press_list.html'),
+        ExhibitionPressDetail.as_view(),
         name='exhibition-press-list'))

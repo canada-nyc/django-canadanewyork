@@ -11,10 +11,8 @@
     <h1>{% include "base/model_detail.html" with model=press %}</h1>
     <p>{% include "base/model_detail.html" with model=press extra_info="True"%}
   </header>
-  {% if press.image %}
-    {% thumbnail press.image press.image_size as im %}
-      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
-    {% endthumbnail %}
+  {% if press.content_file %}
+    <a href="{{ press.content_file.url }}>Open</a>
   {% endif %}
   {% include "base/related_models.html" with artists=press.artists.all exhibitions=press.exhibition|create_list only %}
 </article>

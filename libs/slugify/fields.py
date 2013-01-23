@@ -33,6 +33,7 @@ class SlugifyField(SlugField):
                  'be passed a list, not a string').format(model_instance,
                                                           self.attname))
         values = [value(model_instance) if callable(value) else getattr(model_instance, value) for value in self.populate_from]
+        values = filter(None, values)
         return self.index_sep.join(map(slugify, values))[:MAX_LENGTH]
 
     def south_field_triple(self):

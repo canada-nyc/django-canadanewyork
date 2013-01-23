@@ -1,5 +1,4 @@
 import xml.etree.ElementTree
-import urlparse
 import collections
 import re
 

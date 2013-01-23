@@ -2,7 +2,6 @@ import StringIO
 import random
 
 from PIL import Image
-from reportlab.pdfgen import canvas
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
@@ -24,16 +23,16 @@ def django_image(name, size=10):
                                 thumb_io.len, None)
 
 
-def django_pdf(name, text='hello world'):
+def django_pdf(name, size=10):
+    thumb = Image.new('RGB', (size, size,), random.choice(INK))
     # Create a file-like object to write pdf data (pdf data previously created
     # using reportlab, and stored in variable 'pdf')
-    pdf_io = StringIO.StringIO()
+    thumb_io = StringIO.StringIO()
 
-    pdf = canvas.Canvas(pdf_io)
-    pdf.drawString(100, 100, text)
-
+    thumb.save(thumb_io, format='PDF', resolution=200)
+    thumb_io.seek(0)
     # Create a new Django file-like object to be used in models as FileField using
     # InMemoryUploadedFile.  If you look at the source in Django, a
     # SimpleUploadedFile is essentially instantiated similarly to what is shown here
-    return InMemoryUploadedFile(pdf_io, None, name + '.pdf', 'file/pdf',
-                                pdf_io.len, None)
+    return InMemoryUploadedFile(thumb_io, None, name + '.pdf', 'application/pdf',
+                                thumb_io.len, None)

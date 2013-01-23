@@ -14,14 +14,16 @@ class Migration(SchemaMigration):
             ('title', self.gf('django.db.models.fields.CharField')(max_length=500)),
             ('link', self.gf('django.db.models.fields.URLField')(max_length=200, null=True, blank=True)),
             ('content', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('pdf', self.gf('django.db.models.fields.files.FileField')(max_length=500, null=True, blank=True)),
+            ('content_file', self.gf('django.db.models.fields.files.FileField')(max_length=500, null=True, blank=True)),
             ('date', self.gf('django.db.models.fields.DateField')()),
             ('publisher', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
             ('author', self.gf('django.db.models.fields.CharField')(max_length=60, blank=True)),
             ('exhibition', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='press', null=True, to=orm['exhibitions.Exhibition'])),
-            ('slug', self.gf('libs.slugify.fields.SlugifyField')(max_length=251, populate_from=('title',))),
+            ('slug', self.gf('libs.slugify.fields.SlugifyField')(max_length=251, populate_from=('publisher', 'title'))),
             ('old_path', self.gf('django.db.models.fields.CharField')(max_length=2000, null=True, blank=True)),
             ('redirect', self.gf('libs.update_related.models.fields.RedirectField')(unique=True, null=True, on_delete=models.PROTECT, blank=True)),
+            ('old_content_path', self.gf('django.db.models.fields.CharField')(max_length=1000, blank=True)),
+            ('image_redirect', self.gf('libs.update_related.models.fields.RedirectField')(related_name='press_images', null=True, on_delete=models.PROTECT, blank=True, unique=True)),
         ))
         db.send_create_signal('press', ['Press'])
 
@@ -90,15 +92,17 @@ class Migration(SchemaMigration):
             'artists': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "'press'", 'null': 'True', 'symmetrical': 'False', 'to': "orm['artists.Artist']"}),
             'author': ('django.db.models.fields.CharField', [], {'max_length': '60', 'blank': 'True'}),
             'content': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            'content_file': ('django.db.models.fields.files.FileField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
             'date': ('django.db.models.fields.DateField', [], {}),
             'exhibition': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'press'", 'null': 'True', 'to': "orm['exhibitions.Exhibition']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'image_redirect': ('libs.update_related.models.fields.RedirectField', [], {'related_name': "'press_images'", 'null': 'True', 'on_delete': 'models.PROTECT', 'blank': 'True', 'unique': 'True'}),
             'link': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
+            'old_content_path': ('django.db.models.fields.CharField', [], {'max_length': '1000', 'blank': 'True'}),
             'old_path': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'null': 'True', 'blank': 'True'}),
-            'pdf': ('django.db.models.fields.files.FileField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
             'publisher': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             'redirect': ('libs.update_related.models.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.PROTECT', 'blank': 'True'}),
-            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '251', 'populate_from': "('title',)"}),
+            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '251', 'populate_from': "('publisher', 'title')"}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '500'})
         },
         'redirects.redirect': {

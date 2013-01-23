@@ -4,23 +4,21 @@ from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.core.exceptions import ValidationError
 
 from ..artists.models import Artist
 from ..exhibitions.models import Exhibition
 from libs.slugify.fields import SlugifyField
 from libs.update_related.models import RedirectField
-from libs.pdf_image_append.models import PDFImageAppendModel
 
 
-class Press(models.Model, PDFImageAppendModel):
+class Press(models.Model):
     def image_path(instance, filename):
-        return os.path.join(instance.get_absolute_url()[1:], 'pdf', filename)
+        return os.path.join(instance.get_absolute_url()[1:], 'content', filename)
 
     title = models.CharField(max_length=500)
     link = models.URLField(null=True, blank=True, verbose_name=u'External link')
     content = models.TextField(help_text=markdown_allowed(), blank=True)
-    pdf = models.FileField(upload_to=image_path, blank=True, null=True, max_length=500)
+    content_file = models.FileField(upload_to=image_path, blank=True, null=True, max_length=500)
 
     date = models.DateField()
 
@@ -35,6 +33,12 @@ class Press(models.Model, PDFImageAppendModel):
     old_path = models.CharField(blank=True, null=True, editable=False, max_length=2000)
     redirect = RedirectField()
 
+    old_content_path = models.CharField(blank=True, max_length=1000)
+    image_redirect = RedirectField(model_to_related={
+        'old_path': lambda model: model.old_content_path,
+        'new_path': lambda model: model.content_file and model.content_file.url,
+    }, related_name='press_images')
+
     class Meta:
         ordering = ['-date']
         verbose_name_plural = "press"
@@ -43,10 +47,6 @@ class Press(models.Model, PDFImageAppendModel):
         return u'{} ({})'.format(self.title, getattr(self.date, 'year', None))
 
     def clean(self):
-        if self.pdf and self.pdf._file and self.pdf._file.content_type != 'application/pdf':
-            file_type = self.pdf._file.content_type.split('/')[1]
-            error = 'You uploaded a {}. A PDF is required'.format(file_type)
-            raise ValidationError(error)
 
         self.title = self.title.strip().title()
         self.content = self.content.strip()

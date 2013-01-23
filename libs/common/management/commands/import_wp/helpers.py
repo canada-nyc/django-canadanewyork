@@ -1,5 +1,6 @@
 import os
 import urlparse
+from StringIO import StringIO
 
 import markdown2
 import html2text
@@ -12,9 +13,11 @@ else:
     requests_cache.configure(cache_name='static/wordpress/.image_cache')
 import dateutil.parser
 from bs4 import BeautifulSoup
-
+from PIL import Image
+import PyPDF2
 from django.core.files.temp import NamedTemporaryFile
 from django.core.files import File
+from django.core.files.base import ContentFile
 
 
 def url_path(element=None, url_text=None):
@@ -51,6 +54,37 @@ def file_from_link(url):
     img_temp.flush()
     filename = os.path.splitext(os.path.basename(url))[0]
     return filename, File(img_temp)
+
+
+def image_from_link(url):
+    r = requests.get(url)
+    filename = os.path.splitext(os.path.basename(url))[0]
+    I = Image.open(StringIO(r.content))
+    return filename, I
+
+
+def pdf_from_image(image):
+    thumb_io = StringIO()
+
+    image.save(thumb_io, format='PDF', resolution=200)
+
+    return ContentFile(thumb_io.getvalue())
+
+
+def merge_pdfs(pdfs):
+    merger = PyPDF2.PdfFileMerger()
+    for pdf in pdfs:
+        merger.append(fileobj=pdf)
+
+    thumb_io = StringIO()
+    merger.write(thumb_io)
+    return ContentFile(thumb_io.getvalue())
+
+
+def pdf_from_link(url):
+    name, image = image_from_link(url)
+    pdf = pdf_from_image(image)
+    return name + '.pdf', pdf
 
 
 def year_from_element(element):

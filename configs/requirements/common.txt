@@ -9,9 +9,9 @@ django-grappelli==2.4.2
 ##
 sorl-thumbnail==11.12
 Pillow==1.7.7
-reportlab==2.5
-pdfrw==0.1
 pdfminer==20110515
+git+git://github.com/knowah/PyPDF2.git@65d57ddfee5775ff5036038cb306488cf97cb3d8
+
 
 ##
 #Templates

@@ -55,14 +55,16 @@ def create_artist_press(element, all_elements):
         P = Press.objects.get(slug=P._meta.get_field('slug')._get_value(P))
     except Press.DoesNotExist:
         P.save()
-    P.pdf_image_append(
-        *helpers.file_from_link(element.findtext('guid'))
-    )
+    P.content_file.save(*_press_file_from_link(P, element.findtext('guid')))
+    P.old_content_path = urlparse.urlparse(element.findtext('guid')).path
     P.save()
     P.artists.add(
         get_artist(
             _parent_element_from_element(
-                _parent_element_from_element(element, all_elements),
+                _parent_element_from_element(
+                    element,
+                    all_elements
+                ),
                 all_elements,
             )
         )
@@ -156,7 +158,8 @@ def create_press_file(element, all_elements):
     P = get_press(
         _parent_element_from_element(element, all_elements)
     )
-    P.pdf_image_append(*helpers.file_from_link(element.findtext('guid')))
+    P.content_file.save(*_press_file_from_link(P, element.findtext('guid')))
+    P.old_content_path = urlparse.urlparse(element.findtext('guid')).path
     P.save()
     return P
 
@@ -209,3 +212,16 @@ def _create_photo(element, content_object):
         *helpers.file_from_link(element.findtext('guid'))
     )
     return P
+
+
+def _press_file_from_link(Press, url):
+    #from pudb import set_trace; set_trace()
+    if url.endswith('.jpg'):
+        name, content_file = helpers.pdf_from_link(url)
+        if Press.content_file:
+            content_file = helpers.merge_pdfs(
+                [Press.content_file.file, content_file.file]
+            )
+        return name, content_file
+    else:
+        return helpers.file_from_link(url)

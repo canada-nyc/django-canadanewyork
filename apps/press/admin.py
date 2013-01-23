@@ -5,14 +5,14 @@ from .models import Press
 
 class PressAdmin(admin.ModelAdmin):
     date_hierarchy = 'date'
-    list_display = ('date', 'title', 'publisher', 'exhibition', 'slug')
+    list_display = ('date', 'title', 'publisher', 'exhibition', 'slug', 'old_path', 'old_content_path',)
 
     fieldsets = (
         (None, {
             'fields': ('title', 'date', 'publisher', 'author', 'link')
         }),
         ('Full Article', {
-            'fields': ('content', 'pdf',)
+            'fields': ('content', 'content_file',)
         }),
         ('Related', {
             'fields': ('exhibition', 'artists')

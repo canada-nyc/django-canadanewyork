@@ -24,3 +24,12 @@ class UniqueBooleanTest(AddAppMixin, TestCase):
         self.m1.save()
         # Still should be only model with True
         self.assertEqual(UniqueBooleanModel.objects.get(unique_boolean=True), self.m1)
+
+    def test_model_method(self):
+        UniqueBooleanModel(unique_boolean=False).save()
+        model = UniqueBooleanModel.objects.get(unique_boolean=True)
+
+        self.assertEqual(
+            model._get_unique_boolean_value(),
+            True
+        )

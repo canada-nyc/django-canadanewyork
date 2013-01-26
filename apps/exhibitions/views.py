@@ -24,3 +24,13 @@ class ExhibitionPressDetail(DetailView):
             start_date__year=int(self.kwargs['year']),
             slug=self.kwargs['slug']
         )
+
+
+class ExhibitionCurrent(DetailView):
+    template_name = 'exhibitions/exhibition_current.html'
+
+    def get_object(self):
+        return get_object_or_404(
+            Exhibition,
+            current=True,
+        )

@@ -44,7 +44,9 @@ class Press(models.Model):
         verbose_name_plural = "press"
 
     def __unicode__(self):
-        return u'{} ({})'.format(self.title, getattr(self.date, 'year', None))
+        if self.publisher:
+            return u'{}: {}'.format(self.publisher, self.title)
+        return self.title
 
     def clean(self):
 

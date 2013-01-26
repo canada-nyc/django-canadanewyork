@@ -2,18 +2,19 @@
 
 {% load thumbnail %}
 {% load canada_filters %}
+{% load markdown_deux_tags %}
 
 {% block title %}{{ press.title }}{{ block.super }}{% endblock title %}
 
 {% block body %}
 <article>
   <header>
-    <h1>{% include "base/model_detail.html" with model=press %}</h1>
-    <p>{% include "base/model_detail.html" with model=press extra_info="True"%}
+    <h1>{{ press }}</h1>
+    <p>{% include "base/full_date.html" with date=press.date %}
   </header>
   {% if press.content_file %}
     <a href="{{ press.content_file.url }}>Open</a>
   {% endif %}
-  {% include "base/related_models.html" with artists=press.artists.all exhibitions=press.exhibition|create_list only %}
+  {{ press.content|markdown }}
 </article>
 {% endblock body %}

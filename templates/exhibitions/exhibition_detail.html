@@ -8,6 +8,10 @@
 
 {% block body %}
 <article>
+  <header>
+    <h1>{{ exhibition }}</h1>
+    <p>{% include "base/full_date.html" with date=exhibition.start_date %}
+  </header>
   <h1>{{ exhibition }}</h1>
   {{ exhibition.description|markdown }}
   {% include "base/photos.html" with photos=exhibition.photos.all %}

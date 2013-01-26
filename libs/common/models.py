@@ -11,8 +11,8 @@ class Photo(models.Model):
 
     def image_path(instance, filename):
         return os.path.join(
-            instance.content_object.get_absolute_url()[1:],
             'photos',
+            instance.content_object.get_absolute_url()[1:],
             (filename or str(instance.pk)),
         )
 

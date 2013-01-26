@@ -8,6 +8,8 @@ from django.views.generic import RedirectView
 
 from .sitemaps import sitemaps
 
+from apps.exhibitions.views import ExhibitionCurrent
+
 admin.autodiscover()
 
 urlpatterns = patterns(
@@ -20,7 +22,7 @@ urlpatterns = patterns(
     url(r'^sitemap\.xml$',
         'django.contrib.sitemaps.views.sitemap',
         {'sitemaps': sitemaps}),
-    url(r'^', include('apps.frontpage.urls')),
+    url(r'^$', ExhibitionCurrent.as_view()),
     url(r'^artists/', include('apps.artists.urls')),
     url(r'^updates/', include('apps.updates.urls')),
     url(r'^exhibitions/', include('apps.exhibitions.urls')),
@@ -34,7 +36,6 @@ urlpatterns += patterns(
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/django_rq/', include('django_rq.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^chaining/', include('smart_selects.urls')),
 )
 
 if settings.DEBUG:

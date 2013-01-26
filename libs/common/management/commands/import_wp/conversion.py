@@ -13,7 +13,7 @@ from . import helpers
 def create_artist(element, all_elements):
     A = Artist(
         visible=True,
-        old_path=urlparse.urlparse(element.findtext('link')).path,
+        old_path=helpers.url_path(element),
     )
     title = element.findtext('title')
     try:
@@ -49,10 +49,10 @@ def create_artist_press(element, all_elements):
     P = Press(
         title=element.findtext('title'),
         date=dateutil.parser.parse(element.findtext('pubDate')).date(),
-        old_path=urlparse.urlparse(element.findtext('link')).path,
+        old_path=helpers.url_path(element),
     )
     try:
-        P = Press.objects.get(slug=P._meta.get_field('slug')._get_value(P))
+        P = Press.objects.get(slug=P._get_slug_value())
     except Press.DoesNotExist:
         P.save()
     P.content_file.save(*_press_file_from_link(P, element.findtext('guid')))
@@ -88,7 +88,7 @@ def create_exhibition(element, all_elements):
         description=helpers.html_to_markdown(
             element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
         ),
-        old_path=urlparse.urlparse(element.findtext('link')).path,
+        old_path=helpers.url_path(element),
     )
     E.start_date, E.end_date = helpers.dates_from_text(
         text=element.findtext('title'),
@@ -125,7 +125,7 @@ def create_exhibition_photo(element, all_elements):
 
 def create_press(element, all_elements):
     P = Press(
-        old_path=urlparse.urlparse(element.findtext('link')).path,
+        old_path=helpers.url_path(element),
     )
     title = element.findtext('title').split(':', 1)
     try:
@@ -159,7 +159,9 @@ def create_press_file(element, all_elements):
         _parent_element_from_element(element, all_elements)
     )
     P.content_file.save(*_press_file_from_link(P, element.findtext('guid')))
-    P.old_content_path = urlparse.urlparse(element.findtext('guid')).path
+    P.old_content_path = helpers.url_path(
+        url_text=element.findtext('guid')
+    )
     P.save()
     return P
 
@@ -169,7 +171,7 @@ def create_update(element, all_elements):
         description=helpers.html_to_markdown(
             element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
         ),
-        old_path=urlparse.urlparse(element.findtext('link')).path,
+        old_path=helpers.url_path(element),
     )
     U.save()
     # override first save value of 'now', because auto_now_add cannot be overridden

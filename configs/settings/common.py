@@ -34,7 +34,6 @@ INSTALLED_APPS = (
     'apps.updates',
     'apps.bulkmail',
     'apps.updates',
-    'apps.frontpage',
     'apps.info',
 
     'libs.common',
@@ -68,8 +67,6 @@ TEMPLATE_DIRS = rel_path('templates')
 
 INSTALLED_APPS += ('sorl.thumbnail',)
 THUMBNAIL_UPSCALE = False
-
-INSTALLED_APPS += ('smart_selects',)
 
 INSTALLED_APPS += ('bootstrapform',)
 

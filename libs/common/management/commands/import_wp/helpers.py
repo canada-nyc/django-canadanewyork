@@ -52,13 +52,13 @@ def file_from_link(url):
     img_temp = NamedTemporaryFile(delete=True)
     img_temp.write(requests.get(url).content)
     img_temp.flush()
-    filename = os.path.splitext(os.path.basename(url))[0]
+    filename = os.path.basename(url)
     return filename, File(img_temp)
 
 
 def image_from_link(url):
     r = requests.get(url)
-    filename = os.path.splitext(os.path.basename(url))[0]
+    filename = os.path.basename(url)
     I = Image.open(StringIO(r.content))
     return filename, I
 

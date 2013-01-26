@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 from django.db.models import permalink
 from django.core.exceptions import ValidationError
@@ -10,6 +12,7 @@ from ..artists.models import Artist
 from libs.slugify.fields import SlugifyField
 from libs.update_related.models import RedirectField
 from libs.common.models import Photo
+from libs.unique_boolean.fields import UniqueBooleanField
 
 
 class ArtistRelatedManager(models.Manager):
@@ -18,6 +21,10 @@ class ArtistRelatedManager(models.Manager):
 
 
 class Exhibition(models.Model):
+
+    def image_path(instance, filename):
+        return os.path.join(instance.get_absolute_url()[1:], 'press_release_photo', filename)
+
     name = models.CharField(max_length=1000, unique_for_year='start_date')
     description = models.TextField(blank=True, help_text=markdown_allowed())
     artists = models.ManyToManyField(Artist, related_name='exhibitions',
@@ -25,6 +32,18 @@ class Exhibition(models.Model):
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
     slug = SlugifyField(populate_from=('name',))
+
+    current = UniqueBooleanField(
+        help_text="To switch to a different exhibition, activate on another",
+        default=True
+    )
+
+    press_release_photo = models.ImageField(
+        upload_to=image_path,
+        help_text='Used if it is the current exhibition',
+        blank=True,
+        null=True
+    )
 
     old_path = models.CharField(blank=True, null=True, editable=False, max_length=2000)
     redirect = RedirectField()
@@ -57,14 +76,15 @@ class Exhibition(models.Model):
     def clean(self):
         if self.end_date and self.start_date > self.end_date:
             raise ValidationError('Start date can not be after end date')
-        self.name = self.name.strip()
-        self.description = self.description.strip()
 
         self.name = self.name.strip()
         self.description = self.description.strip()
 
     def get_press(self):
         return get_model('press', 'Press').objects.filter(exhibition=self)
+
+    def get_press_release_photo(self):
+        return self.press_release_photo or self.photos.all()[0].image
 
     @permalink
     def get_press_url(self):

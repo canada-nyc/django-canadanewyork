@@ -1,3 +1,5 @@
+import new
+
 from django.db.models.fields import SlugField
 from django.template.defaultfilters import slugify
 from django.core.exceptions import FieldError
@@ -35,6 +37,18 @@ class SlugifyField(SlugField):
         values = [value(model_instance) if callable(value) else getattr(model_instance, value) for value in self.populate_from]
         values = filter(None, values)
         return self.index_sep.join(map(slugify, values))[:MAX_LENGTH]
+
+    def contribute_to_class(self, cls, name):
+        super(SlugifyField, self).contribute_to_class(cls, name)
+        setattr(
+            cls,
+            '_get_{}_value'.format(self.name),
+            new.instancemethod(
+                self._get_value,
+                None,
+                cls
+            )
+        )
 
     def south_field_triple(self):
         "Returns a suitable description of this field for South."

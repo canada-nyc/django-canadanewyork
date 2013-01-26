@@ -1,18 +1,16 @@
 {% extends "base.html" %}
 
 {% load thumbnail %}
-{% load markdown_deux_tags %}
 
 {% block title %}CANADA{% endblock title %}
 
 {% block body %}
 <article>
-  <a href="{{ frontpage.exhibition.get_absolute_url }}">
-    {% thumbnail frontpage.image "x500" as im %}
+  <a href="{{ exhibition.get_absolute_url }}">
+    {% thumbnail exhibition.get_press_release_photo "x500" as im %}
       <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
     {% endthumbnail %}
+    <h1>{{ exhibition }}</h1>
   </a>
-  <p>{% include "base/model_detail.html" with model=frontpage.exhibition %}</p>
-  {{ frontpage.extra_text|markdown }}
 </article>
 {% endblock body %}

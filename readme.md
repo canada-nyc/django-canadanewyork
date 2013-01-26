@@ -93,6 +93,8 @@ t_encrypt HEROKU_API_KEY=(heroku auth:token) >> '.travis.yml'
 # Production (Heroku)
 
 ## Create App
+
+### Create Development
 ```sh
 #!/usr/bin/env fish
 heroku apps:create canada-development --addons newrelic:standard,redistogo,memcache,heroku-postgresql:dev,pgbackups
@@ -106,11 +108,13 @@ heroku config:set 'heroku_app_'(heroku apps:info -s | grep '^name=')
 git push heroku master
 heroku run 'python manage.py clean_db --noinput'
 heroku run 'python manage.py import_wp static/wordpress/.canada.wordpress.*'
-heroku pgbackups:capture --expire
 heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com'
+```
 
-
-# Create production
+### Create Production
+```sh
+#!/usr/bin/env fish
+heroku pgbackups:capture --expire
 heroku apps:create canada --no-remote --addons newrelic:standard,redistogo,memcache,heroku-postgresql:dev,pgbackups
 heroku pipeline:add canada
 heroku pipeline:promote
@@ -124,11 +128,33 @@ heroku pgbackups:restore DATABASE --app canada (heroku pgbackups:url --app canad
 heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com' --app canada
 ```
 
+## Promotion
+### DB
+```sh
+heroku pgbackups:capture --expire --app canada-development
+heroku pgbackups:restore DATABASE --app canada (heroku pgbackups:url --app canada-development) --confirm canada
+```
+### Code
+```sh
+heroku pipeline:promote
+```
+
+
 ## Wipe
+
+### Development
 ```sh
 #!/usr/bin/env fish
 heroku pg:reset DATABASE_URL --confirm canada-development
-heroku run 'python manage.py clean_db --noinput'
+heroku run 'python manage.py clean_db --noinput' --app canada-development
 # --no-wipe-static for not deleting all static
-heroku run 'python manage.py import_wp static/wordpress/.canada.wordpress.*'
+heroku run 'python manage.py import_wp static/wordpress/.canada.wordpress.*' --app canada-development
+```
+
+### Production
+```sh
+heroku run 'python manage.py clean_db --noinput' --app canada
+heroku pgbackups:capture --expire --app canada-development
+heroku pgbackups:restore DATABASE --app canada (heroku pgbackups:url --app canada-development) --confirm canada
+heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com' --app canada
 ```

@@ -12,7 +12,7 @@ class ArtistFactory(DjangoFactory):
     last_name = factory.Sequence(lambda n: 'Lastname{}'.format(n))
     resume = 'Really long resume. Has lots of _markdown_'
 
-    resume = factory.Sequence(lambda n: django_pdf(n, 'Ima s World'))
+    resume = factory.Sequence(lambda n: django_pdf(n))
 
     @factory.post_generation(extract_prefix='photos')
     def create_photos(self, create, extracted, **kwargs):

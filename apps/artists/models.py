@@ -59,3 +59,7 @@ class Artist(models.Model):
     @permalink
     def get_press_url(self):
         return ('artist-press-list', (), {'slug': self.slug})
+
+    @permalink
+    def get_resume_url(self):
+        return ('artist-resume', (), {'slug': self.slug})

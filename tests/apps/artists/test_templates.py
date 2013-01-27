@@ -52,6 +52,6 @@ class ArtistTest(WebTest):
             resume='resume text'
         )
         artist_detail = self.app.get(Artist.get_absolute_url())
+        artist_resume = artist_detail.click('Resume')
 
-        assert 'Resume' in artist_detail
-        assert Artist.resume in artist_detail
+        assert Artist.resume in artist_resume

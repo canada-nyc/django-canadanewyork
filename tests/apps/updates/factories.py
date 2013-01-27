@@ -9,7 +9,6 @@ from ...common.factories import DjangoFactory, BasePhotoFactory
 class UpdateFactory(DjangoFactory):
     FACTORY_FOR = Update
 
-    name = factory.Sequence(lambda n: 'name{}'.format(n))
     description = '*italics* **bold**'
 
     post_date = datetime.date.today()

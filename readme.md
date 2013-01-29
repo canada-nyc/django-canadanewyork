@@ -72,9 +72,16 @@ gem install travis
 sed '/  global:/q' .travis.yml > .travis.yml.tmp
 mv -f .travis.yml.tmp .travis.yml
 
+function t_encrypt
+    echo "    - secret: " $argv >> .travis.yml
+end
 
-cat configs/env/secret.env | travis encrypt --no-interactive --add --split
-travis encrypt HEROKU_API_KEY=(heroku auth:token) --no-interactive --add
+for line in (cat configs/env/secret.env | travis encrypt --no-interactive --split)
+   t_encrypt $line
+end
+
+
+t_encrypt (travis encrypt HEROKU_API_KEY=(heroku auth:token) --no-interactive)
 
 for line in (cat configs/env/common.env configs/env/travis.env);
     echo "    - $line" >> '.travis.yml';

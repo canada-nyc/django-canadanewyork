@@ -69,24 +69,17 @@ end
 #!/usr/bin/env fish
 gem install travis
 
-sed '/  global:/q' .travis.yml | cat | tee .travis.yml
+sed '/  global:/q' .travis.yml > .travis.yml.tmp
+mv -f .travis.yml.tmp .travis.yml
 
-function t_encrypt
-    echo "    - secret: "(travis encrypt --no-interactive $argv)
-end
 
-function t_var
-    echo "    - $argv"
-end
+cat configs/env/secret.env | travis encrypt --no-interactive --add --split
+travis encrypt HEROKU_API_KEY=(heroku auth:token) --no-interactive --add
 
-for line in (cat configs/env/secret.env);
-    t_encrypt $line >> '.travis.yml';
-end
 for line in (cat configs/env/common.env configs/env/travis.env);
-    t_var $line >> '.travis.yml';
+    echo "    - $line" >> '.travis.yml';
 end
 
-t_encrypt HEROKU_API_KEY=(heroku auth:token) >> '.travis.yml'
 ```
 
 

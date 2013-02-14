@@ -144,6 +144,17 @@ TEST_DISCOVER_ROOT = rel_path('tests')
 SOUTH_TESTS_MIGRATE = False
 
 
+############
+# SECURITY #
+############
+INSTALLED_APPS += ('djangosecure',)
+MIDDLEWARE_CLASSES = ("djangosecure.middleware.SecurityMiddleware", ) + MIDDLEWARE_CLASSES
+
+SECURE_FRAME_DENY = True
+SECURE_BROWSER_XSS_FILTER = True
+SESSION_COOKIE_SECURE = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
 ########
 # MISC #
 ########

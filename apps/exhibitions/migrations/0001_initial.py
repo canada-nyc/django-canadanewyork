@@ -15,7 +15,7 @@ class Migration(SchemaMigration):
             ('description', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('start_date', self.gf('django.db.models.fields.DateField')()),
             ('end_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('slug', self.gf('libs.slugify.fields.SlugifyField')(unique=True, max_length=251)),
+            ('slug', self.gf('libs.slugify.fields.SlugifyField')(unique=True, max_length=251, populate_from=('get_year', 'name'))),
             ('current', self.gf('libs.unique_boolean.fields.UniqueBooleanField')(default=True)),
             ('press_release_photo', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
         ))
@@ -45,7 +45,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'resume': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '251'}),
+            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '251', 'populate_from': "('first_name', 'last_name')"}),
             'visible': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
         },
         'contenttypes.contenttype': {
@@ -64,7 +64,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '1000'}),
             'press_release_photo': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'slug': ('libs.slugify.fields.SlugifyField', [], {'unique': 'True', 'max_length': '251'}),
+            'slug': ('libs.slugify.fields.SlugifyField', [], {'unique': 'True', 'max_length': '251', 'populate_from': "('get_year', 'name')"}),
             'start_date': ('django.db.models.fields.DateField', [], {})
         },
         'photos.photo': {

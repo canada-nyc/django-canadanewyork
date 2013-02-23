@@ -28,13 +28,11 @@ urlpatterns = patterns(
     url(r'^exhibitions/', include('apps.exhibitions.urls')),
     url(r'^press/', include('apps.press.urls')),
     url(r'^', include('apps.info.urls')),
-    url(r'^', include('apps.bulkmail.urls')),
 )
 
 urlpatterns += patterns(
     '',
     url(r'^grappelli/', include('grappelli.urls')),
-    url(r'^admin/django_rq/', include('django_rq.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
 

@@ -1,6 +1,6 @@
 from django_webtest import WebTest
 
-from exhibitions.artists.models import Exhibition
+from apps.exhibitions.models import Exhibition
 from .factories import _ExhibitionFactory
 from ..artists.factories import ArtistFactory
 from ..press.factories import PressFactory

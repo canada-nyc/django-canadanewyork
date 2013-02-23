@@ -4,7 +4,7 @@ from django.db.models.fields import SlugField
 from django.template.defaultfilters import slugify
 from django.core.exceptions import FieldError
 
-from south.modelsinspector import add_introspection_rules
+from south.modelsinspector import introspector
 
 
 SLUG_INDEX_SEPARATOR = '-'    # the "-" in "foo-2"
@@ -48,4 +48,11 @@ class SlugifyField(SlugField):
         slug = self.slug_joiner(slugified_values)
         return slug[:self.max_length]
 
-add_introspection_rules([], ["^libs\.slugify\.fields\.SlugifyField"])
+    def south_field_triple(self):
+        "Returns a suitable description of this field for South."
+        args, kwargs = introspector(self)
+        field_class = self.__class__.__module__ + "." + self.__class__.__name__
+        kwargs.update({
+            'populate_from': repr(self.populate_from)
+        })
+        return (field_class, args, kwargs)

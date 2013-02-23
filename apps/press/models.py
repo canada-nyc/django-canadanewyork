@@ -59,6 +59,9 @@ class Press(models.Model):
         if self.content_file:
             return self.content_file.url
 
+    def get_year(self):
+        return self.date.year
+
 
 url_tracker.track_url_changes_for_model(Press)
 url_tracker.track_url_changes_for_model(

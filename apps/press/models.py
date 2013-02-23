@@ -3,7 +3,7 @@ import os
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 import url_tracker
 
-from django.core.urlresolvers import reverse
+from django.db.models import permalink
 from django.db import models
 
 from ..artists.models import Artist
@@ -30,7 +30,7 @@ class Press(models.Model):
                                    related_name='press',)
     slug = SlugifyField(
         populate_from=('get_year', 'publisher', 'title',),
-        slug_template=(u'{}/{}-{}'),
+        slug_template=u'{}/{}-{}',
         unique=True
     )
 
@@ -50,15 +50,15 @@ class Press(models.Model):
         self.publisher = self.publisher.strip().title()
         self.author = self.author.strip().title()
 
+    @permalink
     def get_absolute_url(self):
-        return reverse('press-detail', kwargs={
-            'slug': self.slug,
-        })
+        return ('press-detail', (), {'slug': self.slug})
 
     def get_content_file_url(self):
         if self.content_file:
             return self.content_file.url
 
+    @property
     def get_year(self):
         return self.date.year
 

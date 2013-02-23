@@ -7,11 +7,11 @@ from django.db.models.loading import get_model
 from django.contrib.contenttypes import generic
 
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
+import url_tracker
 
 from ..artists.models import Artist
 from libs.slugify.fields import SlugifyField
-from libs.update_related.models import RedirectField
-from libs.common.models import Photo
+from apps.photos.models import Photo
 from libs.unique_boolean.fields import UniqueBooleanField
 
 
@@ -31,7 +31,11 @@ class Exhibition(models.Model):
                                      blank=True, null=True)
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
-    slug = SlugifyField(populate_from=('name',))
+    slug = SlugifyField(
+        populate_from=('get_year', 'name',),
+        slug_template=u'{}/{}',
+        unique=True
+    )
 
     current = UniqueBooleanField(
         help_text="To switch to a different exhibition, activate on another",
@@ -44,9 +48,6 @@ class Exhibition(models.Model):
         blank=True,
         null=True
     )
-
-    old_path = models.CharField(blank=True, null=True, editable=False, max_length=2000)
-    redirect = RedirectField()
 
     photos = generic.GenericRelation(Photo)
     objects = ArtistRelatedManager()
@@ -63,8 +64,13 @@ class Exhibition(models.Model):
     @permalink
     def get_absolute_url(self):
         return ('exhibition-detail', (), {
-            'year': self.start_date.year,
             'slug': self.slug,
+        })
+
+    @permalink
+    def get_press_url(self):
+        return ('exhibition-press-list', (), {
+            'slug': self.slug
         })
 
     def save(self, *args, **kwargs):
@@ -86,9 +92,13 @@ class Exhibition(models.Model):
     def get_press_release_photo(self):
         return self.press_release_photo or self.photos.all()[0].image
 
-    @permalink
-    def get_press_url(self):
-        return ('exhibition-press-list', (), {
-            'year': self.start_date.year,
-            'slug': self.slug
-        })
+    def get_press_release_photo_url(self):
+        if self.press_release_photo:
+            return self.press_release_photo.url
+
+    @property
+    def get_year(self):
+        return self.start_date.year
+
+url_tracker.track_url_changes_for_model(Exhibition)
+url_tracker.track_url_changes_for_model(Exhibition, 'get_press_release_photo_url')

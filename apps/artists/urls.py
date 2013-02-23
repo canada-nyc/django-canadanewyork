@@ -8,10 +8,8 @@ urlpatterns = patterns(
     url(r'^(?P<slug>[-\w]+)/$', ArtistDetail.as_view(), name='artist-detail'),
     url(r'^(?P<slug>[-\w]+)/press/$',
         ArtistPressDetail.as_view(),
-        name='artist-press-list'
-    ),
+        name='artist-press-list'),
     url(r'^(?P<slug>[-\w]+)/resume/$',
         ArtistResume.as_view(),
-        name='artist-resume'
-    )
+        name='artist-resume')
 )

@@ -13,7 +13,15 @@ class SlugifyModel(models.Model):
     slug = SlugifyField(populate_from=('text', 'related_model'))
 
 
-class SlugifyDateModel(models.Model):
+class SlugifyUniqueModel(models.Model):
     text = models.CharField(max_length=400)
-    date = models.DateTimeField(auto_now=True)
-    slug = SlugifyField(populate_from=('text', lambda m: m.date.year))
+    slug = SlugifyField(populate_from=('text',), unique=True)
+
+
+class SlugifyTemplateModel(models.Model):
+    text = models.CharField(max_length=400)
+    text2 = models.CharField(max_length=400)
+    slug = SlugifyField(
+        populate_from=('text', 'text2'),
+        slug_template='{}/{}'
+    )

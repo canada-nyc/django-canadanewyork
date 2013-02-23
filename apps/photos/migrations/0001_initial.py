@@ -7,19 +7,29 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    needed_by = (
+        ("artists", "0001_initial"),
+        ("exhibitions", "0001_initial"),
+        ("updates", "0001_initial"),
+    )
+
     def forwards(self, orm):
-        # Adding model 'Update'
-        db.create_table('updates_update', (
+        # Adding model 'Photo'
+        db.create_table('photos_photo', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('description', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('post_date', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=400, blank=True)),
+            ('caption', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=1000)),
+            ('content_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
+            ('object_id', self.gf('django.db.models.fields.PositiveIntegerField')()),
+            ('position', self.gf('django.db.models.fields.PositiveSmallIntegerField')(null=True, blank=True)),
         ))
-        db.send_create_signal('updates', ['Update'])
+        db.send_create_signal('photos', ['Photo'])
 
 
     def backwards(self, orm):
-        # Deleting model 'Update'
-        db.delete_table('updates_update')
+        # Deleting model 'Photo'
+        db.delete_table('photos_photo')
 
 
     models = {
@@ -39,13 +49,7 @@ class Migration(SchemaMigration):
             'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '400', 'blank': 'True'})
-        },
-        'updates.update': {
-            'Meta': {'ordering': "['-post_date']", 'object_name': 'Update'},
-            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'post_date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'})
         }
     }
 
-    complete_apps = ['updates']
+    complete_apps = ['photos']

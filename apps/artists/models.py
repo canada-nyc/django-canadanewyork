@@ -5,10 +5,10 @@ from django.db.models.loading import get_model
 from django.contrib.contenttypes import generic
 
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
+import url_tracker
 
 from libs.slugify.fields import SlugifyField
-from libs.update_related.models import RedirectField
-from libs.common.models import Photo
+from apps.photos.models import Photo
 
 
 class VisibleManager(models.Manager):
@@ -25,9 +25,6 @@ class Artist(models.Model):
     visible = models.BooleanField(
         default=False,
         help_text="Whether it appears in the artists list, and has an artist page")
-
-    old_path = models.CharField(blank=True, null=True, editable=False, max_length=2000)
-    redirect = RedirectField()
 
     photos = generic.GenericRelation(Photo)
 
@@ -63,3 +60,6 @@ class Artist(models.Model):
     @permalink
     def get_resume_url(self):
         return ('artist-resume', (), {'slug': self.slug})
+
+
+url_tracker.track_url_changes_for_model(Artist)

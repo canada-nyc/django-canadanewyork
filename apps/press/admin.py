@@ -5,7 +5,7 @@ from .models import Press
 
 class PressAdmin(admin.ModelAdmin):
     date_hierarchy = 'date'
-    list_display = ('date', 'title', 'publisher', 'exhibition', 'slug', 'old_path', 'old_content_path',)
+    list_display = ('date', 'title', 'publisher', 'exhibition',)
 
     fieldsets = (
         (None, {

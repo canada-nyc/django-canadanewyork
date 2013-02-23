@@ -15,9 +15,9 @@ class Migration(SchemaMigration):
             ('description', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('start_date', self.gf('django.db.models.fields.DateField')()),
             ('end_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('slug', self.gf('libs.slugify.fields.SlugifyField')(max_length=251, populate_from=('name',))),
-            ('old_path', self.gf('django.db.models.fields.CharField')(max_length=2000, null=True, blank=True)),
-            ('redirect', self.gf('libs.update_related.models.fields.RedirectField')(unique=True, null=True, on_delete=models.PROTECT, blank=True)),
+            ('slug', self.gf('libs.slugify.fields.SlugifyField')(unique=True, max_length=251)),
+            ('current', self.gf('libs.unique_boolean.fields.UniqueBooleanField')(default=True)),
+            ('press_release_photo', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
         ))
         db.send_create_signal('exhibitions', ['Exhibition'])
 
@@ -44,23 +44,9 @@ class Migration(SchemaMigration):
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'null': 'True', 'blank': 'True'}),
-            'redirect': ('libs.update_related.models.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.PROTECT', 'blank': 'True'}),
             'resume': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '251', 'populate_from': "('first_name', 'last_name')"}),
+            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '251'}),
             'visible': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
-        },
-        'common.photo': {
-            'Meta': {'ordering': "['position']", 'object_name': 'Photo'},
-            'caption': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '1000'}),
-            'image_redirect': ('libs.update_related.models.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.PROTECT', 'blank': 'True'}),
-            'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'old_image_path': ('django.db.models.fields.CharField', [], {'max_length': '1000', 'blank': 'True'}),
-            'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '400', 'blank': 'True'})
         },
         'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
@@ -72,27 +58,24 @@ class Migration(SchemaMigration):
         'exhibitions.exhibition': {
             'Meta': {'ordering': "['-start_date']", 'object_name': 'Exhibition'},
             'artists': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "'exhibitions'", 'null': 'True', 'symmetrical': 'False', 'to': "orm['artists.Artist']"}),
+            'current': ('libs.unique_boolean.fields.UniqueBooleanField', [], {'default': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'end_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '1000'}),
-            'old_path': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'null': 'True', 'blank': 'True'}),
-            'redirect': ('libs.update_related.models.fields.RedirectField', [], {'unique': 'True', 'null': 'True', 'on_delete': 'models.PROTECT', 'blank': 'True'}),
-            'slug': ('libs.slugify.fields.SlugifyField', [], {'max_length': '251', 'populate_from': "('name',)"}),
+            'press_release_photo': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
+            'slug': ('libs.slugify.fields.SlugifyField', [], {'unique': 'True', 'max_length': '251'}),
             'start_date': ('django.db.models.fields.DateField', [], {})
         },
-        'redirects.redirect': {
-            'Meta': {'ordering': "('old_path',)", 'unique_together': "(('site', 'old_path'),)", 'object_name': 'Redirect', 'db_table': "'django_redirect'"},
+        'photos.photo': {
+            'Meta': {'ordering': "['position']", 'object_name': 'Photo'},
+            'caption': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'new_path': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'blank': 'True'}),
-            'old_path': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '2000', 'db_index': 'True'}),
-            'site': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sites.Site']"})
-        },
-        'sites.site': {
-            'Meta': {'ordering': "('domain',)", 'object_name': 'Site', 'db_table': "'django_site'"},
-            'domain': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
+            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '1000'}),
+            'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
+            'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '400', 'blank': 'True'})
         }
     }
 

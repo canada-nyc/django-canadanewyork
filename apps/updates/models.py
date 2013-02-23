@@ -3,18 +3,15 @@ from django.db.models import permalink
 from django.contrib.contenttypes import generic
 
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
+import url_tracker
 
-from libs.update_related.models import RedirectField
-from libs.common.models import Photo
+from apps.photos.models import Photo
 
 
 class Update(models.Model):
     description = models.TextField(blank=True, null=True,
                                    help_text=markdown_allowed())
     post_date = models.DateTimeField(auto_now_add=True)
-
-    old_path = models.CharField(blank=True, null=True, editable=False, max_length=2000)
-    redirect = RedirectField()
 
     photos = generic.GenericRelation(Photo)
 
@@ -32,3 +29,5 @@ class Update(models.Model):
         return ('update-single', (), {
             'pk': self.pk,
         })
+
+url_tracker.track_url_changes_for_model(Update)

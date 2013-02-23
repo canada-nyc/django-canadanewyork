@@ -1,6 +1,7 @@
 import os
 
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
+import url_tracker
 
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -8,7 +9,6 @@ from django.db import models
 from ..artists.models import Artist
 from ..exhibitions.models import Exhibition
 from libs.slugify.fields import SlugifyField
-from libs.update_related.models import RedirectField
 
 
 class Press(models.Model):
@@ -28,16 +28,11 @@ class Press(models.Model):
                                      related_name='press',)
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True,
                                    related_name='press',)
-    slug = SlugifyField(populate_from=('publisher', 'title',), unique_for_year='date')
-
-    old_path = models.CharField(blank=True, null=True, editable=False, max_length=2000)
-    redirect = RedirectField()
-
-    old_content_path = models.CharField(blank=True, max_length=1000)
-    image_redirect = RedirectField(model_to_related={
-        'old_path': lambda model: model.old_content_path,
-        'new_path': lambda model: model.content_file and model.content_file.url,
-    }, related_name='press_images')
+    slug = SlugifyField(
+        populate_from=('get_year', 'publisher', 'title',),
+        slug_template=(u'{}/{}-{}'),
+        unique=True
+    )
 
     class Meta:
         ordering = ['-date']
@@ -58,5 +53,15 @@ class Press(models.Model):
     def get_absolute_url(self):
         return reverse('press-detail', kwargs={
             'slug': self.slug,
-            'year': self.date.year
         })
+
+    def get_content_file_url(self):
+        if self.content_file:
+            return self.content_file.url
+
+
+url_tracker.track_url_changes_for_model(Press)
+url_tracker.track_url_changes_for_model(
+    Press,
+    absolute_url_method='get_content_file_url',
+)

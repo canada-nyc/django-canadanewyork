@@ -1,10 +1,10 @@
-import new
+import functools
 
 from django.db.models.fields import SlugField
 from django.template.defaultfilters import slugify
 from django.core.exceptions import FieldError
 
-from south.modelsinspector import introspector
+from south.modelsinspector import add_introspection_rules
 
 
 SLUG_INDEX_SEPARATOR = '-'    # the "-" in "foo-2"
@@ -16,11 +16,17 @@ class SlugifyField(SlugField):
     def __init__(self, *args, **kwargs):
         kwargs['editable'] = False
 
-        kwargs['max_length'] = kwargs.get('max_length', MAX_LENGTH)
+        kwargs['max_length'] = self.max_length = kwargs.get('max_length', MAX_LENGTH)
         # autopopulated slug is not editable unless told so
         self.populate_from = kwargs.pop('populate_from')
         # Use default seperator unless given one
         self.index_sep = kwargs.pop('sep', SLUG_INDEX_SEPARATOR)
+
+        self.slug_template = kwargs.pop('slug_template', None)
+        if self.slug_template:
+            self.slug_joiner = lambda values: self.slug_template.format(*values)
+        else:
+            self.slug_joiner = lambda values: self.index_sep.join(values)
         super(SlugifyField, self).__init__(*args, **kwargs)
 
     def pre_save(self, model_instance, add):
@@ -34,27 +40,12 @@ class SlugifyField(SlugField):
                 ('In model {}, field {}, the populate_from kwarg needs to '
                  'be passed a list, not a string').format(model_instance,
                                                           self.attname))
-        values = [value(model_instance) if callable(value) else getattr(model_instance, value) for value in self.populate_from]
-        values = filter(None, values)
-        return self.index_sep.join(map(slugify, values))[:MAX_LENGTH]
-
-    def contribute_to_class(self, cls, name):
-        super(SlugifyField, self).contribute_to_class(cls, name)
-        setattr(
-            cls,
-            '_get_{}_value'.format(self.name),
-            new.instancemethod(
-                self._get_value,
-                None,
-                cls
-            )
+        values = map(
+            functools.partial(getattr, model_instance),
+            self.populate_from
         )
+        slugified_values = map(slugify, values)
+        slug = self.slug_joiner(slugified_values)
+        return slug[:self.max_length]
 
-    def south_field_triple(self):
-        "Returns a suitable description of this field for South."
-        args, kwargs = introspector(self)
-        field_class = self.__class__.__module__ + "." + self.__class__.__name__
-        kwargs.update({
-            'populate_from': 'None' if any(map(callable, self.populate_from)) else repr(self.populate_from)
-        })
-        return (field_class, args, kwargs)
+add_introspection_rules([], ["^libs\.slugify\.fields\.SlugifyField"])

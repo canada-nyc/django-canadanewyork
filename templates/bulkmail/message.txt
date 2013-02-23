@@ -1,6 +1,0 @@
-{{ message.subject }}
-
-
-{{ message.body }}
-
-Unsubscribe: {{ domain }}{{ recipient.get_delete_url }}

@@ -5,6 +5,6 @@ from .views import PressDetail
 
 urlpatterns = patterns(
     '',
-    url(r'^(?P<year>\d{4})/(?P<slug>[-\w]+)', PressDetail.as_view(),
+    url(r'^(?P<slug>\d{4}/[-\w]+)', PressDetail.as_view(),
         name='press-detail'),
 )

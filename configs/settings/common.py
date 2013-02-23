@@ -32,15 +32,20 @@ INSTALLED_APPS = (
     'apps.exhibitions',
     'apps.press',
     'apps.updates',
-    'apps.bulkmail',
-    'apps.updates',
     'apps.info',
+    'apps.photos',
 
     'libs.common',
-    'libs.redirects',
 )
 
-MIDDLEWARE_CLASSES += ('libs.redirects.middleware.RedirectFallbackMiddleware',)
+
+##########
+# MODELS #
+##########
+INSTALLED_APPS += (
+    "url_tracker",
+)
+MIDDLEWARE_CLASSES += ('url_tracker.middleware.URLChangePermanentRedirectMiddleware',)
 
 
 #########
@@ -94,7 +99,7 @@ INSTALLED_APPS += ('compressor',)
 STATICFILES_FINDERS += ('compressor.finders.CompressorFinder',)
 COMPRESS_CSS_FILTERS = [
     'compressor.filters.css_default.CssAbsoluteFilter',
-#    'compressor.filters.cssmin.CSSMinFilter',
+    #'compressor.filters.cssmin.CSSMinFilter',
 ]
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),
@@ -121,18 +126,6 @@ EMAIL_USE_TLS = True
 
 INSTALLED_APPS += ('django.contrib.sites',)
 SITE_ID = 1
-
-
-#########
-# QUEUE #
-#########
-INSTALLED_APPS += ('django_rq',)
-RQ_QUEUES = {
-    'default': {
-        'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379'),
-        'DB': 0,
-    },
-}
 
 
 ###########

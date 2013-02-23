@@ -8,11 +8,23 @@
 {% block body %}
 <section>
   {{ info.text|markdown }}
-  <h2>Subscribe To Our Email List</h2>
-  <form action="/contact/" method="post">
-    {% csrf_token %}
-    {{ form.email|bootstrap }}
-    <button type="submit" class="btn" type="button">Submit</button>
-  </form>
+  <!-- Begin MailChimp Signup Form -->
+  <div id="mc_embed_signup">
+    <form action="http://canadanewyork.us6.list-manage.com/subscribe/post?u=f55caeef42&amp;id=4ddf260db3" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+      <h2>Subscribe to our mailing list</h2>
+      <div class="mc-field-group">
+        <label for="mce-EMAIL">Email Address</label>
+        <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+      </div>
+        <div id="mce-responses" class="clear">
+          <div class="response" id="mce-error-response" style="display:none"></div>
+          <div class="response" id="mce-success-response" style="display:none"></div>
+        </div>
+        <div class="clear">
+          <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+        </div>
+    </form>
+  </div>
+  <!--End mc_embed_signup-->
 </section>
 {% endblock body %}

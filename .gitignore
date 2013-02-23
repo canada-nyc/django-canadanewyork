@@ -5,3 +5,4 @@
 
 /configs/env/secret.env
 *.sublime*
+/static/wordpress/.image_cache.sqlite

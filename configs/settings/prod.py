@@ -83,10 +83,6 @@ LOGGING = {
             'handlers': ['sentry'],
             'propagate': False,
         },
-        "rq.worker": {
-            "handlers": ["sentry"],
-            "level": "DEBUG"
-        },
         'sentry.errors': {
             'level': 'DEBUG',
             'handlers': ['sentry'],

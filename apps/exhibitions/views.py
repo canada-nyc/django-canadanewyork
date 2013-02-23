@@ -11,7 +11,6 @@ class ExhibitionList(ListView):
 class ExhibitionDetail(DetailView):
     def get_object(self):
         return get_object_or_404(Exhibition.objects.prefetch_related('artists', 'photos'),
-                                 start_date__year=int(self.kwargs['year']),
                                  slug=self.kwargs['slug'])
 
 
@@ -21,7 +20,6 @@ class ExhibitionPressDetail(DetailView):
     def get_object(self):
         return get_object_or_404(
             Exhibition.objects.only('name').prefetch_related('press'),
-            start_date__year=int(self.kwargs['year']),
             slug=self.kwargs['slug']
         )
 

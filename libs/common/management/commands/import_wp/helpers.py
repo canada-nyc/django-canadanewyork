@@ -124,10 +124,12 @@ def dates_from_text(text, year):
     else:
         dates.append((date_from_text(text, default)))
     dates = sorted(filter(None, dates))
+    dates = map(lambda date: date if len(str(date.year)) == 4 else date.replace(year=default.year), dates)
     if len(dates) == 0:
         return default, None
     elif len(dates) == 1:
         return dates[0], None
+
     return dates[0], dates[1]
 
 

@@ -194,8 +194,7 @@ def create_update(element, all_elements):
     U = Update(
         description=helpers.html_to_markdown(
             element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
-        ),
-        old_path=helpers.url_path(element),
+        )
     )
     U.save()
     # override first save value of 'now', because auto_now_add cannot be overridden

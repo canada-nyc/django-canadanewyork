@@ -16,7 +16,7 @@
 <!-- 7. WordPress will then import each of the posts, pages, comments, categories, etc. -->
 <!--    contained in this file into your site. -->
 
-<!-- generator="WordPress/3.1.4" created="2013-01-22 21:26" -->
+<!-- generator="WordPress/3.1.4" created="2013-02-23 18:30" -->
 <rss version="2.0"
 	xmlns:excerpt="http://wordpress.org/export/1.1/excerpt/"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -29,7 +29,7 @@
 	<title>CANADA</title>
 	<link>http://www.canadanewyork.com</link>
 	<description></description>
-	<pubDate>Tue, 22 Jan 2013 21:26:27 +0000</pubDate>
+	<pubDate>Sat, 23 Feb 2013 18:30:50 +0000</pubDate>
 	<language>en</language>
 	<wp:wxr_version>1.1</wp:wxr_version>
 	<wp:base_site_url>http://www.canadanewyork.com</wp:base_site_url>
@@ -3627,68 +3627,6 @@ From Digital Kaleidoscope, Digital print 24"x24", Images from web]]></content:en
 		<wp:postmeta>
 			<wp:meta_key>_wp_attachment_metadata</wp:meta_key>
 			<wp:meta_value><![CDATA[a:6:{s:5:"width";s:3:"380";s:6:"height";s:3:"380";s:14:"hwstring_small";s:22:"height='96' width='96'";s:4:"file";s:43:"artists/luke-murphy/var1_24_upsampled_2.jpg";s:5:"sizes";a:2:{s:9:"thumbnail";a:3:{s:4:"file";s:29:"var1_24_upsampled_2-80x80.jpg";s:5:"width";s:2:"80";s:6:"height";s:2:"80";}s:6:"medium";a:3:{s:4:"file";s:31:"var1_24_upsampled_2-300x300.jpg";s:5:"width";s:3:"300";s:6:"height";s:3:"300";}}s:10:"image_meta";a:10:{s:8:"aperture";s:1:"0";s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";s:1:"0";s:9:"copyright";s:0:"";s:12:"focal_length";s:1:"0";s:3:"iso";s:1:"0";s:13:"shutter_speed";s:1:"0";s:5:"title";s:0:"";}}]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>JoanBrown</title>
-		<link>http://www.canadanewyork.com/press/2009/joanbrown</link>
-		<pubDate>Fri, 02 Oct 2009 21:12:31 +0000</pubDate>
-		<dc:creator>admin</dc:creator>
-		<guid isPermaLink="false">http://www.canadanewyork.com/wp/files/press/2009/test-press-item/JoanBrown.pdf</guid>
-		<description></description>
-		<content:encoded><![CDATA[]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>628</wp:post_id>
-		<wp:post_date>2009-10-02 17:12:31</wp:post_date>
-		<wp:post_date_gmt>2009-10-02 21:12:31</wp:post_date_gmt>
-		<wp:comment_status>closed</wp:comment_status>
-		<wp:ping_status>closed</wp:ping_status>
-		<wp:post_name>joanbrown</wp:post_name>
-		<wp:status>inherit</wp:status>
-		<wp:post_parent>560</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type>attachment</wp:post_type>
-		<wp:post_password></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<wp:attachment_url>http://www.canadanewyork.com/wp/files/press/2009/test-press-item/JoanBrown.pdf</wp:attachment_url>
-		<wp:postmeta>
-			<wp:meta_key>_wp_attached_file</wp:meta_key>
-			<wp:meta_value><![CDATA[press/2009/test-press-item/JoanBrown.pdf]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key>_wp_attachment_metadata</wp:meta_key>
-			<wp:meta_value><![CDATA[a:0:{}]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>JoanBrown</title>
-		<link>http://www.canadanewyork.com/press/2009/joanbrown-2</link>
-		<pubDate>Fri, 02 Oct 2009 21:12:56 +0000</pubDate>
-		<dc:creator>admin</dc:creator>
-		<guid isPermaLink="false">http://www.canadanewyork.com/wp/files/press/2009/test-press-item/JoanBrown1.pdf</guid>
-		<description></description>
-		<content:encoded><![CDATA[]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>629</wp:post_id>
-		<wp:post_date>2009-10-02 17:12:56</wp:post_date>
-		<wp:post_date_gmt>2009-10-02 21:12:56</wp:post_date_gmt>
-		<wp:comment_status>closed</wp:comment_status>
-		<wp:ping_status>closed</wp:ping_status>
-		<wp:post_name>joanbrown-2</wp:post_name>
-		<wp:status>inherit</wp:status>
-		<wp:post_parent>560</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type>attachment</wp:post_type>
-		<wp:post_password></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<wp:attachment_url>http://www.canadanewyork.com/wp/files/press/2009/test-press-item/JoanBrown1.pdf</wp:attachment_url>
-		<wp:postmeta>
-			<wp:meta_key>_wp_attached_file</wp:meta_key>
-			<wp:meta_value><![CDATA[press/2009/test-press-item/JoanBrown1.pdf]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key>_wp_attachment_metadata</wp:meta_key>
-			<wp:meta_value><![CDATA[a:0:{}]]></wp:meta_value>
 		</wp:postmeta>
 	</item>
 	<item>
@@ -41805,6 +41743,111 @@ prop photo; a continuation of Rich's wii controllers; in his Dadarhea video he u
 		</wp:postmeta>
 	</item>
 	<item>
+		<title>dedee</title>
+		<link>http://www.canadanewyork.com/home/dedee</link>
+		<pubDate>Tue, 18 Sep 2012 19:25:59 +0000</pubDate>
+		<dc:creator>admin</dc:creator>
+		<guid isPermaLink="false">http://www.canadanewyork.com/wp/files/home/dedee.jpg</guid>
+		<description></description>
+		<content:encoded><![CDATA[]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>4338</wp:post_id>
+		<wp:post_date>2012-09-18 15:25:59</wp:post_date>
+		<wp:post_date_gmt>2012-09-18 19:25:59</wp:post_date_gmt>
+		<wp:comment_status>closed</wp:comment_status>
+		<wp:ping_status>closed</wp:ping_status>
+		<wp:post_name>dedee</wp:post_name>
+		<wp:status>inherit</wp:status>
+		<wp:post_parent>3</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>attachment</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<wp:attachment_url>http://www.canadanewyork.com/wp/files/home/dedee.jpg</wp:attachment_url>
+		<wp:postmeta>
+			<wp:meta_key>_wp_attached_file</wp:meta_key>
+			<wp:meta_value><![CDATA[home/dedee.jpg]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_attachment_metadata</wp:meta_key>
+			<wp:meta_value><![CDATA[a:6:{s:5:"width";s:3:"672";s:6:"height";s:3:"504";s:14:"hwstring_small";s:23:"height='96' width='128'";s:4:"file";s:14:"home/dedee.jpg";s:5:"sizes";a:3:{s:9:"thumbnail";a:3:{s:4:"file";s:15:"dedee-80x80.jpg";s:5:"width";s:2:"80";s:6:"height";s:2:"80";}s:6:"medium";a:3:{s:4:"file";s:17:"dedee-300x225.jpg";s:5:"width";s:3:"300";s:6:"height";s:3:"225";}s:5:"large";a:3:{s:4:"file";s:17:"dedee-560x420.jpg";s:5:"width";s:3:"560";s:6:"height";s:3:"420";}}s:10:"image_meta";a:10:{s:8:"aperture";s:3:"3.9";s:6:"credit";s:0:"";s:6:"camera";s:7:"DMC-TZ5";s:7:"caption";s:0:"";s:17:"created_timestamp";s:10:"1344807915";s:9:"copyright";s:0:"";s:12:"focal_length";s:3:"6.7";s:3:"iso";s:3:"100";s:13:"shutter_speed";s:5:"0.008";s:5:"title";s:0:"";}}]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title>PastedGraphic-2</title>
+		<link>http://www.canadanewyork.com/home/pastedgraphic-2</link>
+		<pubDate>Tue, 18 Sep 2012 19:30:12 +0000</pubDate>
+		<dc:creator>admin</dc:creator>
+		<guid isPermaLink="false">http://www.canadanewyork.com/wp/files/home/PastedGraphic-2.jpg</guid>
+		<description></description>
+		<content:encoded><![CDATA[]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>4340</wp:post_id>
+		<wp:post_date>2012-09-18 15:30:12</wp:post_date>
+		<wp:post_date_gmt>2012-09-18 19:30:12</wp:post_date_gmt>
+		<wp:comment_status>closed</wp:comment_status>
+		<wp:ping_status>closed</wp:ping_status>
+		<wp:post_name>pastedgraphic-2</wp:post_name>
+		<wp:status>inherit</wp:status>
+		<wp:post_parent>3</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>attachment</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<wp:attachment_url>http://www.canadanewyork.com/wp/files/home/PastedGraphic-2.jpg</wp:attachment_url>
+		<wp:postmeta>
+			<wp:meta_key>_wp_attached_file</wp:meta_key>
+			<wp:meta_value><![CDATA[home/PastedGraphic-2.jpg]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_attachment_metadata</wp:meta_key>
+			<wp:meta_value><![CDATA[a:6:{s:5:"width";s:4:"2592";s:6:"height";s:4:"1878";s:14:"hwstring_small";s:23:"height='92' width='128'";s:4:"file";s:24:"home/PastedGraphic-2.jpg";s:5:"sizes";a:3:{s:9:"thumbnail";a:3:{s:4:"file";s:25:"PastedGraphic-2-80x80.jpg";s:5:"width";s:2:"80";s:6:"height";s:2:"80";}s:6:"medium";a:3:{s:4:"file";s:27:"PastedGraphic-2-300x217.jpg";s:5:"width";s:3:"300";s:6:"height";s:3:"217";}s:5:"large";a:3:{s:4:"file";s:27:"PastedGraphic-2-579x420.jpg";s:5:"width";s:3:"579";s:6:"height";s:3:"420";}}s:10:"image_meta";a:10:{s:8:"aperture";s:1:"0";s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";s:1:"0";s:9:"copyright";s:0:"";s:12:"focal_length";s:1:"0";s:3:"iso";s:1:"0";s:13:"shutter_speed";s:1:"0";s:5:"title";s:0:"";}}]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title>home</title>
+		<link>http://www.canadanewyork.com/</link>
+		<pubDate>Mon, 06 Jul 2009 01:33:12 +0000</pubDate>
+		<dc:creator>admin</dc:creator>
+		<guid isPermaLink="false">http://www.canadanewyork.com/wp/?page_id=3</guid>
+		<description></description>
+		<content:encoded><![CDATA[<img class="alignnone size-large wp-image-4394" title="ghtbfnbmj" src="http://www.canadanewyork.com/wp/files/home/ghtbfnbmj-373x420.jpg" alt="" width="373" height="420" />
+
+<address>CANADA is closed while we renovate our new space on Broome St. </address>Please call or email any inquiries and come visit us at:
+
+<address> </address> <address> </address> <address>Dallas Art Fair, April 12 - 14 </address> <address>NADA Cologne, April 19 - 22</address> <address>Frieze New York,  May 10 - 13
+</address>&nbsp;]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>3</wp:post_id>
+		<wp:post_date>2009-07-05 21:33:12</wp:post_date>
+		<wp:post_date_gmt>2009-07-06 01:33:12</wp:post_date_gmt>
+		<wp:comment_status>closed</wp:comment_status>
+		<wp:ping_status>closed</wp:ping_status>
+		<wp:post_name>home</wp:post_name>
+		<wp:status>publish</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>3</wp:menu_order>
+		<wp:post_type>page</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_page_template</wp:meta_key>
+			<wp:meta_value><![CDATA[page-home.php]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>ThumbNailImage</wp:meta_key>
+			<wp:meta_value><![CDATA[http://www.canadanewyork.com/wp/files/home/Billy_mouth-dookie-full-80x80.jpg||http://www.canadanewyork.com/wp/files/home/Billy_mouth-dookie-full-300x185.jpg]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_upload_dir</wp:meta_key>
+			<wp:meta_value><![CDATA[home]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
 		<title>Brian Belott</title>
 		<link>http://www.canadanewyork.com/artists/brian-belott</link>
 		<pubDate>Sat, 18 Jul 2009 20:41:41 +0000</pubDate>
@@ -41942,68 +41985,6 @@ December 17th- Sara Magenheimer &amp; Greg Saunier (Deerhoof), Sarah Register (T
 		<wp:postmeta>
 			<wp:meta_key>_wp_page_template</wp:meta_key>
 			<wp:meta_value><![CDATA[default]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>dedee</title>
-		<link>http://www.canadanewyork.com/home/dedee</link>
-		<pubDate>Tue, 18 Sep 2012 19:25:59 +0000</pubDate>
-		<dc:creator>admin</dc:creator>
-		<guid isPermaLink="false">http://www.canadanewyork.com/wp/files/home/dedee.jpg</guid>
-		<description></description>
-		<content:encoded><![CDATA[]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>4338</wp:post_id>
-		<wp:post_date>2012-09-18 15:25:59</wp:post_date>
-		<wp:post_date_gmt>2012-09-18 19:25:59</wp:post_date_gmt>
-		<wp:comment_status>closed</wp:comment_status>
-		<wp:ping_status>closed</wp:ping_status>
-		<wp:post_name>dedee</wp:post_name>
-		<wp:status>inherit</wp:status>
-		<wp:post_parent>3</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type>attachment</wp:post_type>
-		<wp:post_password></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<wp:attachment_url>http://www.canadanewyork.com/wp/files/home/dedee.jpg</wp:attachment_url>
-		<wp:postmeta>
-			<wp:meta_key>_wp_attached_file</wp:meta_key>
-			<wp:meta_value><![CDATA[home/dedee.jpg]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key>_wp_attachment_metadata</wp:meta_key>
-			<wp:meta_value><![CDATA[a:6:{s:5:"width";s:3:"672";s:6:"height";s:3:"504";s:14:"hwstring_small";s:23:"height='96' width='128'";s:4:"file";s:14:"home/dedee.jpg";s:5:"sizes";a:3:{s:9:"thumbnail";a:3:{s:4:"file";s:15:"dedee-80x80.jpg";s:5:"width";s:2:"80";s:6:"height";s:2:"80";}s:6:"medium";a:3:{s:4:"file";s:17:"dedee-300x225.jpg";s:5:"width";s:3:"300";s:6:"height";s:3:"225";}s:5:"large";a:3:{s:4:"file";s:17:"dedee-560x420.jpg";s:5:"width";s:3:"560";s:6:"height";s:3:"420";}}s:10:"image_meta";a:10:{s:8:"aperture";s:3:"3.9";s:6:"credit";s:0:"";s:6:"camera";s:7:"DMC-TZ5";s:7:"caption";s:0:"";s:17:"created_timestamp";s:10:"1344807915";s:9:"copyright";s:0:"";s:12:"focal_length";s:3:"6.7";s:3:"iso";s:3:"100";s:13:"shutter_speed";s:5:"0.008";s:5:"title";s:0:"";}}]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>PastedGraphic-2</title>
-		<link>http://www.canadanewyork.com/home/pastedgraphic-2</link>
-		<pubDate>Tue, 18 Sep 2012 19:30:12 +0000</pubDate>
-		<dc:creator>admin</dc:creator>
-		<guid isPermaLink="false">http://www.canadanewyork.com/wp/files/home/PastedGraphic-2.jpg</guid>
-		<description></description>
-		<content:encoded><![CDATA[]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>4340</wp:post_id>
-		<wp:post_date>2012-09-18 15:30:12</wp:post_date>
-		<wp:post_date_gmt>2012-09-18 19:30:12</wp:post_date_gmt>
-		<wp:comment_status>closed</wp:comment_status>
-		<wp:ping_status>closed</wp:ping_status>
-		<wp:post_name>pastedgraphic-2</wp:post_name>
-		<wp:status>inherit</wp:status>
-		<wp:post_parent>3</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type>attachment</wp:post_type>
-		<wp:post_password></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<wp:attachment_url>http://www.canadanewyork.com/wp/files/home/PastedGraphic-2.jpg</wp:attachment_url>
-		<wp:postmeta>
-			<wp:meta_key>_wp_attached_file</wp:meta_key>
-			<wp:meta_value><![CDATA[home/PastedGraphic-2.jpg]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key>_wp_attachment_metadata</wp:meta_key>
-			<wp:meta_value><![CDATA[a:6:{s:5:"width";s:4:"2592";s:6:"height";s:4:"1878";s:14:"hwstring_small";s:23:"height='92' width='128'";s:4:"file";s:24:"home/PastedGraphic-2.jpg";s:5:"sizes";a:3:{s:9:"thumbnail";a:3:{s:4:"file";s:25:"PastedGraphic-2-80x80.jpg";s:5:"width";s:2:"80";s:6:"height";s:2:"80";}s:6:"medium";a:3:{s:4:"file";s:27:"PastedGraphic-2-300x217.jpg";s:5:"width";s:3:"300";s:6:"height";s:3:"217";}s:5:"large";a:3:{s:4:"file";s:27:"PastedGraphic-2-579x420.jpg";s:5:"width";s:3:"579";s:6:"height";s:3:"420";}}s:10:"image_meta";a:10:{s:8:"aperture";s:1:"0";s:6:"credit";s:0:"";s:6:"camera";s:0:"";s:7:"caption";s:0:"";s:17:"created_timestamp";s:1:"0";s:9:"copyright";s:0:"";s:12:"focal_length";s:1:"0";s:3:"iso";s:1:"0";s:13:"shutter_speed";s:1:"0";s:5:"title";s:0:"";}}]]></wp:meta_value>
 		</wp:postmeta>
 	</item>
 	<item>
@@ -42441,43 +42422,34 @@ December 17th- Sara Magenheimer &amp; Greg Saunier (Deerhoof), Sarah Register (T
 		</wp:postmeta>
 	</item>
 	<item>
-		<title>home</title>
-		<link>http://www.canadanewyork.com/</link>
-		<pubDate>Mon, 06 Jul 2009 01:33:12 +0000</pubDate>
+		<title>ghtbfnbmj</title>
+		<link>http://www.canadanewyork.com/home/ghtbfnbmj</link>
+		<pubDate>Wed, 06 Feb 2013 16:36:40 +0000</pubDate>
 		<dc:creator>admin</dc:creator>
-		<guid isPermaLink="false">http://www.canadanewyork.com/wp/?page_id=3</guid>
+		<guid isPermaLink="false">http://www.canadanewyork.com/wp/files/home/ghtbfnbmj.jpg</guid>
 		<description></description>
-		<content:encoded><![CDATA[<img class="alignnone size-large wp-image-4342" title="barn" src="http://www.canadanewyork.com/wp/files/home/barn-584x420.jpg" alt="" width="584" height="420" />
-
-<address>We are building a new space on Broome St. </address> <address>In the meantime, please email us with any inquiries. </address> <address>We look forward to seeing you at Frieze Fair, Oct 11-14.</address>&nbsp;]]></content:encoded>
+		<content:encoded><![CDATA[]]></content:encoded>
 		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>3</wp:post_id>
-		<wp:post_date>2009-07-05 21:33:12</wp:post_date>
-		<wp:post_date_gmt>2009-07-06 01:33:12</wp:post_date_gmt>
+		<wp:post_id>4394</wp:post_id>
+		<wp:post_date>2013-02-06 12:36:40</wp:post_date>
+		<wp:post_date_gmt>2013-02-06 16:36:40</wp:post_date_gmt>
 		<wp:comment_status>closed</wp:comment_status>
 		<wp:ping_status>closed</wp:ping_status>
-		<wp:post_name>home</wp:post_name>
-		<wp:status>publish</wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>3</wp:menu_order>
-		<wp:post_type>page</wp:post_type>
+		<wp:post_name>ghtbfnbmj</wp:post_name>
+		<wp:status>inherit</wp:status>
+		<wp:post_parent>3</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>attachment</wp:post_type>
 		<wp:post_password></wp:post_password>
 		<wp:is_sticky>0</wp:is_sticky>
+		<wp:attachment_url>http://www.canadanewyork.com/wp/files/home/ghtbfnbmj.jpg</wp:attachment_url>
 		<wp:postmeta>
-			<wp:meta_key>_edit_last</wp:meta_key>
-			<wp:meta_value><![CDATA[1]]></wp:meta_value>
+			<wp:meta_key>_wp_attached_file</wp:meta_key>
+			<wp:meta_value><![CDATA[home/ghtbfnbmj.jpg]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
-			<wp:meta_key>_wp_page_template</wp:meta_key>
-			<wp:meta_value><![CDATA[page-home.php]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key>ThumbNailImage</wp:meta_key>
-			<wp:meta_value><![CDATA[http://www.canadanewyork.com/wp/files/home/Billy_mouth-dookie-full-80x80.jpg||http://www.canadanewyork.com/wp/files/home/Billy_mouth-dookie-full-300x185.jpg]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key>_upload_dir</wp:meta_key>
-			<wp:meta_value><![CDATA[home]]></wp:meta_value>
+			<wp:meta_key>_wp_attachment_metadata</wp:meta_key>
+			<wp:meta_value><![CDATA[a:6:{s:5:"width";s:3:"527";s:6:"height";s:3:"592";s:14:"hwstring_small";s:22:"height='96' width='85'";s:4:"file";s:18:"home/ghtbfnbmj.jpg";s:5:"sizes";a:3:{s:9:"thumbnail";a:3:{s:4:"file";s:19:"ghtbfnbmj-80x80.jpg";s:5:"width";s:2:"80";s:6:"height";s:2:"80";}s:6:"medium";a:3:{s:4:"file";s:21:"ghtbfnbmj-267x300.jpg";s:5:"width";s:3:"267";s:6:"height";s:3:"300";}s:5:"large";a:3:{s:4:"file";s:21:"ghtbfnbmj-373x420.jpg";s:5:"width";s:3:"373";s:6:"height";s:3:"420";}}s:10:"image_meta";a:10:{s:8:"aperture";s:1:"0";s:6:"credit";s:0:"";s:6:"camera";s:15:"BlackBerry 9330";s:7:"caption";s:0:"";s:17:"created_timestamp";s:2:"-1";s:9:"copyright";s:0:"";s:12:"focal_length";s:1:"0";s:3:"iso";s:1:"0";s:13:"shutter_speed";s:1:"0";s:5:"title";s:0:"";}}]]></wp:meta_value>
 		</wp:postmeta>
 	</item>
 	<item>
@@ -49283,36 +49255,6 @@ I have to locate some more information about the bird sanctuary if I can find it
 		</wp:postmeta>
 	</item>
 	<item>
-		<title>Garry Neill Kennedy and Joanna Malinowska &quot;SHIT HAPPENS / In Search of the Miraculous, Continued...&quot; April 29 - June 4, 2006</title>
-		<link>http://www.canadanewyork.com/exhibitions/2006/garry-neill-kennedy-and-joanna-malinowska-shit-happens-in-search-of-the-miraculous-continued-april-29-june-4-2006</link>
-		<pubDate>Fri, 23 Oct 2009 18:43:37 +0000</pubDate>
-		<dc:creator>admin</dc:creator>
-		<guid isPermaLink="false">http://www.canadanewyork.com/?page_id=1060</guid>
-		<description></description>
-		<content:encoded><![CDATA[[gallery] ]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>1060</wp:post_id>
-		<wp:post_date>2009-10-23 14:43:37</wp:post_date>
-		<wp:post_date_gmt>2009-10-23 18:43:37</wp:post_date_gmt>
-		<wp:comment_status>closed</wp:comment_status>
-		<wp:ping_status>closed</wp:ping_status>
-		<wp:post_name>garry-neill-kennedy-and-joanna-malinowska-shit-happens-in-search-of-the-miraculous-continued-april-29-june-4-2006</wp:post_name>
-		<wp:status>publish</wp:status>
-		<wp:post_parent>550</wp:post_parent>
-		<wp:menu_order>6</wp:menu_order>
-		<wp:post_type>page</wp:post_type>
-		<wp:post_password></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<wp:postmeta>
-			<wp:meta_key>_edit_last</wp:meta_key>
-			<wp:meta_value><![CDATA[1]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key>_wp_page_template</wp:meta_key>
-			<wp:meta_value><![CDATA[default]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
 		<title>&quot; Seven Thousand Years of War: Sarah Braman, Phil Grauer, Aidas Bareikis&quot;  April 16 - May 15, 2005</title>
 		<link>http://www.canadanewyork.com/exhibitions/2005/seven-thousand-years-of-war-sarah-braman-phil-grauer-aidas-bareikis-april-16-may-15</link>
 		<pubDate>Wed, 21 Oct 2009 21:35:38 +0000</pubDate>
@@ -49354,6 +49296,36 @@ and will run through Sunday, May 15.]]></content:encoded>
 		<wp:postmeta>
 			<wp:meta_key>ThumbNailImage</wp:meta_key>
 			<wp:meta_value><![CDATA[http://www.canadanewyork.com/wp/files/seven-thousand-years-of-war-sarah-braman-phil-grauer-aidas-bareikis-april-16-may-15/P1020856-80x80.jpg||http://www.canadanewyork.com/wp/files/seven-thousand-years-of-war-sarah-braman-phil-grauer-aidas-bareikis-april-16-may-15/P1020856-300x225.jpg]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_page_template</wp:meta_key>
+			<wp:meta_value><![CDATA[default]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
+		<title>Garry Neill Kennedy and Joanna Malinowska &quot;SHIT HAPPENS / In Search of the Miraculous, Continued...&quot; April 29 - June 4, 2006</title>
+		<link>http://www.canadanewyork.com/exhibitions/2006/garry-neill-kennedy-and-joanna-malinowska-shit-happens-in-search-of-the-miraculous-continued-april-29-june-4-2006</link>
+		<pubDate>Fri, 23 Oct 2009 18:43:37 +0000</pubDate>
+		<dc:creator>admin</dc:creator>
+		<guid isPermaLink="false">http://www.canadanewyork.com/?page_id=1060</guid>
+		<description></description>
+		<content:encoded><![CDATA[[gallery] ]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>1060</wp:post_id>
+		<wp:post_date>2009-10-23 14:43:37</wp:post_date>
+		<wp:post_date_gmt>2009-10-23 18:43:37</wp:post_date_gmt>
+		<wp:comment_status>closed</wp:comment_status>
+		<wp:ping_status>closed</wp:ping_status>
+		<wp:post_name>garry-neill-kennedy-and-joanna-malinowska-shit-happens-in-search-of-the-miraculous-continued-april-29-june-4-2006</wp:post_name>
+		<wp:status>publish</wp:status>
+		<wp:post_parent>550</wp:post_parent>
+		<wp:menu_order>6</wp:menu_order>
+		<wp:post_type>page</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[1]]></wp:meta_value>
 		</wp:postmeta>
 		<wp:postmeta>
 			<wp:meta_key>_wp_page_template</wp:meta_key>
@@ -55432,6 +55404,36 @@ Installation view]]></content:encoded>
 		</wp:postmeta>
 	</item>
 	<item>
+		<title>ARTFORUM: Sarah Braman</title>
+		<link>http://www.canadanewyork.com/press/2012-2/artforum-sarah-braman</link>
+		<pubDate>Fri, 03 Feb 2012 21:14:48 +0000</pubDate>
+		<dc:creator>admin</dc:creator>
+		<guid isPermaLink="false">http://www.canadanewyork.com/?page_id=4035</guid>
+		<description></description>
+		<content:encoded><![CDATA[<img src="http://www.canadanewyork.com/wp/files/auto-draft/Braman_Artforum_12.jpg" alt="" title="Braman_Artforum.jpg" width="458" height="864" class="alignnone size-full wp-image-4037" />]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>4035</wp:post_id>
+		<wp:post_date>2012-02-03 17:14:48</wp:post_date>
+		<wp:post_date_gmt>2012-02-03 21:14:48</wp:post_date_gmt>
+		<wp:comment_status>closed</wp:comment_status>
+		<wp:ping_status>closed</wp:ping_status>
+		<wp:post_name>artforum-sarah-braman</wp:post_name>
+		<wp:status>publish</wp:status>
+		<wp:post_parent>4014</wp:post_parent>
+		<wp:menu_order>6</wp:menu_order>
+		<wp:post_type>page</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key>_wp_page_template</wp:meta_key>
+			<wp:meta_value><![CDATA[default]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
 		<title>CANADA - 2000 - Broadway</title>
 		<link>http://www.canadanewyork.com/archives/672</link>
 		<pubDate>Sat, 07 Oct 2000 22:04:42 +0000</pubDate>
@@ -55599,6 +55601,34 @@ Superb Polka band at the Milwaukee opening night]]></content:encoded>
 		</wp:postmeta>
 	</item>
 	<item>
+		<title>Wendy on the phone</title>
+		<link>http://www.canadanewyork.com/archives/698</link>
+		<pubDate>Mon, 08 May 2006 22:44:27 +0000</pubDate>
+		<dc:creator>admin</dc:creator>
+		<guid isPermaLink="false">http://www.canadanewyork.com/?p=698</guid>
+		<description></description>
+		<content:encoded><![CDATA[<img src="http://www.canadanewyork.com/updates_items/wendyweb.jpg" border="0" alt="" />
+Wendy on the phone]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_id>698</wp:post_id>
+		<wp:post_date>2006-05-08 18:44:27</wp:post_date>
+		<wp:post_date_gmt>2006-05-08 22:44:27</wp:post_date_gmt>
+		<wp:comment_status>closed</wp:comment_status>
+		<wp:ping_status>closed</wp:ping_status>
+		<wp:post_name>wendy-on-the-phone</wp:post_name>
+		<wp:status>publish</wp:status>
+		<wp:post_parent>0</wp:post_parent>
+		<wp:menu_order>0</wp:menu_order>
+		<wp:post_type>post</wp:post_type>
+		<wp:post_password></wp:post_password>
+		<wp:is_sticky>0</wp:is_sticky>
+		<category domain="category" nicename="updates"><![CDATA[updates]]></category>
+		<wp:postmeta>
+			<wp:meta_key>_edit_last</wp:meta_key>
+			<wp:meta_value><![CDATA[1]]></wp:meta_value>
+		</wp:postmeta>
+	</item>
+	<item>
 		<title>Slummer nights</title>
 		<link>http://www.canadanewyork.com/?p=3127</link>
 		<pubDate>Tue, 30 Nov 1999 00:00:00 +0000</pubDate>
@@ -55623,36 +55653,6 @@ Superb Polka band at the Milwaukee opening night]]></content:encoded>
 		<wp:postmeta>
 			<wp:meta_key>_edit_last</wp:meta_key>
 			<wp:meta_value><![CDATA[1]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>ARTFORUM: Sarah Braman</title>
-		<link>http://www.canadanewyork.com/press/2012-2/artforum-sarah-braman</link>
-		<pubDate>Fri, 03 Feb 2012 21:14:48 +0000</pubDate>
-		<dc:creator>admin</dc:creator>
-		<guid isPermaLink="false">http://www.canadanewyork.com/?page_id=4035</guid>
-		<description></description>
-		<content:encoded><![CDATA[<img src="http://www.canadanewyork.com/wp/files/auto-draft/Braman_Artforum_12.jpg" alt="" title="Braman_Artforum.jpg" width="458" height="864" class="alignnone size-full wp-image-4037" />]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>4035</wp:post_id>
-		<wp:post_date>2012-02-03 17:14:48</wp:post_date>
-		<wp:post_date_gmt>2012-02-03 21:14:48</wp:post_date_gmt>
-		<wp:comment_status>closed</wp:comment_status>
-		<wp:ping_status>closed</wp:ping_status>
-		<wp:post_name>artforum-sarah-braman</wp:post_name>
-		<wp:status>publish</wp:status>
-		<wp:post_parent>4014</wp:post_parent>
-		<wp:menu_order>6</wp:menu_order>
-		<wp:post_type>page</wp:post_type>
-		<wp:post_password></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<wp:postmeta>
-			<wp:meta_key>_edit_last</wp:meta_key>
-			<wp:meta_value><![CDATA[1]]></wp:meta_value>
-		</wp:postmeta>
-		<wp:postmeta>
-			<wp:meta_key>_wp_page_template</wp:meta_key>
-			<wp:meta_value><![CDATA[default]]></wp:meta_value>
 		</wp:postmeta>
 	</item>
 	<item>
@@ -56182,34 +56182,6 @@ Mahalchick "Paris LIne" performance at Atelier Cardenas Bellanger June 2006 exhi
 		<wp:comment_status>closed</wp:comment_status>
 		<wp:ping_status>closed</wp:ping_status>
 		<wp:post_name>mahalchick-paris-line-performance-at-atelier-cardenas-bellanger-june-2006</wp:post_name>
-		<wp:status>publish</wp:status>
-		<wp:post_parent>0</wp:post_parent>
-		<wp:menu_order>0</wp:menu_order>
-		<wp:post_type>post</wp:post_type>
-		<wp:post_password></wp:post_password>
-		<wp:is_sticky>0</wp:is_sticky>
-		<category domain="category" nicename="updates"><![CDATA[updates]]></category>
-		<wp:postmeta>
-			<wp:meta_key>_edit_last</wp:meta_key>
-			<wp:meta_value><![CDATA[1]]></wp:meta_value>
-		</wp:postmeta>
-	</item>
-	<item>
-		<title>Wendy on the phone</title>
-		<link>http://www.canadanewyork.com/archives/698</link>
-		<pubDate>Mon, 08 May 2006 22:44:27 +0000</pubDate>
-		<dc:creator>admin</dc:creator>
-		<guid isPermaLink="false">http://www.canadanewyork.com/?p=698</guid>
-		<description></description>
-		<content:encoded><![CDATA[<img src="http://www.canadanewyork.com/updates_items/wendyweb.jpg" border="0" alt="" />
-Wendy on the phone]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
-		<wp:post_id>698</wp:post_id>
-		<wp:post_date>2006-05-08 18:44:27</wp:post_date>
-		<wp:post_date_gmt>2006-05-08 22:44:27</wp:post_date_gmt>
-		<wp:comment_status>closed</wp:comment_status>
-		<wp:ping_status>closed</wp:ping_status>
-		<wp:post_name>wendy-on-the-phone</wp:post_name>
 		<wp:status>publish</wp:status>
 		<wp:post_parent>0</wp:post_parent>
 		<wp:menu_order>0</wp:menu_order>

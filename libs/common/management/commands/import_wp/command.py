@@ -3,6 +3,8 @@ import collections
 import re
 
 from django.core.management.base import BaseCommand, CommandError
+from django.db.utils import IntegrityError
+from django.db import transaction
 
 from . import log, conversion, helpers
 
@@ -57,7 +59,15 @@ class Command(BaseCommand):
                     if url_test.match(url):
                         L += 1
                         L('adding {}'.format(url))
-                        added_models.append(e_function(element, elements))
+                        try:
+                            sid = transaction.savepoint()
+                            added_models.append(e_function(element, elements))
+                            transaction.savepoint_commit(sid)
+                        except IntegrityError:
+                            transaction.savepoint_rollback(sid)
+                            L += 1
+                            L('Duplicate, not added')
+                            L -= 1
                         L -= 1
         L -= 1
 
@@ -69,7 +79,10 @@ class Command(BaseCommand):
                 # for instance artists will have two entries, one with the
                 # resume and one without. so on each it will get the real one
                 model = model.__class__.objects.get(pk=model.pk)
-                model.clean()
+                try:
+                    model.clean()
+                except:
+                    from pudb import set_trace; set_trace()
                 model.save()
         # Clean all models
         map(clean_model, added_models)

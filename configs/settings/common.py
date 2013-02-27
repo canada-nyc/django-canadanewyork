@@ -22,7 +22,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '*YSHFUIH&GAHJBJCZKCY)P#R')
 WSGI_APPLICATION = 'manage.application'
 DATE_FORMAT = 'F j'
 ROOT_URLCONF = 'configs.urls'
-
+PREPEND_WWW = False
 
 ##########
 # CANADA #
@@ -147,6 +147,7 @@ SECURE_FRAME_DENY = True
 SECURE_BROWSER_XSS_FILTER = True
 SESSION_COOKIE_SECURE = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
+
 
 ########
 # MISC #

@@ -7,6 +7,12 @@ from .common import *
 SECURE_FRAME_DENY = True
 MIDDLEWARE_CLASSES += ('django.middleware.csrf.CsrfViewMiddleware',)
 
+ALLOWED_HOSTS = (
+    "{HEROKU_APP_NAME}.herokuapp.com".format(
+        HEROKU_APP_NAME=os.environ.get('heroku_app_name'),
+    ),
+)
+
 
 ###########
 # Caching #
@@ -30,7 +36,8 @@ CACHES = {
     }
 }
 
-SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 
 
 ###########
@@ -103,13 +110,16 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = AWS_S3_CUSTOM_DOMAIN = os.environ.get('AWS_BUCKET')
 
-# Faster sync
-AWS_PRELOAD_METADATA = True
-# Hopefully prettier urls?
+AWS_HEADERS = {
+    "Cache-Control": "public, max-age=86400",
+}
+
+AWS_S3_FILE_OVERWRITE = False
 AWS_QUERYSTRING_AUTH = False
-
-
 AWS_S3_SECURE_URLS = False
+AWS_REDUCED_REDUNDANCY = False
+AWS_IS_GZIPPED = False
+
 
 DEFAULT_FILE_STORAGE = THUMBNAIL_DEFAULT_STORAGE = 's3_folder_storage.s3.DefaultStorage'
 STATICFILES_STORAGE = COMPRESS_STORAGE = 's3_folder_storage.s3.StaticStorage'

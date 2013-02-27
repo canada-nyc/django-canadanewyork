@@ -24,16 +24,11 @@ TEMPLATE_LOADERS = (
 
 CACHES = {
     'default': {
-        'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
-        #'LOCATION': os.environ.get('MEMCACHIER_SERVERS'),
-        #'TIMEOUT': 500,
-        #'BINARY': True,
+        'BACKEND': 'configs.cache_backends.JohnnyPyLibMCCache',
+        'LOCATION': os.environ.get('MEMCACHIER_SERVERS'),
+        'BINARY': True,
     }
 }
-
-MIDDLEWARE_CLASSES += ('django.middleware.cache.FetchFromCacheMiddleware',)
-# Must be first
-MIDDLEWARE_CLASSES = ('django.middleware.cache.UpdateCacheMiddleware',) + MIDDLEWARE_CLASSES
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
@@ -92,7 +87,7 @@ LOGGING = {
 }
 
 
-MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
+MIDDLEWARE_CLASSES += (
     'raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware',
 )
 

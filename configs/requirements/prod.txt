@@ -2,7 +2,8 @@
 -r import_wp.txt
 
 gunicorn==0.17.2
-newrelic==1.5.0.103
+newrelic
 django-pylibmc-sasl
 git+git://github.com/daveschaefer/heroku.py.git
 raven
+johnny-cache==1.4

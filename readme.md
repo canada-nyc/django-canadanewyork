@@ -133,6 +133,8 @@ heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com' --app c
 ```sh
 heroku pgbackups:capture --expire --app canada-development
 heroku pgbackups:restore DATABASE --app canada (heroku pgbackups:url --app canada-development) --confirm canada
+heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com' --app canada
+heroku run 'python manage.py clone_bucket (heroku config:get AWS_BUCKET --app canada-development) (heroku config:get AWS_BUCKET canada)'
 ```
 ### Code
 ```sh

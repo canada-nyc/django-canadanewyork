@@ -1,9 +1,8 @@
 from subprocess import call
 
-from boto.s3.connection import S3Connection
-
 from django.core.management.base import NoArgsCommand
 from django.conf import settings
+from django.core.files.storage import default_storage
 
 
 class Command(NoArgsCommand):
@@ -14,16 +13,12 @@ class Command(NoArgsCommand):
         if settings.__getattr__('AWS_STORAGE_BUCKET_NAME', None):
             self.log('    Found bucket {}'.format(settings.AWS_STORAGE_BUCKET_NAME))
             self.log('    Getting connection...')
-            connection = S3Connection(
-                settings.AWS_ACCESS_KEY_ID,
-                settings.AWS_SECRET_ACCESS_KEY
-            )
+            connection = default_storage.connection
             self.log('    Getting bucket...')
             bucket = connection.get_bucket(settings.AWS_STORAGE_BUCKET_NAME)
 
             self.log('    Deleting keys in bucket...')
-            for key in bucket.list():
-                key.delete()
+            bucket.delete_keys(bucket.list())
         else:
             self.log('    Found local storage')
             self.log('        Deleting')

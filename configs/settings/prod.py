@@ -30,15 +30,22 @@ TEMPLATE_LOADERS = (
 
 CACHES = {
     'default': {
-        'BACKEND': 'configs.cache_backends.JohnnyPyLibMCCache',
-        'LOCATION': os.environ.get('MEMCACHIER_SERVERS'),
-        'BINARY': True,
+        'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
+        #'LOCATION': os.environ.get('MEMCACHIER_SERVERS'),
+        #'TIMEOUT': 500,
+        #'BINARY': True,
     }
 }
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 THUMBNAIL_KVSTORE = 'sorl.thumbnail.kvstores.redis_kvstore.KVStore'
+
+MIDDLEWARE_CLASSES += ('django.middleware.cache.FetchFromCacheMiddleware',)
+# Must be first
+MIDDLEWARE_CLASSES = ('django.middleware.cache.UpdateCacheMiddleware',) + MIDDLEWARE_CLASSES
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
 ###########
 # LOGGING #

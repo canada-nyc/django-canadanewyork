@@ -2,7 +2,7 @@ Django==1.5
 South==0.7.6
 django-extensions==1.0.2
 django-grappelli==2.4.2
-git+git://github.com/saulshanabrook/django-url-tracker.git@master
+git+git://github.com/saulshanabrook/django-simpleimages.git@url-tracking
 django-secure
 
 ##

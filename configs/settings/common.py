@@ -70,9 +70,6 @@ GRAPPELLI_ADMIN_TITLE = 'canada'
 #############
 TEMPLATE_DIRS = rel_path('templates')
 
-INSTALLED_APPS += ('sorl.thumbnail',)
-THUMBNAIL_UPSCALE = False
-
 INSTALLED_APPS += ('bootstrapform',)
 
 INSTALLED_APPS += ('markdown_deux',)
@@ -85,6 +82,11 @@ MARKDOWN_DEUX_STYLES = {
 INSTALLED_APPS += ('sekizai',)
 TEMPLATE_CONTEXT_PROCESSORS += ('sekizai.context_processors.sekizai',)
 
+
+##############
+# THUMBNAILS #
+##############
+INSTALLED_APPS += ('simpleimages',)
 
 ###########
 # STORAGE #

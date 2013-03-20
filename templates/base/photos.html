@@ -28,12 +28,10 @@
 
   {% with id=id|default:"1" %}
     {% with image=photos|first %}
-      {% thumbnail image.image "682" as im %}
-        <a class="open_fancybox{{ id }}" href="{{ im.url }}">
-            <p><img src="{{ im.url }}" alt={{ image.title }}/></p>
-            <p>Images</p>
-        </a>
-      {% endthumbnail %}
+      <a class="open_fancybox{{ id }}" href="{{ image.image_thumb.url }}">
+          <p><img src="{{ image.image_thumb.url }}" alt={{ image.title }}/></p>
+          <p>Images</p>
+      </a>
     {% endwith %}
 
     {% addtoblock "js_no_compress" %}
@@ -42,9 +40,8 @@
         $.fancybox.open(
           [
             {% for image in photos %}
-              {% thumbnail image.image "x800" as im %}
               {
-                href : '{{ im.url|escapejs }}',
+                href : '{{ image.image_large.url|escapejs }}',
                 title : '{{ image.title|escapejs }}<br>{{ image.caption|escapejs }}'
               },
               {% endthumbnail %}

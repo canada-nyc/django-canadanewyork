@@ -4,6 +4,5 @@
 waitress==0.8.2
 newrelic
 django-pylibmc-sasl
-git+git://github.com/daveschaefer/heroku.py.git
 raven
 johnny-cache==1.4

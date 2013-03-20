@@ -7,9 +7,9 @@
 {% block body %}
 <article>
   <a href="{{ exhibition.get_absolute_url }}">
-    {% thumbnail exhibition.get_press_release_photo "x500" as im %}
+    {% with im=exhibition.get_press_release_photo %}
       <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
-    {% endthumbnail %}
+    {% endwith %}
     <h1>{{ exhibition }}</h1>
   </a>
 </article>

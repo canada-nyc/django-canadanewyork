@@ -121,13 +121,13 @@ AWS_REDUCED_REDUNDANCY = False
 AWS_IS_GZIPPED = False
 
 
-DEFAULT_FILE_STORAGE = THUMBNAIL_DEFAULT_STORAGE = 's3_folder_storage.s3.DefaultStorage'
+DEFAULT_FILE_STORAGE = 's3_folder_storage.s3.DefaultStorage'
 STATICFILES_STORAGE = COMPRESS_STORAGE = 's3_folder_storage.s3.StaticStorage'
 
 # Use by s3_folder_storage to save the static and other media to a path on the
 # bucket
-STATIC_S3_PATH = "static"
 DEFAULT_S3_PATH = "media"
+STATIC_S3_PATH = "static"
 
 STATIC_ROOT = '/{}/'.format(STATIC_S3_PATH)
 STATIC_URL = 'http://{}/{}/'.format(AWS_STORAGE_BUCKET_NAME, STATIC_S3_PATH)

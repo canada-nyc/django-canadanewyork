@@ -4,7 +4,7 @@
 
 ## Install
 ```sh
-pip install -r requirements/dev.txt
+pip install -r configs/requirements/dev.txt
 gem install foreman
 # Install NPM if you don't have it installed
 # Tutorial on installing http://stackoverflow.com/questions/8986709/how-to-install-lessc-and-nodejs-in-a-python-virtualenv
@@ -97,7 +97,7 @@ end
 ### Create Development
 ```sh
 #!/usr/bin/env fish
-heroku apps:create canada-development --addons newrelic:standard,redistogo,heroku-postgresql:dev,pgbackups,MEMCACHIER
+heroku apps:create canada-development --addons newrelic:standard,redistogo,heroku-postgresql:dev,pgbackups,MEMCACHIER,tinfoilsecurity
 heroku plugins:install git://github.com/joelvh/heroku-config.git
 heroku labs:enable user-env-compile #enabled so that collectstatic has access to amazon ec2 key
 heroku config:push -o --filename configs/env/common.env
@@ -115,7 +115,7 @@ heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com'
 ```sh
 #!/usr/bin/env fish
 heroku pgbackups:capture --expire
-heroku apps:create canada --no-remote --addons newrelic:standard,redistogo,heroku-postgresql:dev,pgbackups,MEMCACHIER
+heroku apps:create canada --no-remote --addons newrelic:standard,redistogo,heroku-postgresql:dev,pgbackups,MEMCACHIER,tinfoilsecurity
 heroku pipeline:add canada
 heroku pipeline:promote
 heroku labs:enable user-env-compile --app canada

@@ -13,7 +13,7 @@ from libs.slugify.fields import SlugifyField
 
 class Press(models.Model):
     def image_path(instance, filename):
-        return os.path.join(instance.get_absolute_url()[1:], 'content_files', filename)
+        return os.path.join(instance.get_absolute_url()[1:], 'content', filename)
 
     title = models.CharField(max_length=500)
     link = models.URLField(null=True, blank=True, verbose_name=u'External link')

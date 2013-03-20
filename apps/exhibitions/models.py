@@ -8,7 +8,6 @@ from django.contrib.contenttypes import generic
 
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 import url_tracker
-import simpleimages
 
 from ..artists.models import Artist
 from libs.slugify.fields import SlugifyField
@@ -25,9 +24,6 @@ class Exhibition(models.Model):
 
     def image_path(instance, filename):
         return os.path.join(instance.get_absolute_url()[1:], 'press_release_photos', filename)
-
-    def image_path_modified(instance, filename):
-        return os.path.join(instance.get_absolute_url()[1:], 'press_release_photos-transformed', 'frontpage', filename)
 
     name = models.CharField(max_length=1000, unique_for_year='start_date')
     description = models.TextField(blank=True, help_text=markdown_allowed())
@@ -53,13 +49,6 @@ class Exhibition(models.Model):
         null=True
     )
 
-    press_release_photo_frontpage = models.ImageField(
-        upload_to=image_path_modified,
-        blank=True,
-        null=True,
-        editable=False
-    )
-
     photos = generic.GenericRelation(Photo)
     objects = ArtistRelatedManager()
 
@@ -71,12 +60,6 @@ class Exhibition(models.Model):
             artist = self.artists.all()[0]
             return u'{}: {}'.format(artist, self.name)
         return self.name
-
-    transformed_fields = {
-        'press_release_photo': {
-            'press_release_photo_frontpage': simpleimages.transforms.scale(width=500),
-        }
-    }
 
     @permalink
     def get_absolute_url(self):
@@ -107,7 +90,7 @@ class Exhibition(models.Model):
         return get_model('press', 'Press').objects.filter(exhibition=self)
 
     def get_press_release_photo(self):
-        return self.press_release_photo_frontpage or self.photos.all()[0].image_large
+        return self.press_release_photo or self.photos.all()[0].image
 
     def get_press_release_photo_url(self):
         if self.press_release_photo:
@@ -119,5 +102,3 @@ class Exhibition(models.Model):
 
 url_tracker.track_url_changes_for_model(Exhibition)
 url_tracker.track_url_changes_for_model(Exhibition, 'get_press_release_photo_url')
-
-simpleimages.track_model(Exhibition)

@@ -1,4 +1,4 @@
 from raven.contrib.django.raven_compat.middleware.wsgi import Sentry
-import django
+from django.core.handlers.wsgi import WSGIHandler
 
-application = Sentry(django.core.handlers.wsgi.WSGIHandler())
+application = Sentry(WSGIHandler())

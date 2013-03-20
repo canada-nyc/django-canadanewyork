@@ -2,14 +2,14 @@ import os
 
 from waitress import serve
 
-import manage
+import wsgi
 
 
-PORT = int(os.environ.get("PORT", 5000))
+PORT = int(os.environ.get("PORT"))
 
 
 if __name__ == "__main__":
     serve(
-        manage.application,
+        wsgi.application,
         port=PORT,
     )

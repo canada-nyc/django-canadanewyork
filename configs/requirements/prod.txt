@@ -4,6 +4,6 @@
 waitress==0.8.2
 newrelic
 django-pylibmc-sasl
-raven
+raven>=3
 johnny-cache==1.4
 redis

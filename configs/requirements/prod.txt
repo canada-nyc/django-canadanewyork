@@ -6,3 +6,4 @@ newrelic
 django-pylibmc-sasl
 raven
 johnny-cache==1.4
+redis

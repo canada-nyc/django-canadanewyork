@@ -12,5 +12,4 @@ if __name__ == "__main__":
     serve(
         wsgi.application,
         port=PORT,
-        expose_tracebacks=True
     )

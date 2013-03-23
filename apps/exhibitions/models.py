@@ -5,6 +5,7 @@ from django.db.models import permalink
 from django.core.exceptions import ValidationError
 from django.db.models.loading import get_model
 from django.contrib.contenttypes import generic
+from django.core.urlresolvers import reverse
 
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 import url_tracker
@@ -61,13 +62,9 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
             return u'{}: {}'.format(artist, self.name)
         return self.name
 
-    @permalink
     def get_absolute_url(self):
-        return ('exhibition-detail', (), {
-            'slug': self.slug,
-        })
+        return reverse('exhibition-detail', reverse={'slug': self.slug})
 
-    @permalink
     def get_press_url(self):
         '''
         So that that the exhibition-detail can link to the press detail for

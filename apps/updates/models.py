@@ -1,6 +1,6 @@
 from django.db import models
-from django.db.models import permalink
 from django.contrib.contenttypes import generic
+from django.core.urlresolvers import reverse
 
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 import url_tracker
@@ -24,10 +24,7 @@ class Update(url_tracker.URLTrackingMixin, models.Model):
     def __unicode__(self):
         return unicode('{} ({})').format(self.pk, self.post_date.year)
 
-    @permalink
     def get_absolute_url(self):
-        return ('update-single', (), {
-            'pk': self.pk,
-        })
+        return reverse('update-single', kwargs={'pk': self.pk})
 
 url_tracker.track_url_changes_for_model(Update)

@@ -1,8 +1,8 @@
 from django.db import models
-from django.db.models import permalink
 from django.db.models import Q
 from django.db.models.loading import get_model
 from django.contrib.contenttypes import generic
+from django.core.urlresolvers import reverse
 
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 import url_tracker
@@ -44,25 +44,22 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
 
         self.resume = (self.resume or '').strip()
 
-    @permalink
     def get_absolute_url(self):
         if self.visible:
-            return ('artist-detail', (), {'slug': self.slug})
+            return reverse('artist-detail', kwargs={'slug': self.slug})
 
     def get_press(self):
         return get_model('press', 'Press').objects.filter(
             Q(artists__in=[self]) | Q(exhibition__artists__in=[self])
         )
 
-    @permalink
     def get_press_url(self):
         if self.visible:
-            return ('artist-press-list', (), {'slug': self.slug})
+            return reverse('artist-press-list', kwargs={'slug': self.slug})
 
-    @permalink
     def get_resume_url(self):
         if self.visible:
-            return ('artist-resume', (), {'slug': self.slug})
+            return reverse('artist-resume', kwargs={'slug': self.slug})
 
     url_tracking_methods = [
         'get_absolute_url',

@@ -3,8 +3,8 @@ import os
 from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 import url_tracker
 
-from django.db.models import permalink
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from ..artists.models import Artist
 from ..exhibitions.models import Exhibition
@@ -50,9 +50,8 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
         self.publisher = self.publisher.strip().title()
         self.author = self.author.strip().title()
 
-    @permalink
     def get_absolute_url(self):
-        return ('press-detail', (), {'slug': self.slug})
+        return reverse('press-detail', slug={'slug': self.slug})
 
     def get_content_file_url(self):
         '''

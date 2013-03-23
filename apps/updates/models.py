@@ -8,7 +8,7 @@ import url_tracker
 from apps.photos.models import Photo
 
 
-class Update(models.Model):
+class Update(url_tracker.URLTrackingMixin, models.Model):
     description = models.TextField(blank=True, null=True,
                                    help_text=markdown_allowed())
     post_date = models.DateTimeField(auto_now_add=True)

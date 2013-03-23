@@ -11,7 +11,7 @@ from ..exhibitions.models import Exhibition
 from libs.slugify.fields import SlugifyField
 
 
-class Press(models.Model):
+class Press(url_tracker.URLTrackingMixin, models.Model):
     def image_path(instance, filename):
         return os.path.join(instance.get_absolute_url()[1:], 'content', filename)
 
@@ -55,16 +55,22 @@ class Press(models.Model):
         return ('press-detail', (), {'slug': self.slug})
 
     def get_content_file_url(self):
+        '''
+        For tracking
+        '''
         if self.content_file:
             return self.content_file.url
 
     @property
     def get_year(self):
+        '''
+        For slug
+        '''
         return self.date.year
 
+    url_tracking_methods = [
+        'get_absolute_url',
+        'get_content_file_url',
+    ]
 
 url_tracker.track_url_changes_for_model(Press)
-url_tracker.track_url_changes_for_model(
-    Press,
-    absolute_url_method='get_content_file_url',
-)

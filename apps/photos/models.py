@@ -7,7 +7,7 @@ from django.contrib.contenttypes import generic
 import url_tracker
 
 
-class Photo(models.Model):
+class Photo(url_tracker.URLTrackingMixin, models.Model):
 
     def image_path(instance, filename):
         return os.path.join(
@@ -39,7 +39,12 @@ class Photo(models.Model):
         self.caption = self.caption.strip()
 
     def get_image_url(self):
+        '''
+        For tracking
+        '''
         if self.image:
             return self.image.url
 
-url_tracker.track_url_changes_for_model(Photo, 'get_image_url')
+    url_tracking_methods = [
+        'get_image_url'
+    ]

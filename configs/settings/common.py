@@ -1,6 +1,7 @@
 import os
 
 import dj_database_url
+from memcacheify import memcacheify
 
 from django.conf.global_settings import *
 
@@ -63,8 +64,6 @@ GRAPPELLI_ADMIN_TITLE = 'canada'
 #############
 TEMPLATE_DIRS = rel_path('templates')
 
-INSTALLED_APPS += ('bootstrapform',)
-
 INSTALLED_APPS += ('markdown_deux',)
 MARKDOWN_DEUX_STYLES = {
     "default": {
@@ -93,11 +92,11 @@ STATICFILES_DIRS = (
 
 INSTALLED_APPS += (
     'storages',
-    's3_folder_storage',
 )
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_BUCKET')
+AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME
 AWS_HEADERS = {
     "Cache-Control": "public, max-age=86400",
 }
@@ -107,16 +106,10 @@ AWS_IS_GZIPPED = True
 AWS_PRELOAD_METADATA = True
 
 
-DEFAULT_FILE_STORAGE = 's3_folder_storage.s3.DefaultStorage'
-STATICFILES_STORAGE = COMPRESS_STORAGE = 's3_folder_storage.s3.StaticStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
 
-# Use by s3_folder_storage to save the static and other media to a path on the
-# bucket
-DEFAULT_S3_PATH = "media"
-STATIC_S3_PATH = "static"
-
-# The static URL is irrelevent for and alternative storage backend
-STATIC_URL = '_/'
+STATIC_URL = '//{}/'.format(AWS_S3_CUSTOM_DOMAIN)
 
 
 ############
@@ -175,14 +168,7 @@ TEMPLATE_LOADERS = (
     )),
 )
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
-        'LOCATION': os.environ.get('MEMCACHIER_SERVERS', 'localhost:11211'),
-        'TIMEOUT': 3,
-        #'BINARY': True,
-    }
-}
+CACHES = memcacheify()
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"

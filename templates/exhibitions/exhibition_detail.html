@@ -12,10 +12,9 @@
     <h1>{{ exhibition }}</h1>
     <p>{% include "base/full_date.html" with date=exhibition.start_date %}
   </header>
-  <h1>{{ exhibition }}</h1>
   {{ exhibition.description|markdown }}
   {% include "base/photos.html" with photos=exhibition.photos.all %}
-  {% if exhibition.get_press.exists %}
+  {% if exhibition.press.objects.exists %}
     <p><a href="{{ exhibition.get_press_url }}">Press</a>
   {% endif %}
   {% if exhibition.artists.all %}

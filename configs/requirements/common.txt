@@ -1,8 +1,8 @@
 Django==1.5
 South==0.7.6
-django-extensions==1.0.2
-django-grappelli==2.4.2
-git+git://github.com/saulshanabrook/django-simpleimages.git@url-tracking
+django-extensions==1.1.1
+django-grappelli==2.4.4
+git+git://github.com/elbaschid/django-url-tracker@ccfdc724235f12dee9f9bb91255aa6d9b5787dda
 
 ##
 #Caching
@@ -30,9 +30,8 @@ sorl-thumbnail==11.12
 ##
 #Templates
 ##
-git+git://github.com/trentm/django-markdown-deux.git@61d20148eb7edf7b2bd9b783afd716020aac487b
-django-bootstrap-form==2.0.5
-git+git://github.com/ojii/django-sekizai.git@49e28d9111a8932de1f86d14e6c75fcc316197e2
+django-markdown-deux==1.0.4
+django-sekizai==0.7
 
 ##
 #Database
@@ -43,6 +42,6 @@ psycopg2==2.4.5
 ##
 #Storage
 ##
-boto==2.6.0
-hg+https://bitbucket.org/david/django-storages@5790493 # required for http://code.larlet.fr/django-storages/issue/143/bump-pypi-version
+boto==2.8.0
+django-storages==1.1.7
 django-s3-folder-storage==0.1

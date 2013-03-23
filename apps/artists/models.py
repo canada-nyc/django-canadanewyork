@@ -16,7 +16,7 @@ class VisibleManager(models.Manager):
         return super(VisibleManager, self).get_query_set().filter(visible=True)
 
 
-class Artist(models.Model):
+class Artist(url_tracker.URLTrackingMixin, models.Model):
 
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -46,7 +46,8 @@ class Artist(models.Model):
 
     @permalink
     def get_absolute_url(self):
-        return ('artist-detail', (), {'slug': self.slug})
+        if self.visible:
+            return ('artist-detail', (), {'slug': self.slug})
 
     def get_press(self):
         return get_model('press', 'Press').objects.filter(
@@ -55,11 +56,18 @@ class Artist(models.Model):
 
     @permalink
     def get_press_url(self):
-        return ('artist-press-list', (), {'slug': self.slug})
+        if self.visible:
+            return ('artist-press-list', (), {'slug': self.slug})
 
     @permalink
     def get_resume_url(self):
-        return ('artist-resume', (), {'slug': self.slug})
+        if self.visible:
+            return ('artist-resume', (), {'slug': self.slug})
 
+    url_tracking_methods = [
+        'get_absolute_url',
+        'get_press_url',
+        'get_resume_url',
+    ]
 
 url_tracker.track_url_changes_for_model(Artist)

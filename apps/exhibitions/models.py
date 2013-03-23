@@ -20,7 +20,7 @@ class ArtistRelatedManager(models.Manager):
         return super(ArtistRelatedManager, self).get_query_set().prefetch_related('artists')
 
 
-class Exhibition(models.Model):
+class Exhibition(url_tracker.URLTrackingMixin, models.Model):
 
     def image_path(instance, filename):
         return os.path.join(instance.get_absolute_url()[1:], 'press_release_photos', filename)
@@ -69,6 +69,10 @@ class Exhibition(models.Model):
 
     @permalink
     def get_press_url(self):
+        '''
+        So that that the exhibition-detail can link to the press detail for
+        that exhibition
+        '''
         return ('exhibition-press-list', (), {
             'slug': self.slug
         })
@@ -86,9 +90,6 @@ class Exhibition(models.Model):
         self.name = self.name.strip()
         self.description = self.description.strip()
 
-    def get_press(self):
-        return get_model('press', 'Press').objects.filter(exhibition=self)
-
     def get_press_release_photo(self):
         if self.press_release_photo:
             return self.press_release_photo
@@ -96,12 +97,23 @@ class Exhibition(models.Model):
             return self.photos.all()[0].image
 
     def get_press_release_photo_url(self):
+        '''
+        For tracking of the press release photo
+        '''
         if self.press_release_photo:
             return self.press_release_photo.url
 
     @property
     def get_year(self):
+        '''
+        to populate the slug
+        '''
         return self.start_date.year
 
+    url_tracking_methods = [
+        'get_absolute_url',
+        'get_press_release_photo_url',
+        'get_press_url'
+    ]
+
 url_tracker.track_url_changes_for_model(Exhibition)
-url_tracker.track_url_changes_for_model(Exhibition, 'get_press_release_photo_url')

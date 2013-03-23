@@ -2,7 +2,7 @@
 -r testing.txt
 -r import_wp.txt
 
-django-debug-toolbar==0.9.4
-pudb==2012.3
+git+git://github.com/django-debug-toolbar/django-debug-toolbar.git
+pudb==2013.1
 pylibmc==1.2.3
 honcho==0.4.0

@@ -97,7 +97,7 @@ INSTALLED_APPS += (
 )
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = AWS_S3_CUSTOM_DOMAIN = os.environ.get('AWS_BUCKET')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_BUCKET')
 AWS_HEADERS = {
     "Cache-Control": "public, max-age=86400",
 }
@@ -115,10 +115,8 @@ STATICFILES_STORAGE = COMPRESS_STORAGE = 's3_folder_storage.s3.StaticStorage'
 DEFAULT_S3_PATH = "media"
 STATIC_S3_PATH = "static"
 
-STATIC_ROOT = '/{}/'.format(STATIC_S3_PATH)
-STATIC_URL = 'http://{}/{}/'.format(AWS_STORAGE_BUCKET_NAME, STATIC_S3_PATH)
-
-ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+# The static URL is irrelevent for and alternative storage backend
+STATIC_URL = '_/'
 
 
 ############
@@ -181,7 +179,7 @@ CACHES = {
     'default': {
         'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
         'LOCATION': os.environ.get('MEMCACHIER_SERVERS', 'localhost:11211'),
-        'TIMEOUT': 500,
+        'TIMEOUT': 3,
         #'BINARY': True,
     }
 }
@@ -210,6 +208,9 @@ MIDDLEWARE_CLASSES += (
     'raven.contrib.django.raven_compat.middleware.Sentry404CatchMiddleware',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS += (
+    'libs.common.context_processors.sentry_dsn',
+)
 
 ########
 # MISC #

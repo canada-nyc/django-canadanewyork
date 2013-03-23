@@ -18,7 +18,7 @@
     <script src="{% static "canada/fancybox/source/helpers/jquery.fancybox-thumbs.js" %}"></script>
 
   {% endaddtoblock %}
-  {% addtoblock "css_no_compress" %}
+  {% addtoblock "css" %}
     <!-- Add fancyBox -->
     <link rel="stylesheet" href="{% static "canada/fancybox/source/jquery.fancybox.css" %}"  media="screen" />
 
@@ -34,7 +34,7 @@
       </a>
     {% endwith %}
 
-    {% addtoblock "js_no_compress" %}
+    {% addtoblock "js" %}
     <script type="text/javascript">
     $(".open_fancybox{{ id }}").click(function() {
         $.fancybox.open(

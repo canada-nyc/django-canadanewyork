@@ -4,7 +4,7 @@
 
 ## Install
 ```sh
-pip install -r requirements/dev.txt
+pip install -r configs/requirements/dev.txt
 gem install foreman
 # Install NPM if you don't have it installed
 # Tutorial on installing http://stackoverflow.com/questions/8986709/how-to-install-lessc-and-nodejs-in-a-python-virtualenv
@@ -20,6 +20,7 @@ AWS_SECRET_ACCESS_KEY=
 HEROKU_API_KEY=<for use in controlling worker with email>
 SENTRY_DSN=<for logging>
 ' > configs/env/secret.env
+echi 'env: configs/env/common.env,configs/env/secret.env,configs/env/dev.env' > .foreman
 mkdir tmp
 
 # for factory data

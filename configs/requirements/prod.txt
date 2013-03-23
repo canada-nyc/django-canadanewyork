@@ -1,9 +1,2 @@
 -r common.txt
 -r import_wp.txt
-
-waitress==0.8.2
-newrelic
-django-pylibmc-sasl
-raven>=3
-johnny-cache==1.4
-redis

@@ -3,16 +3,29 @@ South==0.7.6
 django-extensions==1.0.2
 django-grappelli==2.4.2
 git+git://github.com/saulshanabrook/django-simpleimages.git@url-tracking
-django-secure
+
+##
+#Caching
+##
+django-heroku-memcacheify==0.4
+redis
+
+##
+#Server
+##
+waitress==0.8.2
+
+##
+#Logging
+##
+raven>=3
 
 ##
 #Images
 ##
-django-simpleimages==0.1.3
 Pillow==1.7.7
 pdfminer==20110515
-git+git://github.com/knowah/PyPDF2.git@65d57ddfee5775ff5036038cb306488cf97cb3d8
-
+sorl-thumbnail==11.12
 
 ##
 #Templates
@@ -26,13 +39,6 @@ git+git://github.com/ojii/django-sekizai.git@49e28d9111a8932de1f86d14e6c75fcc316
 ##
 dj-database-url==0.2.1
 psycopg2==2.4.5
-
-##
-#Compression
-##
-git+git://github.com/jezdez/django_compressor.git@1a7f1ff7cbd2605dc5697a9f2df649d97ff3a669
-BeautifulSoup==3.2.1
-
 
 ##
 #Storage

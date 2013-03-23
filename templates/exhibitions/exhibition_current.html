@@ -8,7 +8,9 @@
 <article>
   <a href="{{ exhibition.get_absolute_url }}">
     {% with im=exhibition.get_press_release_photo %}
-      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
+      {% if im %}
+       <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
+      {% endif %}
     {% endwith %}
     <h1>{{ exhibition }}</h1>
   </a>

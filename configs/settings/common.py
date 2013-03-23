@@ -1,25 +1,18 @@
-import imp
 import os
 
 import dj_database_url
 
 from django.conf.global_settings import *
 
+from libs.common.utils import rel_path, SITE_ROOT
+
 
 ##################
 # DJANGO DEFAULT #
 ##################
-SITE_ROOT = os.path.dirname(imp.find_module('manage')[1])
-
-
-def rel_path(relative_path):
-        '''
-        given any path relative to the `SITE_ROOT`, returns the full path
-        '''
-        return os.path.normpath(os.path.join(SITE_ROOT, relative_path))
 
 SECRET_KEY = os.environ.get('SECRET_KEY', '*YSHFUIH&GAHJBJCZKCY)P#R')
-WSGI_APPLICATION = 'manage.application'
+WSGI_APPLICATION = 'wsgi.application'
 DATE_FORMAT = 'F j'
 ROOT_URLCONF = 'configs.urls'
 PREPEND_WWW = False
@@ -86,7 +79,8 @@ TEMPLATE_CONTEXT_PROCESSORS += ('sekizai.context_processors.sekizai',)
 ##############
 # THUMBNAILS #
 ##############
-INSTALLED_APPS += ('simpleimages',)
+INSTALLED_APPS += ('sorl.thumbnail',)
+
 
 ###########
 # STORAGE #
@@ -96,16 +90,35 @@ STATICFILES_DIRS = (
     ('canada', rel_path('static')),
 )
 
-COMPRESS_ENABLED = True
-INSTALLED_APPS += ('compressor',)
-STATICFILES_FINDERS += ('compressor.finders.CompressorFinder',)
-COMPRESS_CSS_FILTERS = [
-    'compressor.filters.css_default.CssAbsoluteFilter',
-    #'compressor.filters.cssmin.CSSMinFilter',
-]
-COMPRESS_PRECOMPILERS = (
-    ('text/less', 'lessc {infile} {outfile}'),
+
+INSTALLED_APPS += (
+    'storages',
+    's3_folder_storage',
 )
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = AWS_S3_CUSTOM_DOMAIN = os.environ.get('AWS_BUCKET')
+AWS_HEADERS = {
+    "Cache-Control": "public, max-age=86400",
+}
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_SECURE_URLS = False
+AWS_IS_GZIPPED = True
+AWS_PRELOAD_METADATA = True
+
+
+DEFAULT_FILE_STORAGE = 's3_folder_storage.s3.DefaultStorage'
+STATICFILES_STORAGE = COMPRESS_STORAGE = 's3_folder_storage.s3.StaticStorage'
+
+# Use by s3_folder_storage to save the static and other media to a path on the
+# bucket
+DEFAULT_S3_PATH = "media"
+STATIC_S3_PATH = "static"
+
+STATIC_ROOT = '/{}/'.format(STATIC_S3_PATH)
+STATIC_URL = 'http://{}/{}/'.format(AWS_STORAGE_BUCKET_NAME, STATIC_S3_PATH)
+
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 
 ############
@@ -147,6 +160,55 @@ SECURE_FRAME_DENY = True
 SECURE_BROWSER_XSS_FILTER = True
 SESSION_COOKIE_SECURE = False
 SECURE_CONTENT_TYPE_NOSNIFF = True
+MIDDLEWARE_CLASSES += ('django.middleware.csrf.CsrfViewMiddleware',)
+
+
+###########
+# Caching #
+###########
+MIDDLEWARE_CLASSES += (
+    'django.middleware.gzip.GZipMiddleware',
+)
+
+TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )),
+)
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
+        'LOCATION': os.environ.get('MEMCACHIER_SERVERS', 'localhost:11211'),
+        'TIMEOUT': 500,
+        #'BINARY': True,
+    }
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
+THUMBNAIL_KVSTORE = 'sorl.thumbnail.kvstores.redis_kvstore.KVStore'
+
+MIDDLEWARE_CLASSES += ('django.middleware.cache.FetchFromCacheMiddleware',)
+# Must be first
+MIDDLEWARE_CLASSES = ('django.middleware.cache.UpdateCacheMiddleware',) + MIDDLEWARE_CLASSES
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+
+
+###########
+# LOGGING #
+###########
+INSTALLED_APPS += (
+    'raven.contrib.django.raven_compat',
+)
+
+
+MIDDLEWARE_CLASSES += (
+    'raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware',
+    'raven.contrib.django.raven_compat.middleware.Sentry404CatchMiddleware',
+)
 
 
 ########

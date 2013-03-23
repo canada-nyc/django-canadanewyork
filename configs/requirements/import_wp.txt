@@ -4,3 +4,4 @@ requests==0.14.2
 requests-cache==0.1.3
 beautifulsoup4==4.1.3
 python-dateutil==2.1
+git+git://github.com/knowah/PyPDF2.git@65d57ddfee5775ff5036038cb306488cf97cb3d8

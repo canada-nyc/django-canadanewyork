@@ -90,7 +90,10 @@ class Exhibition(models.Model):
         return get_model('press', 'Press').objects.filter(exhibition=self)
 
     def get_press_release_photo(self):
-        return self.press_release_photo or self.photos.all()[0].image
+        if self.press_release_photo:
+            return self.press_release_photo
+        elif self.photos.all():
+            return self.photos.all()[0].image
 
     def get_press_release_photo_url(self):
         if self.press_release_photo:

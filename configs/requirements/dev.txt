@@ -3,6 +3,6 @@
 -r import_wp.txt
 
 django-debug-toolbar==0.9.4
-django-pdb==0.3.2
-ipdb==0.7
 pudb==2012.3
+pylibmc==1.2.3
+honcho==0.4.0

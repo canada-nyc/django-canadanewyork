@@ -1,4 +1,4 @@
-SHELL := /usr/local/bin/fish
+SHELL := /usr/local/bin/fish --login
 
 local-setup:
 	pip install -r configs/requirements/dev.txt
@@ -19,6 +19,9 @@ local-setup:
 	' > configs/env/secret.env
 	echo 'env: configs/env/common.env,configs/env/secret.env,configs/env/dev.env' > .foreman
 	mkdir tmp
+
+local-reset:
+	echo "Run these commands"\n"python manage.py clean_db --noinput"\n"python manage.py import_wp static/wordpress/.canada.wordpress.*"\n"python manage.py set_site 127.0.0.1:8000"\n"python manage.py loaddata configs/fixtures/contact.json"
 
 migrate-all:
 	for app in (python manage.py syncdb | grep - | sed 's/ - //g');python manage.py schemamigration $app --auto;end
@@ -79,4 +82,4 @@ heroku-reset-dev:
 	heroku run 'python manage.py clean_db --noinput'
 	heroku run 'python manage.py import_wp static/wordpress/.canada.wordpress.*'
 	heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com'
-	foreman run python manage.py loaddata configs/fixtures/contact.json
+	heroku run 'python manage.py loaddata configs/fixtures/contact.json'

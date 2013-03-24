@@ -20,7 +20,11 @@
   {% if exhibition.artists.all %}
     <ul class="inline">
       {% for artist in exhibition.artists.all %}
-        <li><a href="{{ artist.get_absolute_url }}">{{ artist }}</a></li>
+        <li>
+          {% if artist.visible %}<a href="{{ artist.get_absolute_url }}">{% endif %}
+            {{ artist }}
+          {% if artist.visible %}</a>{% endif %}
+      </li>
       {% endfor %}
     </ul>
   {% endif %}

@@ -26,7 +26,6 @@ INSTALLED_APPS = (
     'apps.exhibitions',
     'apps.press',
     'apps.updates',
-    'apps.info',
     'apps.photos',
 
     'libs.common',
@@ -80,6 +79,11 @@ TEMPLATE_CONTEXT_PROCESSORS += ('sekizai.context_processors.sekizai',)
 ##############
 INSTALLED_APPS += ('sorl.thumbnail',)
 
+
+#############
+# FLATPAGES #
+#############
+INSTALLED_APPS += ('django.contrib.flatpages',)
 
 ###########
 # STORAGE #

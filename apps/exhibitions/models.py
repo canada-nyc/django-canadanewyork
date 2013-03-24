@@ -63,7 +63,7 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('exhibition-detail', reverse={'slug': self.slug})
+        return reverse('exhibition-detail', kwargs={'slug': self.slug})
 
     def get_press_url(self):
         '''

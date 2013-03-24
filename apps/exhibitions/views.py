@@ -1,5 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView
+from django.contrib.flatpages.models import FlatPage
+from django.contrib.sites.models import get_current_site
 
 from .models import Exhibition
 
@@ -32,3 +34,11 @@ class ExhibitionCurrent(DetailView):
             Exhibition,
             current=True,
         )
+
+    def get_context_data(self, **kwargs):
+        context = super(ExhibitionCurrent, self).get_context_data(**kwargs)
+        try:
+            context['flatpage'] = FlatPage.objects.get(url__exact='/')
+        except:
+            pass
+        return context

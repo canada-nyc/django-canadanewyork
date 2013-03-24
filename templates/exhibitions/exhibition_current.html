@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 
-{% load thumbnail %}
-
 {% block title %}CANADA{% endblock title %}
 
 {% block body %}
@@ -14,5 +12,6 @@
     {% endwith %}
     <h1>{{ exhibition }}</h1>
   </a>
+  <p>{{ flatpage.content }}</p>
 </article>
 {% endblock body %}

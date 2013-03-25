@@ -5,4 +5,3 @@
 git+git://github.com/django-debug-toolbar/django-debug-toolbar.git
 pudb==2013.1
 pylibmc==1.2.3
-honcho==0.4.0

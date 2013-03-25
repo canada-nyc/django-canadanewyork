@@ -1,6 +1,9 @@
 SHELL := /usr/local/bin/fish --login
 
-local-setup:
+HEROKU_ADDONS="newrelic,redistogo,heroku-postgresql,pgbackups,MEMCACHIER,sentry"
+PYTHON="/Users/saul/.virtualenvs/django-canadanewyork/bin/python"
+
+setup-local:
 	pip install -r configs/requirements/dev.txt
 	gem install foreman travis
 	# Install NPM if you don't have it installed
@@ -20,8 +23,40 @@ local-setup:
 	echo 'env: configs/env/common.env,configs/env/secret.env,configs/env/dev.env' > .foreman
 	mkdir tmp
 
-local-reset:
-	echo "Run these commands"\n"python manage.py clean_db --noinput"\n"python manage.py import_wp static/wordpress/.canada.wordpress.*"\n"python manage.py set_site 127.0.0.1:8000"\n"python manage.py loaddata configs/fixtures/contact.json"
+setup-heroku-dev:
+	heroku plugins:install git://github.com/joelvh/heroku-config.git
+	heroku labs:enable user-env-compile #enabled so that collectstatic has access to amazon ec2 key
+	heroku apps:create canada-development --addons $HEROKU_ADDONS
+	heroku config:push -o --filename configs/env/common.env
+	heroku config:push -o --filename configs/env/heroku.env
+	heroku config:push -o --filename configs/env/secret.env
+	heroku config:push -o --filename configs/env/dev.env
+	heroku config:set 'heroku_app_'(heroku apps:info -s | grep '^name=')
+
+setup-heroku-prod:
+	heroku pgbackups:capture --expire
+	heroku apps:create canada --no-remote --addons $HEROKU_ADDONS
+	heroku pipeline:add canada
+	heroku pipeline:promote
+	heroku labs:enable user-env-compile --app canada
+	heroku config:push -o --filename configs/env/common.env --app canada
+	heroku config:push -o --filename configs/env/heroku.env --app canada
+	heroku config:push -o --filename configs/env/secret.env --app canada
+	heroku config:push -o --filename configs/env/prod.env --app canada
+	heroku config:set 'heroku_app_'(heroku apps:info -s --app canada | grep '^name=') --app canada
+
+
+reset-local:
+	foreman run ${PYTHON} manage.py clean_db --noinputpython manage.py import_wp static/wordpress/.canada.wordpress.*
+	foreman run ${PYTHON} manage.py set_site 127.0.0.1:8000
+	foreman run ${PYTHON} manage.py loaddata configs/fixtures/contact.json"
+
+reset-heroku-dev:
+	heroku pg:reset DATABASE_URL --confirm canada-development
+	heroku run 'python manage.py clean_db --noinput'
+	heroku run 'python manage.py import_wp static/wordpress/.canada.wordpress.*'
+	heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com'
+	heroku run 'python manage.py loaddata configs/fixtures/contact.json'
 
 migrate-all:
 	for app in (python manage.py syncdb | grep - | sed 's/ - //g');python manage.py schemamigration $app --auto;end
@@ -40,46 +75,32 @@ travis-encrypt:
 	t_encrypt (travis encrypt HEROKU_API_KEY=(heroku auth:token) --no-interactive)
 	for line in (cat configs/env/common.env configs/env/travis.env); echo "    - $line" >> '.travis.yml';end
 
-HEROKU_ADDONS="newrelic,redistogo,heroku-postgresql,pgbackups,MEMCACHIER,sentry"
 
-heroku-setup-dev:
-	heroku plugins:install git://github.com/joelvh/heroku-config.git
-	heroku labs:enable user-env-compile #enabled so that collectstatic has access to amazon ec2 key
-	heroku apps:create canada-development --addons $HEROKU_ADDONS
-	heroku config:push -o --filename configs/env/common.env
-	heroku config:push -o --filename configs/env/heroku.env
-	heroku config:push -o --filename configs/env/secret.env
-	heroku config:push -o --filename configs/env/dev.env
-	heroku config:set 'heroku_app_'(heroku apps:info -s | grep '^name=')
+promote-db-local:
+	pg_dump -Fc --no-acl --no-owner -h localhost -U saul django_canadanewyork > django_canadanewyork.dump
+	foreman run ${PYTHON} manage.py upload_file django_canadanewyork.dump > dump_url.txt
+	rm django_canadanewyork.dump
+	heroku pgbackups:restore DATABASE (cat dump_url.txt) --confirm canada-development
+	rm dump_url.txt
+	foreman run ${PYTHON} manage.py delete_file django_canadanewyork.dump
 
-heroku-setup-prod:
-	heroku pgbackups:capture --expire
-	heroku apps:create canada --no-remote --addons $HEROKU_ADDONS
-	heroku pipeline:add canada
-	heroku pipeline:promote
-	heroku labs:enable user-env-compile --app canada
-	heroku config:push -o --filename configs/env/common.env --app canada
-	heroku config:push -o --filename configs/env/heroku.env --app canada
-	heroku config:push -o --filename configs/env/secret.env --app canada
-	heroku config:push -o --filename configs/env/prod.env --app canada
-	heroku config:set 'heroku_app_'(heroku apps:info -s --app canada | grep '^name=') --app canada
-
-heroku-promote-db:
+promote-db-heroku-dev:
 	heroku pgbackups:capture --expire --app canada-development
 	heroku pgbackups:restore DATABASE --app canada (heroku pgbackups:url --app canada-development) --confirm canada
 	heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com' --app canada
 
-heroku-promote-code:
+promote-code-local:
+	git push heroku master
+
+promote-code-heroku-dev:
 	heroku pipeline:promote
 
-heroku-promote-static:
-	heroku run 'python manage.py clone_bucket (heroku config:get AWS_BUCKET --app canada-development) (heroku config:get AWS_BUCKET canada)'
+promote-static-local:
+	foreman run ${PYTHON} manage.py clone_bucket (cat configs/env/dev.env | grep AWS_BUCKET | sed 's/AWS_BUCKET=//g') (heroku config:get AWS_BUCKET --app canada-development)
 
-heroku-promote-all: heroku-promote-static heroku-promote-code heroku-promote-db
+promote-static-heroku-dev:
+	heroku run 'python manage.py clone_bucket (heroku config:get AWS_BUCKET --app canada-development) (heroku config:get AWS_BUCKET --app canada)'
 
-heroku-reset-dev:
-	heroku pg:reset DATABASE_URL --confirm canada-development
-	heroku run 'python manage.py clean_db --noinput'
-	heroku run 'python manage.py import_wp static/wordpress/.canada.wordpress.*'
-	heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com'
-	heroku run 'python manage.py loaddata configs/fixtures/contact.json'
+promote-all-local: promote-code-local promote-db-local promote-static-local
+
+promote-all-heroku-dev: heroku-promote-static heroku-promote-code heroku-promote-db

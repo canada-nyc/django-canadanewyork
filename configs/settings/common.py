@@ -102,7 +102,7 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_BUCKET')
 AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME
 AWS_HEADERS = {
-    "Cache-Control": "public, max-age=86400",
+    "Cache-Control": "public, max-age=31536000",
 }
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_SECURE_URLS = False
@@ -201,6 +201,43 @@ MIDDLEWARE_CLASSES += (
 TEMPLATE_CONTEXT_PROCESSORS += (
     'libs.common.context_processors.sentry_dsn',
 )
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'root': {
+        'level': 'DEBUG',
+        'handlers': ['console', 'sentry'],
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+    },
+    'handlers': {
+        'sentry': {
+            'level': 'WARNING',
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'raven': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'sentry.errors': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+    },
+}
 
 ########
 # MISC #

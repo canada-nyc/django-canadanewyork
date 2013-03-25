@@ -2,7 +2,7 @@ Django==1.5
 South==0.7.6
 django-extensions==1.1.1
 django-grappelli==2.4.4
-git+git://github.com/elbaschid/django-url-tracker@2aaa7bc8bd78d75a62f8080d4afc94184e7cad41
+git+git://github.com/saulshanabrook/django-url-tracker@4e349259af1a060df07c4694fecbc426111a320c
 
 ##
 #Caching
@@ -14,6 +14,7 @@ redis
 #Server
 ##
 waitress==0.8.2
+newrelic
 
 ##
 #Logging

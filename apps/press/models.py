@@ -51,7 +51,7 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
         self.author = self.author.strip().title()
 
     def get_absolute_url(self):
-        return reverse('press-detail', slug={'slug': self.slug})
+        return reverse('press-detail', kwargs={'slug': self.slug})
 
     def get_content_file_url(self):
         '''

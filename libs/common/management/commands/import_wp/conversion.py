@@ -20,9 +20,8 @@ def create_artist(element, all_elements):
         A.last_name = title
         A.visible = False
     A.save()
-    url_tracker.change_urls(
-        old_url=helpers.url_path(element),
-        absolute_url_method='get_absolute_url',
+    A._old_urls = {'get_absolute_url': helpers.url_path(element)}
+    url_tracker.track_changed_url(
         instance=A)
     return A
 
@@ -44,6 +43,7 @@ def create_artist_resume(element, all_elements):
     A.resume = helpers.html_to_markdown(
         element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
     )
+
     A.save()
 
 
@@ -71,9 +71,8 @@ def create_artist_press(element, all_elements):
         )
     )
     P.save()
-    url_tracker.change_urls(
-        old_url=helpers.url_path(element),
-        absolute_url_method='get_absolute_url',
+    P._old_urls = {'get_absolute_url': helpers.url_path(element)}
+    url_tracker.track_changed_url(
         instance=P)
     return P
 
@@ -105,9 +104,8 @@ def create_exhibition(element, all_elements):
         model_function=lambda a: a.__unicode__(),
     )
     E.save()
-    url_tracker.change_urls(
-        old_url=helpers.url_path(element),
-        absolute_url_method='get_absolute_url',
+    E._old_urls = {'get_absolute_url': helpers.url_path(element)}
+    url_tracker.track_changed_url(
         instance=E)
     return E
 
@@ -153,9 +151,8 @@ def create_press(element, all_elements):
         model_function=lambda A: A.__unicode__(),
     )
     P.save()
-    url_tracker.change_urls(
-        old_url=helpers.url_path(element),
-        absolute_url_method='get_absolute_url',
+    P._old_urls = {'get_absolute_url': helpers.url_path(element)}
+    url_tracker.track_changed_url(
         instance=P)
     return P
 
@@ -183,9 +180,8 @@ def create_press_file(element, all_elements):
     )
     P.content_file.save(*_press_file_from_link(P, element.findtext('guid')))
     P.save()
-    url_tracker.change_urls(
-        old_url=helpers.url_path(url_text=element.findtext('guid')),
-        absolute_url_method='get_content_file_url',
+    P._old_urls = {'get_content_file_url': element.findtext('guid')}
+    url_tracker.track_changed_url(
         instance=P)
     return P
 
@@ -207,13 +203,11 @@ def create_update(element, all_elements):
         P.clean()
         P.save()
         P.image.save(*helpers.file_from_link(link))
-        url_tracker.change_urls(
-            old_url=helpers.url_path(url_text=link),
-            absolute_url_method='get_image_url',
+        P._old_urls = {'get_image_url': helpers.url_path(url_text=link)}
+        url_tracker.track_changed_url(
             instance=P)
-    url_tracker.change_urls(
-        old_url=helpers.url_path(element),
-        absolute_url_method='get_absolute_url',
+    U._old_urls = {'get_absolute_url': helpers.url_path(element)}
+    url_tracker.track_changed_url(
         instance=U)
     return U
 
@@ -242,9 +236,8 @@ def _create_photo(element, content_object):
     P.image.save(
         *helpers.file_from_link(element.findtext('guid'))
     )
-    url_tracker.change_urls(
-        old_url=helpers.url_path(element),
-        absolute_url_method='get_image_url',
+    P._old_urls = {'get_image_url': helpers.url_path(element)}
+    url_tracker.track_changed_url(
         instance=P)
     return P
 

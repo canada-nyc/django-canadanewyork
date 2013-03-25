@@ -10,7 +10,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '127.0.0.1:8000']
 #########
 # DEBUG #
 #########
-DEBUG = TEMPLATE_DEBUG = False
+DEBUG = TEMPLATE_DEBUG = True
 
 INSTALLED_APPS += ('debug_toolbar',)
 MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)

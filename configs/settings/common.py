@@ -80,6 +80,33 @@ TEMPLATE_CONTEXT_PROCESSORS += ('sekizai.context_processors.sekizai',)
 INSTALLED_APPS += ('sorl.thumbnail',)
 
 
+###########
+# Caching #
+###########
+MIDDLEWARE_CLASSES += (
+    'django.middleware.gzip.GZipMiddleware',
+)
+
+TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )),
+)
+
+CACHES = memcacheify()
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
+THUMBNAIL_KVSTORE = 'sorl.thumbnail.kvstores.redis_kvstore.KVStore'
+
+MIDDLEWARE_CLASSES += ('django.middleware.cache.FetchFromCacheMiddleware',)
+# Must be first
+MIDDLEWARE_CLASSES = ('django.middleware.cache.UpdateCacheMiddleware',) + MIDDLEWARE_CLASSES
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+
+
 #############
 # FLATPAGES #
 #############
@@ -113,7 +140,23 @@ AWS_PRELOAD_METADATA = True
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
 
-STATIC_URL = '//{}/'.format(AWS_S3_CUSTOM_DOMAIN)
+STATIC_URL = 'http://{}/'.format(AWS_S3_CUSTOM_DOMAIN)
+# s3.amazonaws.com/"
+
+#############
+#COMPRESSION#
+#############
+INSTALLED_APPS += ('compressor',)
+COMPRESS_ENABLED = True
+STATICFILES_FINDERS += ('compressor.finders.CompressorFinder',)
+COMPRESS_CSS_FILTERS = [
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    #'compressor.filters.cssmin.CSSMinFilter',
+]
+COMPRESS_PRECOMPILERS = (
+    ('text/less', 'lessc {infile} {outfile}'),
+)
+COMPRESS_STORAGE = STATICFILES_STORAGE
 
 
 ############
@@ -156,33 +199,6 @@ SECURE_BROWSER_XSS_FILTER = True
 SESSION_COOKIE_SECURE = False
 SECURE_CONTENT_TYPE_NOSNIFF = True
 MIDDLEWARE_CLASSES += ('django.middleware.csrf.CsrfViewMiddleware',)
-
-
-###########
-# Caching #
-###########
-MIDDLEWARE_CLASSES += (
-    'django.middleware.gzip.GZipMiddleware',
-)
-
-TEMPLATE_LOADERS = (
-    ('django.template.loaders.cached.Loader', (
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-    )),
-)
-
-CACHES = memcacheify()
-
-SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
-MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
-THUMBNAIL_KVSTORE = 'sorl.thumbnail.kvstores.redis_kvstore.KVStore'
-
-MIDDLEWARE_CLASSES += ('django.middleware.cache.FetchFromCacheMiddleware',)
-# Must be first
-MIDDLEWARE_CLASSES = ('django.middleware.cache.UpdateCacheMiddleware',) + MIDDLEWARE_CLASSES
-
-SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
 
 ###########

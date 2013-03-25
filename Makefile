@@ -83,6 +83,7 @@ promote-db-local:
 	heroku pgbackups:restore DATABASE (cat dump_url.txt) --confirm canada-development
 	rm dump_url.txt
 	foreman run ${PYTHON} manage.py delete_file django_canadanewyork.dump
+	heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com'
 
 promote-db-heroku-dev:
 	heroku pgbackups:capture --expire --app canada-development

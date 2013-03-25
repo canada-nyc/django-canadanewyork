@@ -10,6 +10,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         SOURCE_BUCKET_NAME = args[0]
         DESTINATION_BUCKET_NAME = args[1]
+        if DESTINATION_BUCKET_NAME == SOURCE_BUCKET_NAME:
+            return
         connection = default_storage.connection
         source_bucket = connection.get_bucket(SOURCE_BUCKET_NAME)
         destination_bucket = connection.get_bucket(DESTINATION_BUCKET_NAME)

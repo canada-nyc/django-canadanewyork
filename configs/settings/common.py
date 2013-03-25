@@ -98,7 +98,6 @@ CACHES = memcacheify()
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
-THUMBNAIL_KVSTORE = 'sorl.thumbnail.kvstores.redis_kvstore.KVStore'
 
 MIDDLEWARE_CLASSES += ('django.middleware.cache.FetchFromCacheMiddleware',)
 # Must be first

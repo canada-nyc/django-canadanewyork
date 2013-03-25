@@ -1,6 +1,6 @@
 SHELL := /usr/local/bin/fish --login
 
-HEROKU_ADDONS="newrelic,redistogo,heroku-postgresql,pgbackups,MEMCACHIER,sentry"
+HEROKU_ADDONS="newrelic,heroku-postgresql,pgbackups:auto-month,MEMCACHIER,sentry"
 PYTHON="/Users/saul/.virtualenvs/django-canadanewyork/bin/python"
 
 setup-local:
@@ -83,12 +83,12 @@ promote-db-local:
 	heroku pgbackups:restore DATABASE (cat dump_url.txt) --confirm canada-development
 	rm dump_url.txt
 	foreman run ${PYTHON} manage.py delete_file django_canadanewyork.dump
-	heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com'
+	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapps.com'
 
 promote-db-heroku-dev:
 	heroku pgbackups:capture --expire --app canada-development
 	heroku pgbackups:restore DATABASE --app canada (heroku pgbackups:url --app canada-development) --confirm canada
-	heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com' --app canada
+	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapps.com' --app canada
 
 promote-code-local:
 	git push heroku master

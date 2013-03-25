@@ -36,7 +36,7 @@
       {% endthumbnail %}
     {% endwith %}
 
-    {% addtoblock "js" %}
+    {% addtoblock "js_no_compress" %}
     <script type="text/javascript">
     $(".open_fancybox{{ id }}").click(function() {
         $.fancybox.open(

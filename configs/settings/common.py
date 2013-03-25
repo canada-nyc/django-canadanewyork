@@ -141,7 +141,6 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
 
 STATIC_URL = 'http://{}/'.format(AWS_S3_CUSTOM_DOMAIN)
-# s3.amazonaws.com/"
 
 #############
 #COMPRESSION#

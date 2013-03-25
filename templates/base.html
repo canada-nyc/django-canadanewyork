@@ -14,11 +14,15 @@
   <link type="text/less" rel="stylesheet" href="{% static "canada/less/bootstrap-responsive.less" %}">
   <link type="text/less" rel="stylesheet" href="{% static "canada/less/canada.less" %}">
   {% endaddtoblock %}
-  {% addtoblock "js" %}
+  {% addtoblock "js_no_compress" %}
   <script src="{% static "canada/js/jquery.min.js" %}"></script>
+  {% endaddtoblock %}
+  {% addtoblock "js" %}
   <script src="{% static "canada/js/bootstrap.min.js" %}"></script>
   <script src="{% static "canada/js/raven.js" %}"></script>
-  <!-- Raven.js Config -->
+  {% endaddtoblock %}
+  {% addtoblock "js" %}
+ <!-- Raven.js Config -->
   <script type="text/javascript">
   // Ignore list based off: https://gist.github.com/1878283
   var ravenOptions = {

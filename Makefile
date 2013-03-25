@@ -47,9 +47,10 @@ setup-heroku-prod:
 
 
 reset-local:
-	foreman run ${PYTHON} manage.py clean_db --noinputpython manage.py import_wp static/wordpress/.canada.wordpress.*
+	foreman run ${PYTHON} manage.py clean_db --noinput
+	foreman run ${PYTHON} python manage.py import_wp static/wordpress/.canada.wordpress.*
 	foreman run ${PYTHON} manage.py set_site 127.0.0.1:8000
-	foreman run ${PYTHON} manage.py loaddata configs/fixtures/contact.json"
+	foreman run ${PYTHON} manage.py loaddata configs/fixtures/contact.json
 
 reset-heroku-dev:
 	heroku pg:reset DATABASE_URL --confirm canada-development
@@ -100,8 +101,8 @@ promote-static-local:
 	foreman run ${PYTHON} manage.py clone_bucket (cat configs/env/dev.env | grep AWS_BUCKET | sed 's/AWS_BUCKET=//g') (heroku config:get AWS_BUCKET --app canada-development)
 
 promote-static-heroku-dev:
-	heroku run 'python manage.py clone_bucket (heroku config:get AWS_BUCKET --app canada-development) (heroku config:get AWS_BUCKET --app canada)'
+	foreman run ${PYTHON} manage.py clone_bucket (heroku config:get AWS_BUCKET --app canada-development) (heroku config:get AWS_BUCKET --app canada)
 
 promote-all-local: promote-code-local promote-db-local promote-static-local
 
-promote-all-heroku-dev: heroku-promote-static heroku-promote-code heroku-promote-db
+promote-all-heroku-dev: promote-static-heroku-dev promote-code-heroku-dev promote-db-heroku-dev

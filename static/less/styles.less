@@ -1,0 +1,119 @@
+html, body {
+  height: 100%;
+  font-size: @font-size;
+  color: @text-color;
+  line-height: 1.5em;
+}
+
+// ...............................................
+// Base styles
+//
+
+// Links
+a, a:visited {
+  color: @link-color;
+}
+a:focus, a:hover {
+  color: @link-focus-color;
+}
+
+// Inputs
+input {
+  color: @text-color;
+  border: 1px solid @input-border-color;
+  background-color: @input-background-color;
+}
+input:focus {
+  border: 1px solid @input-focus-ring-color;
+  background-color: @input-focus-background-color;
+}
+
+// Rule
+hr {
+  border: 0;
+  border-bottom: 1px solid @rule-color;
+}
+
+// Images
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  border: 0;
+
+  // Smoother images in IE
+  -ms-interpolation-mode: bicubic;
+}
+
+
+section {
+  padding-left: 100px;
+
+  // Sticky footer code
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -40px;
+}
+
+footer {
+  height: 40px;
+}
+
+// ...............................................
+// Navigation
+//
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+
+  box-shadow: 0px 4px 4px @black;
+}
+
+nav a {
+  text-transform: uppercase;
+}
+
+.brand {
+  position: fixed;
+  left: 20px;
+}
+
+// ...............................................
+// Articles
+//
+
+article {
+  h1 {
+    font-size: @font-size;
+    font-weight: bold;
+  }
+}
+
+// ...............................................
+// Mobile
+//
+
+@media (max-width: 800px) {
+
+  // Float the brand to the top of the
+  // page so that's the first thing users see.
+  .brand {
+    position: static;
+  }
+
+  // Don't fix the navigation at the top of the
+  // page.
+  nav {
+    position: static;
+  }
+
+  // Fill the device container
+  section {
+    width: 100%;
+  }
+}

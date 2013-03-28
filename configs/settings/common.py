@@ -16,6 +16,7 @@ WSGI_APPLICATION = 'wsgi.application'
 DATE_FORMAT = 'F j'
 ROOT_URLCONF = 'configs.urls'
 PREPEND_WWW = False
+INSTALLED_APPS += ('django.contrib.sites',)
 SITE_ID = 1
 # Disable translation
 USE_I18N = False
@@ -24,7 +25,7 @@ USE_I18N = False
 ##########
 # CANADA #
 ##########
-INSTALLED_APPS = (
+INSTALLED_APPS += (
     'apps.artists',
     'apps.exhibitions',
     'apps.press',

@@ -11,12 +11,15 @@ from libs.common.utils import rel_path, SITE_ROOT
 ##################
 # DJANGO DEFAULT #
 ##################
-
 SECRET_KEY = os.environ.get('SECRET_KEY', '*YSHFUIH&GAHJBJCZKCY)P#R')
 WSGI_APPLICATION = 'wsgi.application'
 DATE_FORMAT = 'F j'
 ROOT_URLCONF = 'configs.urls'
 PREPEND_WWW = False
+SITE_ID = 1
+# Disable translation
+USE_I18N = False
+
 
 ##########
 # CANADA #
@@ -164,10 +167,6 @@ INSTALLED_APPS += (
     'south',
 )
 DATABASES = {'default': dj_database_url.config(default='postgres://saul@localhost/django_canadanewyork')}
-
-
-INSTALLED_APPS += ('django.contrib.sites',)
-SITE_ID = 1
 
 
 ###########

@@ -3,6 +3,9 @@ SHELL := /usr/local/bin/fish --login
 HEROKU_ADDONS="newrelic,heroku-postgresql,pgbackups:auto-month,MEMCACHIER,sentry"
 PYTHON="/Users/saul/.virtualenvs/django-canadanewyork/bin/python"
 
+HEROKU_DEV_NAME="canada-development"
+HEROKU_PROD_NAME="canada"
+
 setup-local:
 	pip install -r configs/requirements/dev.txt
 	gem install foreman travis
@@ -10,23 +13,13 @@ setup-local:
 	# Tutorial on installing http://stackoverflow.com/questions/8986709/how-to-install-lessc-and-nodejs-in-a-python-virtualenv
 	# On homebrew do `brew install nodejs`
 	npm install -g less
-
-	echo 'SECRET_KEY=<long and random>
-	EMAIL_HOST_PASSWORD=<only used for sending batch email, required in settings>
-	ADMIN_PASSWORD=<default password for admin user>
-	ADMIN_EMAIL=<email for admin user>
-	AWS_ACCESS_KEY_ID=<for storages>
-	AWS_SECRET_ACCESS_KEY=
-	HEROKU_API_KEY=<for use in controlling worker with email>
-	SENTRY_DSN=<for logging>
-	' > configs/env/secret.env
 	echo 'env: configs/env/common.env,configs/env/secret.env,configs/env/dev.env' > .foreman
 	mkdir tmp
 
 setup-heroku-dev:
 	heroku plugins:install git://github.com/joelvh/heroku-config.git
 	heroku labs:enable user-env-compile #enabled so that collectstatic has access to amazon ec2 key
-	heroku apps:create canada-development --addons $HEROKU_ADDONS
+	heroku apps:create $HEROKU_DEV_NAME --addons $HEROKU_ADDONS
 	heroku config:push -o --filename configs/env/common.env
 	heroku config:push -o --filename configs/env/heroku.env
 	heroku config:push -o --filename configs/env/secret.env
@@ -35,15 +28,15 @@ setup-heroku-dev:
 
 setup-heroku-prod:
 	heroku pgbackups:capture --expire
-	heroku apps:create canada --no-remote --addons $HEROKU_ADDONS
-	heroku pipeline:add canada
+	heroku apps:create $HEROKU_PROD_NAME --no-remote --addons $HEROKU_ADDONS
+	heroku pipeline:add $HEROKU_PROD_NAME
 	heroku pipeline:promote
-	heroku labs:enable user-env-compile --app canada
-	heroku config:push -o --filename configs/env/common.env --app canada
-	heroku config:push -o --filename configs/env/heroku.env --app canada
-	heroku config:push -o --filename configs/env/secret.env --app canada
-	heroku config:push -o --filename configs/env/prod.env --app canada
-	heroku config:set 'heroku_app_'(heroku apps:info -s --app canada | grep '^name=') --app canada
+	heroku labs:enable user-env-compile --app $HEROKU_PROD_NAME
+	heroku config:push -o --filename configs/env/common.env --app $HEROKU_PROD_NAME
+	heroku config:push -o --filename configs/env/heroku.env --app $HEROKU_PROD_NAME
+	heroku config:push -o --filename configs/env/secret.env --app $HEROKU_PROD_NAME
+	heroku config:push -o --filename configs/env/prod.env --app $HEROKU_PROD_NAME
+	heroku config:set 'heroku_app_'(heroku apps:info -s --app $HEROKU_PROD_NAME | grep '^name=') --app $HEROKU_PROD_NAME
 
 
 reset-local:
@@ -81,15 +74,15 @@ promote-db-local:
 	pg_dump -Fc --no-acl --no-owner -h localhost -U saul django_canadanewyork > django_canadanewyork.dump
 	foreman run ${PYTHON} manage.py upload_file django_canadanewyork.dump > dump_url.txt
 	rm django_canadanewyork.dump
-	heroku pgbackups:restore DATABASE (cat dump_url.txt) --confirm canada-development
+	heroku pgbackups:restore DATABASE (cat dump_url.txt) --confirm $HEROKU_DEV_NAME
 	rm dump_url.txt
 	foreman run ${PYTHON} manage.py delete_file django_canadanewyork.dump
 	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapps.com'
 
 promote-db-heroku-dev:
-	heroku pgbackups:capture --expire --app canada-development
-	heroku pgbackups:restore DATABASE --app canada (heroku pgbackups:url --app canada-development) --confirm canada
-	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapps.com' --app canada
+	heroku pgbackups:capture --expire --app $HEROKU_DEV_NAME
+	heroku pgbackups:restore DATABASE --app canada (heroku pgbackups:url --app $HEROKU_DEV_NAME) --confirm $HEROKU_PROD_NAME
+	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapps.com' --app $HEROKU_PROD_NAME
 
 promote-code-local:
 	git push heroku master
@@ -98,10 +91,10 @@ promote-code-heroku-dev:
 	heroku pipeline:promote
 
 promote-static-local:
-	foreman run ${PYTHON} manage.py clone_bucket (cat configs/env/dev.env | grep AWS_BUCKET | sed 's/AWS_BUCKET=//g') (heroku config:get AWS_BUCKET --app canada-development)
+	foreman run ${PYTHON} manage.py clone_bucket (cat configs/env/dev.env | grep AWS_BUCKET | sed 's/AWS_BUCKET=//g') (heroku config:get AWS_BUCKET --app $HEROKU_DEV_NAME)
 
 promote-static-heroku-dev:
-	foreman run ${PYTHON} manage.py clone_bucket (heroku config:get AWS_BUCKET --app canada-development) (heroku config:get AWS_BUCKET --app canada)
+	foreman run ${PYTHON} manage.py clone_bucket (heroku config:get AWS_BUCKET --app $HEROKU_DEV_NAME) (heroku config:get AWS_BUCKET --app $HEROKU_PROD_NAME)
 
 promote-all-local: promote-code-local promote-db-local promote-static-local
 

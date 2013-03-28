@@ -1,9 +1,7 @@
 import os
 
 from django.db import models
-from django.db.models import permalink
 from django.core.exceptions import ValidationError
-from django.db.models.loading import get_model
 from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
 

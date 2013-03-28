@@ -166,15 +166,6 @@ INSTALLED_APPS += (
 DATABASES = {'default': dj_database_url.config(default='postgres://saul@localhost/django_canadanewyork')}
 
 
-#########
-# EMAIL #
-#########
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_HOST_USER = "s.shanabrook@gmail.com"
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
-EMAIL_USE_TLS = True
-
 INSTALLED_APPS += ('django.contrib.sites',)
 SITE_ID = 1
 

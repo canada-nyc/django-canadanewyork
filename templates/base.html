@@ -90,14 +90,24 @@
 <section>
   {% block body %}{% endblock %}
 </section>
-<footer>
-  CANADA 333 Broome St, New York, NY 10002 | 212.925.4631 | <script type="text/javascript"><!--
-    var s="=b!isfg>#nbjmup;hbmmfszAdbobebofxzpsl/dpn#?hbmmfszAdbobebofxzpsl/dpn=0b?";
-        m=""; for (i=0; i<s.length; i++) m+=String.fromCharCode(s.charCodeAt(i)-1); document.write(m);
-  //--></script>
-  <noscript>
-    gallery AT canadanewyork DOT com
-  </noscript>
+<footer class="vcard">
+  <span class="fn">CANADA</span>
+  <span class="adr">
+    <span class="street-address">333 Broome St</span>,
+    <span class="locality">New York</span>,
+    <span class="region">NY</span>
+    <span class="postal-code">10002</span>
+  </span>
+  <span class="tel">212.925.4631</span>
+  <span class="email">
+    <script type="text/javascript"><!--
+      var s="=b!isfg>#nbjmup;hbmmfszAdbobebofxzpsl/dpn#?hbmmfszAdbobebofxzpsl/dpn=0b?";
+          m=""; for (i=0; i<s.length; i++) m+=String.fromCharCode(s.charCodeAt(i)-1); document.write(m);
+    //--></script>
+    <noscript>
+      gallery AT canadanewyork DOT com
+    </noscript>
+  </span>
 </footer>
 {% render_block "js" postprocessor "compressor.contrib.sekizai.compress"  %}
 {% render_block "js_no_compress" %}

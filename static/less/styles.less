@@ -1,8 +1,14 @@
+@import "variables.less";
+
 html, body {
-  height: 100%;
   font-size: @font-size;
+  font-family: Arial;
   color: @text-color;
+  background-color: @background-color;
   line-height: 1.5em;
+
+  // Reset
+  margin: 0;
 }
 
 // ...............................................
@@ -11,9 +17,11 @@ html, body {
 
 // Links
 a, a:visited {
+  text-decoration: none;
   color: @link-color;
 }
 a:focus, a:hover {
+  text-decoration: underline;
   color: @link-focus-color;
 }
 
@@ -24,8 +32,8 @@ input {
   background-color: @input-background-color;
 }
 input:focus {
-  border: 1px solid @input-focus-ring-color;
-  background-color: @input-focus-background-color;
+  outline: 1px solid @input-focus-ring-color;
+  outline-offset: -1px;
 }
 
 // Rule
@@ -45,18 +53,25 @@ img {
   -ms-interpolation-mode: bicubic;
 }
 
+// Lists
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  line-height: 2em;
+}
 
 section {
-  padding-left: 100px;
-
-  // Sticky footer code
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
-  margin: 0 auto -40px;
+  width: 600px;
+  padding-left: 200px;
+  margin-top: 80px;
 }
 
 footer {
+  padding-left: 200px;
+  line-height: 40px;
   height: 40px;
 }
 
@@ -71,15 +86,27 @@ nav {
   right: 0;
   height: 40px;
 
-  box-shadow: 0px 4px 4px @black;
+  background-color: @background-color;
+  box-shadow: 0px 4px 4px @background-color;
 }
 
 nav a {
   text-transform: uppercase;
 }
 
+nav ul {
+  line-height: 20px;
+  padding-left: 200px;
+}
+
+nav li {
+  display: inline-block;
+  padding-right: 20px;
+}
+
 .brand {
   position: fixed;
+  top: 80px;
   left: 20px;
 }
 
@@ -94,26 +121,44 @@ article {
   }
 }
 
+aside a {
+  margin-left: 5px;
+  padding-right: 20px;
+}
+
 // ...............................................
 // Mobile
 //
 
 @media (max-width: 800px) {
 
-  // Float the brand to the top of the
-  // page so that's the first thing users see.
-  .brand {
-    position: static;
-  }
-
   // Don't fix the navigation at the top of the
   // page.
   nav {
     position: static;
+    height: auto;
+    text-align: center;
+    border-bottom: 1px solid @rule-color;
+  }
+
+  nav ul {
+    margin-bottom: 0;
+  }
+
+  // Float the brand to the top of the
+  // page so that's the first thing users see.
+  .brand {
+    position: relative;
+    top: 20px;
+  }
+
+  section {
+    margin-top: 0px;
   }
 
   // Fill the device container
-  section {
-    width: 100%;
+  section, footer, nav ul {
+    padding: 20px;
+    width: auto;
   }
 }

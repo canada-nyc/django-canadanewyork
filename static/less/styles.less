@@ -155,6 +155,32 @@ aside a {
 
 @media (max-width: 800px) {
 
+  body {
+    margin: 0 0 100px;
+  }
+
+  section {
+    width: auto;
+    max-width: 600px;
+  }
+
+  footer {
+    line-height: 1.5em;
+  }
+
+  // Break the address into new lines so it's easier to read
+  footer {
+    .tel, .email {
+      display: block;
+    }
+    .adr:after, .tel:after {
+      content: '';
+    }
+  }
+}
+
+@media (max-width: 550px) {
+
   // Don't fix the navigation at the top of the
   // page.
   nav {
@@ -162,6 +188,11 @@ aside a {
     height: auto;
     text-align: center;
     border-bottom: 1px solid @section-divider-color;
+  }
+
+  footer {
+    left: 0;
+    border-top: 1px solid @section-divider-color;
   }
 
   nav ul {

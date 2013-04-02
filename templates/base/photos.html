@@ -5,7 +5,8 @@
 {% load humanize %}
 
 {% if photos %}
-    {% addtoblock "js_no_compress" %}
+    {% addtoblock "js" %}
+    <script src="{% static "canada/js/jquery.min.js" %}"></script>
     <!-- Add mousewheel plugin (this is optional) -->
     <script src="{% static "canada/fancybox/lib/jquery.mousewheel-3.0.6.pack.js" %}"></script>
 
@@ -18,7 +19,7 @@
     <script src="{% static "canada/fancybox/source/helpers/jquery.fancybox-thumbs.js" %}"></script>
 
   {% endaddtoblock %}
-  {% addtoblock "css_no_compress" %}
+  {% addtoblock "css" %}
     <!-- Add fancyBox -->
     <link rel="stylesheet" href="{% static "canada/fancybox/source/jquery.fancybox.css" %}"  media="screen" />
 
@@ -36,7 +37,7 @@
       {% endthumbnail %}
     {% endwith %}
 
-    {% addtoblock "js_no_compress" %}
+    {% addtoblock "js" %}
     <script type="text/javascript">
     $(".open_fancybox{{ id }}").click(function() {
         $.fancybox.open(

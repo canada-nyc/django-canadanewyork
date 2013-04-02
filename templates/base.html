@@ -10,19 +10,16 @@
   {% render_block "css_no_compress" %}
   {% render_block "css" postprocessor "compressor.contrib.sekizai.compress" %}
   {% addtoblock "css" %}
-  <link type="text/less" rel="stylesheet" href="{% static "canada/less/bootstrap.less" %}">
-  <link type="text/less" rel="stylesheet" href="{% static "canada/less/bootstrap-responsive.less" %}">
-  <link type="text/less" rel="stylesheet" href="{% static "canada/less/canada.less" %}">
+  <link type="text/less" rel="stylesheet" href="{% static "canada/less/styles.less" %}">
   {% endaddtoblock %}
   {% addtoblock "js_no_compress" %}
   <script src="{% static "canada/js/jquery.min.js" %}"></script>
   {% endaddtoblock %}
   {% addtoblock "js" %}
-  <script src="{% static "canada/js/bootstrap.min.js" %}"></script>
   <script src="{% static "canada/js/raven.js" %}"></script>
   {% endaddtoblock %}
   {% addtoblock "js" %}
- <!-- Raven.js Config -->
+  <!-- Raven.js Config -->
   <script type="text/javascript">
   // Ignore list based off: https://gist.github.com/1878283
   var ravenOptions = {
@@ -79,52 +76,40 @@
   <![endif]-->
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span2 visible-desktop"></div><!--So that navbar is offset in desktop rendering to match up with text-->
-        <div class="span10">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="/">CANADA</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li><a href="/artists/">Artists</a>
-              <li><a href="/exhibitions/">Exhibitions</a>
-              <li><a href="/updates/">Updates</a>
-              <li><a href="/contact/">Contact and Info</a>
-            </ul>
-          </div>
-        </div><!--/.row-fluid-->
-      </div><!--/.nav-collapse -->
-    </div><!--/.container-fluid-->
-  </div><!--/.navbar-inner-->
-</div><!--/.navbar-->
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span2 hidden-phone">
-      <a href='/'><img src="{% static "canada/images/fire_logo.gif" %}"></a>
-    </div><!--/span2-->
-    <div class="span6">
-      {% block body %}{% endblock %}
-      <footer>
-        <p>CANADA 333 Broome St, New York, NY 10002 | 212.925.4631 | <script type="text/javascript">
-        <!--
-        var s="=b!isfg>#nbjmup;hbmmfszAdbobebofxzpsl/dpn#?hbmmfszAdbobebofxzpsl/dpn=0b?";
-        m=""; for (i=0; i<s.length; i++) m+=String.fromCharCode(s.charCodeAt(i)-1); document.write(m);
-        //-->
-        </script>
-        <noscript>
-        gallery AT canadanewyork DOT com
-        </noscript>
-      </footer>
-    </div><!--/span3-->
-  </div><!--/row-->
-</div><!--/.container-fluid-->
+<nav>
+  <a href='/' title="CANADA" class="brand">
+    <img alt="CANADA" src="{% static "canada/images/fire_logo.gif" %}">
+  </a>
+  <ul>
+    <li><a href="/">Homepage</a></li>
+    <li><a href="/artists/">Artists</a>
+    <li><a href="/exhibitions/">Exhibitions</a>
+    <li><a href="/updates/">Updates</a>
+    <li><a href="/contact/">Contact and Info</a>
+  </ul>
+</nav>
+<section>
+  {% block body %}{% endblock %}
+</section>
+<footer class="vcard">
+  <span class="fn">CANADA</span>
+  <span class="adr">
+    <span class="street-address">333 Broome St</span>,
+    <span class="locality">New York</span>,
+    <span class="region">NY</span>
+    <span class="postal-code">10002</span>
+  </span>
+  <span class="tel">212.925.4631</span>
+  <span class="email">
+    <script type="text/javascript"><!--
+      var s="=b!isfg>#nbjmup;hbmmfszAdbobebofxzpsl/dpn#?hbmmfszAdbobebofxzpsl/dpn=0b?";
+          m=""; for (i=0; i<s.length; i++) m+=String.fromCharCode(s.charCodeAt(i)-1); document.write(m);
+    //--></script>
+    <noscript>
+      gallery AT canadanewyork DOT com
+    </noscript>
+  </span>
+</footer>
 {% render_block "js" postprocessor "compressor.contrib.sekizai.compress"  %}
 {% render_block "js_no_compress" %}
 </body>

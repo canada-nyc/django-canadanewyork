@@ -3,11 +3,9 @@
 {% block title %}Artists{{ block.super }}{% endblock %}
 
 {% block body %}
-<section>
- <ul class="unstyled">
-    {% for artist in artist_list %}
-      <li class="close_together"><a href={{ artist.get_absolute_url }}>{{ artist.first_name }} {{ artist.last_name }}</a>
-    {% endfor %}
-  </ul>
-</section>
+<ul>
+  {% for artist in artist_list %}
+    <li><a href={{ artist.get_absolute_url }}>{{ artist.first_name }} {{ artist.last_name }}</a>
+  {% endfor %}
+</ul>
 {% endblock %}

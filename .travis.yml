@@ -7,42 +7,28 @@ services:
 
 install:
   - sudo apt-get install -qq libmemcached-dev
-  - pip install -r configs/requirements/travis.txt --use-mirrors -q
+  - pip install -r configs/requirements/prod.txt --use-mirrors -q
 
 before_script:
   - psql -c 'create database django_canadanewyork;' -U postgres
+  - DATABASE_URL='postgres://postgres@localhost/django_canadanewyork'
 
 script:
-  - flake8 .
   - python manage.py test tests
 
 after:
   - python manage.py wipe_storage
-
-after_success:
-  - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
-  - git remote add heroku git@heroku.com:canada-production.git
-  - echo "Host heroku.com" >> ~/.ssh/config
-  - echo "   StrictHostKeyChecking no" >> ~/.ssh/config
-  - echo "   CheckHostIP no" >> ~/.ssh/config
-  - echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
-  - heroku keys:clear
-  - yes | heroku keys:add
-  - yes | git push heroku master
 
 notifications:
   email: false
 
 env:
   global:
-    - secret:  "y/UCRuCMLo9+/25VfjjK5iqcE3KaIUuQnq/591lyJAsj38Q4cgFrvvsyE80f\ngFRotcH7OeFdyoK+xCH+RUd2rFFBXziefyswhTgFSxCFA5PFM6FqlN8GnzIB\nendEsHngVW5N/Wk3TGAmX6dm9mugBzG9M0vmPguonfvPEPH4QmA="
-    - secret:  "dotT+ZHUxNyVjgy/9W8qPr18/JJ+OxSNqy/IyEK0Jdj52b1/neKKjLB3PJ1h\nE+V61UIfd5lbdMGK6XmNY12gopdUbIBSRNAZx2OZRuCa0ZFwt5r0AYLbHmPz\nkCQvb0AMPlXjvXXZuaPUlbB6XtDzEvx77qQA6A192WjYy8aTVxA="
-    - secret:  "sL1FsKMXPi+xwW2uit9hpyYHICK+AbOg1JSCgGOzsJkQPUNV7mFgSRs4peP+\nJSatXLsqrfJjgDdVY3Ztibm0SyoG+NlLMQAZFWMUIab8r1WZwebUKUkIH7mu\nw9Kx96SqxPtTmfaBlwCE6kTz4V+n28n/pECTF37jC8oJPup2fV8="
-    - secret:  "aAyCqW5tCix0i0FB+mEFxFI5ejV7TorspxoIP10r61aLytq7yVr5b8FZdC7M\nVpa+5TLhFoFzBtY0B9PM/edkrxGAmTls6yRjve2bBSm/6aG+IR6bk5eX5xEu\nOZV4G3rlYu+x+/ZZlsIEz8RjY6ubE6YetRNWA0GWGkJw+QEPAPU="
-    - secret:  "lkyNNRMUBGvtixXjyWwkGHwjMp+9lyHit1+sYc95MXONLQzkdUAuPvDG7DZ/\nL3S9yuGZgxYvYexYwYNJUiKt22SQun0QEXY2Uk08LtQhRFxzDq5Vu6MQj56o\nhhSetk2s9/ixQSiV4RPiLknQ5C4i8onYXwMoO85PlD3sGYhIhtQ="
-    - secret:  "a+XpO5gc1WvYk0mli7zbnXWHcXPT2gjkzJ5wchv7RiXvdpXPElSy976sHTur\nNtA0H+nCgROZ02I9JaRPNPl/47OyycwZTbprUp9S9wGPSh7TayIO+W7jHl1m\nRswaDWcpXm0hQuxcfHbEIgMaXwUsW39BqrbyJYWNOJZ5DwmwbiI="
-    - secret:  "tMR1DiuAPid7BPnozFwQ9hiYcxj4BfB7fbI7cF5W8xIEmp6c4mlb68QQU9Y0\nwxmQBBbG9Af+NTxaSDDvbOdij1rpcEFY2Xc8CZX0LZYWjgYzmZFaX3ZSBBO8\n2uid27X38/x2YMPs8+Jw6nqxfCNOWnCcp/rJpAHFMbJAzvIPVZI="
-    - secret:  "C66Dbn4Gi2mnbkbqHFGK6p+16zpc25DndqXbiNVMXSBgPCcUijkzYTOrYxI2\nQbVhyP6lEIORoRn9RdRX8PI+6jvY/aHZgtQHPCA1f6frFiYtB6y+szj92mpV\nIwu9YxXFunY3hsMD2n+gvO6iVWTi6SAmE7H3r+kFwAdoQS5LdR4="
+    - secret:  "STNK4nGs4ib0AviClb+GPWQ7M22byLnYsSK9qy7tPvJdcwSwk3yj5oNANiWC\nJQrW6XFdWBqS+cr9HJU0wq61gMNipnaQ7JvDwX7Lx8isBwV2z86W0kK4Zlwf\n0Zf63vAWOtJJyXfXDGOGCWwf4fdPVBwTchnlTJh9kt/R21tQTYo="
+    - secret:  "YFyx1NIdvyVUyyCBTQph8wJwqTVzvhRInALwdPYtb56eKlLPWmtuSv7i0gq7\n3zcXULuNrSfAvJEPhwb1WV+rZ0cWXi7nmP7J2mkzXpUsYuDHI7DL/L2gSZlI\ny7kL1c6G502hSBiw3Nyy61HvT3J09+j2pgZhaUzNBbncRMx0kq4="
+    - secret:  "zLp84RDS1YKcf8FI2VZzg1Stik9EILsThue2vSR3Pf7lvj61kuXD9mxm3cEd\nAnZiGxPJOGUwB9CEl4OeUcLp+ir4bySMnwR7o77oyK2mLluSPqfMGcPXjeT5\nyf1nR81GQnQVeuOA7KfcOPi34eIQ+V++8iQWNOlkthUZZhx4Lg8="
+    - secret:  "qcA8XTWd5dP7+c9cLvueFI97NHs29vQjpeSqJuE9uzLKXLH1BRFRsLG1gt/0\nPMkAmhqpcalotXDU6lTUwI+UWTXnShk+hS9k8TRZ+nwX84CLrduk7DYOd7x1\n3seobdNQn+xBc9QQb3MplythxtDp3g4B7l4IzjqV2ekpzZ1QTvs="
+    - secret: "rQIaX/Wle8JHxqFthr9e9LeTfpw2BhD9B3zt1AMxj6ubnzmY5+esU9L/NQwx\nBFZD4ZfEyTSGX8F52KHFrrTwHe85fuLYWp7iP8YTle9bD5WZQLdzi9Xp0qY5\naukiYEvhge0oav/fw8WCuVa4f9BMSF+MqL/qVY2K1FBij4sfDQU="
     - ADMIN_USERNAME=saul
     - ADMIN_EMAIL=s.shanabrook@gmail.com
     - DATABASE_URL=postgres://postgres@localhost/django_canadanewyork

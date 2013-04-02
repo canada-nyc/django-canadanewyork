@@ -41,7 +41,7 @@ setup-heroku-prod:
 
 reset-local:
 	foreman run ${PYTHON} manage.py clean_db --noinput
-	foreman run ${PYTHON} python manage.py import_wp static/wordpress/.canada.wordpress.*
+	foreman run ${PYTHON} manage.py import_wp static/wordpress/.canada.wordpress.*
 	foreman run ${PYTHON} manage.py set_site 127.0.0.1:8000
 	foreman run ${PYTHON} manage.py loaddata configs/fixtures/contact.json
 
@@ -64,10 +64,9 @@ migrate-init: migrate-wipe
 travis-encrypt:
 	sed '/  global:/q' .travis.yml > .travis.yml.tmp
 	mv -f .travis.yml.tmp .travis.yml
-	function t_encrypt; echo "    - secret: " $argv >> .travis.yml; end
-	for line in (cat configs/env/secret.env | travis encrypt --no-interactive --split); t_encrypt $line; end
-	t_encrypt (travis encrypt HEROKU_API_KEY=(heroku auth:token) --no-interactive)
-	for line in (cat configs/env/common.env configs/env/travis.env); echo "    - $line" >> '.travis.yml';end
+	for line in (cat configs/env/secret.env | travis encrypt --no-interactive --split); echo "    - secret: " $$line >> .travis.yml; end
+	echo "    - secret: "(travis encrypt HEROKU_API_KEY=(heroku auth:token) --no-interactive) >> .travis.yml
+	for line in (cat configs/env/common.env configs/env/travis.env); echo "    - $$line" >> '.travis.yml';end
 
 
 promote-db-local:

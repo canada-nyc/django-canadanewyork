@@ -1,5 +1,6 @@
 /tmp/
 *.pyc
+*~
 .DS_Store
 .c9revisions/
 

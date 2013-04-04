@@ -1,0 +1,14 @@
+{
+  "addons": [
+    "blitz:250",
+    "memcache:5mb",
+    "memcachier:dev",
+    "newrelic:standard",
+    "pgbackups:auto-month",
+    "redistogo:nano",
+    "sentry:developer",
+    "heroku-postgresql:dev"
+  ],
+  "env": {
+  }
+}

@@ -7,11 +7,17 @@
 <article>
   <h1>{{ artist }}</h1>
   {% include "base/photos.html" with photos=artist.photos.all %}
-  {% if artist.resume %}
-    <p><a href="{{ artist.get_resume_url }}">Resume</a></p>
-  {% endif %}
-  {% if artist.get_press.exists %}
-    <p><a href="{{ artist.get_press_url }}">Press</a>
-  {% endif %}
+  <hr>
+  <aside>
+    {% if artist.photos %}
+      <a href="#1" class="open-gallery">Images</a>
+    {% endif %}
+    {% if artist.resume %}
+      <a href="{{ artist.get_resume_url }}">Resume</a>
+    {% endif %}
+    {% if artist.get_press.exists %}
+      <a href="{{ artist.get_press_url }}">Press</a>
+    {% endif %}
+  </aside>
 </article>
 {% endblock body %}

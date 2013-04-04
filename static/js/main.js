@@ -56,19 +56,36 @@ $(document).ready(function () {
   Raven.config(CANADA.SENTRY_DSN, CANADA.RAVEN_CONFIG).install();
 
   // Initialize photo galleries
-  var gallery_ids = CANADA.Gallery,
-      gallery,
-      photo,
-      $gallery;
+  $('.gallery').on('click', function () {
+    var id = $(this).attr('id'),
+        photos = CANADA.Gallery[id],
+        swipe;
+    $('.lightbox').append('<div class="swipe" id="gallery-' + id + '"></div>');
+    $('#gallery-' + id).html(CANADA.TEMPLATES['photos'](photos));
+    $('.lightbox').fadeIn(function () {
+      swipe = Swipe($('#gallery-' + id)[0]);
+      $('.prev').on('click', function () {
+        swipe.prev();
+      });
+      $('.next').on('click', function () {
+        swipe.next();
+      });
+    });
 
-  for (var gallery_id in gallery_ids) {
-    if (gallery_ids.hasOwnProperty(gallery_id)) {
-      $gallery = $("#" + gallery_id);
-      gallery = gallery_ids[gallery_id];
-      $gallery.html(CANADA.TEMPLATES['photos'](gallery));
-      Swipe($gallery[0]);
-    }
-  }
+    $('.close').on('click', function () {
+      $('.lightbox').fadeOut(function () {
+        if (swipe) swipe.kill();
+        $('#gallery-' + id).remove();
+      });
+      return false;
+    });
+  });
+
+  $('.open-gallery').on('click', function () {
+    $($(this).attr('href')).click();
+  });
+
+  $('body').append('<div class="lightbox"><div class="prev"></div><div class="next"><div class="close"></div></div></div>');
 });
 
 CANADA.TEMPLATES['photos'] = function (photos) {
@@ -85,17 +102,17 @@ CANADA.TEMPLATES['photos'] = function (photos) {
 CANADA.TEMPLATES['photo'] = function (photo) {
   var buffer = [],
       sizes = photo.sizes,
-      src;
+      image;
 
-  src = sizes.large || sizes.thumb;
-  buffer.push('<figure>');
-  buffer.push('<div class="wrap">');
-  buffer.push('<img src="' + src + '" title="' + photo.title + '"/>');
+  image = sizes.large || sizes.thumb;
+  buffer.push('<div>');
+  buffer.push('<figure style="max-width: ' + image.width + 'px">');
+  buffer.push('<img src="' + image.url + '" title="' + photo.title + '"/>');
   buffer.push('<aside>');
   buffer.push('<em>' + photo.title + '</em>');
   buffer.push(photo.caption);
   buffer.push('</aside>');
-  buffer.push('</div>');
   buffer.push('</figure>');
+  buffer.push('</div>');
   return buffer.join('');
 };

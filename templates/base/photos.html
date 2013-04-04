@@ -5,12 +5,10 @@
 
 {% if photos %}
   {% with id=id|default:"1" %}
-    <div class="gallery swipe" id="{{ id }}">
+    <div class="gallery" id="{{ id }}">
       {% with image=photos|first %}
         {% thumbnail image.image "682" as im %}
-          <a href="{{ im.url }}">
-            <img src="{{ im.url }}" alt={{ image.title }}/></p>
-          </a>
+          <img src="{{ im.url }}" alt={{ image.title }}/></p>
         {% endthumbnail %}
       {% endwith %}
     {% addtoblock "js" %}
@@ -20,8 +18,16 @@
         {% thumbnail image.image "x800" as thumb %}
         {
           sizes: {
-            thumb: "{{ thumb.url|escapejs }}",
-            large: "{{ image.image_large.url|escapejs }}"
+            thumb: {
+              url:    "{{ thumb.url|escapejs }}",
+              width:  {{ thumb.width|escapejs }},
+              height: {{ thumb.height|escapejs }},
+            },
+            large: {
+              url:    "{{ image.image.url|escapejs }}",
+              width:  {{ image.image.width|escapejs }},
+              height: {{ image.image.height|escapejs }}
+            }
           },
           title: "{{ image.title|escapejs }}",
           caption: "{{ image.caption|escapejs }}"

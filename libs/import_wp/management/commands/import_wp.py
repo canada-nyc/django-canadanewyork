@@ -6,7 +6,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db.utils import IntegrityError
 from django.db import transaction
 
-from . import log, conversion, helpers
+from .. import log, conversion, helpers
 
 
 class Command(BaseCommand):
@@ -52,7 +52,7 @@ class Command(BaseCommand):
             url_test = re.compile(url_format)
             for element in elements:
                 try:
-                    url = helpers.url_path(element)
+                    url = helpers.path_from_element(element)
                 except AttributeError:
                     pass
                 else:
@@ -79,10 +79,7 @@ class Command(BaseCommand):
                 # for instance artists will have two entries, one with the
                 # resume and one without. so on each it will get the real one
                 model = model.__class__.objects.get(pk=model.pk)
-                try:
-                    model.clean()
-                except:
-                    from pudb import set_trace; set_trace()
+                model.clean()
                 model.save()
         # Clean all models
         map(clean_model, added_models)

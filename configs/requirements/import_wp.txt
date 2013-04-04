@@ -1,4 +1,4 @@
-git+git://github.com/aaronsw/html2text.git
+git+git://github.com/aaronsw/html2text.git@8ddc844b03042faf4875d465580ad122f9292978
 chardet==2.1.1
 requests==0.14.2
 requests-cache==0.1.3

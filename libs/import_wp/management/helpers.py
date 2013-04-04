@@ -2,7 +2,6 @@ import os
 import urlparse
 from StringIO import StringIO
 
-import markdown2
 import html2text
 import requests
 try:
@@ -15,22 +14,25 @@ import dateutil.parser
 from bs4 import BeautifulSoup
 from PIL import Image
 import PyPDF2
+
 from django.core.files.temp import NamedTemporaryFile
 from django.core.files import File
 from django.core.files.base import ContentFile
 
 
-def url_path(element=None, url_text=None):
-    url_text = url_text or element.findtext('link')
+def path_from_url(url_text):
     url = urlparse.urlparse(url_text)
     return url.path
 
 
-def html_to_markdown(html):
+def path_from_element(element, field='link'):
+    url_text = element.findtext(field)
+    return path_from_url(url_text)
+
+
+def cleanup_html(html):
     html = html.replace('[gallery]', '')
 
-    html = markdown2.markdown(html)
-    html = html.replace('\n', '<br>')
     h = html2text.HTML2Text()
     h.ignore_images = True
     h.ignore_links = True

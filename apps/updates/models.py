@@ -2,15 +2,13 @@ from django.db import models
 from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
 
-from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 import url_tracker
 
 from apps.photos.models import Photo
 
 
 class Update(url_tracker.URLTrackingMixin, models.Model):
-    description = models.TextField(blank=True, null=True,
-                                   help_text=markdown_allowed())
+    description = models.TextField(blank=True)
     post_date = models.DateTimeField(auto_now_add=True)
 
     photos = generic.GenericRelation(Photo)

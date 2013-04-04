@@ -4,7 +4,6 @@ from django.db.models.loading import get_model
 from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
 
-from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 import url_tracker
 
 from libs.slugify.fields import SlugifyField
@@ -20,7 +19,7 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
 
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    resume = models.TextField(blank=True, null=True, help_text=markdown_allowed())
+    resume = models.TextField(blank=True)
     slug = SlugifyField(populate_from=('first_name', 'last_name'))
     visible = models.BooleanField(
         default=False,

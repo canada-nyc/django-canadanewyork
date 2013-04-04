@@ -5,7 +5,6 @@ from django.core.exceptions import ValidationError
 from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
 
-from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 import url_tracker
 
 from ..artists.models import Artist
@@ -25,7 +24,7 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
         return os.path.join(instance.get_absolute_url()[1:], 'press_release_photos', filename)
 
     name = models.CharField(max_length=1000, unique_for_year='start_date')
-    description = models.TextField(blank=True, help_text=markdown_allowed())
+    description = models.TextField(blank=True)
     artists = models.ManyToManyField(Artist, related_name='exhibitions',
                                      blank=True, null=True)
     start_date = models.DateField()

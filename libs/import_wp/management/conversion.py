@@ -1,7 +1,6 @@
-import urlparse
 import dateutil.parser
 
-import url_tracker
+from url_tracker.trackers import add_old_url
 
 from apps.artists.models import Artist
 from apps.exhibitions.models import Exhibition
@@ -20,9 +19,8 @@ def create_artist(element, all_elements):
         A.last_name = title
         A.visible = False
     A.save()
-    A._old_urls = {'get_absolute_url': helpers.url_path(element)}
-    url_tracker.track_changed_url(
-        instance=A)
+    old_path = helpers.path_from_element(element)
+    add_old_url(A, 'get_absolute_url', old_path)
     return A
 
 
@@ -40,10 +38,11 @@ def create_artist_resume(element, all_elements):
     A = get_artist(
         _parent_element_from_element(element, all_elements),
     )
-    A.resume = helpers.html_to_markdown(
+    A.resume = helpers.cleanup_html(
         element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
     )
-
+    old_path = helpers.path_from_element(element)
+    add_old_url(A, 'get_resume_url', old_path)
     A.save()
 
 
@@ -57,8 +56,6 @@ def create_artist_press(element, all_elements):
     except Press.DoesNotExist:
         P.save()
     P.content_file.save(*_press_file_from_link(P, element.findtext('guid')))
-    P.old_content_path = urlparse.urlparse(element.findtext('guid')).path
-    P.save()
     P.artists.add(
         get_artist(
             _parent_element_from_element(
@@ -71,9 +68,8 @@ def create_artist_press(element, all_elements):
         )
     )
     P.save()
-    P._old_urls = {'get_absolute_url': helpers.url_path(element)}
-    url_tracker.track_changed_url(
-        instance=P)
+    old_path = helpers.path_from_element(element)
+    add_old_url(P, 'get_absolute_url', old_path)
     return P
 
 
@@ -89,7 +85,7 @@ def create_artist_photo(element, all_elements):
 def create_exhibition(element, all_elements):
     E = Exhibition(
         name=element.findtext('title'),
-        description=helpers.html_to_markdown(
+        description=helpers.cleanup_html(
             element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
         ),
     )
@@ -104,9 +100,8 @@ def create_exhibition(element, all_elements):
         model_function=lambda a: a.__unicode__(),
     )
     E.save()
-    E._old_urls = {'get_absolute_url': helpers.url_path(element)}
-    url_tracker.track_changed_url(
-        instance=E)
+    old_path = helpers.path_from_element(element)
+    add_old_url(E, 'get_absolute_url', old_path)
     return E
 
 
@@ -136,7 +131,7 @@ def create_press(element, all_elements):
         P.publisher, P.title = title
     except ValueError:
         P.title = title[0]
-    P.content = helpers.html_to_markdown(
+    P.content = helpers.cleanup_html(
         element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
     )
     P.date, _ = helpers.dates_from_text(
@@ -151,9 +146,8 @@ def create_press(element, all_elements):
         model_function=lambda A: A.__unicode__(),
     )
     P.save()
-    P._old_urls = {'get_absolute_url': helpers.url_path(element)}
-    url_tracker.track_changed_url(
-        instance=P)
+    old_path = helpers.path_from_element(element)
+    add_old_url(P, 'get_absolute_url', old_path)
     return P
 
 
@@ -164,7 +158,7 @@ def get_press(element):
         P.publisher, P.title = title
     except ValueError:
         P.title = title[0]
-    P.content = helpers.html_to_markdown(
+    P.content = helpers.cleanup_html(
         element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
     )
     P.date, _ = helpers.dates_from_text(
@@ -180,15 +174,12 @@ def create_press_file(element, all_elements):
     )
     P.content_file.save(*_press_file_from_link(P, element.findtext('guid')))
     P.save()
-    P._old_urls = {'get_content_file_url': element.findtext('guid')}
-    url_tracker.track_changed_url(
-        instance=P)
     return P
 
 
 def create_update(element, all_elements):
     U = Update(
-        description=helpers.html_to_markdown(
+        description=helpers.cleanup_html(
             element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
         )
     )
@@ -203,12 +194,6 @@ def create_update(element, all_elements):
         P.clean()
         P.save()
         P.image.save(*helpers.file_from_link(link))
-        P._old_urls = {'get_image_url': helpers.url_path(url_text=link)}
-        url_tracker.track_changed_url(
-            instance=P)
-    U._old_urls = {'get_absolute_url': helpers.url_path(element)}
-    url_tracker.track_changed_url(
-        instance=U)
     return U
 
 
@@ -222,7 +207,7 @@ def _parent_element_from_element(element, all_elements):
 def _create_photo(element, content_object):
     P = Photo(
         title=element.findtext('title'),
-        caption=helpers.html_to_markdown(
+        caption=helpers.cleanup_html(
             element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
         ),
         content_object=content_object,
@@ -236,9 +221,6 @@ def _create_photo(element, content_object):
     P.image.save(
         *helpers.file_from_link(element.findtext('guid'))
     )
-    P._old_urls = {'get_image_url': helpers.url_path(element)}
-    url_tracker.track_changed_url(
-        instance=P)
     return P
 
 

@@ -12,6 +12,6 @@
     {% endwith %}
     <h1>{{ exhibition }}</h1>
   </a>
-  <p>{{ flatpage.content }}</p>
+  <p>{{ flatpage.content|safe }}</p>
 </article>
 {% endblock body %}

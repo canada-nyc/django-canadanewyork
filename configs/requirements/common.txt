@@ -31,7 +31,6 @@ sorl-thumbnail==11.12
 ##
 #Templates
 ##
-django-markdown-deux==1.0.4
 django-sekizai==0.7
 
 ##

@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% load thumbnail %}
-{% load markdown_deux_tags %}
 {% load sekizai_tags %}
 
 {% block title %}{{ exhibition }}{{ block.super }}{% endblock %}
@@ -12,7 +11,7 @@
     <h1>{{ exhibition }}</h1>
     <p>{% include "base/full_date.html" with date=exhibition.start_date %}
   </header>
-  {{ exhibition.description|markdown }}
+  {{ exhibition.description|safe }}
   {% include "base/photos.html" with photos=exhibition.photos.all %}
   {% if exhibition.press.objects.exists %}
     <p><a href="{{ exhibition.get_press_url }}">Press</a>

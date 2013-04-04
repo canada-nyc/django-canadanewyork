@@ -1,11 +1,10 @@
 {% extends "base.html" %}
-{% load markdown_deux_tags %}
 
 {% block title %}Resume |{{ artist.first_name }}{{ artist.last_name }}{{ block.super }}{% endblock %}
 
 {% block body %}
 <article>
   <h1>Resume</h1>
-  {{ artist.resume|markdown }}
+  {{ artist.resume|safe }}
 </article>
 {% endblock body %}

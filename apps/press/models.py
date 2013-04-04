@@ -1,6 +1,5 @@
 import os
 
-from markdown_deux.templatetags.markdown_deux_tags import markdown_allowed
 import url_tracker
 
 from django.db import models
@@ -17,7 +16,7 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
 
     title = models.CharField(max_length=500)
     link = models.URLField(null=True, blank=True, verbose_name=u'External link')
-    content = models.TextField(help_text=markdown_allowed(), blank=True)
+    content = models.TextField(blank=True)
     content_file = models.FileField(upload_to=image_path, blank=True, null=True, max_length=500)
 
     date = models.DateField()

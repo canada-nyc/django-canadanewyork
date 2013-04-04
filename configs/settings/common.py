@@ -33,6 +33,7 @@ INSTALLED_APPS += (
     'apps.photos',
 
     'libs.common',
+    'libs.import_wp'
 )
 
 
@@ -67,13 +68,6 @@ GRAPPELLI_ADMIN_TITLE = 'canada'
 #############
 TEMPLATE_DIRS = rel_path('templates')
 
-INSTALLED_APPS += ('markdown_deux',)
-MARKDOWN_DEUX_STYLES = {
-    "default": {
-        "safe_mode": "escape",
-    },
-}
-
 INSTALLED_APPS += ('sekizai',)
 TEMPLATE_CONTEXT_PROCESSORS += ('sekizai.context_processors.sekizai',)
 
@@ -82,7 +76,6 @@ TEMPLATE_CONTEXT_PROCESSORS += ('sekizai.context_processors.sekizai',)
 # THUMBNAILS #
 ##############
 INSTALLED_APPS += ('sorl.thumbnail',)
-
 THUMBNAIL_UPSCALE = False
 
 ###########
@@ -212,7 +205,7 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
     'root': {
-        'level': 'DEBUG',
+        'level': 'INFO',
         'handlers': ['console', 'sentry'],
     },
     'formatters': {
@@ -233,13 +226,13 @@ LOGGING = {
     },
     'loggers': {
         'raven': {
-            'level': 'DEBUG',
+            'level': 'WARNING',
             'handlers': ['console'],
             'propagate': False,
         },
         'sentry.errors': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
+            'level': 'WARNING',
+            'handlers': [],
             'propagate': False,
         },
     },

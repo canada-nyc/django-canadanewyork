@@ -63,56 +63,6 @@ img {
   -ms-interpolation-mode: bicubic;
 }
 
-.lightbox {
-  display: none;
-  background-color: @background-color;
-}
-
-.lightbox,
-.lightbox .swipe,
-.lightbox .swipe-wrap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-}
-
-.lightbox .next,
-.lightbox .prev {
-  background-color: @flame;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  width: 50px;
-  z-index: 100;
-}
-
-.lightbox .next {
-  right: 0;
-}
-
-.lightbox .prev {
-  left: 0;
-}
-
-.lightbox .close {
-  background-color: @black;
-  position: absolute;
-  top: 0;
-  height: 50px;
-  width: 50px;
-}
-
-.lightbox .swipe {
-  left: 50px;
-  right: 50px;
-}
-
-.lightbox figure {
-  margin-top: 20px;
-}
-
 figure {
   margin: 0 auto;
 }
@@ -125,23 +75,6 @@ figure em {
   font-weight: bold;
   font-style: italic;
   display: block;
-}
-
-.swipe {
-  overflow: hidden;
-  visibility: hidden;
-  position: relative;
-}
-
-.swipe-wrap {
-  overflow: hidden;
-  position: relative;
-}
-
-.swipe-wrap > div {
-  float: left;
-  width: 100%;
-  position: relative;
 }
 
 // Lists

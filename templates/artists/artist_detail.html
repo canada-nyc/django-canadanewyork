@@ -6,13 +6,11 @@
 {% block body %}
 <article>
   <h1>{{ artist }}</h1>
-  {% include "base/photos.html" with photos=artist.photos.all %}
+  {% include "base/photos.html" with photos=artist.photos.all id=artist.id %}
   <hr>
   <aside>
     {% if artist.photos %}
-      {% with first_image=artist.photos.all|first %}
-        <a href="#{{ first_image.content_type_id }}" class="open-gallery">Images</a>
-      {% endwith %}
+      <a href="#{{ artist.id }}" class="open-gallery">Images</a>
     {% endif %}
     {% if artist.resume %}
       <a href="{{ artist.get_resume_url }}">Resume</a>

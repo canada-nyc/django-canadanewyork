@@ -10,7 +10,9 @@
   <hr>
   <aside>
     {% if artist.photos %}
-      <a href="#1" class="open-gallery">Images</a>
+      {% with first_image=artist.photos.all|first %}
+        <a href="#{{ first_image.content_type_id }}" class="open-gallery">Images</a>
+      {% endwith %}
     {% endif %}
     {% if artist.resume %}
       <a href="{{ artist.get_resume_url }}">Resume</a>

@@ -6,6 +6,7 @@
 2. Postgresql (not required but preferable for consistancy): Mac users try or `brew install postgresql`
 [Postgress.app](http://postgresapp.com/).
 3. foreman: `gem install foreman`
+4. less and uglify-js for compression: `npm install --global --production "less" "git://github.com/mishoo/UglifyJS2.git#3bd7ca9961125b39dcd54d2182cb72bd1ca6006e"`
 
 ## Setup
 A number of environmental variables need to be set. I use foreman to run my

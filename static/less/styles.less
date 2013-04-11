@@ -36,20 +36,27 @@ a:focus, a:hover {
 }
 
 // Inputs
-input {
-  color: @text-color;
+input[type="text"],
+input[type="email"] {
+  color: white; // Yes, really
   border: 1px solid @input-border-color;
   background-color: @input-background-color;
-}
-input:focus {
-  outline: 1px solid @input-focus-ring-color;
-  outline-offset: -1px;
+
+  &:focus {
+    outline: 1px solid @input-focus-ring-color;
+    outline-offset: -1px;
+  }
 }
 
 // Rule
 hr {
   border: 0;
   border-bottom: 1px solid @rule-color;
+}
+
+em {
+  font-weight: bold;
+  font-style: italic;
 }
 
 // Images
@@ -61,6 +68,12 @@ img {
 
   // Smoother images in IE
   -ms-interpolation-mode: bicubic;
+}
+
+// Headers
+h1, h2, h3, h4, h5, h6 {
+  font-size: @font-size + 1px;
+  font-weight: bold;
 }
 
 figure {
@@ -75,16 +88,6 @@ figure em {
   font-weight: bold;
   font-style: italic;
   display: block;
-}
-
-// Lists
-ul {
-  padding: 0;
-  list-style: none;
-}
-
-li {
-  line-height: 2em;
 }
 
 section {
@@ -153,15 +156,73 @@ nav li {
 //
 
 article {
-  h1 {
-    font-size: @font-size;
-    font-weight: bold;
+  li {
+    display: inline;
+    margin-left: 5px;
+    padding-right: 20px;
+  }
+
+  // Add a chevron before the links
+  li:before {
+    content: '\203A'; // ›
+    font-size: @font-size + 2px;
+  }
+
+  margin-bottom: @separation-size;
+}
+
+header {
+  border-bottom: 1px solid @rule-color;
+  margin-bottom: 20px;
+}
+
+// ...............................................
+// Lists
+//
+
+// Basic list styling
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  line-height: 2em;
+}
+
+dl {
+  margin: 0;
+  margin-bottom: @separation-size;
+
+  h2 {
+    padding-bottom: 5px; // add padding between the border and the header
+    border-bottom: 1px solid @rule-color;
+  }
+
+  dt, dd {
+    margin: 0;
+  }
+
+  dt {
+    margin-top: 10px;
+  }
+
+  dd {
+    margin-bottom: 10px;
   }
 }
 
-aside a {
-  margin-left: 5px;
-  padding-right: 20px;
+// ...............................................
+// Gallery
+//
+
+.gallery {
+  display: inline;
+  cursor: pointer;
+
+  img {
+    margin-bottom: @separation-size / 2;
+  }
 }
 
 // ...............................................

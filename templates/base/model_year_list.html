@@ -3,19 +3,13 @@
 {% for model in models %}
   {% with date=model|getattribute:date_atr%}
     {% ifchanged date.year %}
-      {% if not forloop.first %}</ol>{% endif %}
-      <h2 class="year_heading">{{ date.year }}</h2>
-      <hr>
-      <ol class="unstyled">
+      {% if not forloop.first %}</dl>{% endif %}
+      <dl>
+        <h2>{{ date.year }}</h2>
     {% endifchanged %}
-      <li><a href="{{ model.get_absolute_url }}">
-
-        <strong>{{ model }}</strong>
-        <br>
-        {% include "base/full_date.html" with date=date %}{% if date_atr2 %} - {% include "base/full_date.html" with date=model|getattribute:date_atr2  %}{% endif %}
-      </a></li>
+      {% include template_name with model=model %}
     {% if forloop.last %}
-      </ol>
+      </dl>
     {% endif %}
   {% endwith %}
 {% endfor %}

@@ -7,7 +7,7 @@
 {% with first_image=photos|first %}
   <div class="gallery" id="{{ id }}">
     {% thumbnail first_image.image "682" as im %}
-      <img id="{{ first_image.id }}" src="{{ im.url }}" alt="{{ first_image.title|escape }}"/></p>
+      <img id="{{ first_image.id }}" src="{{ im.url }}" alt="{{ first_image.title|escape }}"/>
     {% endthumbnail %}
   {% addtoblock "js" %}
   <script type="text/javascript">

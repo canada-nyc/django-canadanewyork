@@ -127,6 +127,7 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_BUCKET')
 AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME
 AWS_HEADERS = {
     "Cache-Control": "public, max-age=31536000",
+    "Vary": "Accept-Encoding",
 }
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_SECURE_URLS = False

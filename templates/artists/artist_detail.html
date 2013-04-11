@@ -5,19 +5,29 @@
 
 {% block body %}
 <article>
-  <h1>{{ artist }}</h1>
+  <header>
+    <h1>{{ artist }}</h1>
+  </header>
   {% include "base/photos.html" with photos=artist.photos.all id=artist.id %}
   <hr>
   <aside>
+    <ul>
     {% if artist.photos %}
-      <a href="#{{ artist.id }}" class="open-gallery">Images</a>
+      <li>
+        <a href="#{{ artist.id }}" class="open-gallery">Images</a>
+      </li>
     {% endif %}
     {% if artist.resume %}
-      <a href="{{ artist.get_resume_url }}">Resume</a>
+      <li>
+        <a href="{{ artist.get_resume_url }}">Resume</a>
+      </li>
     {% endif %}
     {% if artist.get_press.exists %}
-      <a href="{{ artist.get_press_url }}">Press</a>
+      <li>
+        <a href="{{ artist.get_press_url }}">Press</a>
+      </li>
     {% endif %}
+    </ul>
   </aside>
 </article>
 {% endblock body %}

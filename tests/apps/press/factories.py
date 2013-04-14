@@ -1,24 +1,17 @@
-import collections
 import datetime
 
 import factory
 
 from apps.press.models import Press
-from ...common.factories import DjangoFactory
-from ..artists.factories import ArtistFactory
+from ..artists.related_factories import create_artist
+from ..exhibitions.related_factories import create_exhibition
 
 
-class PressFactory(DjangoFactory):
+class PressFactory(factory.DjangoModelFactory):
+
     FACTORY_FOR = Press
 
-    link = factory.Sequence(lambda n: 'link{}.com'.format(n))
-    title = factory.Sequence(lambda n: 'title{}'.format(n))
-    publisher = factory.Sequence(lambda n: 'publisher{}'.format(n))
     date = datetime.date.today()
 
-    @factory.post_generation(extract_prefix='artists')
-    def create_artists(self, create, extracted, **kwargs):
-        if isinstance(extracted, collections.Iterable):
-            self.artists = extracted
-        elif 'n' in kwargs:
-            self.artists = [ArtistFactory() for _ in range(int(kwargs['n']))]
+    exhibition = factory.PostGeneration(create_exhibition)
+    artist = factory.PostGeneration(create_artist)

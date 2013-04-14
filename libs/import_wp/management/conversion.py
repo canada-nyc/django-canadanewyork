@@ -56,15 +56,13 @@ def create_artist_press(element, all_elements):
     except Press.DoesNotExist:
         P.save()
     P.content_file.save(*_press_file_from_link(P, element.findtext('guid')))
-    P.artists.add(
-        get_artist(
+    P.artist = get_artist(
+        _parent_element_from_element(
             _parent_element_from_element(
-                _parent_element_from_element(
-                    element,
-                    all_elements
-                ),
-                all_elements,
-            )
+                element,
+                all_elements
+            ),
+            all_elements,
         )
     )
     P.save()
@@ -140,11 +138,13 @@ def create_press(element, all_elements):
     )
     P.save()
 
-    P.artists = helpers.models_from_text(
+    artists = helpers.models_from_text(
         text=P.content + P.title,
         model=Artist,
         model_function=lambda A: A.__unicode__(),
     )
+    for artist in artists:
+        P.artist = artist
     P.save()
     old_path = helpers.path_from_element(element)
     add_old_url(P, 'get_absolute_url', old_path)

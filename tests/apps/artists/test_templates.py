@@ -7,19 +7,37 @@ from ..exhibitions.factories import ExhibitionFactory
 
 
 class ArtistListTest(WebTest):
+    def test_reverse(self):
+        self.app.get(
+            reverse('artist-list')
+        )
+
+    def test_nav_click(self):
+        artist_list = self.app.get(
+            reverse('artist-list')
+        )
+        artist_list.click(
+            'Artists',
+            reverse('artist-list')
+        )
+
     def test_visible(self):
         Artist = ArtistFactory.create()
-        artists_list = self.app.get('/artists/')
+        artist_list = self.app.get(
+            reverse('artist-list')
+        )
 
-        artists_list.click(
+        artist_list.click(
             unicode(Artist),
             reverse('artist-detail', kwargs={'slug': Artist.slug})
         )
 
     def test_invisible(self):
         Artist = ArtistFactory.create(visible=False)
-        artists_list = self.app.get('/artists/')
-        assert unicode(Artist) not in artists_list
+        artist_list = self.app.get(
+            reverse('artist-list')
+        )
+        assert unicode(Artist) not in artist_list
 
 
 class ArtistDetailTest(WebTest):

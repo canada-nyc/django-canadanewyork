@@ -17,27 +17,16 @@ class Migration(SchemaMigration):
             ('content_file', self.gf('django.db.models.fields.files.FileField')(max_length=500, null=True, blank=True)),
             ('date', self.gf('django.db.models.fields.DateField')()),
             ('publisher', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
-            ('author', self.gf('django.db.models.fields.CharField')(max_length=60, blank=True)),
+            ('artists', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='press', null=True, to=orm['artists.Artist'])),
             ('exhibition', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='press', null=True, to=orm['exhibitions.Exhibition'])),
-            ('slug', self.gf('libs.slugify.fields.SlugifyField')(unique=True, max_length=251, populate_from=('get_year', 'publisher', 'title'))),
+            ('slug', self.gf('libs.slugify.fields.SlugifyField')(unique=True, max_length=251, populate_from=('date_year', '__unicode__'))),
         ))
         db.send_create_signal(u'press', ['Press'])
-
-        # Adding M2M table for field artists on 'Press'
-        db.create_table(u'press_press_artists', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('press', models.ForeignKey(orm[u'press.press'], null=False)),
-            ('artist', models.ForeignKey(orm[u'artists.artist'], null=False))
-        ))
-        db.create_unique(u'press_press_artists', ['press_id', 'artist_id'])
 
 
     def backwards(self, orm):
         # Deleting model 'Press'
         db.delete_table(u'press_press')
-
-        # Removing M2M table for field artists on 'Press'
-        db.delete_table('press_press_artists')
 
 
     models = {
@@ -81,8 +70,7 @@ class Migration(SchemaMigration):
         },
         u'press.press': {
             'Meta': {'ordering': "['-date']", 'object_name': 'Press'},
-            'artists': ('django.db.models.fields.related.ManyToManyField', [], {'blank': 'True', 'related_name': "'press'", 'null': 'True', 'symmetrical': 'False', 'to': u"orm['artists.Artist']"}),
-            'author': ('django.db.models.fields.CharField', [], {'max_length': '60', 'blank': 'True'}),
+            'artists': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'press'", 'null': 'True', 'to': u"orm['artists.Artist']"}),
             'content': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'content_file': ('django.db.models.fields.files.FileField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
             'date': ('django.db.models.fields.DateField', [], {}),
@@ -90,7 +78,7 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'link': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'publisher': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
-            'slug': ('libs.slugify.fields.SlugifyField', [], {'unique': 'True', 'max_length': '251', 'populate_from': "('get_year', 'publisher', 'title')"}),
+            'slug': ('libs.slugify.fields.SlugifyField', [], {'unique': 'True', 'max_length': '251', 'populate_from': "('date_year', '__unicode__')"}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '500'})
         }
     }

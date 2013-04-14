@@ -22,10 +22,9 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
     date = models.DateField()
 
     publisher = models.CharField(max_length=50, blank=True)
-    artists = models.ManyToManyField(Artist, blank=True, null=True,
-                                     related_name='press',)
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True,
                                    related_name='press',)
+    artists = models.ForeignKey(Artist, blank=True, null=True, related_name='press')
     slug = SlugifyField(
         populate_from=('get_year', 'publisher', 'title',),
         slug_template=u'{}/{}-{}',

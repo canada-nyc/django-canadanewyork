@@ -8,13 +8,13 @@ class PressAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'date', 'publisher', 'author', 'link')
+            'fields': ('title', 'date', 'publisher', 'link')
         }),
         ('Full Article', {
             'fields': ('content', 'content_file',)
         }),
         ('Related', {
-            'fields': ('exhibition', 'artists')
+            'fields': ('exhibition', 'artist')
         }),
     )
 

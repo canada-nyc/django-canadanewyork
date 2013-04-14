@@ -48,7 +48,7 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
         ordering = ["-start_date"]
 
     def __unicode__(self):
-        if len(self.artists.all()):
+        if self.artists.count() == 1:
             artist = self.artists.all()[0]
             return u'{}: {}'.format(artist, self.name)
         return self.name
@@ -56,8 +56,6 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
     def get_absolute_url(self):
         return reverse('exhibition-detail', kwargs={'slug': self.slug})
 
-    def get_press_url(self):
-        '''
         So that that the exhibition-detail can link to the press detail for
         that exhibition
         '''
@@ -81,7 +79,7 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
     def get_press_release_photo(self):
         if self.press_release_photo:
             return self.press_release_photo
-        elif self.photos.all():
+        elif self.photos.exists():
             return self.photos.all()[0].image
 
     def get_press_release_photo_url(self):

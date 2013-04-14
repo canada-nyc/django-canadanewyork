@@ -10,6 +10,15 @@ class ExhibitionAdmin(AdminImageMixin, admin.ModelAdmin):
     inlines = [PhotoInline]
     date_hierarchy = 'start_date'
     list_display = ('name', 'start_date', 'current')
-    fields = ('name', 'description', ('current', 'press_release_photo'), ('start_date', 'end_date'), 'artists',)
-
+    fieldsets = (
+        (None, {
+            'fields': ('name', ('start_date', 'end_date'),)
+        }),
+        ('Frontpage', {
+            'fields': ('current', 'press_release_photo',)
+        }),
+        ('Related', {
+            'fields': ('artists', )
+        }),
+    )
 admin.site.register(Exhibition, ExhibitionAdmin)

@@ -37,14 +37,3 @@ class Photo(url_tracker.URLTrackingMixin, models.Model):
     def clean(self):
         self.title = self.title.strip()
         self.caption = self.caption.strip()
-
-    def get_image_url(self):
-        '''
-        For tracking
-        '''
-        if self.image:
-            return self.image.url
-
-    url_tracking_methods = [
-        'get_image_url'
-    ]

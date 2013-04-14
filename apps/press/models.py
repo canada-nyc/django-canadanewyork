@@ -49,13 +49,6 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
     def get_absolute_url(self):
         return reverse('press-detail', kwargs={'slug': self.slug})
 
-    def get_content_file_url(self):
-        '''
-        For tracking
-        '''
-        if self.content_file:
-            return self.content_file.url
-
     @property
     def get_year(self):
         '''
@@ -63,9 +56,5 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
         '''
         return self.date.year
 
-    url_tracking_methods = [
-        'get_absolute_url',
-        'get_content_file_url',
-    ]
 
 url_tracker.track_url_changes_for_model(Press)

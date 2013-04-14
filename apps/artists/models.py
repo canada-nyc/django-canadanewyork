@@ -45,22 +45,9 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
         if self.visible:
             return reverse('artist-detail', kwargs={'slug': self.slug})
 
-    def get_press_url(self):
-        if self.visible:
-            return reverse('artist-press-list', kwargs={'slug': self.slug})
-
-    def get_resume_url(self):
-        if self.visible:
-            return reverse('artist-resume', kwargs={'slug': self.slug})
     @property
     def all_press(self):
         related_exhibition_press = get_model('press', 'Press').objects.filter(exhibition__artists__in=[self])
         return (self.press | related_exhibition_press).distinct()
-
-    url_tracking_methods = [
-        'get_absolute_url',
-        'get_press_url',
-        'get_resume_url',
-    ]
 
 url_tracker.track_url_changes_for_model(Artist)

@@ -56,13 +56,6 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
     def get_absolute_url(self):
         return reverse('exhibition-detail', kwargs={'slug': self.slug})
 
-        So that that the exhibition-detail can link to the press detail for
-        that exhibition
-        '''
-        return ('exhibition-press-list', (), {
-            'slug': self.slug
-        })
-
     def save(self, *args, **kwargs):
         if self.start_date == self.end_date:
             self.end_date = None
@@ -82,24 +75,11 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
         elif self.photos.exists():
             return self.photos.all()[0].image
 
-    def get_press_release_photo_url(self):
-        '''
-        For tracking of the press release photo
-        '''
-        if self.press_release_photo:
-            return self.press_release_photo.url
-
     @property
     def get_year(self):
         '''
         to populate the slug
         '''
         return self.start_date.year
-
-    url_tracking_methods = [
-        'get_absolute_url',
-        'get_press_release_photo_url',
-        'get_press_url'
-    ]
 
 url_tracker.track_url_changes_for_model(Exhibition)

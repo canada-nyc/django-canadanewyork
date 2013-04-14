@@ -13,11 +13,6 @@ from apps.photos.models import Photo
 from libs.unique_boolean.fields import UniqueBooleanField
 
 
-class ArtistRelatedManager(models.Manager):
-    def get_query_set(self):
-        return super(ArtistRelatedManager, self).get_query_set().prefetch_related('artists')
-
-
 class Exhibition(url_tracker.URLTrackingMixin, models.Model):
 
     def image_path(instance, filename):
@@ -48,7 +43,6 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
     )
 
     photos = generic.GenericRelation(Photo)
-    objects = ArtistRelatedManager()
 
     class Meta:
         ordering = ["-start_date"]

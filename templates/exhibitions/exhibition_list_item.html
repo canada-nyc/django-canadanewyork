@@ -1,0 +1,12 @@
+{% load canada_filters %}
+
+<a href="{{ model.get_absolute_url }}" title="{{ model.name }}">
+  <dt><em>{{ model.name }}</em></dt>
+  <dd>
+    {% with start_date=model|getattribute:"start_date" %}
+      {% with end_date=model|getattribute:"end_date" %}
+        {% include "base/full_date.html" with date=start_date %} - {% include "base/full_date.html" with date=end_date  %}
+      {% endwith %}
+    {% endwith %}
+  </dd>
+</a>

@@ -5,15 +5,13 @@
 {% block title %}Updates{{ block.super }}{% endblock %}
 
 {% block body %}
-<section>
-  {% for update in update_list %}
-  <article>
-    <header>
-      <h1 id="{{ update.slug }}">{% include "base/full_date.html" with date=update.post_date %}</h1>
-    </header>
-    {% include "base/photos.html" with photos=update.photos.all id=update.id %}
-    {{ update.description|safe }}
-  </article>
-  {% endfor %}
-</section>
+{% for update in update_list %}
+<article>
+  <header>
+    <h1 id="{{ update.slug }}">{% include "base/full_date.html" with date=update.post_date %}</h1>
+  </header>
+  {% include "base/photos.html" with photos=update.photos.all id=update.id %}
+  {{ update.description|safe }}
+</article>
+{% endfor %}
 {% endblock %}

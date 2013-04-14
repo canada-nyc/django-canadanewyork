@@ -3,7 +3,5 @@
 {% block title %}Exhibitions{{ block.super }}{% endblock %}
 
 {% block body %}
-<section>
-  {% include "base/model_year_list.html" with models=exhibition_list date_atr="start_date" date_atr2="end_date" only %}
-</section>
+{% include "base/model_year_list.html" with models=exhibition_list date_atr="start_date" template_name="exhibitions/exhibition_list_item.html" only %}
 {% endblock %}

@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.db.models.loading import get_model
 from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
@@ -47,7 +48,8 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
 
     @property
     def all_press(self):
-        related_exhibition_press = get_model('press', 'Press').objects.filter(exhibition__artists__in=[self])
-        return (self.press | related_exhibition_press).distinct()
+        return get_model('press', 'Press').objects.filter(
+            Q(artists__in=[self]) | Q(exhibition__artists__in=[self])
+        )
 
 url_tracker.track_url_changes_for_model(Artist)

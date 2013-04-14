@@ -7,17 +7,15 @@ services:
 
 install:
   - sudo apt-get install -qq libmemcached-dev
-  - pip install -r configs/requirements/prod.txt --use-mirrors -q
+  - pip install -r configs/requirements/prod.txt -r configs/requirements/testing.txt --use-mirrors -q
 
 before_script:
   - psql -c 'create database django_canadanewyork;' -U postgres
   - DATABASE_URL='postgres://postgres@localhost/django_canadanewyork'
+  - python manage.py wipe_storage
 
 script:
-  - python manage.py test tests
-
-after:
-  - python manage.py wipe_storage
+  - python manage.py test
 
 notifications:
   email: false

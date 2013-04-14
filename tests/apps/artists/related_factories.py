@@ -12,7 +12,7 @@ def create_artist(self, create, extracted, **kwargs):
     from .factories import ArtistFactory
     if extracted:
         self.artist = extracted
-    elif kwargs.pop('create', None):
+    elif kwargs.pop('make', None):
         self.artist = ArtistFactory.create(**kwargs)
     else:
         return None

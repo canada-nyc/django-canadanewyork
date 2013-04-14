@@ -3,7 +3,7 @@ from django.template.defaultfilters import slugify
 from django.db import IntegrityError
 
 from . import models as slug_models
-from ...common.base_test import AddAppMixin
+from ...utils import AddAppMixin
 
 
 class TestContentRedirects(AddAppMixin, TestCase):

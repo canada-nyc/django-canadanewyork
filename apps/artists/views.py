@@ -17,5 +17,5 @@ class ArtistPressDetail(DetailView):
 
 
 class ArtistResume(DetailView):
-    queryset = Artist.in_gallery.exclude(resume='').exclude(resume=None)
+    queryset = Artist.in_gallery.all()
     template_name = 'artists/artist_resume.html'

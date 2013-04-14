@@ -17,7 +17,7 @@ class Migration(SchemaMigration):
             ('content_file', self.gf('django.db.models.fields.files.FileField')(max_length=500, null=True, blank=True)),
             ('date', self.gf('django.db.models.fields.DateField')()),
             ('publisher', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
-            ('artists', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='press', null=True, to=orm['artists.Artist'])),
+            ('artist', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='press', null=True, to=orm['artists.Artist'])),
             ('exhibition', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='press', null=True, to=orm['exhibitions.Exhibition'])),
             ('slug', self.gf('libs.slugify.fields.SlugifyField')(unique=True, max_length=251, populate_from=('date_year', '__unicode__'))),
         ))
@@ -70,7 +70,7 @@ class Migration(SchemaMigration):
         },
         u'press.press': {
             'Meta': {'ordering': "['-date']", 'object_name': 'Press'},
-            'artists': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'press'", 'null': 'True', 'to': u"orm['artists.Artist']"}),
+            'artist': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'press'", 'null': 'True', 'to': u"orm['artists.Artist']"}),
             'content': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'content_file': ('django.db.models.fields.files.FileField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
             'date': ('django.db.models.fields.DateField', [], {}),

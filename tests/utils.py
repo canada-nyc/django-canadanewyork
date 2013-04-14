@@ -1,6 +1,21 @@
+import StringIO
+
+from PIL import Image
+
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.conf import settings
 from django.core.management import call_command
 from django.db.models import loading
+
+
+def django_image(name, size=10, color='red'):
+    thumb = Image.new('RGB', (size, size,), color)
+
+    thumb_io = StringIO.StringIO()
+    thumb.save(thumb_io, format='JPEG')
+    thumb_io.seek(0)
+
+    return InMemoryUploadedFile(thumb_io, None, name, 'image/jpeg', thumb_io.len, None)
 
 
 class AddAppMixin(object):

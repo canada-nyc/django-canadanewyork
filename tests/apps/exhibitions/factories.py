@@ -1,38 +1,33 @@
 import datetime
-import collections
 
 import factory
 
 from apps.exhibitions.models import Exhibition
-from ...common.factories import DjangoFactory, BasePhotoFactory
-from ..artists.factories import ArtistFactory
+from ..artists.related_factories import create_artists
+from ..press.related_factories import create_press
+from ..photos.related_factories import create_photos
+from ... import utils
 
 
-class ExhibitionFactory(DjangoFactory):
+class ExhibitionFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Exhibition
 
     name = factory.Sequence(lambda n: 'name{}'.format(n))
-    description = '*italics* **bold**'
-    artists = [ArtistFactory()]
 
     start_date = datetime.date.today()
     end_date = datetime.date.today()
 
-    @factory.post_generation(extract_prefix='photos')
-    def create_photos(self, create, extracted, **kwargs):
-        # ExhibitionFactory(photos__n=3)
-        if 'n' in kwargs:
-            [ExhibitionPhotoFactory(content_object=self) for _ in range(int(kwargs['n']))]
+    photos = factory.PostGeneration(create_photos)
+    artists = factory.PostGeneration(create_artists)
+    press = factory.PostGeneration(create_press)
 
-    @factory.post_generation(extract_prefix='artists')
-    def create_artists(self, create, extracted, **kwargs):
-        # ExhibitionFactory(artists=[<artist1>, ...])
-        if isinstance(extracted, collections.Iterable):
-            self.artists = extracted
-        # ExhibitionFactory(artists__n=3)
-        elif 'n' in kwargs:
-            self.artists = [ArtistFactory() for _ in range(int(kwargs['n']))]
-
-
-class ExhibitionPhotoFactory(BasePhotoFactory):
-    content_object = factory.SubFactory(ExhibitionFactory)
+    @factory.post_generation
+    def press_release_photo(self, create, extracted, **kwargs):
+        if extracted:
+            image_name, image = extracted
+        elif kwargs.pop('make', None):
+            image_name = 'image.jpg'
+            image = utils.django_image(image_name, **kwargs)
+        else:
+            return
+        self.press_release_photo.save(image_name, image)

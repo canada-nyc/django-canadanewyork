@@ -3,7 +3,7 @@ from django.template.defaultfilters import slugify
 from django.db import IntegrityError
 
 from . import models as slug_models
-from ...common.base_test import AddAppMixin
+from ...utils import AddAppMixin
 
 
 class TestContentRedirects(AddAppMixin, TestCase):
@@ -55,3 +55,8 @@ class TestContentRedirects(AddAppMixin, TestCase):
         model_slug = _SlugifyTemplateModel.slug
         self.assertEqual(calculated_slug, model_slug)
 
+    def test_callable(self):
+        _SlugifyPopulateFromCallableModel = slug_models.SlugifyPopulateFromCallableModel.objects.create()
+        calculated_slug = unicode(_SlugifyPopulateFromCallableModel)
+        model_slug = _SlugifyPopulateFromCallableModel.slug
+        self.assertEqual(calculated_slug, model_slug)

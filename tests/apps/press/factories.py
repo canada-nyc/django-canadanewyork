@@ -11,6 +11,7 @@ class PressFactory(factory.DjangoModelFactory):
 
     FACTORY_FOR = Press
 
+    title = factory.Sequence(lambda n: 'title{}'.format(n))
     date = datetime.date.today()
 
     exhibition = factory.PostGeneration(create_exhibition)

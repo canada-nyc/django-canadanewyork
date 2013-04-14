@@ -167,18 +167,22 @@ COMPRESS_STORAGE = STATICFILES_STORAGE
 INSTALLED_APPS += (
     'south',
 )
+SOUTH_TESTS_MIGRATE = False
+
 DATABASES = {'default': dj_database_url.config(default='postgres://saul@localhost/django_canadanewyork')}
 
 
 ###########
 # TESTING #
 ###########
-
 # must come after 'south', so that this version of `./manage.py test` takes precedence
 INSTALLED_APPS += ('django_nose', )
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-SOUTH_TESTS_MIGRATE = False
-NOSE_ARGS = ['--with-specplugin', '--testmatch=^test_', '--detailed-errors']
+NOSE_ARGS = [
+    '--with-specplugin',
+    '--detailed-errors',
+    '--nologcapture'
+]
 
 
 ############

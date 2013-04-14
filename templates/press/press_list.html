@@ -3,8 +3,6 @@
 {% block title %}Press | {{ object }}{{ block.super }}{% endblock %}
 
 {% block body %}
-<section>
-  <h1><a href={{ object.get_absolute_url }}>{{ object }}</a> | Press</h1>
-  {% include "base/model_year_list.html" with models=object.get_press date_atr="date" only %}
-</section>
+<h1><a href={{ object.get_absolute_url }}>{{ object }}</a> | Press</h1>
+{% include "base/model_year_list.html" with models=object.get_press date_atr="date" template_name="press/press_list_item.html" only %}
 {% endblock %}

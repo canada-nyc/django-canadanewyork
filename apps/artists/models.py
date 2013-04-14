@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models import Q
 from django.db.models.loading import get_model
 from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
@@ -47,11 +46,6 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
         if self.visible:
             return reverse('artist-detail', kwargs={'slug': self.slug})
 
-    def get_press(self):
-        return get_model('press', 'Press').objects.filter(
-            Q(artists__in=[self]) | Q(exhibition__artists__in=[self])
-        )
-
     def get_press_url(self):
         if self.visible:
             return reverse('artist-press-list', kwargs={'slug': self.slug})
@@ -59,6 +53,10 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
     def get_resume_url(self):
         if self.visible:
             return reverse('artist-resume', kwargs={'slug': self.slug})
+    @property
+    def all_press(self):
+        related_exhibition_press = get_model('press', 'Press').objects.filter(exhibition__artists__in=[self])
+        return (self.press | related_exhibition_press).distinct()
 
     url_tracking_methods = [
         'get_absolute_url',

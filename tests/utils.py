@@ -2,7 +2,7 @@ import StringIO
 
 from PIL import Image
 
-from django.core.files import File
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 def django_image(name, size=10, color='red'):
@@ -12,14 +12,4 @@ def django_image(name, size=10, color='red'):
     thumb.save(thumb_io, format='JPEG')
     thumb_io.seek(0)
 
-    return File(name, thumb_io)
-
-
-def django_pdf(name, size=10):
-    thumb = Image.new('RGB', (size, size,), 'red')
-
-    thumb_io = StringIO.StringIO()
-    thumb.save(thumb_io, format='PDF', resolution=200)
-    thumb_io.seek(0)
-
-    return File(thumb_io, name)
+    return SimpleUploadedFile(name, thumb_io)

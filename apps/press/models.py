@@ -22,7 +22,6 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
     date = models.DateField()
 
     publisher = models.CharField(max_length=50, blank=True)
-    author = models.CharField(max_length=60, blank=True)
     artists = models.ManyToManyField(Artist, blank=True, null=True,
                                      related_name='press',)
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True,
@@ -47,7 +46,6 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
         self.title = self.title.strip().title()
         self.content = self.content.strip()
         self.publisher = self.publisher.strip().title()
-        self.author = self.author.strip().title()
 
     def get_absolute_url(self):
         return reverse('press-detail', kwargs={'slug': self.slug})

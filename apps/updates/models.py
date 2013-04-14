@@ -20,7 +20,7 @@ class Update(url_tracker.URLTrackingMixin, models.Model):
         self.description = self.description.strip()
 
     def __unicode__(self):
-        return unicode('{} ({})').format(self.pk, self.post_date.year)
+        return unicode(self.post_date.isoformat())
 
     def get_absolute_url(self):
         return reverse('update-single', kwargs={'pk': self.pk})

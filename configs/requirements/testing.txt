@@ -1,6 +1,7 @@
-django-discover-runner==0.3
 factory-boy
 flake8==2.0
 django-webtest==1.6
 WebTest==2.0.3
 pep8==1.4.5
+spec==0.10.0
+-e git+git://github.com/jbalogh/django-nose.git@cff3b1c397d5a7c29843a394dbf799949d4c0845

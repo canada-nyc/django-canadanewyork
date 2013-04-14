@@ -78,6 +78,7 @@ TEMPLATE_CONTEXT_PROCESSORS += ('sekizai.context_processors.sekizai',)
 INSTALLED_APPS += ('sorl.thumbnail',)
 THUMBNAIL_UPSCALE = False
 
+
 ###########
 # Caching #
 ###########
@@ -109,6 +110,7 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 #############
 INSTALLED_APPS += ('django.contrib.flatpages',)
 
+
 ###########
 # STORAGE #
 ###########
@@ -127,7 +129,6 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_BUCKET')
 AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME
 AWS_HEADERS = {
     "Cache-Control": "public, max-age=31536000",
-    "Vary": "Accept-Encoding",
 }
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_SECURE_URLS = False
@@ -139,6 +140,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
 
 STATIC_URL = 'http://{}/'.format(AWS_S3_CUSTOM_DOMAIN)
+
 
 #############
 #COMPRESSION#
@@ -165,16 +167,22 @@ COMPRESS_STORAGE = STATICFILES_STORAGE
 INSTALLED_APPS += (
     'south',
 )
+SOUTH_TESTS_MIGRATE = False
+
 DATABASES = {'default': dj_database_url.config(default='postgres://saul@localhost/django_canadanewyork')}
 
 
 ###########
 # TESTING #
 ###########
-TEST_RUNNER = 'discover_runner.DiscoverRunner'
-TEST_DISCOVER_TOP_LEVEL = SITE_ROOT
-TEST_DISCOVER_ROOT = rel_path('tests')
-SOUTH_TESTS_MIGRATE = False
+# must come after 'south', so that this version of `./manage.py test` takes precedence
+INSTALLED_APPS += ('django_nose', )
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+NOSE_ARGS = [
+    '--with-specplugin',
+    '--detailed-errors',
+    '--nologcapture'
+]
 
 
 ############

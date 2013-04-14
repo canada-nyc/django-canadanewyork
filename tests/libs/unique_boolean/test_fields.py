@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from .models import UniqueBooleanModel
-from ...common.base_test import AddAppMixin
+from ...utils import AddAppMixin
 
 
 class UniqueBooleanTest(AddAppMixin, TestCase):

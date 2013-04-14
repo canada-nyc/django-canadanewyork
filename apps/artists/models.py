@@ -43,13 +43,12 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
         self.resume = self.resume.strip()
 
     def get_absolute_url(self):
-        if self.visible:
-            return reverse('artist-detail', kwargs={'slug': self.slug})
+        return reverse('artist-detail', kwargs={'slug': self.slug})
 
     @property
     def all_press(self):
         return get_model('press', 'Press').objects.filter(
-            Q(artists__in=[self]) | Q(exhibition__artists__in=[self])
+            Q(artist=self) | Q(exhibition__artists__in=[self])
         )
 
 url_tracker.track_url_changes_for_model(Artist)

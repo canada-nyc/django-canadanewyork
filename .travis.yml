@@ -9,7 +9,6 @@ install:
 - pip install -r configs/requirements/travis.txt --use-mirrors -q
 before_script:
 - psql -c 'create database django_canadanewyork;' -U postgres
-- DATABASE_URL='postgres://postgres@localhost/django_canadanewyork'
 - python manage.py wipe_storage
 script:
 - python manage.py test

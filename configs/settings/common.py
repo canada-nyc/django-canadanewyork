@@ -80,7 +80,7 @@ THUMBNAIL_UPSCALE = False
 
 
 ###########
-# Caching #
+# CACHING #
 ###########
 MIDDLEWARE_CLASSES += (
     'django.middleware.gzip.GZipMiddleware',
@@ -170,19 +170,6 @@ INSTALLED_APPS += (
 SOUTH_TESTS_MIGRATE = False
 
 DATABASES = {'default': dj_database_url.config(default='postgres://saul@localhost/django_canadanewyork')}
-
-
-###########
-# TESTING #
-###########
-# must come after 'south', so that this version of `./manage.py test` takes precedence
-INSTALLED_APPS += ('django_nose', )
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-NOSE_ARGS = [
-    '--with-specplugin',
-    '--detailed-errors',
-    '--nologcapture'
-]
 
 
 ############

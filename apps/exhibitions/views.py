@@ -17,7 +17,7 @@ class ExhibitionDetail(DetailView):
         )
 
 
-class ExhibitionPressDetail(DetailView):
+class ExhibitionPressList(DetailView):
     template_name = 'press/press_list.html'
 
     def get_object(self):

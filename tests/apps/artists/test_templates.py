@@ -18,7 +18,7 @@ class ArtistListTest(WebTest):
         )
         artist_list.click(
             'Artists',
-            reverse('artist-list')
+            href=reverse('artist-list')
         )
 
     def test_visible(self):
@@ -29,7 +29,7 @@ class ArtistListTest(WebTest):
 
         artist_list.click(
             unicode(Artist),
-            reverse('artist-detail', kwargs={'slug': Artist.slug})
+            href=reverse('artist-detail', kwargs={'slug': Artist.slug})
         )
 
     def test_invisible(self):
@@ -80,7 +80,6 @@ class ArtistDetailTest(WebTest):
     def test_resume_link(self):
         Artist = ArtistFactory.create(resume='resume')
         artist_detail = self.app.get(Artist.get_absolute_url())
-
         artist_detail.click(
             'Resume',
             href=reverse('artist-resume', kwargs={'slug': Artist.slug})
@@ -126,7 +125,7 @@ class ArtistPressListTest(WebTest):
 
         artist_press_list.click(
             unicode(Press),
-            reverse('press-detail', kwargs={'slug': Press.slug})
+            href=reverse('press-detail', kwargs={'slug': Press.slug})
         )
 
 
@@ -142,15 +141,15 @@ class ArtistExhibitionListTest(WebTest):
         )
 
     def test_detail_link(self):
-        Exhibition = ExhibitionFactory.create()
-        Artist = ArtistFactory.create(exhibitions=Exhibition)
+        Artist = ArtistFactory.create(exhibitions__n=1)
+        Exhibition = Artist.exhibitions.all()[0]
         artist_exhibition_list = self.app.get(
             reverse('artist-exhibition-list', kwargs={'slug': Artist.slug})
         )
 
         artist_exhibition_list.click(
             unicode(Exhibition),
-            reverse('exhibition-detail', slug=Exhibition.slug)
+            href=reverse('exhibition-detail', kwargs={'slug': Exhibition.slug})
         )
 
 

@@ -1,4 +1,4 @@
--r common.txt
+-r prod.txt
 -r testing.txt
 -r import_wp.txt
 

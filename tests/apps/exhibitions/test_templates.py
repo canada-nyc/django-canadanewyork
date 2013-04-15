@@ -18,7 +18,7 @@ class ExhibitionListTest(WebTest):
         )
         exhibition_list.click(
             'Exhibitions',
-            reverse('exhibition-list')
+            href=reverse('exhibition-list')
         )
 
     def test_detail_link(self):
@@ -29,7 +29,7 @@ class ExhibitionListTest(WebTest):
 
         exhibition_list.click(
             unicode(Exhibition),
-            reverse('exhibition-detail', kwargs={'slug': Exhibition.slug})
+            href=reverse('exhibition-detail', kwargs={'slug': Exhibition.slug})
         )
 
 

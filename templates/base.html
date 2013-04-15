@@ -35,11 +35,11 @@
     <img alt="CANADA" src="{% static "canada/images/fire_logo.gif" %}" width="155" height="140">
   </a>
   <ul>
-    <li><a href="/">Homepage</a></li>
-    <li><a href="/artists/">Artists</a>
-    <li><a href="/exhibitions/">Exhibitions</a>
-    <li><a href="/updates/">Updates</a>
-    <li><a href="/contact/">Contact and Info</a>
+    <li><a href="{% url 'exhibition-current' %}">Homepage</a></li>
+    <li><a href="{% url 'artist-list' %}">Artists</a>
+    <li><a href="{% url 'exhibition-list' %}">Exhibitions</a>
+    <li><a href="{% url 'update-list' %}">Updates</a>
+    <li><a href="{% url 'contact' %}">Contact and Info</a>
   </ul>
 </nav>
 <section>

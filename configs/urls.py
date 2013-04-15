@@ -23,7 +23,7 @@ urlpatterns = patterns(
         'django.contrib.sitemaps.views.sitemap',
         {'sitemaps': sitemaps}),
 
-    url(r'^$', ExhibitionCurrent.as_view(), name='homepage'),
+    url(r'^$', ExhibitionCurrent.as_view(), name='exhibition-current'),
     url(r'^artists/', include('apps.artists.urls')),
     url(r'^updates/', include('apps.updates.urls')),
     url(r'^exhibitions/', include('apps.exhibitions.urls')),

@@ -11,8 +11,10 @@ class ExhibitionList(ListView):
 
 class ExhibitionDetail(DetailView):
     def get_object(self):
-        return get_object_or_404(Exhibition.objects.prefetch_related('artists', 'photos'),
-                                 slug=self.kwargs['slug'])
+        return get_object_or_404(
+            Exhibition.objects.prefetch_related('artists', 'photos'),
+            slug=self.kwargs['slug']
+        )
 
 
 class ExhibitionPressDetail(DetailView):
@@ -29,10 +31,7 @@ class ExhibitionCurrent(DetailView):
     template_name = 'exhibitions/exhibition_current.html'
 
     def get_object(self):
-        return get_object_or_404(
-            Exhibition,
-            current=True,
-        )
+        return Exhibition.objects.get_current()
 
     def get_context_data(self, **kwargs):
         context = super(ExhibitionCurrent, self).get_context_data(**kwargs)

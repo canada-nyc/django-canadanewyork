@@ -13,6 +13,11 @@ from apps.photos.models import Photo
 from libs.unique_boolean.fields import UniqueBooleanField
 
 
+class CurrentManager(models.Manager):
+    def get_current(self):
+        return super(CurrentManager, self).get(current=True)
+
+
 class Exhibition(url_tracker.URLTrackingMixin, models.Model):
 
     def image_path(instance, filename):
@@ -43,6 +48,8 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
     )
 
     photos = generic.GenericRelation(Photo)
+
+    objects = CurrentManager()
 
     class Meta:
         ordering = ["-start_date"]

@@ -36,3 +36,9 @@ class ExhibitionPressReleasePhotoTest(TestCase):
         Exhibition = ExhibitionFactory.create(photos__n=1, press_release_photo__make=True)
 
         self.assertEqual(Exhibition.get_press_release_photo(), Exhibition.press_release_photo)
+
+
+class ExhibitionCurrentManagerTest(TestCase):
+    def test_current(self):
+        Exhibition = ExhibitionFactory()
+        self.assertEqual(Exhibition, Exhibition.__class__.objects.get_current())

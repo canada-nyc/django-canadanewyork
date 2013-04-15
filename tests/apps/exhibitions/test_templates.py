@@ -1,7 +1,6 @@
 from django_webtest import WebTest
 from django.core.urlresolvers import reverse
 from django.contrib.flatpages.models import FlatPage
-from django.contrib.sites.models import get_current_site
 
 from .factories import ExhibitionFactory
 from ..press.factories import PressFactory
@@ -140,7 +139,6 @@ class ExhibitionCurrentTest(WebTest):
             url=reverse('exhibition-current'),
             title='_',
             content='some content',
-            site=get_current_site()
         )
         exhibition_current = self.app.get(
             reverse('exhibition-current')

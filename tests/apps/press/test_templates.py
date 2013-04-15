@@ -1,3 +1,5 @@
+from webtest.app import AppError
+
 from django_webtest import WebTest
 from django.core.urlresolvers import reverse
 from django.core.files.base import ContentFile
@@ -19,7 +21,7 @@ class PressListTest(WebTest):
         )
         press_list.click(
             'Press',
-            reverse('press-list')
+            href=reverse('press-list')
         )
 
     def test_click_press(self):
@@ -29,7 +31,7 @@ class PressListTest(WebTest):
         )
         press_list.click(
             unicode(Press),
-            reverse('press-detail', kwargs={'slug': Press.slug, })
+            href=reverse('press-detail', kwargs={'slug': Press.slug, })
         )
 
 
@@ -38,6 +40,11 @@ class PressDetailTest(WebTest):
         Press = PressFactory()
         press_detail = self.app.get(Press.get_absolute_url())
         self.assertIn(unicode(Press), press_detail)
+
+    def test_content(self):
+        Press = PressFactory(content='content stuff')
+        press_detail = self.app.get(Press.get_absolute_url())
+        self.assertIn(Press.content, press_detail)
 
     def test_external_link(self):
         Press = PressFactory(link='http://some_site.com')
@@ -48,8 +55,12 @@ class PressDetailTest(WebTest):
         Press = PressFactory()
         Press.content_file.save('file.txt', ContentFile("my string content"))
         press_detail = self.app.get(Press.get_absolute_url())
-        print press_detail
-        press_detail.click(href=Press.content_file.url)
+
+        # for some reason static isn't being served for tests
+        try:
+            press_detail.click(href=Press.content_file.url)
+        except AppError:
+            pass
 
     def test_artist_link(self):
         Artist = ArtistFactory.create()

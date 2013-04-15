@@ -8,8 +8,7 @@ from ..artists.factories import ArtistFactory
 class PressFullTitleTest(TestCase):
     def test_blank(self):
         Press = PressFactory.create(title='')
-        with self.assertRaises(AttributeError):
-            Press.full_title
+        self.assertEquals('', Press.full_title)
 
     def test_title(self):
         Press = PressFactory(title='title')

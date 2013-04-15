@@ -1,34 +1,64 @@
+---
 language: python
-
 services:
-  - redis-server
-  - memcached
-  - postgresql
-
+- redis-server
+- memcached
+- postgresql
 install:
-  - sudo apt-get install -qq libmemcached-dev
-  - pip install -r configs/requirements/travis.txt --use-mirrors -q
-
+- sudo apt-get install -qq libmemcached-dev
+- pip install -r configs/requirements/travis.txt --use-mirrors -q
 before_script:
-  - psql -c 'create database django_canadanewyork;' -U postgres
-  - DATABASE_URL='postgres://postgres@localhost/django_canadanewyork'
-  - python manage.py wipe_storage
-
+- psql -c 'create database django_canadanewyork;' -U postgres
+- DATABASE_URL='postgres://postgres@localhost/django_canadanewyork'
+- python manage.py wipe_storage
 script:
-  - python manage.py test
-
+- python manage.py test
 notifications:
   email: false
-
 env:
   global:
-    - secret:  "STNK4nGs4ib0AviClb+GPWQ7M22byLnYsSK9qy7tPvJdcwSwk3yj5oNANiWC\nJQrW6XFdWBqS+cr9HJU0wq61gMNipnaQ7JvDwX7Lx8isBwV2z86W0kK4Zlwf\n0Zf63vAWOtJJyXfXDGOGCWwf4fdPVBwTchnlTJh9kt/R21tQTYo="
-    - secret:  "YFyx1NIdvyVUyyCBTQph8wJwqTVzvhRInALwdPYtb56eKlLPWmtuSv7i0gq7\n3zcXULuNrSfAvJEPhwb1WV+rZ0cWXi7nmP7J2mkzXpUsYuDHI7DL/L2gSZlI\ny7kL1c6G502hSBiw3Nyy61HvT3J09+j2pgZhaUzNBbncRMx0kq4="
-    - secret:  "zLp84RDS1YKcf8FI2VZzg1Stik9EILsThue2vSR3Pf7lvj61kuXD9mxm3cEd\nAnZiGxPJOGUwB9CEl4OeUcLp+ir4bySMnwR7o77oyK2mLluSPqfMGcPXjeT5\nyf1nR81GQnQVeuOA7KfcOPi34eIQ+V++8iQWNOlkthUZZhx4Lg8="
-    - secret:  "qcA8XTWd5dP7+c9cLvueFI97NHs29vQjpeSqJuE9uzLKXLH1BRFRsLG1gt/0\nPMkAmhqpcalotXDU6lTUwI+UWTXnShk+hS9k8TRZ+nwX84CLrduk7DYOd7x1\n3seobdNQn+xBc9QQb3MplythxtDp3g4B7l4IzjqV2ekpzZ1QTvs="
-    - secret: "rQIaX/Wle8JHxqFthr9e9LeTfpw2BhD9B3zt1AMxj6ubnzmY5+esU9L/NQwx\nBFZD4ZfEyTSGX8F52KHFrrTwHe85fuLYWp7iP8YTle9bD5WZQLdzi9Xp0qY5\naukiYEvhge0oav/fw8WCuVa4f9BMSF+MqL/qVY2K1FBij4sfDQU="
-    - ADMIN_USERNAME=saul
-    - ADMIN_EMAIL=s.shanabrook@gmail.com
-    - DATABASE_URL=postgres://postgres@localhost/django_canadanewyork
-    - DJANGO_SETTINGS_MODULE=configs.settings.prod
-    - AWS_BUCKET=assets-testing.canadanewyork.com
+  - secure: ! '0B/fGgpLQsbDwfwy2y2/qIFU2RfhpasjvoLfKZch8RWzwMoU8syTGJswWSUG
+
+      6Pbf4+7ne/dZdIH+LuFL5xZv7bR6IhSJ1pcb0KwutHWHWhsUpWW6yzH0y1Su
+
+      Ttn366zH5hB0Y28karcpeEPdm7sG6pC8eyyJuA0pBsAuSBgkcjg='
+  - secure: ! 'D2DwyVF9gmqVI7zCMq8VyoywZaqKkpzTSmNeMg56a0x1j4BROlGXrcC9FzlP
+
+      qDnIML6z0E4s/WCU55Avxs4UIriCMQZrW9nGEN8XOr6980vYb6+8uHm4mR5x
+
+      ljU7APy1yGJBNowRiMeikn5klRrAbL+AnDRqr6aYccI/dzK5/mA='
+  - secure: ! 'noCMXJnQgMqYcvLMFqhHYK/xaUHtqgjvdUYKbUa3QaqTBN5/2ANlIuNGiySF
+
+      1coRvu6spkAe3a3F31gNfkle8Jy07EQqlk2ZEMKmgn9rsScP1i19ZTjBsWQj
+
+      fLsNBI7leAzd1204XpYw5KXevePmSUq/njrtOgCO9yDc9bk7nBM='
+  - secure: ! 'TbaGwdvYuPTTVQWaa1hNLB3BeUXPl8baCb7tNHEqxAOa/ZdvpT3WUQyt+S5y
+
+      QuxBQn8lt/Zmf+uc7wWiUBM6q3frx1pwYCDpM6mR7Rp3y5fC7GggBGsxhY1z
+
+      2vNfzsfCeqlukg6NMNIe8ccQBF2mudL4FQ6Shu6j6tGv8dtLk0I='
+  - secure: ! 'YGwOxoqW96exaOwLzBJ4YwKItaePquLJmaY/f9gWcXSUn5nJS2yknF7IWRyu
+
+      GCHs/eL8OeqMDSVD0Kbr0teIdbeVRlE6zxnJs2PnaFnaGKqTKch9kDlg9zHE
+
+      6AgPZ2MHyVoWXng85w4em3WwZNNzHI0ZrByTyS+v0aSicadKrRI='
+  - secure: ! 'zCZtvYh3/3CwnQ5r7fVLskf4eHoSpywAVfxLpfxv9gNUdPrZqac09ddEUX1L
+
+      d8qWcmjFUMEmQvpMCDFUTQxNxXTzYSLCfzLy6e/PLa5PxsFFfK/y9SWLiMu4
+
+      khWwTCFlPgR7hmH6s/nICKyAtRXOFy2kBm/2UDBxuQznkP35jK8='
+  - secure: ! 'IIjwJpF0Xqx70R7wXu1I8uq68sPVPfbvVaPrj1obMEB2lfd5GECDccdgBq3Z
+
+      +ipvOTunQfLpDhQLRjzyaHE/vcmDGq+sifUghD7PhDWwvLU3qBFtAw1xFf4M
+
+      NbsJx8vOVdsQHhhdwJ04UpW7zMtxg9goEo4M24vy0S03DiT1k8w='
+  - secure: ! 'SY8UI/x8u6+6+cm6d1h+72ie/5HtT8PYDGJ6B7V5c5ymmwKRCsYZ+3FScPpc
+
+      nQcRSrXlMg2LmhAgmCa3s9B8nvegt7c4UQdNWJlqdYgesWduSzOyWUBCf6ut
+
+      jvorjboYHkxRv2RTkNeqPzVqZO1fGVeZLr067Ps0dGiLBEiKQkw='
+  - secure: ! 'Z9ztNsCEzCDcrhFhUOUM3l9kcurMqqWkMDOci34P1i2j0VjLVVLG1hBevm0u
+
+      TCe14gzWf3D4KldZxZN2a7oXwK5zTrYfWMONBunAPiss9JiY5HSen0uy/q/E
+
+      PaSEhKhuzdofbtZiKxjrJaGsRrMZLzQ+TQmY7mAjqNagJMC3Rvc='

@@ -63,10 +63,7 @@ migrate-init: migrate-wipe
 travis-encrypt:
 	sed '/  global:/q' .travis.yml > .travis.yml.tmp
 	mv -f .travis.yml.tmp .travis.yml
-	for line in (cat configs/env/secret.env | travis encrypt --no-interactive --split); echo "    - secret: " $$line >> .travis.yml; end
-	echo "    - secret: "(travis encrypt HEROKU_API_KEY=(heroku auth:token) --no-interactive) >> .travis.yml
-	for line in (cat configs/env/common.env configs/env/travis.env); echo "    - $$line" >> '.travis.yml';end
-
+	cat configs/env/{common.env,travis.env,secret.env} | travis encrypt --split --add
 
 promote-db-local:
 	pg_dump -Fc --no-acl --no-owner -h localhost -U saul django_canadanewyork > django_canadanewyork.dump

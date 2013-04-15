@@ -5,7 +5,7 @@
 {% block body %}
 <ul>
   {% for artist in artist_list %}
-    <li><a href={{ artist.get_absolute_url }}>{{ artist.first_name }} {{ artist.last_name }}</a>
+    <li><a href="{{ artist.get_absolute_url }}">{{ artist }}</a>
   {% endfor %}
 </ul>
 {% endblock %}

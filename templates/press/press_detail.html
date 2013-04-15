@@ -1,8 +1,5 @@
 {% extends "base.html" %}
 
-{% load thumbnail %}
-{% load canada_filters %}
-
 {% block title %}{{ press.title }}{{ block.super }}{% endblock title %}
 
 {% block body %}
@@ -12,7 +9,7 @@
     <p>{% include "base/full_date.html" with date=press.date %}
   </header>
   {% if press.content_file %}
-    <a href="{{ press.content_file.url }}>Open</a>
+    <a href="{{ press.content_file.url }}">Open</a>
   {% endif %}
   {{ press.content|safe }}
 </article>

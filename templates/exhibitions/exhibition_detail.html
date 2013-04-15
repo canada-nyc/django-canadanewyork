@@ -9,23 +9,21 @@
 <article>
   <header>
     <h1>{{ exhibition }}</h1>
-    <p>{% include "base/full_date.html" with date=exhibition.start_date %}
+    <p>{% include "base/full_date.html" with date=exhibition.start_date %}{% if exhibition.end_date %} - {% include "base/full_date.html" with date=exhibition.end_date %}{% endif %}
   </header>
   {{ exhibition.description|safe }}
   {% include "base/photos.html" with photos=exhibition.photos.all %}
   {% if exhibition.press.objects.exists %}
-    <p><a href="{{ exhibition.get_press_url }}">Press</a>
+    <p><a href="{% url "exhibition-press-list" slug=exhibition.slug %}">Press</a>
   {% endif %}
-  {% if exhibition.artists.all %}
-    <ul class="inline">
-      {% for artist in exhibition.artists.all %}
-        <li>
-          {% if artist.visible %}<a href="{{ artist.get_absolute_url }}">{% endif %}
-            {{ artist }}
-          {% if artist.visible %}</a>{% endif %}
-      </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+  {% for artist in exhibition.artists.all %}
+    {% if forloop.first %}<ul class="inline">{% endif %}
+    <li>
+      {% if artist.visible %}<a href="{{ artist.get_absolute_url }}">{% endif %}
+        {{ artist }}
+      {% if artist.visible %}</a>{% endif %}
+  </li>
+  {% if forloop.last %}</ul>{% endif %}
+  {% endfor %}
 </article>
 {% endblock %}

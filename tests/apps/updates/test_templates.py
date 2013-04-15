@@ -16,7 +16,7 @@ class UpdateListTest(WebTest):
         )
         press_list.click(
             'Updates',
-            reverse('update-list')
+            href=reverse('update-list')
         )
 
     def test_click_indivual(self):
@@ -25,12 +25,11 @@ class UpdateListTest(WebTest):
             reverse('update-list')
         )
         update_list.click(
-            unicode(Update),
-            reverse('update-detail', kwargs={'pk': Update.pk, })
+            href=reverse('update-detail', kwargs={'pk': Update.pk})
         )
 
 
-class PressDetailTest(WebTest):
+class UpdateDetailTest(WebTest):
     def test_description(self):
         Update = UpdateFactory(description='description')
         update_detail = self.app.get(Update.get_absolute_url())

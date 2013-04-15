@@ -23,6 +23,6 @@ class Update(url_tracker.URLTrackingMixin, models.Model):
         return unicode(self.post_date.isoformat())
 
     def get_absolute_url(self):
-        return reverse('update-single', kwargs={'pk': self.pk})
+        return reverse('update-detail', kwargs={'pk': self.pk})
 
 url_tracker.track_url_changes_for_model(Update)

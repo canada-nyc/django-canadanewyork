@@ -19,12 +19,12 @@
     {% endif %}
     {% if artist.resume %}
       <li>
-        <a href="{% url 'artist-resume' slug=artist.slug }}">Resume</a>
+        <a href="{% url 'artist-resume' slug=artist.slug %}">Resume</a>
       </li>
     {% endif %}
-    {% if artist.get_press.exists %}
+    {% if artist.all_press.exists %}
       <li>
-        <a href="{% url 'artist-press-list' slug=artist.slug }}">Press</a>
+        <a href="{% url 'artist-press-list' slug=artist.slug %}">Press</a>
       </li>
     {% endif %}
     </ul>

@@ -23,7 +23,7 @@ class ExhibitionPressList(DetailView):
     queryset = Exhibition.objects.only('name').prefetch_related('press')
 
     def get_context_data(self, **kwargs):
-        context = super(ExhibitionCurrent, self).get_context_data(**kwargs)
+        context = super(ExhibitionPressList, self).get_context_data(**kwargs)
         context['press_list'] = context['related_object'].press.all()
         return context
 

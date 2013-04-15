@@ -98,15 +98,15 @@ class ExhibitionPressListTest(WebTest):
         )
 
     def test_detail_link(self):
-        Press = PressFactory.create()
-        Exhibition = ExhibitionFactory.create(press=Press)
+        Exhibition = ExhibitionFactory.create(press__n=1)
+        Press = Exhibition.press.all()[0]
         exhibition_press_list = self.app.get(
             reverse('exhibition-press-list', kwargs={'slug': Exhibition.slug})
         )
 
         exhibition_press_list.click(
             unicode(Press),
-            reverse('press-detail', kwargs={'slug': Press.slug})
+            href=reverse('press-detail', kwargs={'slug': Press.slug}),
         )
 
 

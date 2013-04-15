@@ -1,4 +1,5 @@
 from .common import *
+from .local_storage import *
 
 
 #########
@@ -22,11 +23,3 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 )
-
-if not os.environ.get('USE_S3_IN_DEV', None):
-    STATICFILES_STORAGE = COMPRESS_STORAGE = DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-    STATIC_URL = '/static/'
-    STATIC_ROOT = rel_path('tmp/static')
-
-    MEDIA_ROOT = rel_path('tmp/media')
-    MEDIA_URL = '/media/'

@@ -19,12 +19,13 @@ class ExhibitionDetail(DetailView):
 
 class ExhibitionPressList(DetailView):
     template_name = 'press/press_list.html'
+    context_object_name = "related_object"
+    queryset = Exhibition.objects.only('name').prefetch_related('press')
 
-    def get_object(self):
-        return get_object_or_404(
-            Exhibition.objects.only('name').prefetch_related('press'),
-            slug=self.kwargs['slug']
-        )
+    def get_context_data(self, **kwargs):
+        context = super(ExhibitionCurrent, self).get_context_data(**kwargs)
+        context['press_list'] = context['related_object'].press.all()
+        return context
 
 
 class ExhibitionCurrent(DetailView):

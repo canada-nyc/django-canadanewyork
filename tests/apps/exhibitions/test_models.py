@@ -3,20 +3,6 @@ from django.test import TestCase
 from .factories import ExhibitionFactory
 
 
-class ExhibitionUnicodeTest(TestCase):
-    def test_name(self):
-        Exhibition = ExhibitionFactory()
-        self.assertEqual(unicode(Exhibition), Exhibition.name)
-
-    def test_one_artist(self):
-        Exhibition = ExhibitionFactory(artists__n=1)
-        self.assertEqual(unicode(Exhibition), '{}: {}'.format(Exhibition.artists.all()[0], Exhibition.name))
-
-    def test_multiple_artists(self):
-        Exhibition = ExhibitionFactory(artists__n=2)
-        self.assertEqual(unicode(Exhibition), Exhibition.name)
-
-
 class ExhibitionPressReleasePhotoTest(TestCase):
     def test_no_photo(self):
         Exhibition = ExhibitionFactory()

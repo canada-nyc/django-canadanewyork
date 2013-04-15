@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from .factories import PressFactory
 
 
-class PressURLTest(TestCase):
+class PressUrlTest(TestCase):
     def test_detail(self):
         Press = PressFactory.create()
         self.assertEqual(

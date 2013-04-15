@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from .factories import ArtistFactory
 
 
-class ArtistURLTest(TestCase):
+class ArtistUrlTest(TestCase):
     def test_detail(self):
         Artist = ArtistFactory.create()
         self.assertEqual(

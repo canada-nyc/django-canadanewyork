@@ -22,12 +22,6 @@ class PressListTest(WebTest):
             reverse('press-list')
         )
 
-    def test_no_press(self):
-        press_list = self.app.get(
-            reverse('press-list')
-        )
-        self.assertIn('no', press_list)
-
     def test_click_press(self):
         Press = PressFactory()
         press_list = self.app.get(

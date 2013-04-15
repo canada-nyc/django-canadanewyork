@@ -129,13 +129,6 @@ class ArtistPressListTest(WebTest):
             reverse('press-detail', kwargs={'slug': Press.slug})
         )
 
-    def test_empty(self):
-        Artist = ArtistFactory.create()
-        artist_press_list = self.app.get(
-            reverse('artist-press-list', kwargs={'slug': Artist.slug})
-        )
-        self.assertIn('no', artist_press_list)
-
 
 class ArtistExhibitionListTest(WebTest):
     def test_parent_link(self):
@@ -160,13 +153,6 @@ class ArtistExhibitionListTest(WebTest):
             reverse('exhibition-detail', slug=Exhibition.slug)
         )
 
-    def test_empty(self):
-        Artist = ArtistFactory.create()
-        artist_exhibition_list = self.app.get(
-            reverse('artist-exhibition-list', kwargs={'slug': Artist.slug})
-        )
-        self.assertIn('no', artist_exhibition_list)
-
 
 class ArtistResumeTest(WebTest):
     def test_parent_link(self):
@@ -185,10 +171,3 @@ class ArtistResumeTest(WebTest):
             reverse('artist-resume', kwargs={'slug': Artist.slug})
         )
         self.assertIn(Artist.resume, artist_resume)
-
-    def test_empty(self):
-        Artist = ArtistFactory.create()
-        artist_resume = self.app.get(
-            reverse('artist-resume', kwargs={'slug': Artist.slug})
-        )
-        self.assertIn('no', artist_resume)

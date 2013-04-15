@@ -109,14 +109,6 @@ class ExhibitionPressListTest(WebTest):
             reverse('press-detail', kwargs={'slug': Press.slug})
         )
 
-    def test_empty(self):
-        Exhibition = ExhibitionFactory.create()
-        exhibition_press_list = self.app.get(
-            reverse('exhibition-press-list', kwargs={'slug': Exhibition.slug})
-        )
-
-        self.assertIn('no', exhibition_press_list)
-
 
 class ExhibitionCurrentTest(WebTest):
     def test_unicode(self):

@@ -11,6 +11,15 @@
   {% if press.content_file %}
     <a href="{{ press.content_file.url }}">Open</a>
   {% endif %}
+  {% if press.link %}
+    <a href="{{ press.link }}">Open</a>
+  {% endif %}
+  {% if press.artist %}
+    <a href="{{ press.artist.get_absolute_url }}">{{ artist }}</a>
+  {% endif %}
+  {% if press.exhibition %}
+    <a href="{{ press.exhibition.get_absolute_url }}">{{ artist }}</a>
+  {% endif %}
   {{ press.content|safe }}
 </article>
 {% endblock body %}

@@ -5,11 +5,9 @@
 {% block body %}
 <article>
   <a href="{{ exhibition.get_absolute_url }}">
-    {% with im=exhibition.get_press_release_photo %}
-      {% if im %}
-       <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
-      {% endif %}
-    {% endwith %}
+    {% if press_release_photo %}
+     <img src="{{ press_release_photo.url }}" width="{{ press_release_photo.width }}" height="{{ press_release_photo.height }}"/>
+    {% endif %}
     <h1>{{ exhibition }}</h1>
   </a>
   <p>{{ flatpage.content|safe }}</p>

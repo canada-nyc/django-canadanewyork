@@ -72,14 +72,14 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
     def get_press_release_photo(self):
         if self.press_release_photo:
             return self.press_release_photo
-        elif self.photos.exists():
+        try:
             return self.photos.all()[0].image
+        except IndexError:
+            pass
 
     @property
     def get_year(self):
-        '''
-        to populate the slug
-        '''
+        'for the slug'
         return self.start_date.year
 
 url_tracker.track_url_changes_for_model(Exhibition)

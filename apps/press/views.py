@@ -1,10 +1,12 @@
-from django.shortcuts import get_object_or_404
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 
 from .models import Press
 
 
 class PressDetail(DetailView):
-    def get_object(self):
-        return get_object_or_404(Press,
-                                 slug=self.kwargs['slug'])
+    model = Press
+
+
+class PressList(ListView):
+    model = Press
+    context_object_name = 'press_list'

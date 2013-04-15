@@ -6,7 +6,7 @@ services:
 - postgresql
 install:
 - sudo apt-get install -qq libmemcached-dev
-- pip install -r configs/requirements/travis.txt --use-mirrors -q
+- pip install -r configs/requirements/travis.txt --use-mirrors
 before_script:
 - psql -c 'create database django_canadanewyork;' -U postgres
 script:

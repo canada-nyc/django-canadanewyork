@@ -54,7 +54,10 @@ class ArtistDetailTest(WebTest):
         Artist = ArtistFactory.create()
         artist_detail = self.app.get(Artist.get_absolute_url())
         with self.assertRaises(IndexError):
-            artist_detail.click('Exhibitions')
+            artist_detail.click(
+                'Exhibitions',
+                href=reverse('artist-exhibition-list', kwargs={'slug': Artist.slug})
+            )
 
     def test_exhibitions_link(self):
         Artist = ArtistFactory.create(exhibitions__n=1)
@@ -69,7 +72,10 @@ class ArtistDetailTest(WebTest):
         artist_detail = self.app.get(Artist.get_absolute_url())
 
         with self.assertRaises(IndexError):
-            artist_detail.click('Resume')
+            artist_detail.click(
+                'Resume',
+                href=reverse('artist-resume', kwargs={'slug': Artist.slug})
+            )
 
     def test_resume_link(self):
         Artist = ArtistFactory.create(resume='resume')
@@ -84,7 +90,10 @@ class ArtistDetailTest(WebTest):
         Artist = ArtistFactory.create()
         artist_detail = self.app.get(Artist.get_absolute_url())
         with self.assertRaises(IndexError):
-            artist_detail.click('Press')
+            artist_detail.click(
+                'Press',
+                href=reverse('artist-press-list', kwargs={'slug': Artist.slug})
+            )
 
     def test_press_link(self):
         Artist = ArtistFactory.create(press__n=1)

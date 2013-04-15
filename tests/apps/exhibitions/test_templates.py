@@ -70,7 +70,10 @@ class ExhibitionDetailTest(WebTest):
         Exhibition = ExhibitionFactory.create()
         exhibition_detail = self.app.get(Exhibition.get_absolute_url())
         with self.assertRaises(IndexError):
-            exhibition_detail.click('Press')
+            exhibition_detail.click(
+                'Press',
+                href=reverse('exhibition-press-list', kwargs={'slug': Exhibition.slug})
+            )
 
     def test_press_link(self):
         Exhibition = ExhibitionFactory.create(press__n=1)

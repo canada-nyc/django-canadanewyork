@@ -1,5 +1,4 @@
 -r prod.txt
 -r testing.txt
--r import_wp.txt
 
 pylibmc==1.2.3

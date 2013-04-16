@@ -5,8 +5,13 @@ services:
 - memcached
 - postgresql
 install:
+- export PIP_USE_MIRRORS=true
+- export PIP_DOWNLOAD_CACHE=~/.pip-cache
+- export DATABASE_URL=postgres://postgres@localhost/django_canadanewyork
+- export DJANGO_SETTINGS_MODULE=configs.settings.testing
+- export AWS_BUCKET=assets-testing.canadanewyork.com
 - sudo apt-get install -qq libmemcached-dev
-- pip install -r configs/requirements/travis.txt --use-mirrors
+- pip install -r configs/requirements/travis.txt
 before_script:
 - psql -c 'create database django_canadanewyork;' -U postgres
 script:
@@ -17,48 +22,33 @@ notifications:
   email: false
 env:
   global:
-  - secure: ! '0B/fGgpLQsbDwfwy2y2/qIFU2RfhpasjvoLfKZch8RWzwMoU8syTGJswWSUG
+  - secure: ! 'H5dKDlHQ/ioSjY3o7+90H6va9ELBKN2N+GKvZQFf+u69LwdJQGadBTG4qxN/
 
-      6Pbf4+7ne/dZdIH+LuFL5xZv7bR6IhSJ1pcb0KwutHWHWhsUpWW6yzH0y1Su
+      ifTAulv+FMZTGhnSkBJE/RhamO/jlrI6swCjit7lQ8VWixXL7WHkt9KpTO6+
 
-      Ttn366zH5hB0Y28karcpeEPdm7sG6pC8eyyJuA0pBsAuSBgkcjg='
-  - secure: ! 'D2DwyVF9gmqVI7zCMq8VyoywZaqKkpzTSmNeMg56a0x1j4BROlGXrcC9FzlP
+      T/YKK74Op9ccJhk91jRJHPS7ySRucz/5GEKkbIFg8ExeeXhQVJQ='
+  - secure: ! 'Y/REF8wkRhzdlnUUKHP5rSqTDNdX7wufiiX8BbT7c46nWT/SRxSEYB5hKuKw
 
-      qDnIML6z0E4s/WCU55Avxs4UIriCMQZrW9nGEN8XOr6980vYb6+8uHm4mR5x
+      7xtYVXr14qHfwQopKb3I1P3u64WKsEAPcjTd8rNugKR5leOteuvI7qbyukp2
 
-      ljU7APy1yGJBNowRiMeikn5klRrAbL+AnDRqr6aYccI/dzK5/mA='
-  - secure: ! 'noCMXJnQgMqYcvLMFqhHYK/xaUHtqgjvdUYKbUa3QaqTBN5/2ANlIuNGiySF
+      arT3yrISivf6HcllKbMBNC48MB48EhyR5wcAts4ysYIFywa+BHM='
+  - secure: ! 'pQ9aSyCWu6EnnHEuLI6hNoMYk7YIbFtxI65oesk3cVxzmDeH6fTrH1WG8OmF
 
-      1coRvu6spkAe3a3F31gNfkle8Jy07EQqlk2ZEMKmgn9rsScP1i19ZTjBsWQj
+      l3nhQ1eFSZPBevGPljn2qzwKc0Okl1j0BuWt+UUPNyvKm8CPvTARYqF52+4r
 
-      fLsNBI7leAzd1204XpYw5KXevePmSUq/njrtOgCO9yDc9bk7nBM='
-  - secure: ! 'TbaGwdvYuPTTVQWaa1hNLB3BeUXPl8baCb7tNHEqxAOa/ZdvpT3WUQyt+S5y
+      iFnJQh1lFsox3m0KjOmQt4SatdcNmqmaniXuGWO57OKrqoacjHM='
+  - secure: ! 'C4aJCsLh8Ijuk3EmFi0c0uB6GIgmzmaQmZoSXD8x18DuPyxeoKA0962Gl38u
 
-      QuxBQn8lt/Zmf+uc7wWiUBM6q3frx1pwYCDpM6mR7Rp3y5fC7GggBGsxhY1z
+      rAqL8K0st5b2Y5lRQmx2yeYnVcWtyVlU31bbATS2Hff7NbV9BuhzO/0M+cNR
 
-      2vNfzsfCeqlukg6NMNIe8ccQBF2mudL4FQ6Shu6j6tGv8dtLk0I='
-  - secure: ! 'YGwOxoqW96exaOwLzBJ4YwKItaePquLJmaY/f9gWcXSUn5nJS2yknF7IWRyu
+      rJtGwe4F6UxtpxOyh54lYcgJAxjYo491La3ueyHbTcI4OpSQ+kw='
+  - secure: ! 'li2V7Jo4mJFYEXGZlBj8GigVO2YPJypLByUWOqwanH4SxkGgZOoh3v3GbCEu
 
-      GCHs/eL8OeqMDSVD0Kbr0teIdbeVRlE6zxnJs2PnaFnaGKqTKch9kDlg9zHE
+      yt/KJBLznVr/njnkEJZuJpad2Uv3JW3WQ9pmoN0ehL/IS+U7zyHtkTKlKtiO
 
-      6AgPZ2MHyVoWXng85w4em3WwZNNzHI0ZrByTyS+v0aSicadKrRI='
-  - secure: ! 'zCZtvYh3/3CwnQ5r7fVLskf4eHoSpywAVfxLpfxv9gNUdPrZqac09ddEUX1L
+      DmbpzVR+4ohgg/7jMeEnIaPdKpz/B31nFjGNEBDE4yvnANPR6a8='
+  - secure: ! 'sfXnzVDsMKXe4IWi6whuUDIIEkQ2kQU2CrVPBcJnrTD1V2PvlqRfVP446E0h
 
-      d8qWcmjFUMEmQvpMCDFUTQxNxXTzYSLCfzLy6e/PLa5PxsFFfK/y9SWLiMu4
+      NHhij+bQh/MDGs75Kguyh9CosYZDvrvyNOnnhSDXae+MhvOxK1mlVoZOwb9U
 
-      khWwTCFlPgR7hmH6s/nICKyAtRXOFy2kBm/2UDBxuQznkP35jK8='
-  - secure: ! 'IIjwJpF0Xqx70R7wXu1I8uq68sPVPfbvVaPrj1obMEB2lfd5GECDccdgBq3Z
-
-      +ipvOTunQfLpDhQLRjzyaHE/vcmDGq+sifUghD7PhDWwvLU3qBFtAw1xFf4M
-
-      NbsJx8vOVdsQHhhdwJ04UpW7zMtxg9goEo4M24vy0S03DiT1k8w='
-  - secure: ! 'SY8UI/x8u6+6+cm6d1h+72ie/5HtT8PYDGJ6B7V5c5ymmwKRCsYZ+3FScPpc
-
-      nQcRSrXlMg2LmhAgmCa3s9B8nvegt7c4UQdNWJlqdYgesWduSzOyWUBCf6ut
-
-      jvorjboYHkxRv2RTkNeqPzVqZO1fGVeZLr067Ps0dGiLBEiKQkw='
-  - secure: ! 'Z9ztNsCEzCDcrhFhUOUM3l9kcurMqqWkMDOci34P1i2j0VjLVVLG1hBevm0u
-
-      TCe14gzWf3D4KldZxZN2a7oXwK5zTrYfWMONBunAPiss9JiY5HSen0uy/q/E
-
-      PaSEhKhuzdofbtZiKxjrJaGsRrMZLzQ+TQmY7mAjqNagJMC3Rvc='
+      gERC5rcpWDnxz54hgB4nzn/w9YUR3mZ/X4L005gsNO082yvJITw='

@@ -14,7 +14,6 @@ redis
 #Images
 ##
 Pillow==1.7.7
-pdfminer==20110515
 sorl-thumbnail==11.12
 
 ##

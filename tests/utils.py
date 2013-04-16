@@ -11,7 +11,7 @@ from django.core.management import call_command
 from django.db.models import loading
 
 
-def django_image(name, size=10, color='red'):
+def django_image(name, size=200, color='red'):
     thumb = Image.new('RGB', (size, size,), color)
 
     thumb_io = StringIO.StringIO()
@@ -41,12 +41,12 @@ class AddAppMixin(object):
         loading.cache.loaded = False
 
 
-def random_date(start_date=date(2000, 1, 1), end_date=date.today()):
+def random_date(start_date=date(2005, 1, 1), end_date=date.today()):
     return date.fromordinal(random.randint(start_date.toordinal(), end_date.toordinal()))
 
 
 class FuzzyDate(BaseFuzzyAttribute):
-    def __init__(self, start_date=date(2000, 1, 1), end_date=date.today(), **kwargs):
+    def __init__(self, start_date=date(2005, 1, 1), end_date=date.today(), **kwargs):
         super(FuzzyDate, self).__init__(**kwargs)
         self.start_date = start_date.toordinal()
         self.end_date = end_date.toordinal()

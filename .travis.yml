@@ -3,13 +3,11 @@ language: python
 services:
 - postgresql
 install:
-- export PIP_USE_MIRRORS=true
-- export PIP_DOWNLOAD_CACHE=~/.pip-cache
 - export DATABASE_URL=postgres://postgres@localhost/django_canadanewyork
 - export DJANGO_SETTINGS_MODULE=configs.settings.testing
 - export AWS_BUCKET=assets-testing.canadanewyork.com
 - sudo apt-get install -qq libmemcached-dev
-- pip install -r configs/requirements/travis.txt
+- pip install -r configs/requirements/travis.txt --use-mirrors
 before_script:
 - psql -c 'create database django_canadanewyork;' -U postgres
 script:

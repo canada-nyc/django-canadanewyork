@@ -67,6 +67,7 @@ class PressDetailTest(WebTest):
         Press = PressFactory.create(artist=Artist)
         press_detail = self.app.get(Press.get_absolute_url())
         press_detail.click(
+            unicode(Artist),
             href=reverse('artist-detail', kwargs={'slug': Artist.slug})
         )
 
@@ -75,5 +76,6 @@ class PressDetailTest(WebTest):
         Press = PressFactory.create(exhibition=Exhibition)
         press_detail = self.app.get(Press.get_absolute_url())
         press_detail.click(
+            unicode(Exhibition),
             href=reverse('exhibition-detail', kwargs={'slug': Press.exhibition.slug})
         )

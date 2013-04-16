@@ -15,10 +15,10 @@
     <a href="{{ press.link }}">Open</a>
   {% endif %}
   {% if press.artist %}
-    <a href="{{ press.artist.get_absolute_url }}">{{ artist }}</a>
+    <a href="{{ press.artist.get_absolute_url }}">{{ press.artist }}</a>
   {% endif %}
   {% if press.exhibition %}
-    <a href="{{ press.exhibition.get_absolute_url }}">{{ artist }}</a>
+    <a href="{{ press.exhibition.get_absolute_url }}">{{ press.exhibition }}</a>
   {% endif %}
   {{ press.content|safe }}
 </article>

@@ -2,7 +2,7 @@ Django==1.5.1
 South==0.7.6
 django-extensions==1.1.1
 django-grappelli==2.4.4
-git+git://github.com/saulshanabrook/django-url-tracker@4e349259af1a060df07c4694fecbc426111a320c
+git+git://github.com/saulshanabrook/django-url-tracker@factor/testing
 
 ##
 #Caching

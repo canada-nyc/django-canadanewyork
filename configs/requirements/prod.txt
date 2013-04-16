@@ -6,9 +6,3 @@
 ##
 waitress==0.8.2
 newrelic
-
-
-##
-#Logging
-##
-raven>=3

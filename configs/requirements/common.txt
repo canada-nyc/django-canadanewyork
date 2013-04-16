@@ -33,3 +33,8 @@ psycopg2==2.4.5
 boto==2.8.0
 django-storages==1.1.7
 django-compressor==1.3
+
+##
+#Logging
+##
+raven>=3

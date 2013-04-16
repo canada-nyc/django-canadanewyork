@@ -1,8 +1,6 @@
 ---
 language: python
 services:
-- redis-server
-- memcached
 - postgresql
 install:
 - export PIP_USE_MIRRORS=true

@@ -1,5 +1,3 @@
-import datetime
-
 import factory
 
 from apps.exhibitions.models import Exhibition
@@ -14,8 +12,8 @@ class ExhibitionFactory(factory.DjangoModelFactory):
 
     name = factory.Sequence(lambda n: 'name{}'.format(n))
 
-    start_date = datetime.date.today()
-    end_date = datetime.date.today()
+    start_date = utils.FuzzyDate()
+    end_date = factory.LazyAttribute(lambda obj: utils.random_date(start_date=obj.start_date))
 
     photos = factory.PostGeneration(create_photos)
     artists = factory.PostGeneration(create_artists)

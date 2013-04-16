@@ -1,5 +1,3 @@
-import datetime
-
 import factory
 
 from apps.press.models import Press
@@ -12,7 +10,7 @@ class PressFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Press
 
     title = factory.Sequence(lambda n: 'title{}'.format(n))
-    date = datetime.date.today()
+    date = utils.FuzzyDate()
 
     exhibition = factory.PostGeneration(create_exhibition)
     artist = factory.PostGeneration(create_artist)

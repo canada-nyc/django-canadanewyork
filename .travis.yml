@@ -13,7 +13,6 @@ before_script:
 script:
 - nosetests --version
 - nosetests --plugins
-- nosetests --help
 - python manage.py test
 after-script:
 - python manage.py wipe_storage

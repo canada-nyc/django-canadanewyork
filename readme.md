@@ -3,7 +3,7 @@
 # Local Install
 ## Depedencies
 1. libmemcached-dev: On a mac `brew install libmemcached`
-2. Postgresql (not required but preferable for consistancy): Mac users try or `brew install postgresql`
+2. Postgresql (not required but preferable for consistancy): Mac users try `brew install postgresql` or
 [Postgress.app](http://postgresapp.com/).
 3. foreman: `gem install foreman`
 4. less and uglify-js for compression: `npm install --global --production "less" "git://github.com/mishoo/UglifyJS2.git#3bd7ca9961125b39dcd54d2182cb72bd1ca6006e"`

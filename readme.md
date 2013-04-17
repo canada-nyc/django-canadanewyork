@@ -10,11 +10,9 @@
 
 ## Setup
 A number of environmental variables need to be set. I use foreman to run my
-app with the required variables. So first make foreman use the config
-files provided with variables
-`echo 'env: configs/env/common.env,configs/env/secret.env,configs/env/dev.env,configs/env/local.env' > .foreman`
+app with the required variables.
 
-Then add these variables to `configs/env/secret.env`:
+Add these variables to `configs/env/secret.env`:
 
 ```
 DATABASE_URL=

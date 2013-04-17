@@ -10,7 +10,8 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--with-specplugin',
     '--detailed-errors',
-    '--nologcapture'
+    '--nologcapture',
+    'tests'
 ]
 
 ########

@@ -104,6 +104,7 @@ def date_from_text(text, year, default=None, return_default=False):
     for pos in range(len(text)):
         date_text = text[pos:]
         resulting_text = text[:pos]
+        resulting_text = text
         try:
             date = dateutil.parser.parse(date_text, default=default)
         except (ValueError, TypeError):
@@ -139,7 +140,7 @@ def dates_from_text(text, year):
         return dateutil.parser.parse(year), None, resulting_text
     elif len(dates) == 1:
         return dates[0], None, resulting_text
-
+    resulting_text = text
     return dates[0], dates[1], resulting_text
 
 

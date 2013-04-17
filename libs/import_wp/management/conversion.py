@@ -82,12 +82,11 @@ def create_artist_photo(element, all_elements):
 
 def create_exhibition(element, all_elements):
     E = Exhibition(
-        name=element.findtext('title'),
         description=helpers.cleanup_html(
             element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
         ),
     )
-    E.start_date, E.end_date = helpers.dates_from_text(
+    E.start_date, E.end_date, E.name = helpers.dates_from_text(
         text=element.findtext('title'),
         year=helpers.year_from_element(element),
     )
@@ -95,7 +94,6 @@ def create_exhibition(element, all_elements):
     E.artists = helpers.models_from_text(
         text=E.name + E.description,
         model=Artist,
-        model_function=lambda a: a.__unicode__(),
     )
     E.save()
     old_path = helpers.path_from_element(element)
@@ -106,10 +104,11 @@ def create_exhibition(element, all_elements):
 def get_exhibition(element):
     k = {}
     k['name'] = element.findtext('title')
-    k['start_date__year'] = helpers.dates_from_text(
+    start_date, end_date, k['name'] = helpers.dates_from_text(
         text=element.findtext('title'),
         year=helpers.year_from_element(element),
-    )[0].year
+    )
+    k['start_date__year'] = start_date.year
     return Exhibition.objects.get(**k)
 
 
@@ -132,16 +131,16 @@ def create_press(element, all_elements):
     P.content = helpers.cleanup_html(
         element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
     )
-    P.date, _ = helpers.dates_from_text(
+    P.date, P.title = helpers.date_from_text(
         text=P.title,
         year=helpers.year_from_element(element),
+        return_default=True
     )
     P.save()
 
     artists = helpers.models_from_text(
         text=P.content + P.title,
         model=Artist,
-        model_function=lambda A: A.__unicode__(),
     )
     for artist in artists:
         P.artist = artist
@@ -161,9 +160,10 @@ def get_press(element):
     P.content = helpers.cleanup_html(
         element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
     )
-    P.date, _ = helpers.dates_from_text(
+    P.date, P.title = helpers.date_from_text(
         text=P.title,
         year=helpers.year_from_element(element),
+        return_default=True
     )
     return Press.objects.get(slug=P._meta.get_field('slug')._get_value(P), date__year=P.date.year)
 

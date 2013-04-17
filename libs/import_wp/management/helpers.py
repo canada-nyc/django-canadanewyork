@@ -90,56 +90,64 @@ def pdf_from_link(url):
 
 
 def year_from_element(element):
-    full_url = element.findtext('link')
-    url = urlparse.urlparse(full_url)
-    path = url.path.split('/')[1:]
-    return path[1]
+    path = path_from_element(element)
+    year = path.split('/')[2]
+    return year
 
 
-def date_from_text(text, default):
+def date_from_text(text, year, default=None, return_default=False):
     '''
     given a string will try to parse a date from that string
     '''
-    try:
-        date = dateutil.parser.parse(text, default=default, fuzzy=True)
-    except ValueError:
-        return None
-    else:
-        return date
+    default = default or dateutil.parser.parse(year)
+
+    for pos in range(len(text)):
+        date_text = text[pos:]
+        resulting_text = text[:pos]
+        try:
+            date = dateutil.parser.parse(date_text, default=default)
+        except (ValueError, TypeError):
+            pass
+        else:
+            return date, resulting_text
+    if return_default:
+        return default, text
+    return None, text
 
 
 def dates_from_text(text, year):
     '''
     Given a text string such as 'Show is during January 20th - February 1 2012'
-    , will try to return the two dates. If only one date found, it will return
+    , will try to return the two dates and the string without the dates. If only one date found, it will return
     that date and then None.
 
     A string of the year is required in case one isn't found
     '''
-    default = dateutil.parser.parse(year.split('-')[0])
-
     text_split = text.split('-', 1)
     dates = []
     if len(text_split) == 2:
-        dates.append(date_from_text(text_split[1], default))
-        dates.append(date_from_text(text_split[0], (dates[0] or default)))
+        second_date, _ = date_from_text(text_split[1], year)
+        dates.append(second_date)
+        first_date, resulting_text = date_from_text(text_split[0], default=second_date, year=year)
+        dates.append(first_date)
     else:
-        dates.append((date_from_text(text, default)))
+        first_date, resulting_text = date_from_text(text_split[0], year=year)
+        dates.append(first_date)
     dates = sorted(filter(None, dates))
-    dates = map(lambda date: date if len(str(date.year)) == 4 else date.replace(year=default.year), dates)
+    dates = map(lambda date: date if len(str(date.year)) == 4 else date.replace(year=int(year)), dates)
     if len(dates) == 0:
-        return default, None
+        return dateutil.parser.parse(year), None, resulting_text
     elif len(dates) == 1:
-        return dates[0], None
+        return dates[0], None, resulting_text
 
-    return dates[0], dates[1]
+    return dates[0], dates[1], resulting_text
 
 
-def models_from_text(text, model, model_function):
+def models_from_text(text, model):
     '''
     Given a model, tries to find that model in the text, using the
     model_function of the model to search the text.
     '''
     for model_instance in model.objects.all():
-        if model_function(model_instance).lower() in text.lower():
+        if unicode(model_instance).lower() in text.lower():
             yield model_instance

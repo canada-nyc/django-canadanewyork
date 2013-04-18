@@ -4,7 +4,7 @@ services:
 - postgresql
 install:
 - export DATABASE_URL=postgres://postgres@localhost/django_canadanewyork
-- export DJANGO_SETTINGS_MODULE=configs.settings.testing
+- export DJANGO_SETTINGS_MODULE=configs.settings.travis
 - export AWS_BUCKET=assets-testing.canadanewyork.com
 - export SENTRY_DSN=https://fa2324424bba43788e58f5e98af90dc3:240da78eed7a46a4998095d1b0157e0f@app.getsentry.com/2745
 - sudo apt-get install -qq libmemcached-dev
@@ -14,8 +14,6 @@ before_script:
 - nosetests --version
 script:
 - python manage.py test
-after-script:
-- python manage.py wipe_storage
 notifications:
   email: false
 env:

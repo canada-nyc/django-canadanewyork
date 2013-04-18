@@ -9,7 +9,7 @@ try:
 except ImportError:
     pass
 else:
-    requests_cache.configure(cache_name='static/wordpress/.image_cache')
+    requests_cache.install_cache(cache_name='static/wordpress/.image_cache')
 import dateutil.parser
 from bs4 import BeautifulSoup
 from PIL import Image

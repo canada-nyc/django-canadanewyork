@@ -9,11 +9,13 @@
   <meta name="viewport" content="width=device-width">
   {% render_block "css" postprocessor "compressor.contrib.sekizai.compress" %}
   {% addtoblock "css" %}
-  <link type="text/less" rel="stylesheet" href="{% static "canada/less/styles.less" %}">
-  <link type="text/less" rel="stylesheet" href="{% static "canada/less/lightbox.less" %}">
+  <link type="text/less" rel="stylesheet" href="{% static "canada/less/styles.less" %}" media="all">
+  <link type="text/less" rel="stylesheet" href="{% static "canada/less/lightbox.less" %}" media="all">
+  <link type="text/less" rel="stylesheet" href="{% static "canada/less/print.less" %}" media="print">
   {% endaddtoblock %}
   {% addtoblock "js" %}
   <script src="{% static "canada/js/jquery.js" %}"></script>
+  <script src="{% static "canada/js/jquery.imagesloaded.js" %}"></script>
   <script src="{% static "canada/js/swipe.js" %}"></script>
   <script src="{% static "canada/js/raven.js" %}"></script>
   <script src="{% static "canada/js/main.js" %}"></script>
@@ -47,6 +49,7 @@
   {% block body %}{% endblock %}
 </section>
 <footer class="vcard">
+  <img class="print logo" src="{% static "canada/images/print-logo.jpg" %}"/>
   <span class="fn">CANADA</span>
   <span class="adr">
     <span class="street-address">333 Broome St</span>,

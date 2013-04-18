@@ -1,0 +1,59 @@
+@import "variables.less";
+
+// Use the purple from the stamp for the text color
+@text-color: @purple;
+
+// Fix coloration to match the print logo
+html, body {
+  background-color: white;
+  color: @text-color;
+}
+
+a, a:visited {
+  color: @text-color !important;
+}
+
+hr, header, dl h2 {
+  border-bottom: 1px solid @text-color;
+}
+
+body {
+  margin: 0 0 100px;
+}
+
+// Hide navigation
+nav {
+  display: none;
+}
+
+// Remove the side padding
+section {
+  width: auto;
+  margin: 0;
+  padding: 20px;
+}
+
+.print {
+  display: block !important;
+}
+
+// Hide the footer's elements
+footer {
+  left: 0;
+  height: 150px;
+}
+
+footer .logo {
+  position: absolute;
+  right: 20px;
+  height: auto;
+  max-height: 100%;
+}
+
+// Hide footer contact information
+// in favor of the print logo
+footer * {
+  height: 0;
+  overflow: hidden;
+  display: none;
+}

@@ -45,7 +45,7 @@ CANADA.TEMPLATES['photo'] = function (photo) {
   image = sizes.large || sizes.thumb;
   buffer.push('<div>');
   buffer.push('<figure style="max-width: ' + image.width + 'px">');
-  buffer.push('<img src="' + image.url + '" title="' + photo.title + '"/>');
+  buffer.push('<img id="photo-' + photo.id + '" src="' + image.url + '" title="' + photo.title + '"/>');
   buffer.push('<aside>');
   buffer.push('<em>' + photo.title + '</em>');
   buffer.push(photo.caption);

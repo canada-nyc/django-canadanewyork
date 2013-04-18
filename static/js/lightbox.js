@@ -67,7 +67,9 @@ CANADA.Lightbox.prototype = {
 
   show: function (galleryId) {
     var gallery = CANADA.store.find('gallery', galleryId);
+
     $('.lightbox').append(CANADA.render('gallery', gallery));
+
     this.element = $('#gallery-' + galleryId)[0];
     if (gallery.photos.length == 1) {
       $('.lightbox').find('.next, .prev').hide();
@@ -76,11 +78,34 @@ CANADA.Lightbox.prototype = {
     }
 
     $('.lightbox').fadeIn(bind(this.shown, this));
+
+    var photos = gallery.photos,
+        photo, image,
+        $img, $figure;
+
+    // Show spinners until the image has loaded
+    for (var i = 0, len = photos.length; i < len; i++) {
+      photo = photos[i];
+      image = photo.sizes.large || photo.sizes.thumb;
+      $img = $('#photo-' + photo.id);
+      $img.hide();
+      $figure = $img.parent();
+      $figure.prepend('<div class="throbber" style="width: ' + image.width + 'px; height: ' + image.height + 'px"></div>');
+      $img.imagesLoaded(bind(this.imageLoaded, this, photo));
+    }
   },
 
   shown: function () {
     this.swipe = Swipe(this.element);
     this.isShowing = true;
+  },
+
+  imageLoaded: function (photo) {
+    var $img = $('#photo-' + photo.id),
+        $figure = $img.parent();
+
+    $figure.find('.throbber').hide();
+    $img.fadeIn();
   }
 
 };

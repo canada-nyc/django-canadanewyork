@@ -55,6 +55,8 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
         ordering = ["-start_date"]
 
     def __unicode__(self):
+        if self.artists.count() == 1:
+            return u'{}: {}'.format(self.artists.all()[0])
         return self.name
 
     def get_absolute_url(self):

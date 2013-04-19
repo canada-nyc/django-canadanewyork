@@ -14,7 +14,7 @@ redis
 #Images
 ##
 Pillow==1.7.7
-sorl-thumbnail==11.12
+django-simpleimages==0.1.5
 
 ##
 #Templates

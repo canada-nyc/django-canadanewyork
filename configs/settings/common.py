@@ -161,9 +161,9 @@ COMPRESS_PRECOMPILERS = (
 COMPRESS_STORAGE = STATICFILES_STORAGE
 
 
-############
+###########
 # DATABASE #
-############
+###########
 INSTALLED_APPS += (
     'south',
 )
@@ -172,9 +172,9 @@ SOUTH_TESTS_MIGRATE = False
 DATABASES = {'default': dj_database_url.config(default='postgres://saul@localhost/django_canadanewyork')}
 
 
-############
+##########
 # SECURITY #
-############
+##########
 
 SECURE_FRAME_DENY = True
 SECURE_BROWSER_XSS_FILTER = True

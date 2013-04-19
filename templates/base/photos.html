@@ -1,4 +1,3 @@
-{% load thumbnail %}
 {% load static from staticfiles %}
 {% load sekizai_tags %}
 {% load humanize %}
@@ -6,9 +5,7 @@
 {% if photos %}
 {% with first_image=photos|first %}
   <div class="gallery" id="{{ id }}">
-    {% thumbnail first_image.image "682" as im %}
-      <img id="{{ first_image.id }}" src="{{ im.url }}" alt="{{ first_image.title|escape }}"/>
-    {% endthumbnail %}
+    <img id="{{ first_image.id }}" src="{{ first_image.image_thumb.url }}" alt="{{ first_image.title|escape }}"/>
   {% addtoblock "js" %}
   <script type="text/javascript">
     {% if id == None %}
@@ -18,19 +15,18 @@
       id: "{{ id }}",
       photos: [
       {% for image in photos %}
-      {% thumbnail image.image "x800" as thumb %}
         {
           id: "{{ image.id }}",
           sizes: {
             thumb: {
-              url:    "{{ thumb.url|escapejs }}",
-              width:  {{ thumb.width|escapejs }},
-              height: {{ thumb.height|escapejs }},
+              url:    "{{ image.image_thumb.url|escapejs }}",
+              width:  {{ image.image_thumb.width|escapejs }},
+              height: {{ image.image_thumb.height|escapejs }},
             },
             large: {
-              url:    "{{ image.image.url|escapejs }}",
-              width:  {{ image.image.width|escapejs }},
-              height: {{ image.image.height|escapejs }}
+              url:    "{{ image.image_gallery.url|escapejs }}",
+              width:  {{ image.image_gallery.width|escapejs }},
+              height: {{ image.image_gallery.height|escapejs }}
             }
           },
           title: "{{ image.title|escapejs }}",
@@ -40,7 +36,6 @@
         {% else %}
         },
         {% endif %}
-        {% endthumbnail %}
         {% endfor %}
       ]
     });

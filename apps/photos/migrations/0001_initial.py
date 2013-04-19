@@ -14,6 +14,8 @@ class Migration(SchemaMigration):
             ('title', self.gf('django.db.models.fields.CharField')(max_length=400, blank=True)),
             ('caption', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=1000)),
+            ('image_gallery', self.gf('django.db.models.fields.files.ImageField')(max_length=1000)),
+            ('image_thumb', self.gf('django.db.models.fields.files.ImageField')(max_length=1000)),
             ('content_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
             ('object_id', self.gf('django.db.models.fields.PositiveIntegerField')()),
             ('position', self.gf('django.db.models.fields.PositiveSmallIntegerField')(null=True, blank=True)),
@@ -40,6 +42,8 @@ class Migration(SchemaMigration):
             'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '1000'}),
+            'image_gallery': ('django.db.models.fields.files.ImageField', [], {'max_length': '1000'}),
+            'image_thumb': ('django.db.models.fields.files.ImageField', [], {'max_length': '1000'}),
             'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '400', 'blank': 'True'})

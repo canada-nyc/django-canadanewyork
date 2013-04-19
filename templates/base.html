@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>{% block title %} | CANADA{% endblock %}</title>
+  <title>{% block title %} ‹ CANADA{% endblock %}</title>
   <meta name="description" content="CANADA - lower East Side Art gallery exhibiting artists in New York.">
   <meta name="viewport" content="width=device-width">
   {% render_block "css" postprocessor "compressor.contrib.sekizai.compress" %}
@@ -33,7 +33,7 @@
 </head>
 <body>
 <nav>
-  <a href='/' title="CANADA" class="brand">
+  <a href="{% url 'exhibition-current' %}" title="CANADA" class="brand">
     <img alt="CANADA" src="{% static "canada/images/fire_logo.gif" %}" width="155" height="140">
   </a>
   <ul>

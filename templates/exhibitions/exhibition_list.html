@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}Exhibitions{{ block.super }}{% endblock %}
+{% block title %}{% if related_object %}{{ related_object }} › {% endif %}Exhibitions{{ block.super }}{% endblock %}
 
 {% block body %}
 <h1>
   {% if related_object %}
-    <a href={{ related_object.get_absolute_url }}>{{ related_object }}</a> |
+    <a href={{ related_object.get_absolute_url }}>{{ related_object }}</a> ›
   {% endif %}
   Exhibitions
 </h1>

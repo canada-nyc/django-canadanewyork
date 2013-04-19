@@ -1,8 +1,8 @@
 import os
 import urlparse
 from StringIO import StringIO
+from HTMLParser import HTMLParser
 
-import html2text
 import requests
 try:
     import requests_cache
@@ -20,6 +20,29 @@ from django.core.files import File
 from django.core.files.base import ContentFile
 
 
+class TagDropper(HTMLParser):
+    def __init__(self, tags_to_drop, *args, **kwargs):
+        HTMLParser.__init__(self, *args, **kwargs)
+        self._text = []
+        self._tags_to_drop = set(tags_to_drop)
+
+    def clear_text(self):
+        self._text = []
+
+    def get_text(self):
+        return ''.join(self._text)
+
+    def handle_starttag(self, tag, attrs):
+        if tag not in self._tags_to_drop:
+            self._text.append(self.get_starttag_text())
+
+    def handle_endtag(self, tag):
+        self._text.append('</{0}>'.format(tag))
+
+    def handle_data(self, data):
+        self._text.append(data)
+
+
 def path_from_url(url_text):
     url = urlparse.urlparse(url_text)
     return url.path
@@ -32,15 +55,10 @@ def path_from_element(element, field='link'):
 
 def cleanup_html(html):
     html = html.replace('[gallery]', '')
-
-    h = html2text.HTML2Text()
-    h.ignore_images = True
-    h.ignore_links = True
-    h.body_width = 0
-    h.unicode_snob = True
-
-    html = h.handle(html)
-    return html
+    html = html.replace('\n', '\n<br>')
+    td = TagDropper(['img'])
+    td.feed(html)
+    return td.get_text()
 
 
 def image_links_from_html(html):

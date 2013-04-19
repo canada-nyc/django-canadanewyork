@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}Press{% if related_object %} | {{ related_object }}{% endif %}{{ block.super }}{% endblock %}
+{% block title %}{% if related_object %}{{ related_object }} › {% endif %}Press{{ block.super }}{% endblock %}
 
 {% block body %}
 <h1>
   {% if related_object %}
-    <a href="{{ related_object.get_absolute_url }}">{{ related_object }}</a> |
+    <a href="{{ related_object.get_absolute_url }}">{{ related_object }}</a> ›
   {% endif %}
   Press
 </h1>

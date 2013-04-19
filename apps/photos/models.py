@@ -21,16 +21,12 @@ class Photo(url_tracker.URLTrackingMixin, models.Model):
     def image_path_gallery(instance, filename):
         return os.path.join(
             'photos_resized',
-            'gallery',
-            instance.content_object.get_absolute_url()[1:],
             (filename or str(instance.pk)),
         )
 
     def image_path_thumb(instance, filename):
         return os.path.join(
             'photos_resized',
-            'gallery',
-            instance.content_object.get_absolute_url()[1:],
             (filename or str(instance.pk)),
         )
 

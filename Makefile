@@ -22,7 +22,7 @@ setup-heroku:
 
 setup-heroku-dev:
 	heroku labs:enable user-env-compile #enabled so that collectstatic has access to amazon ec2 key
-	yes | heroku bootstrap $HEROKU_DEV_NAME
+	yes | heroku bootstrap ${HEROKU_DEV_NAME}
 	heroku labs:enable log-runtime-metrics
 	heroku config:push -o --filename configs/env/common.env
 	heroku config:push -o --filename configs/env/heroku.env
@@ -31,11 +31,11 @@ setup-heroku-dev:
 	heroku config:set 'heroku_app_'(heroku apps:info -s | grep '^name=')
 
 setup-heroku-prod:
-	heroku fork -a $HEROKU_DEV_NAME $HEROKU_PROD_NAME
-	heroku labs:enable user-env-compile --app $HEROKU_PROD_NAME
-	heroku labs:enable log-runtime-metrics --app $HEROKU_PROD_NAME
-	heroku config:push -o --filename configs/env/prod.env --app $HEROKU_PROD_NAME
-	heroku config:set 'heroku_app_'(heroku apps:info -s --app $HEROKU_PROD_NAME | grep '^name=') --app $HEROKU_PROD_NAME
+	heroku fork -a ${HEROKU_DEV_NAME} ${HEROKU_PROD_NAME}
+	heroku labs:enable user-env-compile --app ${HEROKU_PROD_NAME}
+	heroku labs:enable log-runtime-metrics --app ${HEROKU_PROD_NAME}
+	heroku config:push -o --filename configs/env/prod.env --app ${HEROKU_PROD_NAME}
+	heroku config:set 'heroku_app_'(heroku apps:info -s --app ${HEROKU_PROD_NAME} | grep '^name=') --app ${HEROKU_PROD_NAME}
 
 
 reset-local:
@@ -69,30 +69,30 @@ promote-db-local:
 	pg_dump -Fc --no-acl --no-owner -h localhost -U saul django_canadanewyork > django_canadanewyork.dump
 	${MANAGE} upload_file django_canadanewyork.dump > dump_url.txt
 	rm django_canadanewyork.dump
-	heroku pgbackups:restore DATABASE (cat dump_url.txt) --confirm $HEROKU_DEV_NAME
+	heroku pgbackups:restore DATABASE (cat dump_url.txt) --confirm ${HEROKU_DEV_NAME}
 	rm dump_url.txt
 	${MANAGE} delete_file django_canadanewyork.dump
 	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapps.com'
 
 promote-db-heroku-dev:
-	heroku pgbackups:capture --expire --app $HEROKU_DEV_NAME
-	heroku pgbackups:restore DATABASE --app canada (heroku pgbackups:url --app $HEROKU_DEV_NAME) --confirm $HEROKU_PROD_NAME
-	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapps.com' --app $HEROKU_PROD_NAME
+	heroku pgbackups:capture --expire --app ${HEROKU_DEV_NAME}
+	heroku pgbackups:restore DATABASE --app canada (heroku pgbackups:url --app ${HEROKU_DEV_NAME}) --confirm ${HEROKU_PROD_NAME}
+	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapps.com' --app ${HEROKU_PROD_NAME}
 
 promote-code-local:
 	git push heroku master
-	yes | heroku bootstrap $HEROKU_DEV_NAME
+	yes | heroku bootstrap ${HEROKU_DEV_NAME}
 
 promote-code-heroku-dev:
 	heroku pipeline:promote
-	yes | heroku bootstrap $HEROKU_PROD_NAME
+	yes | heroku bootstrap ${HEROKU_PROD_NAME}
 
 promote-static-local:
-	${MANAGE} clone_bucket (cat configs/env/dev.env | grep AWS_BUCKET | sed 's/AWS_BUCKET=//g') (heroku config:get AWS_BUCKET --app $HEROKU_DEV_NAME)
+	${MANAGE} clone_bucket (cat configs/env/dev.env | grep AWS_BUCKET | sed 's/AWS_BUCKET=//g') (heroku config:get AWS_BUCKET --app ${HEROKU_DEV_NAME})
 
 promote-static-heroku-dev:
-	${MANAGE} clone_bucket (heroku config:get AWS_BUCKET --app $HEROKU_DEV_NAME) (heroku config:get AWS_BUCKET --app $HEROKU_PROD_NAME)
+	${MANAGE} clone_bucket (heroku config:get AWS_BUCKET --app ${HEROKU_DEV_NAME}) (heroku config:get AWS_BUCKET --app ${HEROKU_PROD_NAME})
 
-promote-all-local: promote-code-local promote-db-local promote-static-local
+promote-all-local: promote-code-local promote-db-local
 
 promote-all-heroku-dev: promote-static-heroku-dev promote-code-heroku-dev promote-db-heroku-dev

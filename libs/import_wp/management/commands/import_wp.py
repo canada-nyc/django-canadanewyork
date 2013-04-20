@@ -58,7 +58,7 @@ class Command(BaseCommand):
                 else:
                     if url_test.match(url):
                         L += 1
-                        L('adding {}'.format(url))
+                        L('adding #{}, {}'.format(len(added_models), url))
                         try:
                             sid = transaction.savepoint()
                             added_models.append(e_function(element, elements))

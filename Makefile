@@ -40,7 +40,7 @@ setup-heroku-prod:
 
 reset-local:
 	${MANAGE} clean_db --noinput
-	${MANAGE} import_wp static/wordpress/.canada.wordpress.*
+	${MANAGE} import_wp --traceback static/wordpress/.canada.wordpress.*
 	${MANAGE} set_site 127.0.0.1:8000
 	${MANAGE} loaddata configs/fixtures/contact.json
 
@@ -93,6 +93,6 @@ promote-static-local:
 promote-static-heroku-dev:
 	${MANAGE} clone_bucket (heroku config:get AWS_BUCKET --app ${HEROKU_DEV_NAME}) (heroku config:get AWS_BUCKET --app ${HEROKU_PROD_NAME})
 
-promote-all-local: promote-code-local promote-db-local
+promote-all-local: promote-static-local promote-code-local promote-db-local
 
 promote-all-heroku-dev: promote-static-heroku-dev promote-code-heroku-dev promote-db-heroku-dev

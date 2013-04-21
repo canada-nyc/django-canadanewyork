@@ -135,7 +135,7 @@ CANADA.Lightbox.prototype = {
 
     // Resize the photo so the caption and photo are both
     // completely visible.
-    var availableHeight = $figure.innerHeight() -
+    var availableHeight = $(window).height() -
                           $img.offset().top -
                           $caption.outerHeight(),
         scale = 1;

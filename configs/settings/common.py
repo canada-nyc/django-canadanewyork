@@ -72,13 +72,6 @@ INSTALLED_APPS += ('sekizai',)
 TEMPLATE_CONTEXT_PROCESSORS += ('sekizai.context_processors.sekizai',)
 
 
-##############
-# THUMBNAILS #
-##############
-INSTALLED_APPS += ('sorl.thumbnail',)
-THUMBNAIL_UPSCALE = False
-
-
 ###########
 # CACHING #
 ###########

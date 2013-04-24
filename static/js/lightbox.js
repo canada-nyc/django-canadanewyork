@@ -8,6 +8,9 @@ var bind = function (fn, scope, args) {
   };
 };
 
+// Stashed CSS when we were altering the height of the image
+var stashedCSS = {};
+
 var KEY_LEFT  = 37,
     KEY_RIGHT = 39,
     KEY_ESC   = 27;
@@ -20,6 +23,7 @@ CANADA.Lightbox = function () {
   $('.lightbox .prev') .on('click', bind(this.prev, this));
 
   $(document).on('keydown', bind(this.interpretKeyboardEvent, this));
+  $(window).on('resize', bind(this.frameSizeDidChange, this));
 };
 
 CANADA.Lightbox.prototype = {
@@ -63,6 +67,7 @@ CANADA.Lightbox.prototype = {
     if (this.swipe) this.swipe.kill();
     $(this.element).remove();
     this.element = null;
+    this.model = null;
   },
 
   show: function (galleryId) {
@@ -70,6 +75,7 @@ CANADA.Lightbox.prototype = {
 
     $('.lightbox').append(CANADA.render('gallery', gallery));
 
+    this.model   = gallery;
     this.element = $('#gallery-' + galleryId)[0];
     if (gallery.photos.length == 1) {
       $('.lightbox').find('.next, .prev').hide();
@@ -98,6 +104,10 @@ CANADA.Lightbox.prototype = {
   shown: function () {
     this.swipe = Swipe(this.element);
     this.isShowing = true;
+
+    // Scale the photos when we first show the lightbox
+    // only **after** Swipe is initialized
+    this.frameSizeDidChange();
   },
 
   imageLoaded: function (photo) {
@@ -106,6 +116,69 @@ CANADA.Lightbox.prototype = {
 
     $figure.find('.throbber').hide();
     $img.fadeIn();
+  },
+
+  frameSizeDidChange: function () {
+    // Only retile if we're showing content
+    if (this.element) {
+
+      // Scale all of the photos in this gallery to fit
+      // the screen properly
+      var photos = this.model.photos;
+      for (var i = 0, len = photos.length; i < len; i++) {
+        this.scalePhotoToFit(photos[i]);
+      }
+    }
+  },
+
+  scalePhotoToFit: function (photo) {
+    var image    = photo.sizes.large || photo.sizes.thumb,
+        $img     = $('#photo-' + photo.id),
+        $figure  = $img.parent(),
+        $caption = $figure.find('aside');
+
+    // Stash the style
+    if (!stashedCSS[photo.id]) {
+      stashedCSS[photo.id] = $img.attr('style');
+    }
+
+    // Resize the photo so the caption and photo are both
+    // completely visible.
+    var availableHeight = $(window).height() -
+                          $img.offset().top * 2 -
+                          $caption.outerHeight(),
+        availableWidth  = $figure.width(),
+        dimensions = {},
+        scale = 1;
+
+    // Get the current scale
+    if (image.width > availableWidth) {
+      scale = availableWidth / image.width;
+    }
+    dimensions.width  = image.width  * scale;
+    dimensions.height = image.height * scale;
+
+    // Scale down the image (more)
+    if (dimensions.height > availableHeight) {
+      scale = (availableHeight / dimensions.height);
+
+    // Ignore our initial scale- the browser's doing all the work
+    } else {
+      scale = 1;
+    }
+
+    // Scale and center the image
+    if (scale < 1) {
+      $img.css({
+        height:     (scale * dimensions.height)                         + "px",
+        marginLeft: ((dimensions.width - scale * dimensions.width) / 2) + "px"
+      });
+
+    // Remove styling to let the browser do it's thing
+    } else {
+      $img.attr('style', stashedCSS[photo.id]);
+      delete stashedCSS[photo.id];
+    }
   }
 
 };

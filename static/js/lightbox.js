@@ -8,6 +8,9 @@ var bind = function (fn, scope, args) {
   };
 };
 
+// Stashed CSS when we were altering the height of the image
+var stashedCSS = {};
+
 var KEY_LEFT  = 37,
     KEY_RIGHT = 39,
     KEY_ESC   = 27;
@@ -95,15 +98,16 @@ CANADA.Lightbox.prototype = {
       $figure = $img.parent();
       $figure.prepend('<div class="throbber" style="width: ' + image.width + 'px; height: ' + image.height + 'px"></div>');
       $img.imagesLoaded(bind(this.imageLoaded, this, photo));
-
-      // Scale the photos when we first show the lightbox
-      this.scalePhotoToFit(photo);
     }
   },
 
   shown: function () {
     this.swipe = Swipe(this.element);
     this.isShowing = true;
+
+    // Scale the photos when we first show the lightbox
+    // only **after** Swipe is initialized
+    this.frameSizeDidChange();
   },
 
   imageLoaded: function (photo) {
@@ -133,28 +137,47 @@ CANADA.Lightbox.prototype = {
         $figure  = $img.parent(),
         $caption = $figure.find('aside');
 
+    // Stash the style
+    if (!stashedCSS[photo.id]) {
+      stashedCSS[photo.id] = $img.attr('style');
+    }
+
     // Resize the photo so the caption and photo are both
     // completely visible.
     var availableHeight = $(window).height() -
-                          $img.offset().top -
+                          $img.offset().top * 2 -
                           $caption.outerHeight(),
+        availableWidth  = $figure.width(),
+        dimensions = {},
         scale = 1;
 
-    // Scale down the image
-    if (image.height > availableHeight) {
-      scale = availableHeight / image.height;
+    // Get the current scale
+    if (image.width > availableWidth) {
+      scale = availableWidth / image.width;
+    }
+    dimensions.width  = image.width  * scale;
+    dimensions.height = image.height * scale;
+
+    // Scale down the image (more)
+    if (dimensions.height > availableHeight) {
+      scale = (availableHeight / dimensions.height);
+
+    // Ignore our initial scale- the browser's doing all the work
+    } else {
+      scale = 1;
     }
 
     // Scale and center the image
     if (scale < 1) {
       $img.css({
-        height:     (scale * image.height)    + "px",
-        marginLeft: (scale * image.width / 2) + "px"
+        height:     (scale * dimensions.height)                         + "px",
+        marginLeft: ((dimensions.width - scale * dimensions.width) / 2) + "px"
       });
 
     // Remove styling to let the browser do it's thing
     } else {
-      $img.removeAttr('style');
+      $img.attr('style', stashedCSS[photo.id]);
+      delete stashedCSS[photo.id];
     }
   }
 

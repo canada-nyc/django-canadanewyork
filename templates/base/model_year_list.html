@@ -4,7 +4,11 @@
   {% with date=model|getattribute:date_atr%}
     {% ifchanged date.year %}
       {% if not forloop.first %}</dl>{% endif %}
-      <dl>
+      {% if inline %}
+        <dl class="inline">
+      {% else %}
+        <dl>
+      {% endif %}
         <h2>{{ date.year }}</h2>
     {% endifchanged %}
       {% include template_name with model=model %}

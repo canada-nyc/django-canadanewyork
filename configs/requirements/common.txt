@@ -14,7 +14,7 @@ redis
 #Images
 ##
 Pillow==1.7.7
-django-simpleimages==0.1.5
+git+git://github.com/jdriscoll/django-imagekit.git@bc0c17010ef2caf01dc4eadb5c8c394de92dce52
 
 ##
 #Templates

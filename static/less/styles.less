@@ -224,6 +224,21 @@ dl {
   dd {
     margin-bottom: 10px;
   }
+
+  // For styling Press lists with the double colon.
+  dd em:before {
+    content: ':: ';
+  }
+
+  &.inline {
+    dt, dd {
+      display: inline;
+    }
+    a {
+      display: block;
+      margin: 10px 0;
+    }
+  }
 }
 
 // ...............................................

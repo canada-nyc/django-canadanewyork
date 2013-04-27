@@ -48,7 +48,7 @@ class Command(BaseCommand):
         for url_format, e_function in model_create_functions.items():
             url_format += '$'
             url_format = url_format.format(r'[^/]+?')
-            L('searching for {}'.format(url_format))
+            L('converting {} with {}'.format(url_format, e_function.__name__))
             url_test = re.compile(url_format)
             for element in elements:
                 try:

@@ -192,7 +192,6 @@ def create_update(element, all_elements):
             content_object=U,
         )
         P.clean()
-        P.save()
         P.image.save(*helpers.file_from_link(link))
     return U
 
@@ -217,11 +216,13 @@ def _create_photo(element, content_object):
         P.title, P.caption = text
     except ValueError:
         P.title = text[0].strip() or element.findtext('title')
-    P.save()
-    P.image.save(
-        *helpers.file_from_link(element.findtext('guid'))
-    )
-    return P
+
+    file_url = element.findtext('guid')
+    if file_url.endswith('.jpg') or file_url.endswith('.png'):
+        P.image.save(
+            *helpers.file_from_link(element.findtext('guid'))
+        )
+        return P
 
 
 def _press_file_from_link(Press, url):

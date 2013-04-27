@@ -22,6 +22,13 @@ SITE_ID = 1
 USE_I18N = False
 
 
+########
+# MISC #
+########
+INSTALLED_APPS += ('django_extensions',)
+INSTALLED_APPS += ('django.contrib.sitemaps',)
+
+
 ##########
 # CANADA #
 ##########
@@ -37,9 +44,10 @@ INSTALLED_APPS += (
 )
 
 
-##########
-# MODELS #
-##########
+#############
+# URLTRACKER #
+#############
+
 INSTALLED_APPS += (
     "url_tracker",
 )
@@ -72,36 +80,27 @@ INSTALLED_APPS += ('sekizai',)
 TEMPLATE_CONTEXT_PROCESSORS += ('sekizai.context_processors.sekizai',)
 
 
-###########
-# CACHING #
-###########
-MIDDLEWARE_CLASSES += (
-    'django.middleware.gzip.GZipMiddleware',
-)
-
-TEMPLATE_LOADERS = (
-    ('django.template.loaders.cached.Loader', (
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-    )),
-)
-
-CACHES = memcacheify()
-
-SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
-MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
-
-MIDDLEWARE_CLASSES += ('django.middleware.cache.FetchFromCacheMiddleware',)
-# Must be first
-MIDDLEWARE_CLASSES = ('django.middleware.cache.UpdateCacheMiddleware',) + MIDDLEWARE_CLASSES
-
-SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
-
-
 #############
 # FLATPAGES #
 #############
 INSTALLED_APPS += ('django.contrib.flatpages',)
+
+
+#############
+# IMAGES #
+#############
+INSTALLED_APPS += ('simpleimages',)
+
+
+###########
+# DATABASE #
+###########
+INSTALLED_APPS += (
+    'south',
+)
+SOUTH_TESTS_MIGRATE = False
+
+DATABASES = {'default': dj_database_url.config(default='postgres://saul@localhost/django_canadanewyork')}
 
 
 ###########
@@ -154,17 +153,6 @@ COMPRESS_PRECOMPILERS = (
 COMPRESS_STORAGE = STATICFILES_STORAGE
 
 
-###########
-# DATABASE #
-###########
-INSTALLED_APPS += (
-    'south',
-)
-SOUTH_TESTS_MIGRATE = False
-
-DATABASES = {'default': dj_database_url.config(default='postgres://saul@localhost/django_canadanewyork')}
-
-
 ##########
 # SECURITY #
 ##########
@@ -177,6 +165,31 @@ MIDDLEWARE_CLASSES += ('django.middleware.csrf.CsrfViewMiddleware',)
 
 
 ###########
+# CACHING #
+###########
+MIDDLEWARE_CLASSES += (
+    'django.middleware.gzip.GZipMiddleware',
+)
+
+TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )),
+)
+
+CACHES = memcacheify()
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+
+MIDDLEWARE_CLASSES += ('django.middleware.cache.FetchFromCacheMiddleware',)
+# Must be first
+MIDDLEWARE_CLASSES = ('django.middleware.cache.UpdateCacheMiddleware',) + MIDDLEWARE_CLASSES
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+
+
+###########
 # LOGGING #
 ###########
 INSTALLED_APPS += (
@@ -185,7 +198,6 @@ INSTALLED_APPS += (
 
 
 MIDDLEWARE_CLASSES += (
-    'raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware',
     'raven.contrib.django.raven_compat.middleware.Sentry404CatchMiddleware',
 )
 
@@ -229,10 +241,3 @@ LOGGING = {
         },
     },
 }
-
-
-########
-# MISC #
-########
-INSTALLED_APPS += ('django_extensions',)
-INSTALLED_APPS += ('django.contrib.sitemaps',)

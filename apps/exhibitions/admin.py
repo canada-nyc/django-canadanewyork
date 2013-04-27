@@ -1,12 +1,11 @@
 from django.contrib import admin
 
-from sorl.thumbnail.admin import AdminImageMixin
 
 from .models import Exhibition
 from apps.photos.admin import PhotoInline
 
 
-class ExhibitionAdmin(AdminImageMixin, admin.ModelAdmin):
+class ExhibitionAdmin(admin.ModelAdmin):
     inlines = [PhotoInline]
     date_hierarchy = 'start_date'
     list_display = ('name', 'start_date', 'current')

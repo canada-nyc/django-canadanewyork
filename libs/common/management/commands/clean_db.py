@@ -35,6 +35,8 @@ class Command(NoArgsCommand):
     )
 
     def handle(self, *args, **options):
+        self.log('Clearing Cache')
+        call_command('clear_cache')
         if options.get('wipe_static'):
             call_command('wipe_storage')
         self.log('Reseting DB')

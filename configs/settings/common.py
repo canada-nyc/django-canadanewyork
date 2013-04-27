@@ -27,7 +27,7 @@ USE_I18N = False
 ########
 INSTALLED_APPS += ('django_extensions',)
 INSTALLED_APPS += ('django.contrib.sitemaps',)
-
+INSTALLED_APPS += ('clear_cache')
 
 ##########
 # CANADA #

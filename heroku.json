@@ -1,7 +1,6 @@
 {
   "addons": [
     "blitz:250",
-    "memcache:5mb",
     "memcachier:dev",
     "pgbackups:auto-month",
     "sentry:developer",

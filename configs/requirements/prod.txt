@@ -5,4 +5,3 @@
 #Server
 ##
 waitress==0.8.2
-newrelic

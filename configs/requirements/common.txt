@@ -9,6 +9,7 @@ git+git://github.com/saulshanabrook/django-url-tracker@factor/testing
 ##
 django-heroku-memcacheify==0.4
 redis
+django-clear-cache==0.3
 
 ##
 #Images

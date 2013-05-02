@@ -47,7 +47,7 @@ reset-local:
 reset-heroku-dev:
 	heroku pg:reset DATABASE_URL --confirm canada-development
 	heroku run 'python manage.py clean_db --noinput'
-	heroku run 'python manage.py import_wp static/wordpress/.canada.wordpress.*'
+	heroku run 'python manage.py import_wp  --traceback static/wordpress/.canada.wordpress.*'
 	heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com'
 	heroku run 'python manage.py loaddata configs/fixtures/contact.json'
 

@@ -154,9 +154,9 @@ COMPRESS_PRECOMPILERS = (
 COMPRESS_STORAGE = STATICFILES_STORAGE
 
 
-##########
+############
 # SECURITY #
-##########
+############
 
 SECURE_FRAME_DENY = True
 SECURE_BROWSER_XSS_FILTER = True

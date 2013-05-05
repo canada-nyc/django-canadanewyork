@@ -11,7 +11,7 @@ class Migration(SchemaMigration):
         # Adding model 'Press'
         db.create_table(u'press_press', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=500, blank=True)),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=500)),
             ('link', self.gf('django.db.models.fields.URLField')(max_length=200, null=True, blank=True)),
             ('content', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('content_file', self.gf('django.db.models.fields.files.FileField')(max_length=500, null=True, blank=True)),
@@ -79,7 +79,7 @@ class Migration(SchemaMigration):
             'link': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'publisher': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             'slug': ('libs.slugify.fields.SlugifyField', [], {'unique': 'True', 'max_length': '251', 'populate_from': "('date_year', '__unicode__')"}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '500', 'blank': 'True'})
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '500'})
         }
     }
 

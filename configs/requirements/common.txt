@@ -15,7 +15,7 @@ django-clear-cache==0.3
 #Images
 ##
 Pillow==1.7.7
-git+git://github.com/jdriscoll/django-imagekit.git@2304381b3dc55614c657d0d497ecc12a781945e7
+sorl-thumbnail==11.12
 
 ##
 #Templates

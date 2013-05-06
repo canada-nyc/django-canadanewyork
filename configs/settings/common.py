@@ -86,11 +86,12 @@ TEMPLATE_CONTEXT_PROCESSORS += ('sekizai.context_processors.sekizai',)
 INSTALLED_APPS += ('django.contrib.flatpages',)
 
 
-#############
+##########
 # IMAGES #
-#############
-INSTALLED_APPS += ('imagekit',)
-IMAGEKIT_DEFAULT_CACHEFILE_STRATEGY = 'imagekit.cachefiles.strategies.Optimistic'
+##########
+INSTALLED_APPS += ('sorl.thumbnail',)
+THUMBNAIL_UPSCALE = False
+
 
 ###########
 # DATABASE #
@@ -153,9 +154,9 @@ COMPRESS_PRECOMPILERS = (
 COMPRESS_STORAGE = STATICFILES_STORAGE
 
 
-##########
+############
 # SECURITY #
-##########
+############
 
 SECURE_FRAME_DENY = True
 SECURE_BROWSER_XSS_FILTER = True

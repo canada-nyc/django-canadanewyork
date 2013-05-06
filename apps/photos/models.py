@@ -5,8 +5,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
 import url_tracker
-from pilkit.processors import ResizeToFit
-from imagekit.models import ImageSpecField
 
 
 class Photo(url_tracker.URLTrackingMixin, models.Model):
@@ -21,19 +19,7 @@ class Photo(url_tracker.URLTrackingMixin, models.Model):
     title = models.CharField(blank=True, max_length=400)
     caption = models.TextField(blank=True)
     image = models.ImageField(upload_to=image_path, max_length=1000)
-    image_gallery = ImageSpecField(
-        source='image',
-        processors=[ResizeToFit(width=800, upscale=False)],
-        format='JPEG',
-        options={'quality': 60}
-    )
 
-    image_thumb = ImageSpecField(
-        source='image',
-        processors=[ResizeToFit(width=600, upscale=False)],
-        format='JPEG',
-        options={'quality': 90}
-    )
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')

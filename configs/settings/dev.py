@@ -4,7 +4,7 @@ from .local_storage import *
 #########
 # LOCAL #
 #########
-ALLOWED_HOSTS = ['localhost', 'localhost:8000' '127.0.0.1', '127.0.0.1:8000']
+ALLOWED_HOSTS = ['*', ]
 
 #########
 # DEBUG #

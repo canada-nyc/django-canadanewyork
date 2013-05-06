@@ -183,6 +183,11 @@ article {
   }
 
   margin-bottom: @separation-size;
+
+  // Constrain embeds so the page doesn't expand
+  iframe {
+    max-width: 100% !important;
+  }
 }
 
 header {

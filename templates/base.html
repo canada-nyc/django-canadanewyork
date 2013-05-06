@@ -17,15 +17,10 @@
   <script src="{% static "canada/js/jquery.js" %}"></script>
   <script src="{% static "canada/js/jquery.imagesloaded.js" %}"></script>
   <script src="{% static "canada/js/swipe.js" %}"></script>
-  <script src="{% static "canada/js/raven.js" %}"></script>
   <script src="{% static "canada/js/main.js" %}"></script>
-  <script src="{% static "canada/js/config.js" %}"></script>
   <script src="{% static "canada/js/templates.js" %}"></script>
   <script src="{% static "canada/js/store.js" %}"></script>
   <script src="{% static "canada/js/lightbox.js" %}"></script>
-  <script type="text/javascript">
-    CANADA.SENTRY_DSN = "{{ SENTRY_DSN|escapejs }}";
-  </script>
   {% endaddtoblock %}
   <!--[if lt IE 9]>
     <script src="{% static "canada/js/html5shiv.min.js" %}"></script>

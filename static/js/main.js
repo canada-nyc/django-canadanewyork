@@ -1,9 +1,6 @@
 CANADA = {};
 
-// Configure Raven and install default handler to capture uncaught exceptions
 $(document).ready(function () {
-  Raven.config(CANADA.SENTRY_DSN, CANADA.RAVEN_CONFIG).install();
-
   // Initialize the lightbox
   var lightbox = new CANADA.Lightbox();
   $('.gallery').on('click', function () {

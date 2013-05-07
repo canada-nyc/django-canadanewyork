@@ -18,20 +18,23 @@
       id: "{{ id }}",
       photos: [
       {% for image in photos %}
-      {% thumbnail image.image "x800" as thumb %}
         {
           id: "{{ image.id }}",
           sizes: {
+            {% thumbnail image.image "x600" as thumb %}
             thumb: {
               url:    "{{ thumb.url|escapejs }}",
               width:  {{ thumb.width|escapejs }},
               height: {{ thumb.height|escapejs }},
             },
+            {% endthumbnail %}
+            {% thumbnail image.image "x800" as large %}
             large: {
-              url:    "{{ image.image.url|escapejs }}",
-              width:  {{ image.image.width|escapejs }},
-              height: {{ image.image.height|escapejs }}
+              url:    "{{ large.url|escapejs }}",
+              width:  {{ large.width|escapejs }},
+              height: {{ large.height|escapejs }}
             }
+            {% endthumbnail %}
           },
           title: "{{ image.title|escapejs }}",
           caption: "{{ image.caption|escapejs }}"
@@ -40,7 +43,6 @@
         {% else %}
         },
         {% endif %}
-        {% endthumbnail %}
         {% endfor %}
       ]
     });

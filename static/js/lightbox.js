@@ -135,7 +135,9 @@ CANADA.Lightbox.prototype = {
     var image    = photo.sizes.large || photo.sizes.thumb,
         $img     = $('#photo-' + photo.id),
         $figure  = $img.parent(),
-        $caption = $figure.find('aside');
+        $caption = $figure.find('aside'),
+        paddingTop = parseInt($figure.css('marginTop'), 10) +
+                     parseInt($figure.css('paddingTop'), 10);
 
     // Stash the style
     if (!stashedCSS[photo.id]) {
@@ -145,7 +147,7 @@ CANADA.Lightbox.prototype = {
     // Resize the photo so the caption and photo are both
     // completely visible.
     var availableHeight = $(window).height() -
-                          $img.offset().top * 2 -
+                          paddingTop * 2 -
                           $caption.outerHeight(),
         availableWidth  = $figure.width(),
         dimensions = {},

@@ -89,8 +89,7 @@ INSTALLED_APPS += ('django.contrib.flatpages',)
 ##########
 # IMAGES #
 ##########
-INSTALLED_APPS += ('sorl.thumbnail',)
-THUMBNAIL_UPSCALE = False
+INSTALLED_APPS += ('imagekit',)
 
 
 ###########

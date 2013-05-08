@@ -191,4 +191,79 @@ CANADA.Lightbox.prototype = {
 
 };
 
+// Touch code
+if (hasTouchCapabilities) {
+
+// Tap gesture recognizer
+var NUMBER_OF_FINGERS_REQUIRED = 1,
+    WIGGLE_ROOM  = 10, // px
+    MAX_DURATION = 500; // ms
+
+CANADA.Lightbox.prototype.tap = function () {
+  this.close();
+  this.element.removeEventListener('touchstart', this, false);
+  this.element.removeEventListener('touchmove', this, false);
+  this.element.removeEventListener('touchend', this, false);
+};
+
+CANADA.Lightbox.prototype.handleEvent = function (event) {
+  switch (event.type) {
+    case 'touchstart': this.touchStart(event); break;
+    case 'touchmove':  this.touchMove(event); break;
+    case 'touchend':   this.touchEnd(event); break;
+  }
+};
+
+CANADA.Lightbox.prototype.touchStart = function (event) {
+  if (event.touches.length == NUMBER_OF_FINGERS_REQUIRED) {
+    this._initialTime = new Date().getTime();
+    this._initialLocation = this._currentLocation = {
+      x: event.pageX,
+      y: event.pageY
+    };
+    this.element.addEventListener('touchend', this, false);
+    this.element.addEventListener('touchmove', this, false);
+  }
+};
+
+CANADA.Lightbox.prototype.touchMove = function (event) {
+  if (event.touches.length == NUMBER_OF_FINGERS_REQUIRED) {
+    this._currentLocation = {
+      x: event.touches[0].pageX,
+      y: event.touches[0].pageY
+    };
+  } else {
+    this.element.removeEventListener('touchend', this, false);
+    this.element.removeEventListener('touchmove', this, false);
+    delete this._initialLocation;
+    delete this._initialTime;
+    delete this._currentLocation;
+  }
+};
+
+CANADA.Lightbox.prototype.touchEnd = function (event) {
+  var touchDuration = new Date().getTime() - this._initialTime;
+  if (touchDuration <= MAX_DURATION) {
+    var x  = this._initialLocation.x,
+        y  = this._initialLocation.y,
+        x0 = this._currentLocation.x,
+        y0 = this._currentLocation.y;
+
+    var distance = Math.sqrt((x -= x0) * x + (y -= y0) * y);
+
+    if (Math.abs(distance) < WIGGLE_ROOM) {
+      this.tap();
+    }
+  }
+};
+
+var shown = CANADA.Lightbox.prototype.shown;
+
+CANADA.Lightbox.prototype.shown = function () {
+  this.element.addEventListener('touchstart', this, false);
+  shown.call(this);
+};
+
+}
+
 }());

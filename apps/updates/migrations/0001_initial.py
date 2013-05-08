@@ -12,7 +12,7 @@ class Migration(SchemaMigration):
         db.create_table(u'updates_update', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('description', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('post_date', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
+            ('post_date', self.gf('django.db.models.fields.DateField')(auto_now_add=True, blank=True)),
         ))
         db.send_create_signal(u'updates', ['Update'])
 
@@ -44,7 +44,7 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['-post_date']", 'object_name': 'Update'},
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'post_date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'})
+            'post_date': ('django.db.models.fields.DateField', [], {'auto_now_add': 'True', 'blank': 'True'})
         }
     }
 

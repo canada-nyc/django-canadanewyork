@@ -9,7 +9,7 @@ from apps.photos.models import Photo
 
 class Update(url_tracker.URLTrackingMixin, models.Model):
     description = models.TextField(blank=True)
-    post_date = models.DateTimeField(auto_now_add=True)
+    post_date = models.DateField(auto_now_add=True)
 
     photos = generic.GenericRelation(Photo)
 

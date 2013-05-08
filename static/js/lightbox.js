@@ -8,6 +8,12 @@ var bind = function (fn, scope, args) {
   };
 };
 
+var hasTouchCapabilities = ('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch;
+
+if (hasTouchCapabilities) {
+  $('body').addClass('touch');
+}
+
 // Stashed CSS when we were altering the height of the image
 var stashedCSS = {};
 

@@ -12,8 +12,9 @@ class Photo(url_tracker.URLTrackingMixin, models.Model):
     def image_path(instance, filename):
         return os.path.join(
             'photos',
-            instance.content_object.get_absolute_url()[1:],
-            (filename or str(instance.pk)),
+            unicode(instance.content_type),
+            unicode(instance.object_id),
+            filename,
         )
 
     title = models.CharField(blank=True, max_length=400)

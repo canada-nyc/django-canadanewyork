@@ -1,43 +1,38 @@
 {% load imagekit %}
 {% load static from staticfiles %}
 {% load sekizai_tags %}
-{% load humanize %}
 
 {% if photos %}
-{% with first_image=photos|first %}
+{% with first_photo=photos|first %}
   <div class="gallery" id="{{ id }}">
-    {% thumbnail first_image.image "682" as im %}
-      <img id="{{ first_image.id }}" src="{{ im.url }}" alt="{{ first_image.title|escape }}"/>
-    {% endthumbnail %}
+    {% thumbnail "x600" first_photo.image %}
   {% addtoblock "js" %}
   <script type="text/javascript">
     {% if id == None %}
-    console.error("The photos template with the first image {{ first_image.id }} ({{ first_image.title }}) MUST be passed the id of the owning model.");
+    console.error("The photos template with the first image {{ first_photo.id }} ({{ first_photo.title }}) MUST be passed the id of the owning model.");
     {% endif %}
     CANADA.store.load('gallery', {
       id: "{{ id }}",
       photos: [
-      {% for image in photos %}
+      {% for photo in photos %}
         {
-          id: "{{ image.id }}",
+          id: "{{ photo.id }}",
           sizes: {
-            {% thumbnail image.image "x600" as thumb %}
+            {% thumbnail "x600" photo.image as thumb %}
             thumb: {
               url:    "{{ thumb.url|escapejs }}",
-              width:  {{ thumb.width|escapejs }},
-              height: {{ thumb.height|escapejs }},
+              width:  "{{ thumb.width|escapejs }}",
+              height: "{{ thumb.height|escapejs }}",
             },
-            {% endthumbnail %}
-            {% thumbnail image.image "x800" as large %}
+            {% thumbnail "x800" photo.image as large %}
             large: {
               url:    "{{ large.url|escapejs }}",
-              width:  {{ large.width|escapejs }},
-              height: {{ large.height|escapejs }}
+              width:  "{{ large.width|escapejs }}",
+              height: "{{ large.height|escapejs }}"
             }
-            {% endthumbnail %}
           },
-          title: "{{ image.title|escapejs }}",
-          caption: "{{ image.caption|escapejs }}"
+          title: "{{ photo.title|escapejs }}",
+          caption: "{{ photo.caption|escapejs }}"
         {% if forloop.last %}
         }
         {% else %}

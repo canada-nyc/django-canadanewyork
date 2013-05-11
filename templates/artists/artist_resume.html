@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}Resume |{{ artist.first_name }}{{ artist.last_name }}{{ block.super }}{% endblock %}
+{% block title %}Resume › {{ artist.first_name }}{{ artist.last_name }}{{ block.super }}{% endblock %}
 
 {% block body %}
 <article>
-  <h1>Resume | <a href="{{ artist.get_absolute_url }}">{{ artist }}</a></h1>
+  <h1>Resume › <a href="{{ artist.get_absolute_url }}">{{ artist }}</a></h1>
   {{ artist.resume|safe }}
 </article>
 {% endblock body %}

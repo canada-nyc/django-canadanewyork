@@ -13,7 +13,6 @@ setup-local:
 	# Tutorial on installing http://stackoverflow.com/questions/8986709/how-to-install-lessc-and-nodejs-in-a-python-virtualenv
 	# On homebrew do `brew install nodejs`
 	npm install -g less
-	echo 'env: configs/env/common.env,configs/env/secret.env,configs/env/dev.env' > .foreman
 	mkdir tmp
 
 setup-heroku:

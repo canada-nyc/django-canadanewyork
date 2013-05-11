@@ -75,6 +75,7 @@ promote-db-local:
 	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapps.com'
 
 promote-db-heroku-dev:
+	heroku pg:reset DATABASE_URL --app ${HEROKU_DEV_NAME} --confirm ${HEROKU_DEV_NAME}
 	heroku pgbackups:capture --expire --app ${HEROKU_DEV_NAME}
 	heroku pgbackups:restore DATABASE --app ${HEROKU_PROD_NAME} (heroku pgbackups:url --app ${HEROKU_DEV_NAME}) --confirm ${HEROKU_PROD_NAME}
 	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapps.com' --app ${HEROKU_PROD_NAME}

@@ -19,6 +19,7 @@ setup-local:
 setup-heroku:
 	heroku plugins:install git://github.com/rainforestapp/heroku.json.git
 	heroku plugins:install git://github.com/joelvh/heroku-config.git
+	heroku plugins:install git://github.com/heroku/heroku-pg-extras.git
 
 setup-heroku-dev:
 	heroku labs:enable user-env-compile #enabled so that collectstatic has access to amazon ec2 key
@@ -75,9 +76,7 @@ promote-db-local:
 	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapps.com'
 
 promote-db-heroku-dev:
-	heroku pg:reset DATABASE_URL --app ${HEROKU_DEV_NAME} --confirm ${HEROKU_DEV_NAME}
-	heroku pgbackups:capture --expire --app ${HEROKU_DEV_NAME}
-	heroku pgbackups:restore DATABASE --app ${HEROKU_PROD_NAME} (heroku pgbackups:url --app ${HEROKU_DEV_NAME}) --confirm ${HEROKU_PROD_NAME}
+	heroku pgbackups:transfer (heroku config:get DATABASE_URL --app ${HEROKU_PROD_NAME}) --app ${HEROKU_DEV_NAME}
 	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapps.com' --app ${HEROKU_PROD_NAME}
 
 promote-code-local:

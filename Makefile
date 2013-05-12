@@ -6,6 +6,7 @@ MANAGE=foreman run ${PYTHON} manage.py
 HEROKU_DEV_NAME="canada-development"
 HEROKU_PROD_NAME="canada"
 
+
 setup-local:
 	pip install -r configs/requirements/dev.txt
 	gem install foreman travis
@@ -48,7 +49,7 @@ reset-heroku-dev:
 	heroku pg:reset DATABASE_URL --confirm canada-development
 	heroku run 'python manage.py clean_db --noinput'
 	heroku run 'python manage.py import_wp  --traceback static/wordpress/.canada.wordpress.*'
-	heroku run 'python manage.py set_site "$heroku_app_name".herokuapps.com'
+	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapp.com'
 	heroku run 'python manage.py loaddata configs/fixtures/contact.json'
 
 migrate-all:
@@ -72,11 +73,11 @@ promote-db-local:
 	heroku pgbackups:restore DATABASE (cat dump_url.txt) --confirm ${HEROKU_DEV_NAME}
 	rm dump_url.txt
 	${MANAGE} delete_file django_canadanewyork.dump
-	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapps.com'
+	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapp.com'
 
 promote-db-heroku-dev:
 	heroku pgbackups:transfer (heroku config:get DATABASE_URL --app ${HEROKU_PROD_NAME}) --app ${HEROKU_DEV_NAME}
-	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapps.com' --app ${HEROKU_PROD_NAME}
+	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapp.com' --app ${HEROKU_PROD_NAME}
 
 promote-code-local:
 	git push heroku master

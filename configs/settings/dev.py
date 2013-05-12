@@ -45,7 +45,7 @@ DEBUG_TOOLBAR_PANELS = (
 # Devserver
 
 INSTALLED_APPS += (
-     'devserver',
+    'devserver',
 )
 DEVSERVER_MODULES = (
     'devserver.modules.sql.SQLRealTimeModule',

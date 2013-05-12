@@ -3,7 +3,6 @@ from django.core.urlresolvers import reverse
 
 from .factories import ArtistFactory
 from ..press.factories import PressFactory
-from ..exhibitions.factories import ExhibitionFactory
 
 
 class ArtistListTest(WebTest):

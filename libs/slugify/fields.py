@@ -1,5 +1,3 @@
-import functools
-
 from django.db.models.fields import SlugField
 from django.template.defaultfilters import slugify
 from django.core.exceptions import FieldError

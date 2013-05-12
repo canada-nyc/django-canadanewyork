@@ -3,7 +3,6 @@ from django.core.urlresolvers import reverse
 from django.contrib.flatpages.models import FlatPage
 
 from .factories import ExhibitionFactory
-from ..press.factories import PressFactory
 
 
 class ExhibitionListTest(WebTest):

@@ -7,6 +7,9 @@ HEROKU_DEV_NAME="canada-development"
 HEROKU_PROD_NAME="canada"
 
 
+run-local-newrelic:
+	foreman run newrelic-admin run-program gunicorn wsgi:application
+
 setup-local:
 	pip install -r configs/requirements/dev.txt
 	gem install foreman travis

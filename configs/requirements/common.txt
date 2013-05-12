@@ -3,6 +3,8 @@ South==0.7.6
 django-extensions==1.1.1
 django-grappelli==2.4.4
 git+git://github.com/saulshanabrook/django-url-tracker@factor/testing
+gunicorn==0.17.4
+newrelic
 
 ##
 #Caching

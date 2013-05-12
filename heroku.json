@@ -4,7 +4,8 @@
     "memcachier:dev",
     "pgbackups:auto-month",
     "sentry:developer",
-    "heroku-postgresql:dev"
+    "heroku-postgresql:dev",
+    "newrelic"
   ],
   "env": {
   }

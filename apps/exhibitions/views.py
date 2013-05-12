@@ -36,9 +36,17 @@ class ExhibitionCurrent(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ExhibitionCurrent, self).get_context_data(**kwargs)
-        context['press_release_photo'] = context['exhibition'].get_press_release_photo()
+        context['url'] = context['exhibition'].get_absolute_url()
+        context['title '] = unicode(context['exhibition'])
+        press_release_photo = context['exhibition'].get_press_release_photo()
+        if press_release_photo:
+            context['press_release_photo_url'] = press_release_photo.url
+
         try:
-            context['flatpage'] = FlatPage.objects.get(url__exact='/')
+            flatpage = FlatPage.objects.get(url__exact='/')
         except FlatPage.DoesNotExist:
             pass
+        else:
+            context['extra_content'] = flatpage.content
+
         return context

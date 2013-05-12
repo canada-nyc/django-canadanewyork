@@ -4,12 +4,12 @@
 
 {% block body %}
 <article>
-  <a href="{{ exhibition.get_absolute_url }}">
-    {% if press_release_photo %}
-     <img src="{{ press_release_photo.url }}" width="{{ press_release_photo.width }}" height="{{ press_release_photo.height }}"/>
+  <a href="{{ url }}">
+    {% if press_release_photo_url %}
+     <img src="{{ press_release_photo_url }}"/>
     {% endif %}
-    <h1>{{ exhibition }}</h1>
+    <h1>{{ title }}</h1>
   </a>
-  <p>{{ flatpage.content|safe }}</p>
+  <p>{{ extra_content|safe }}</p>
 </article>
 {% endblock body %}

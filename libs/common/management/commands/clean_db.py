@@ -46,8 +46,8 @@ class Command(NoArgsCommand):
             if options.get('interactive'):
                 if raw_input(
                     ("Error when droppping DB:\n\n {} \n\n Note: if using "
-                     "Heroku, have you `heroku pg:reset DATABASE_URL` manually?\n"
-                     "(y or yes)\n").format(e)
+                     "Heroku, have you `heroku pg:reset DATABASE_URL` "
+                     "manually?\n(y or yes)\n").format(e)
                 ) not in ('yes', 'y'):
                     print 'Do that first'
                     return

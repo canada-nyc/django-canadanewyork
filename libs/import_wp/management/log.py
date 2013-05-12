@@ -17,7 +17,7 @@ class Log(object):
         return self
 
     def __call__(self, string):
-        rows, columns = os.popen('stty size', 'r').read().split()
+        rows, columns = os.popen('stty size').read().split()
         width = int(columns) - 4 * self.level - 2
 
         if not isinstance(string, basestring):

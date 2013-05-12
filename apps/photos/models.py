@@ -23,7 +23,7 @@ class Photo(url_tracker.URLTrackingMixin, models.Model):
 
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
-    content_object = generic.GenericForeignKey('content_type', 'object_id')
+    content_object = generic.GenericForeignKey()
 
     position = models.PositiveSmallIntegerField("Position", null=True, blank=True)
 

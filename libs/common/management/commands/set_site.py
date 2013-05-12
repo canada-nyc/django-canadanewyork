@@ -8,7 +8,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if len(args) != 1:
-            raise CommandError('Called with one argument, specifiying the domain of the site')
+            raise CommandError(
+                'Called with one argument, specifiying the domain of the site')
         site = Site.objects.get_current()
         print 'Settings site to {}'.format(args[0])
         site.domain = site.name = args[0]

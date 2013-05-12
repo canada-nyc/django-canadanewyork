@@ -10,7 +10,8 @@ class Command(NoArgsCommand):
 
     def handle(self, *args, **options):
         if settings.DEFAULT_FILE_STORAGE != 'django.core.files.storage.FileSystemStorage':
-            self.log('    Found bucket {}'.format(settings.AWS_STORAGE_BUCKET_NAME))
+            self.log(
+                '    Found bucket {}'.format(settings.AWS_STORAGE_BUCKET_NAME))
             self.log('    Getting connection...')
             connection = default_storage.connection
             self.log('    Getting bucket...')

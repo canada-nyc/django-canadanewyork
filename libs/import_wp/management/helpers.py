@@ -121,7 +121,7 @@ def date_from_text(text, year, default=None, return_default=False):
 
     for pos in range(len(text)):
         date_text = text[pos:]
-        resulting_text = text[:pos]
+        # resulting_text = text[:pos]
         resulting_text = text
         try:
             date = dateutil.parser.parse(date_text, default=default)

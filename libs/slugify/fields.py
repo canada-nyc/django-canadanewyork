@@ -52,4 +52,4 @@ class SlugifyField(SlugField):
         kwargs.update({
             'populate_from': repr(self.populate_from)
         })
-        return (field_class, args, kwargs)
+        return field_class, args, kwargs

@@ -22,7 +22,8 @@ class Command(management.base.BaseCommand):
             press__content='content_in_press'
         )
         PressFactory(artist__n=1, content_file__make=True)
-        ExhibitionFactory(press__n=3, press__content_file__make=True, photos__n=4)
+        ExhibitionFactory(press__n=3, press__content_file__make=True,
+                          photos__n=4)
         factory.create_batch(
             UpdateFactory,
             5,

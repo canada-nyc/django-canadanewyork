@@ -2,6 +2,7 @@
 -r testing.txt
 -r import_wp.txt
 
-git+git://github.com/django-debug-toolbar/django-debug-toolbar.git
+git+git://github.com/django-debug-toolbar/django-debug-toolbar.git@5ae6fcc61c7596b4980e85186f3737fad01a0ad4
 pudb==2013.1
 pylibmc==1.2.3
+git+git://github.com/orf/django-debug-toolbar-template-timings.git@771ac09152b2027eba96fe4c5846035781c9c590

@@ -142,7 +142,7 @@ COMPRESS_ENABLED = True
 STATICFILES_FINDERS += ('compressor.finders.CompressorFinder',)
 COMPRESS_CSS_FILTERS = [
     'compressor.filters.css_default.CssAbsoluteFilter',
-    #'compressor.filters.cssmin.CSSMinFilter',
+    'compressor.filters.cssmin.CSSMinFilter',
 ]
 COMPRESS_JS_FILTERS = [
     'configs.filters.UglifyJSFilter'
@@ -182,9 +182,9 @@ CACHES = memcacheify()
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
-MIDDLEWARE_CLASSES += ('django.middleware.cache.FetchFromCacheMiddleware',)
-# Must be first
-MIDDLEWARE_CLASSES = ('django.middleware.cache.UpdateCacheMiddleware',) + MIDDLEWARE_CLASSES
+# MIDDLEWARE_CLASSES += ('django.middleware.cache.FetchFromCacheMiddleware',)
+# # Must be first
+# MIDDLEWARE_CLASSES = ('django.middleware.cache.UpdateCacheMiddleware',) + MIDDLEWARE_CLASSES
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 

@@ -4,14 +4,24 @@ import dj_database_url
 from memcacheify import memcacheify
 
 from django.conf.global_settings import *
+from django.core.exceptions import ImproperlyConfigured
 
 from libs.common.utils import rel_path, SITE_ROOT
+
+
+def get_env_variable(var_name):
+    """ Get the environment variable or return exception """
+    try:
+        return os.environ[var_name]
+    except KeyError:
+        error_msg = "Set the %s environment variable" % var_name
+        raise ImproperlyConfigured(error_msg)
 
 
 ##################
 # DJANGO DEFAULT #
 ##################
-SECRET_KEY = os.environ.get('SECRET_KEY', '*YSHFUIH&GAHJBJCZKCY)P#R')
+SECRET_KEY = get_env_variable('SECRET_KEY')
 WSGI_APPLICATION = 'wsgi.application'
 DATE_FORMAT = 'F j'
 ROOT_URLCONF = 'configs.urls'
@@ -115,9 +125,9 @@ STATICFILES_DIRS = (
 INSTALLED_APPS += (
     'storages',
 )
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_BUCKET')
+AWS_ACCESS_KEY_ID = get_env_variable('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = get_env_variable('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = get_env_variable('AWS_BUCKET')
 AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME
 AWS_HEADERS = {
     "Cache-Control": "public, max-age=31536000",

@@ -100,6 +100,7 @@ INSTALLED_APPS += ('django.contrib.flatpages',)
 # IMAGES #
 ##########
 INSTALLED_APPS += ('imagekit',)
+IMAGEKIT_DEFAULT_CACHEFILE_STRATEGY = 'imagekit.cachefiles.strategies.Optimistic'
 
 
 ###########

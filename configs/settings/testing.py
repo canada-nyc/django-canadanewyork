@@ -11,7 +11,7 @@ NOSE_ARGS = [
     '--with-specplugin',
     '--detailed-errors',
     '--nologcapture',
-    'tests'
+    '-s'
 ]
 
 ########

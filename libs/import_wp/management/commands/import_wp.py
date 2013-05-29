@@ -11,13 +11,17 @@ from .. import log, conversion, helpers
 
 class Command(BaseCommand):
     help = 'Add data from site'
-    args = '(<wordpress export file>)'
+    args = '(<wordpress export file>), (<object number to start on>)'
 
     def handle(self, *args, **options):
         L = log.Log()
-        if len(args) != 1:
-            raise CommandError('Called with one argument, specifiying the path to an exported wordpress file')
+        if not len(args):
+            raise CommandError('Called with one or two arguments, specifiying the path to an exported wordpress file and the object number to start on')
 
+        if len(args) == 2:
+            starting_number = int(args[1])
+        else:
+            starting_number = None
         L('Parsing')
         tree = xml.etree.ElementTree.parse(
             args[0],
@@ -57,8 +61,12 @@ class Command(BaseCommand):
                     pass
                 else:
                     if url_test.match(url):
+                        number = len(added_models)
+                        if starting_number and number < starting_number:
+                            added_models.append(None)
+                            continue
                         L += 1
-                        L('adding #{}, {}'.format(len(added_models), url))
+                        L('adding #{}, {}'.format(number, url))
                         try:
                             sid = transaction.savepoint()
                             added_models.append(e_function(element, elements))

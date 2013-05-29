@@ -8,7 +8,7 @@ HEROKU_PROD_NAME="canada"
 
 
 run-local-newrelic:
-	foreman run newrelic-admin run-program gunicorn wsgi:application
+	foreman run newrelic-admin run-program gunicorn --graceful-timeout 600 wsgi:application
 
 setup-local:
 	pip install -r configs/requirements/dev.txt

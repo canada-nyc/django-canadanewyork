@@ -18,7 +18,7 @@
         {
           id: "{{ photo.id }}",
           sizes: {
-            {% thumbnail "x600" photo.image as thumb %}
+            {% thumbnail "x600" photo.image upscale=False as thumb %}
             thumb: {
               url:    "{{ thumb.url|escapejs }}",
               width:  "{{ thumb.width|escapejs }}",

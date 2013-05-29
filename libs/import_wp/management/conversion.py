@@ -222,6 +222,7 @@ def _create_photo(element, content_object):
         P.image.save(
             *helpers.file_from_link(element.findtext('guid'))
         )
+        P.save()
         return P
 
 

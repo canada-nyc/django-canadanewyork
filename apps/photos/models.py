@@ -40,7 +40,8 @@ class Photo(models.Model):
         editable=False,
         upload_to=thumbnail_image_path,
         height_field='thumbnail_image_height',
-        width_field='thumbnail_image_width'
+        width_field='thumbnail_image_width',
+        max_length=1000
     )
     large_image = models.ImageField(
         blank=True,
@@ -48,7 +49,8 @@ class Photo(models.Model):
         editable=False,
         upload_to=large_image_path,
         height_field='large_image_height',
-        width_field='large_image_width'
+        width_field='large_image_width',
+        max_length=1000
     )
     thumbnail_image_height = models.PositiveIntegerField(null=True, blank=True)
     thumbnail_image_width = models.PositiveIntegerField(null=True, blank=True)
@@ -59,7 +61,11 @@ class Photo(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey()
 
-    position = models.PositiveSmallIntegerField("Position", null=True, blank=True)
+    position = models.PositiveSmallIntegerField(
+        "Position",
+        null=True,
+        blank=True
+    )
 
     class Meta:
         ordering = ['position']

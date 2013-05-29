@@ -17,7 +17,7 @@ django-clear-cache==0.3
 #Images
 ##
 Pillow==1.7.7
-django-simpleimages==0.1.8
+django-simpleimages==0.2.0
 
 ##
 #Templates

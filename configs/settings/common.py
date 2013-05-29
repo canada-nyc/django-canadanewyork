@@ -61,7 +61,9 @@ INSTALLED_APPS += (
 INSTALLED_APPS += (
     "url_tracker",
 )
-MIDDLEWARE_CLASSES += ('url_tracker.middleware.URLChangePermanentRedirectMiddleware',)
+MIDDLEWARE_CLASSES += (
+    'url_tracker.middleware.URLChangePermanentRedirectMiddleware',
+)
 
 
 #########
@@ -110,7 +112,11 @@ INSTALLED_APPS += (
 )
 SOUTH_TESTS_MIGRATE = False
 
-DATABASES = {'default': dj_database_url.config(default='postgres://saul@localhost/django_canadanewyork')}
+DATABASES = {
+    'default': dj_database_url.config(
+        default='postgres://saul@localhost/django_canadanewyork'
+    )
+}
 
 
 ###########
@@ -149,8 +155,10 @@ STATIC_URL = 'http://{}/'.format(AWS_S3_CUSTOM_DOMAIN)
 #############
 INSTALLED_APPS += ('compressor',)
 COMPRESS_ENABLED = True
+COMPRESS_STORAGE = STATICFILES_STORAGE
 STATICFILES_FINDERS += ('compressor.finders.CompressorFinder',)
 COMPRESS_CSS_FILTERS = [
+    'compressor.filters.template.TemplateFilter',
     'compressor.filters.css_default.CssAbsoluteFilter',
     # 'compressor.filters.cssmin.CSSMinFilter',
 ]
@@ -160,7 +168,7 @@ COMPRESS_JS_FILTERS = [
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),
 )
-COMPRESS_STORAGE = STATICFILES_STORAGE
+COMPRESS_TEMPLATE_FILTER_CONTEXT = {}
 
 
 ############
@@ -230,7 +238,7 @@ LOGGING = {
     'handlers': {
         'sentry': {
             'level': 'WARNING',
-            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler'
         },
         'console': {
             'level': 'INFO',

@@ -52,10 +52,26 @@ class Photo(models.Model):
         width_field='large_image_width',
         max_length=1000
     )
-    thumbnail_image_height = models.PositiveIntegerField(null=True, blank=True)
-    thumbnail_image_width = models.PositiveIntegerField(null=True, blank=True)
-    large_image_height = models.PositiveIntegerField(null=True, blank=True)
-    large_image_width = models.PositiveIntegerField(null=True, blank=True)
+    thumbnail_image_height = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        editable=False,
+    )
+    thumbnail_image_width = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        editable=False,
+    )
+    large_image_height = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        editable=False,
+    )
+    large_image_width = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        editable=False,
+    )
 
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()

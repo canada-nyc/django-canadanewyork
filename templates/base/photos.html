@@ -4,7 +4,7 @@
 {% if photos %}
 {% with first_photo=photos|first %}
   <div class="gallery" id="{{ id }}">
-    <img href="{{ first_photo.thumbnail_image.url }}" height="{{ first_photo.thumbnail_image_height" width="{{ first_photo.thumbnail_image_width">
+    <img src="{{ first_photo.thumbnail_image.url }}" height="{{ first_photo.thumbnail_image_height }}" width="{{ first_photo.thumbnail_image_width }}" />
   {% addtoblock "js" %}
   <script type="text/javascript">
     {% if id == None %}

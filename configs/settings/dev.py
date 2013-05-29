@@ -1,5 +1,4 @@
-from .testing import *
-from .local_storage import *
+from .common import *
 
 
 #########
@@ -7,6 +6,7 @@ from .local_storage import *
 #########
 ALLOWED_HOSTS = ['*', ]
 
+INSTALLED_APPS = [app for app in INSTALLED_APPS if app != 'south']
 
 #########
 # DEBUG #

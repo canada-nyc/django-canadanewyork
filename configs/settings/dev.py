@@ -6,7 +6,6 @@ from .common import *
 #########
 ALLOWED_HOSTS = ['*', ]
 
-INSTALLED_APPS = [app for app in INSTALLED_APPS if app != 'south']
 
 #########
 # DEBUG #

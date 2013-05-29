@@ -99,7 +99,7 @@ INSTALLED_APPS += ('django.contrib.flatpages',)
 ##########
 # IMAGES #
 ##########
-INSTALLED_APPS += ('imagekit',)
+INSTALLED_APPS += ('simpleimages',)
 
 
 ###########

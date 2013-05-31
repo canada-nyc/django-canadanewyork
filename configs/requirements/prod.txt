@@ -1,2 +1,3 @@
 -r common.txt
 -r import_wp.txt
+-r testing.txt

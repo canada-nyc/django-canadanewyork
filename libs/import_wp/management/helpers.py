@@ -117,8 +117,13 @@ def date_from_text(text, year, default=None, return_default=False):
     '''
     given a string will try to parse a date from that string
     '''
-    default = default or dateutil.parser.parse(year)
-
+    try:
+        default = default or dateutil.parser.parse(year)
+    except ValueError:
+        try:
+            default = dateutil.parser.parse(year.split('-')[0])
+        except ValueError:
+            default = dateutil.parser.parse('2013')
     for pos in range(len(text)):
         date_text = text[pos:]
         # resulting_text = text[:pos]

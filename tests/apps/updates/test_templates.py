@@ -37,7 +37,7 @@ class UpdateRenderSpeedTest(WebTest):
     def test_list(self):
         print 'Getting update page initially to cache javscript'
         self.app.get(reverse('update-list'))
-        number_of_updates = 50
+        number_of_updates = 40
         print 'Creating {} Test Updates'.format(str(number_of_updates))
         start_time = time()
         for _ in range(number_of_updates):

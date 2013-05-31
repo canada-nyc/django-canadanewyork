@@ -193,6 +193,7 @@ def create_update(element, all_elements):
         )
         P.clean()
         P.image.save(*helpers.file_from_link(link))
+        P.save()
     return U
 
 

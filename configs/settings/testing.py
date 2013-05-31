@@ -11,7 +11,7 @@ NOSE_ARGS = [
     '--with-specplugin',
     '--detailed-errors',
     '--nologcapture',
-    '-s'
+    'tests'
 ]
 
 ########
@@ -20,7 +20,6 @@ NOSE_ARGS = [
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake'
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     }
 }

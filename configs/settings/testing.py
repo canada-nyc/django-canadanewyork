@@ -17,6 +17,7 @@ NOSE_ARGS = [
 ########
 # CACHE #
 ########
+DATABASES['default'] = {'ENGINE': 'django.db.backends.sqlite3'}
 
 # CACHES = {
 #     'default': {

@@ -9,36 +9,30 @@ import simpleimages
 
 class Photo(models.Model):
 
-    def image_path(instance, filename):
-        return os.path.join(
+    def image_path_function(subfolder):
+        # django-storages won't quote file paths when using a subdomain
+        # files with spaces in their name will then break. So we need to
+        # manually remove the spaces
+        # relevent issue: https://bitbucket.org/david/django-storages/issue/113
+        return lambda instance, filename: os.path.join(
             'photos',
+            subfolder,
             unicode(instance.content_type),
             unicode(instance.object_id),
-            filename,
-        )
-
-    def large_image_path(instance, filename):
-        return os.path.join(
-            'CACHE',
-            'large',
-            instance.image_path(filename)
-        )
-
-    def thumbnail_image_path(instance, filename):
-        return os.path.join(
-            'CACHE',
-            'thumbnail',
-            instance.image_path(filename)
-        )
+            filename
+        ).replace(' ', '-')
 
     title = models.CharField(blank=True, max_length=400)
     caption = models.TextField(blank=True)
-    image = models.ImageField(upload_to=image_path, max_length=1000)
+    image = models.ImageField(
+        upload_to=image_path_function('original'),
+        max_length=1000
+    )
     thumbnail_image = models.ImageField(
         blank=True,
         null=True,
         editable=False,
-        upload_to=thumbnail_image_path,
+        upload_to=image_path_function('thumbnail'),
         height_field='thumbnail_image_height',
         width_field='thumbnail_image_width',
         max_length=1000
@@ -47,7 +41,7 @@ class Photo(models.Model):
         blank=True,
         null=True,
         editable=False,
-        upload_to=large_image_path,
+        upload_to=image_path_function('large'),
         height_field='large_image_height',
         width_field='large_image_width',
         max_length=1000

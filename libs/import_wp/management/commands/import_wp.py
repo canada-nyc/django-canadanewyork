@@ -76,8 +76,16 @@ class Command(BaseCommand):
                             L += 1
                             L('Duplicate, not added')
                             L -= 1
-                        L -= 1
-        L -= 1
+                        except Exception:
+                            try:
+                                sid = transaction.savepoint()
+                                added_models.append(e_function(element, elements))
+                                transaction.savepoint_commit(sid)
+                            except IntegrityError:
+                                transaction.savepoint_rollback(sid)
+                                L += 1
+                                L('Duplicate, not added')
+                                L -= 1
 
         L('Cleaning models')
 

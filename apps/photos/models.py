@@ -10,17 +10,13 @@ import simpleimages
 class Photo(models.Model):
 
     def image_path_function(subfolder):
-        # django-storages won't quote file paths when using a subdomain
-        # files with spaces in their name will then break. So we need to
-        # manually remove the spaces
-        # relevent issue: https://bitbucket.org/david/django-storages/issue/113
         return lambda instance, filename: os.path.join(
             'photos',
             subfolder,
             unicode(instance.content_type),
             unicode(instance.object_id),
             filename
-        ).replace(' ', '-')
+        )
 
     title = models.CharField(blank=True, max_length=400)
     caption = models.TextField(blank=True)

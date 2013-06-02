@@ -79,7 +79,8 @@ promote-db-local:
 	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapp.com'
 
 promote-db-heroku-dev:
-	heroku pgbackups:transfer (heroku config:get DATABASE_URL --app ${HEROKU_PROD_NAME}) --app ${HEROKU_DEV_NAME}
+	heroku pgbackups:capture -a ${HEROKU_DEV_NAME} --expire
+	heroku pgbackups:restore DATABASE -a ${HEROKU_PROD_NAME} (heroku pgbackups:url -a ${HEROKU_DEV_NAME}) --confirm canada
 	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapp.com' --app ${HEROKU_PROD_NAME}
 
 promote-code-local:

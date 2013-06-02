@@ -86,6 +86,7 @@ class Command(BaseCommand):
                                 L += 1
                                 L('Duplicate, not added')
                                 L -= 1
+                        L -= 1
 
         L('Cleaning models')
 

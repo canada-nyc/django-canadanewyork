@@ -6,7 +6,7 @@ from .models import Exhibition
 
 
 class ExhibitionList(ListView):
-    queryset = Exhibition.objects.all()
+    queryset = Exhibition.prefetch_related.all()
 
 
 class ExhibitionDetail(DetailView):

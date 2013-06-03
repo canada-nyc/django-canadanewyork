@@ -83,6 +83,12 @@ promote-db-heroku-dev:
 	heroku pgbackups:restore DATABASE -a ${HEROKU_PROD_NAME} (heroku pgbackups:url -a ${HEROKU_DEV_NAME}) --confirm canada
 	heroku run 'python manage.py set_site "$$heroku_app_name".herokuapp.com' --app ${HEROKU_PROD_NAME}
 
+demote-db-heroku-dev:
+	heroku pgbackups:capture -a ${HEROKU_DEV_NAME}
+	curl -o latest.dump (heroku pgbackups:url -a ${HEROKU_DEV_NAME})
+	pg_restore --verbose --clean --no-acl --no-owner -h localhost -U saul -d django_canadanewyork latest.dump
+	rm latest.dump
+
 promote-code-local:
 	git push heroku master
 	yes | heroku bootstrap ${HEROKU_DEV_NAME}

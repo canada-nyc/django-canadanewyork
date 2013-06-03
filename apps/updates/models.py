@@ -3,18 +3,15 @@ from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
 
 import url_tracker
-import caching.base
 
 from apps.photos.models import Photo
 
 
-class Update(caching.base.CachingMixin, url_tracker.URLTrackingMixin, models.Model):
+class Update(url_tracker.URLTrackingMixin, models.Model):
     description = models.TextField(blank=True)
     post_date = models.DateField(auto_now_add=True)
 
     photos = generic.GenericRelation(Photo)
-
-    objects = caching.base.CachingManager()
 
     class Meta:
         ordering = ["-post_date"]

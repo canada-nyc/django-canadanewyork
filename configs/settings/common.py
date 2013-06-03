@@ -1,4 +1,5 @@
 import os
+import urlparse
 
 import dj_database_url
 from memcacheify import memcacheify
@@ -201,9 +202,27 @@ CACHES = memcacheify()
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
-# cache machine
-CACHE_COUNT_TIMEOUT = 60 * 2  # seconds to cache .count()
+# Jonny Cache
+redis_url = urlparse.urlparse(
+    os.environ.get('REDISCLOUD_URL', 'http://localhost:6379')
+)
+CACHES['johny'] = {
+    'BACKEND': 'redis_cache.RedisCache',
+    'LOCATION': '{}:{}'.format(redis_url.hostname, redis_url.port),
+    'JOHNNY_CACHE': True,
+    'OPTIONS': {
+        'PASSWORD': redis_url.password,
+        'DB': 0,
+    }
+}
 
+MIDDLEWARE_CLASSES = (
+    'johnny.middleware.LocalStoreClearMiddleware',
+    'johnny.middleware.QueryCacheMiddleware',
+    # ...
+) + MIDDLEWARE_CLASSES
+
+JOHNNY_MIDDLEWARE_KEY_PREFIX = 'jc_canadanewyork'
 
 ###########
 # LOGGING #

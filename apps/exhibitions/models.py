@@ -6,7 +6,6 @@ from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
 
 import url_tracker
-import caching.base
 
 from ..artists.models import Artist
 from libs.slugify.fields import SlugifyField
@@ -16,11 +15,10 @@ from libs.unique_boolean.fields import UniqueBooleanField
 
 class PrefetchArtists(models.Manager):
     def get_query_set(self):
-        queryset = caching.base.CachingQuerySet(self.model, using=self._db)
-        return queryset.prefetch_related('artists')
+        return super(PrefetchArtists, self).get_query_set().prefetch_related('artists')
 
 
-class Exhibition(url_tracker.URLTrackingMixin, caching.base.CachingMixin, models.Model):
+class Exhibition(url_tracker.URLTrackingMixin, models.Model):
 
     def image_path(instance, filename):
         return os.path.join(instance.get_absolute_url()[1:], 'press_release_photos', filename)
@@ -51,7 +49,7 @@ class Exhibition(url_tracker.URLTrackingMixin, caching.base.CachingMixin, models
 
     photos = generic.GenericRelation(Photo)
 
-    objects = caching.base.CachingManager()
+    objects = models.Manager()
     prefetch_related = PrefetchArtists()
 
     class Meta:

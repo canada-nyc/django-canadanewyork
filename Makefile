@@ -90,7 +90,7 @@ demote-db-heroku-dev:
 	rm latest.dump
 
 promote-code-local:
-	git push heroku master
+	git push --force heroku master
 	yes | heroku bootstrap ${HEROKU_DEV_NAME}
 
 promote-code-heroku-dev:

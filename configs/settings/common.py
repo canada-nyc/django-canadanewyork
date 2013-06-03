@@ -159,6 +159,7 @@ COMPRESS_ENABLED = True
 COMPRESS_STORAGE = STATICFILES_STORAGE
 STATICFILES_FINDERS += ('compressor.finders.CompressorFinder',)
 COMPRESS_CSS_FILTERS = [
+    'compressor.filters.template.TemplateFilter',
     'compressor.filters.css_default.CssAbsoluteFilter',
     # 'compressor.filters.cssmin.CSSMinFilter',
 ]
@@ -168,6 +169,7 @@ COMPRESS_JS_FILTERS = [
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),
 )
+COMPRESS_TEMPLATE_FILTER_CONTEXT = {}
 
 
 ############

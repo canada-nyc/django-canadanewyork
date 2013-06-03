@@ -89,8 +89,8 @@ class Photo(models.Model):
 
     transformed_fields = {
         'image': {
-            'thumbnail_image': simpleimages.transforms.scale(width=600),
-            'large_image': simpleimages.transforms.scale(width=800),
+            'thumbnail_image': simpleimages.transforms.scale(height=600),
+            'large_image': simpleimages.transforms.scale(height=800),
         }
     }
 

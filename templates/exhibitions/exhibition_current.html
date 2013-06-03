@@ -4,11 +4,11 @@
 
 {% block body %}
 <article>
-  <a href="{{ url }}">
-    {% if press_release_photo_url %}
-     <img src="{{ press_release_photo_url }}"/>
+  <a href="{{ exhibition.get_absolute_url }}">
+    {% if exhibition.get_press_release_photo %}
+     <img src="{{ exhibition.get_press_release_photo.url }}"/>
     {% endif %}
-    <h1>{{ title }}</h1>
+    <h1>{{ exhibition }}</h1>
   </a>
   <p>{{ extra_content|safe }}</p>
 </article>

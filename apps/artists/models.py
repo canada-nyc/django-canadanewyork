@@ -5,6 +5,7 @@ from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
 
 import url_tracker
+import caching.base
 
 from libs.slugify.fields import SlugifyField
 from apps.photos.models import Photo
@@ -12,10 +13,11 @@ from apps.photos.models import Photo
 
 class VisibleManager(models.Manager):
     def get_query_set(self):
-        return super(VisibleManager, self).get_query_set().filter(visible=True)
+        queryset = caching.base.CachingQuerySet(self.model, using=self._db)
+        return queryset.filter(visible=True)
 
 
-class Artist(url_tracker.URLTrackingMixin, models.Model):
+class Artist(url_tracker.URLTrackingMixin, caching.base.CachingMixin, models.Model):
 
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -27,7 +29,7 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
 
     photos = generic.GenericRelation(Photo)
 
-    objects = models.Manager()
+    objects = caching.base.CachingManager()
     in_gallery = VisibleManager()
 
     class Meta:

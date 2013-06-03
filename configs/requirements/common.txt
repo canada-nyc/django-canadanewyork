@@ -12,6 +12,7 @@ newrelic
 django-heroku-memcacheify==0.4
 redis
 django-clear-cache==0.3
+django-cache-machine==0.8
 
 ##
 #Images

@@ -5,9 +5,10 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
 import simpleimages
+import caching.base
 
 
-class Photo(models.Model):
+class Photo(caching.base.CachingMixin, models.Model):
 
     def image_path_function(subfolder):
         return lambda instance, filename: os.path.join(
@@ -72,6 +73,8 @@ class Photo(models.Model):
         null=True,
         blank=True
     )
+
+    objects = caching.base.CachingManager()
 
     class Meta:
         ordering = ['position']

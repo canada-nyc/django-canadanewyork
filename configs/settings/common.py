@@ -201,11 +201,8 @@ CACHES = memcacheify()
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
-# MIDDLEWARE_CLASSES += ('django.middleware.cache.FetchFromCacheMiddleware',)
-# # Must be first
-# MIDDLEWARE_CLASSES = ('django.middleware.cache.UpdateCacheMiddleware',) + MIDDLEWARE_CLASSES
-
-SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+# cache machine
+CACHE_COUNT_TIMEOUT = 60 * 2  # seconds to cache .count()
 
 
 ###########

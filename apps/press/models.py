@@ -1,17 +1,18 @@
 import os
 
-import url_tracker
-
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
+
+import caching.base
+import url_tracker
 
 from ..artists.models import Artist
 from ..exhibitions.models import Exhibition
 from libs.slugify.fields import SlugifyField
 
 
-class Press(url_tracker.URLTrackingMixin, models.Model):
+class Press(caching.base.CachingMixin, url_tracker.URLTrackingMixin, models.Model):
     def file_path(instance, filename):
         return os.path.join(instance.get_absolute_url()[1:], 'content', filename)
 
@@ -34,6 +35,8 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
         slug_template=u'{}/{}',
         unique=True
     )
+
+    objects = caching.base.CachingManager()
 
     class Meta:
         ordering = ['-date']

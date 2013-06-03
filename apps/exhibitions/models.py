@@ -6,6 +6,7 @@ from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
 
 import url_tracker
+import caching.base
 
 from ..artists.models import Artist
 from libs.slugify.fields import SlugifyField
@@ -13,12 +14,7 @@ from apps.photos.models import Photo
 from libs.unique_boolean.fields import UniqueBooleanField
 
 
-class CurrentManager(models.Manager):
-    def get_current(self):
-        return super(CurrentManager, self).get(current=True)
-
-
-class Exhibition(url_tracker.URLTrackingMixin, models.Model):
+class Exhibition(url_tracker.URLTrackingMixin, caching.base.CachingMixin, models.Model):
 
     def image_path(instance, filename):
         return os.path.join(instance.get_absolute_url()[1:], 'press_release_photos', filename)
@@ -49,13 +45,13 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
 
     photos = generic.GenericRelation(Photo)
 
-    objects = CurrentManager()
+    objects = caching.base.CachingManager()
 
     class Meta:
         ordering = ["-start_date"]
 
     def __unicode__(self):
-        if self.artists.count() == 1:
+        if len(self.artists.all()) == 1:
             return u'{}: {}'.format(self.artists.all()[0], self.name)
         return self.name
 

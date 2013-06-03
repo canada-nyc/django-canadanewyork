@@ -32,7 +32,7 @@ class ExhibitionCurrent(DetailView):
     template_name = 'exhibitions/exhibition_current.html'
 
     def get_object(self):
-        return Exhibition.objects.get_current()
+        return Exhibition.objects.get(current=True)
 
     def get_context_data(self, **kwargs):
         context = super(ExhibitionCurrent, self).get_context_data(**kwargs)

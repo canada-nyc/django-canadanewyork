@@ -14,83 +14,34 @@ notifications:
   email: false
 env:
   global:
-  - secure: ! 'yxrFQmHPIl1v7jHk8+so4eiOIenbyB2puc/qv06qNbndAyYFKkLDNpkE46Jx
+  - DJANGO_SETTINGS_MODULE=configs.settings
+  - CANADA_TESTRUNNER=True
+  - CANADA_ALLOWED_HOSTS=*
+  - CANADA_DEBUG=False
+  - CANADA_SENTRY=False
+  - CANADA_STORAGE=local
+  - CANADA_CACHE=dummy
+  - CANADA_CACHE_TEMPLATES=False
+  - CANADA_CONSOLE_LOGGING_LEVEL=INFO
+  - DATABASE_URL=postgres://postgres@localhost/django_canadanewyork
+  - CANADA_ALLOWED_HOST=False
+  - secure: ! 'MpafzWTy6eQkeAUE517tdKxOO+nu69iCFsz50qLrb/zdguxPEfWqUnHGApiy
 
-      0gXI1J6CXuqgt9uBZ8ko4juie1Q6IId+keH/9YVXoH1vHdoNa/9Wa0BZtjMH
+      xsRg9CmnuL1hVJDFeRRJ889pYT00QGAwhYwRa2X2S6t0LStp2Nt/daEIR6Pa
 
-      3UElLggacG4W04XS+WcXldZHHtaBMba571j6lKXjlxB5FBs8CGg='
-  - secure: ! 'VfPDXZqm10wC5qbEfjuXSAnRlFbhJorrxGuSVtoSieElxWEJIL8FKoY+MatC
+      lsffI56jkLlXcv7cALnwLJwmePSDYED48YHc5CREA1nJm7J9X5I='
+  - secure: ! 'LfVerBBspmRJiH/8MbQd0TpBACb6mFUSXPb2Z01vxoPGs/BsY7tFMpN5skQt
 
-      eWD42mxB80jypR//oEDDAlwAW1yszdalCSCmND9q3druyZO0dwMSEG9itCHZ
+      SzvMzL5WNo7a1qTfYT29vO+cr+YfXmcT9ZWWy9AXVKyZ91fpDAN+5K/xLPEd
 
-      l0xEx1zX6CUvMGR4OLLawVAaubC6htH+7RfL92tweGzFUpI/eFY='
-  - secure: ! 'BPViU0FatTzphDr1NQ2NEK06EGceGnwWFPVYXxiteC5jCf/Ff/Aic8ydpLso
+      pur5A8T6fYGQ2pHn9zrhVPQRKTAfln3t7771Rek8v5G+C8tLANU='
+  - secure: ! 'hXn11IEE7geQ6mqygH1iFanpQ26Aw3pRp2vVY1Va+CtvlabaVeb+gwKYt28E
 
-      nsZGQsA2cdBYphQA8LEy0WM1sDDlr80B6WvqN6ZoUfm/n2rbxvJoLJXuOyzg
+      KWf00mGe0HaQO3N9yk0/4otYYA/bSkBeH9PiCTsIg586ncQvvY/MrINap2c/
 
-      qriL1NmSzJxfd9frMqNLdwroD0ydBHPZ/BoRu6Q8izWNgQHiBS8='
-  - secure: ! 'Lk1xETiZMVBUKgMWHlEvL3D8FgeR9CADAMueJK5eQFsD7QSN6ndTH1Yha3mR
+      7HEY0BH+FPPhKGrFHmDxiaokO0btKChzGMAyzIUDEFkvIyeoZnY='
+  - secure: ! 'HQFYOtMAbZqhgipi6jhVIN+D3QpKUnO4uVGxg7MEAbN0v3lSQhBvWXIAuV/6
 
-      h+2MZkTUEOyXP4jFJRwmBRscxKA92zA+hhMM9Dcn/evD8nwnnTP71Izf9Gjw
+      7yCFTMxqCSwTXWNIPQmYnRFl71sYgJ573VyBsJ9h0/bXipinyP8TrIS2bOkJ
 
-      aROoZMu2wtcvdhyjMD5fkttOW2FaBAXhf5u+NCE7KcK8dEYwzHw='
-  - secure: ! 'ap/aDotu+CgMrwUheY2n94U6EDQIMolEm6/JSJMv/6+vjYG/8VxRTkZIDW2z
-
-      LpC4LBhUhHYIoO3/gSba7SSOWi50lX1Ro8KeAgEvglo5qCmufnMJa6r8SnME
-
-      eANHK2/8YpaG4y5V+cW6MBWSkqqNQpkpP1O8rLyYre5eeaBm4pE='
-  - secure: ! 'lneMTW3JLqkMCfsgK0RnoJp87QlX5GhsNFi949AtaKKcyvHR636gdsbzrXYy
-
-      deiKMjzmjVpwN7PqNUxcNNrMCh7Et/crL+oLOgVr6SHNDAjvD8xBA1DBn+2C
-
-      ectNYnS2JqsRLllrD9tskkqJ4uLezMtR3QxgBqvaybQr2J+uUA4='
-  - secure: ! 'qfDxVugl6KFRbAnaI/vGNISgmxfM/3Z3cEg3rhRaDaX1it2jwOFJUmfH5mfL
-
-      g0Sk35soRB/txLCMp4sDj4r7oXu3nTov2FsgAPsol57Ud2T1al3+TMQATUCJ
-
-      717kdi16tK8jq5JYy8q7VPbitG7Cmz0W7LcEiLtTJx0hhRbfBJE='
-  - secure: ! 'sR00xdcn9/g0ox/n1L2/ZqzlGOJgAM9JHTfAqB2GF6YRfTidUsUbpCawTJ7K
-
-      ALtOazWIV7IB6HCIT8ULffHAAUjz5yhRPnx/6eYPf6YiL699mJYNHLgELCLW
-
-      6ikaX7DcW+SGwaO/FgQQP9ARBPNC1Js7KWB/hKjNFbYa8nQzYYc='
-  - secure: ! 'UJ29GgDguILg/76AtWR20jgfFJTbAZydenUnSONXZrKlZDGF/TWhazHu235g
-
-      IMsLhWuTOxGBcGYncIOX68gpESVhp26s6Aw1yXQsA794TTyUxFiSq1ezQqO4
-
-      AyybNEN1HwDuKb5AQNJUE6II/K6bIHt5a3Y3CphL3Tz1KWRgWzA='
-  - secure: ! 'qcFc1pzkZIHgaFbfSAtCrMurgHp/dhYu1qP2gXPc2omsrVE63Ip+uHDE9cJw
-
-      GtbyQRAPERFBrRW0f4cpujdllRST+ALbMznH9ZWcx2tJ9xWWfdLAxeON6XNE
-
-      Tn41WdvohEJOwG0IH16N68pRR00QnMjaaJ7So72AnpglPj3j/qY='
-  - secure: ! 'z45+qgWXAQYQIyGz4kv5lCNEXXxeZyHSASJEXncMQYZE6O7xnP12OpIPBE4r
-
-      cxglWT/K/7DagjHBIQYjBZKj8sEFblwV+MIxh75BL7eThAeYRHloDkA1FPFz
-
-      cK+YhH/cijQNXJzRoB1vef05WuFCNANmSXDZ4PL8h4dRD4KIgPQ='
-  - secure: ! 'myFzE5z4qdoxwizGl3XhkLnbQL4iwPL2i/Nftrx+SmYNNZ3GuWhBvzWy50a7
-
-      lHJ5t+vCQCI4U7nemHwdqIfcgBK4/770cGgJULev85ZEaNv7YJbp+j/VrshB
-
-      gY7UQJHaVABIgOpxTFIss2sugBwaxgqInCsYmzauoG66eTQvnII='
-  - secure: ! 'HEso2fVAhlTZc1wLKhfhCbhsNZnYF6ebj2begIjy5gV4r/2O10z0bg1hKeG5
-
-      9tF3Q3yMAF7qseYknvB34Ad2jx52BYaxAmgAqUNoE2ZFS/D6wapriX4nJUhh
-
-      R3hgWB6cn00Rsmx8wxE3Lxcs2sQfUabaYBw6Nl/PzCOOtTiqvX0='
-  - secure: ! 'kbaArY1aBZ9dh8v4PgfKdyQC/gY6+f4DYreINBlwLNJZt2Z7Lau7aJZIyclw
-
-      utRjs75tkjDs6rMuflI3ixw/RRLSYxFoTnBMqVuYSrRS24zP0uNbEpFyCNIT
-
-      QSxV4FKSNdyKw5GW0KnnYcwIoOcBaEP84w830J4M9/jpc6yVc0o='
-  - secure: ! 'sr1rPef4RLFlKc3Cwnov4VURXMR1DqnKuMRXCMqXBah2seVm7bW93rwUYGpP
-
-      9LBYlRa4DKZABN40jEIVIokj7vVmGcPkN0dwiC/k4H5WENaxsrdwGFlGee/z
-
-      CXqI3FIKhbjhvb9DUva5B2+Q/Vq1ffKehEOjwVkZxOysyosqzNA='
-  - secure: ! 'NEggIjTvsYNvS3EUgGh4ExNoKGQrXTR0LRrwow8cprm2HacciafivQ1QtHPY
-
-      RvdsTbltHXYQV3QhYmAfoMQwD0cYnMsn7kUSQNXaaOpzltmrXbCWshxmj67h
-
-      w9fsDMNoXG4wmAuU57oG/4ceeSvQkuL/FzO/yZ2Ix/SMfOXcS40='
+      njWDJIoBwswnYtytJEG/jiTXvwuFJ01FXhZ97Pm+E46vyymYEmA='

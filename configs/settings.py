@@ -22,6 +22,8 @@ def get_env_variable(var_name, possible_options=[]):
             ("The variable {} must be set to one of the following: {}"
              "It is set to {} instead")
         ).format(var_name, str(possible_options), value)
+    if value.lower() == 'false':
+        return False
     return value
 
 ##################

@@ -59,7 +59,8 @@ migrate-init: migrate-wipe
 travis-encrypt:
 	sed '/  global:/q' .travis.yml > .travis.yml.tmp
 	mv -f .travis.yml.tmp .travis.yml
-	cat configs/env/{common.env,secret.env,travis.env} | travis encrypt --split --add
+	for line in (cat configs/env/{common.env,travis.env}); echo '    - '$$line >> .travis.yml; end
+	cat configs/env/secret.env | travis encrypt --split --add
 
 promote-db-local:
 	pg_dump -Fc --no-acl --no-owner -h localhost -U saul django_canadanewyork > django_canadanewyork.dump

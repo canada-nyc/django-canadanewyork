@@ -18,7 +18,7 @@ django-redis==3.3
 #Images
 ##
 Pillow==1.7.7
-django-simpleimages==0.2.6
+django-simpleimages==0.2.7
 
 ##
 #Templates

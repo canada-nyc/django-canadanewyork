@@ -1,54 +1,69 @@
 [![Build Status](https://next.travis-ci.org/saulshanabrook/django-canadanewyork.png?branch=production)](https://next.travis-ci.org/saulshanabrook/django-canadanewyork)
 
-# Local Install
-## Depedencies
-1. libmemcached-dev: On a mac `brew install libmemcached`
-2. Postgresql (not required but preferable for consistancy): Mac users try `brew install postgresql` or
-[Postgress.app](http://postgresapp.com/).
-3. foreman: `gem install foreman`
-4. less and uglify-js for compression: `npm install --global --production "less" "git://github.com/mishoo/UglifyJS2.git#3bd7ca9961125b39dcd54d2182cb72bd1ca6006e"`
+# Depedencies
+## Essential
+* python 2.7.x
+* less and uglify-js for compression: ` npm install --global --production "less" "git://github.com/mishoo/UglifyJS2.git#3bd7ca9961125b39dcd54d2182cb72bd1ca6006e"`
 
-## Setup
-A number of environmental variables need to be set. I use foreman to run my
-app with the required variables.
+## Recommended
+* libmemcached-dev: Mac -> `brew install libmemcached`
+  For postgresql database
+* Postgresql: Mac -> `brew install postgresql` or [Postgress.app](http://postgresapp.com/).
+* foreman: `gem install foreman`
+  For managing environmental variables
+* travis: `gem install travis`
+  For creating secure `.travis.yml` environmental variables
 
-Add these variables to `configs/env/secret.env`:
+# Setup
+All runtime options are chosen using environmental variables.
 
-```
-DATABASE_URL=
-SECRET_KEY=
-ADMIN_PASSWORD=
-AWS_ACCESS_KEY_ID=
-AWS_SECRET_ACCESS_KEY=
-```
+The project uses the the `configs/env/*` files to set variables for different
+environemnts. Those files are pushed to Heroku and exported into the
+`.travis.yml` so as to consolidate all of the configuration.
 
-The `DATABASE_URL` can be any format that [dj-database-url](https://github.com/kennethreitz/dj-database-url) can handle.
+It is currently set up to use `foreman` to set environmental variables
+from the config files at runtime, when developing locally.
 
-You can also change the `AWS_BUCKET` which is in `configs/env/dev.env`.
+The default environemt variable files that are read by foreman are listed in
+`.foreman`. Take a look at those files and what their options are. If you want
+to overide any of the options you can change the file. In the future I plan
+to allow configuring all options by command line flags as well as
+environemental variables.
 
-Then install all requirements, preferably in a virtualenv
-`pip install -r configs/requirements/dev.txt --use-mirrors`
+The only file that is not checked into version control is
+`configs/env/secret.evn`. Put any variables in that file that should not be
+public. Currently it contains:
+* `SECRET_KEY` needed by django to make the application safe.
+* `ADMIN_PASSWORD` used by `manage.py clean_db` to create a superuser admin account
+* `AWS_ACCESS_KEY_ID`
+* `AWS_SECRET_ACCESS_KEY`
 
-## Initial Data
+To use the environental variables defined in the files, which are in turn
+defined in `.foreman`, prefex any command with `foreman run`. For example
+`foreman run python manage.py runserver`.
 
-Then sync the static and import the old wordpress site:
+# `Makefile`
+The `Makefile` is written for the
+[fish shell](https://github.com/fish-shell/fish-shell) syntax. If you don't
+have fish installed then stay away from it. Also, because I can not get `make`
+to run the commands in the current shell environment, I had to hardcode the
+python virtualenv path at the top of the makefile. If you do use the makefile
+then you will have to modify that for your own python interpreter.
+
+# Initial Data
+
+To wipe static, media, cache, and database
 ```
 foreman run python manage.py clean_db --noinput
+```
+
+To import the old wordpres site:
+```
 foreman run python python manage.py import_wp static/wordpress/.canada.wordpress.*
 ```
+
 Or if you don't feel like waiting to get all of those images, just
 create some factory models.
 ```
 foreman run python manage.py clean_db --noinput --init
-```
-
-Then set the site and contact pages.
-```
-foreman run python manage.py set_site 127.0.0.1:8000
-foreman run python manage.py loaddata configs/fixtures/contact.json
-```
-
-Finally run the local server
-```
-foreman run python manage.py runserver
 ```

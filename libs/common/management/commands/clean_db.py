@@ -6,6 +6,7 @@ import psycopg2
 from django.core.management.base import NoArgsCommand
 from django.core.management import call_command
 from django.contrib.auth.models import User
+from django.conf import settings
 
 
 class Command(NoArgsCommand):
@@ -63,10 +64,13 @@ class Command(NoArgsCommand):
         self.log('Collecting Static DB')
         call_command('collectstatic', interactive=False, verbosity=0)
         self.create_superuser(
-            os.environ['ADMIN_USERNAME'],
+            'saul',
             os.environ['ADMIN_PASSWORD'],
-            os.environ['ADMIN_EMAIL'],
+            's.shanabrook@gmail.com',
         )
+        call_command('set_site', settings.ALLOWED_HOSTS[0])
+        self.log('Loading contact fixture')
+        call_command('loaddata', 'configs/fixtures/contact.json')
         if options.get('init'):
             self.log('Adding test_data')
             call_command('test_data')

@@ -1,1 +1,1 @@
-env: configs/env/common.env,configs/env/secret.env,configs/env/dev.env,configs/env/local.env
+env: configs/env/common.env,configs/env/secret.env,configs/env/local.env

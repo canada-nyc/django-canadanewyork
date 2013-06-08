@@ -12,7 +12,7 @@ newrelic
 django-heroku-memcacheify==0.4
 django-clear-cache==0.3
 git+git://github.com/jmoiron/johnny-cache.git@37e75019625979487f17b47050da7f0af3fea42c
-django-redis-cache==0.9.7
+django-redis==3.3
 
 ##
 #Images

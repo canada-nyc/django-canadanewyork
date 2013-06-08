@@ -327,7 +327,7 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
     'root': {
-        'level': 'DEBUG',
+        'level': get_env_variable('CANADA_CONSOLE_LOGGING_LEVEL'),
         'handlers': ['console'],
     },
     'formatters': {

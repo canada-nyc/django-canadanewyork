@@ -3,10 +3,6 @@ language: python
 services:
 - postgresql
 install:
-- export DATABASE_URL=postgres://postgres@localhost/django_canadanewyork
-- export DJANGO_SETTINGS_MODULE=configs.settings.travis
-- export AWS_BUCKET=assets-testing.canadanewyork.com
-- export SENTRY_DSN=https://fa2324424bba43788e58f5e98af90dc3:240da78eed7a46a4998095d1b0157e0f@app.getsentry.com/2745
 - sudo apt-get install -qq libmemcached-dev
 - pip install -r configs/requirements/travis.txt --use-mirrors
 before_script:

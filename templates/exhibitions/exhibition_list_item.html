@@ -1,5 +1,5 @@
 <a href="{{ model.get_absolute_url }}" title="{{ model }}">
-  <dt><em>{{ model.name }}</em></dt>
+  <dt><em>{{ model }}</em></dt>
   <dd>
     {% include "base/full_date.html" with date=model.start_date %}
     {% if model.end_date %} - {% include "base/full_date.html" with date=model.end_date %}{% endif %}

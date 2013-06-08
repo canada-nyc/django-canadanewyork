@@ -90,7 +90,9 @@ promote-code-local:
 
 promote-code-heroku-dev:
 	heroku pipeline:promote
-	heroku config:push -o --filename configs/env/heroku-prod.env --app ${HEROKU_PROD_NAME}
+	heroku config:push -o --filename configs/env/common.env
+	heroku config:push -o --filename configs/env/heroku.env
+	heroku config:push -o --filename configs/env/secret.env	heroku config:push -o --filename configs/env/heroku-prod.env --app ${HEROKU_PROD_NAME}
 
 promote-static-local:
 	${MANAGE} clone_bucket $$AWS_BUCKET (heroku config:get AWS_BUCKET --app ${HEROKU_DEV_NAME})

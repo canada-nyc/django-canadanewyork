@@ -33,7 +33,7 @@ psycopg2==2.4.5
 ##
 #Storage
 ##
-boto==2.8.5
+boto==2.9.5
 hg+https://bitbucket.org/david/django-storages@4294a23b33f324df878240d519be005415a914ac
 django-compressor==1.3
 

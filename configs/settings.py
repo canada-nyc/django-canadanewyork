@@ -20,8 +20,12 @@ def get_env_variable(var_name, possible_options=[]):
     if possible_options and value not in possible_options:
         raise ImproperlyConfigured(
             ("The variable {} must be set to one of the following: {}"
-             "It is set to {} instead")
-        ).format(var_name, str(possible_options), value)
+             "It is set to {} instead").format(
+                 var_name,
+                 str(possible_options),
+                 value
+             )
+        )
     if value.lower() == 'false':
         return False
     return value

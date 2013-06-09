@@ -6,7 +6,7 @@
 {% for update in update_list %}
 <article>
   <header>
-    <a href="{{ update.get_absolute_url }}"><h1 id="{{ update.pk }}">{% include "base/full_date.html" with date=update.post_date %}</h1></a>
+    <a href="{{ update.get_absolute_url }}"><h1 id="{{ update.pk }}">{% include "base/full_date.html" with date=update.post_date year=True %}</h1></a>
   </header>
   {% include "base/photos.html" with photos=update.photos.all id=update.id %}
   {{ update.description|safe }}

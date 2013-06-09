@@ -63,10 +63,16 @@ class Command(NoArgsCommand):
         call_command('migrate', interactive=False, verbosity=0)
         self.log('Collecting Static DB')
         call_command('collectstatic', interactive=False, verbosity=0)
-        self.create_superuser(
-            'saul',
+        self.log('Adding super user')
+        call_command(
+            'create_user_permissions',
+            os.environ['ADMIN_USERNAME'],
             os.environ['ADMIN_PASSWORD'],
-            's.shanabrook@gmail.com',
+            'admin',
+            'contenttypes',
+            'url_tracker',
+            'sessions',
+            'auth'
         )
         call_command('set_site', settings.ALLOWED_HOSTS[0])
         self.log('Loading contact fixture')
@@ -74,17 +80,6 @@ class Command(NoArgsCommand):
         if options.get('init'):
             self.log('Adding test_data')
             call_command('test_data')
-
-    def create_superuser(self, username, password, email):
-        self.log('Adding super user')
-        call_command('createsuperuser', interactive=False, username=username,
-                     email=email)
-
-        self.log('    Setting username: {}'.format(username))
-        self.log('    Setting password: {}'.format(password))
-        user = User.objects.get(username=username)
-        user.set_password(password)
-        user.save()
 
     def log(self, string):
         self.stdout.write(string + '\n')

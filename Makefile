@@ -10,7 +10,6 @@ ADDONS="blitz,pgbackups:auto-month,sentry,heroku-postgresql,newrelic,rediscloud"
 
 setup-local: setup-local-compression
 	pip install -r configs/requirements/dev.txt
-	gem install foreman travis
 	mkdir tmp
 
 setup-local-compression:
@@ -55,12 +54,6 @@ migrate-wipe:
 
 migrate-init: migrate-wipe
 	for app in (${MANAGE} syncdb | grep '^ . apps\|libs' | sed 's/ > //g' | sed 's/ - //g');${MANAGE} schemamigration $$app --initial;end
-
-travis-encrypt:
-	sed '/  global:/q' .travis.yml > .travis.yml.tmp
-	mv -f .travis.yml.tmp .travis.yml
-	for line in (cat configs/env/{common.env,travis.env}); echo '    - '$$line >> .travis.yml; end
-	cat configs/env/secret.env | travis encrypt --split --add
 
 promote-db-local:
 	pg_dump -Fc --no-acl --no-owner -h localhost -U saul django_canadanewyork > django_canadanewyork.dump

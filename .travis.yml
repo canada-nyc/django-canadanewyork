@@ -1,13 +1,10 @@
 ---
 language: python
-services:
-- postgresql
 install:
 - sudo apt-get install -qq libmemcached-dev
-- pip install -r configs/requirements/travis.txt --use-mirrors
+- pip install -r configs/requirements/travis.txt
 before_script:
 - psql -c 'create database django_canadanewyork;' -U postgres
-- nosetests --version
 script:
 - python manage.py test
 notifications:
@@ -25,23 +22,5 @@ env:
   - CANADA_CONSOLE_LOGGING_LEVEL=INFO
   - DATABASE_URL=postgres://postgres@localhost/django_canadanewyork
   - CANADA_ALLOWED_HOST=False
-  - secure: ! 'MpafzWTy6eQkeAUE517tdKxOO+nu69iCFsz50qLrb/zdguxPEfWqUnHGApiy
-
-      xsRg9CmnuL1hVJDFeRRJ889pYT00QGAwhYwRa2X2S6t0LStp2Nt/daEIR6Pa
-
-      lsffI56jkLlXcv7cALnwLJwmePSDYED48YHc5CREA1nJm7J9X5I='
-  - secure: ! 'LfVerBBspmRJiH/8MbQd0TpBACb6mFUSXPb2Z01vxoPGs/BsY7tFMpN5skQt
-
-      SzvMzL5WNo7a1qTfYT29vO+cr+YfXmcT9ZWWy9AXVKyZ91fpDAN+5K/xLPEd
-
-      pur5A8T6fYGQ2pHn9zrhVPQRKTAfln3t7771Rek8v5G+C8tLANU='
-  - secure: ! 'hXn11IEE7geQ6mqygH1iFanpQ26Aw3pRp2vVY1Va+CtvlabaVeb+gwKYt28E
-
-      KWf00mGe0HaQO3N9yk0/4otYYA/bSkBeH9PiCTsIg586ncQvvY/MrINap2c/
-
-      7HEY0BH+FPPhKGrFHmDxiaokO0btKChzGMAyzIUDEFkvIyeoZnY='
-  - secure: ! 'HQFYOtMAbZqhgipi6jhVIN+D3QpKUnO4uVGxg7MEAbN0v3lSQhBvWXIAuV/6
-
-      7yCFTMxqCSwTXWNIPQmYnRFl71sYgJ573VyBsJ9h0/bXipinyP8TrIS2bOkJ
-
-      njWDJIoBwswnYtytJEG/jiTXvwuFJ01FXhZ97Pm+E46vyymYEmA='
+  - DJANGO_SETTINGS_MODULE=configs.settings
+  - SECRET_KEY=not_so_secret

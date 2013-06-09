@@ -11,15 +11,13 @@
 * Postgresql: Mac -> `brew install postgresql` or [Postgress.app](http://postgresapp.com/).
 * foreman: `gem install foreman`
   For managing environmental variables
-* travis: `gem install travis`
-  For creating secure `.travis.yml` environmental variables
 
 # Setup
 All runtime options are chosen using environmental variables.
 
 The project uses the the `configs/env/*` files to set variables for different
-environemnts. Those files are pushed to Heroku and exported into the
-`.travis.yml` so as to consolidate all of the configuration.
+environemnts. Those files are pushed to Heroku and used for local development
+so as to consolide the configuration.
 
 It is currently set up to use `foreman` to set environmental variables
 from the config files at runtime, when developing locally.

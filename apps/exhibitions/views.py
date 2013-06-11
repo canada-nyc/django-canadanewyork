@@ -1,4 +1,3 @@
-from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView
 from django.contrib.flatpages.models import FlatPage
 
@@ -10,11 +9,7 @@ class ExhibitionList(ListView):
 
 
 class ExhibitionDetail(DetailView):
-    def get_object(self):
-        return get_object_or_404(
-            Exhibition.objects.prefetch_related('photos'),
-            slug=self.kwargs['slug']
-        )
+    queryset = Exhibition.objects.prefetch_related('photos')
 
 
 class ExhibitionPressList(DetailView):

@@ -6,13 +6,13 @@ from .models import Exhibition
 
 
 class ExhibitionList(ListView):
-    queryset = Exhibition.prefetch_related.all()
+    queryset = Exhibition.objects.all()
 
 
 class ExhibitionDetail(DetailView):
     def get_object(self):
         return get_object_or_404(
-            Exhibition.objects.prefetch_related('artists', 'photos'),
+            Exhibition.objects.prefetch_related('photos'),
             slug=self.kwargs['slug']
         )
 

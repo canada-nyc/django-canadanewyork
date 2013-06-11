@@ -13,11 +13,6 @@ from apps.photos.models import Photo
 from libs.unique_boolean.fields import UniqueBooleanField
 
 
-class PrefetchArtists(models.Manager):
-    def get_query_set(self):
-        return super(PrefetchArtists, self).get_query_set().prefetch_related('artists')
-
-
 class Exhibition(url_tracker.URLTrackingMixin, models.Model):
 
     def image_path(instance, filename):
@@ -49,16 +44,10 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
 
     photos = generic.GenericRelation(Photo)
 
-    objects = models.Manager()
-    prefetch_related = PrefetchArtists()
-
     class Meta:
         ordering = ["-start_date"]
 
     def __unicode__(self):
-        artists = self.artists.all()
-        if len(artists) == 1:
-            return u'{}: {}'.format(artists[0], self.name)
         return self.name
 
     def get_absolute_url(self):

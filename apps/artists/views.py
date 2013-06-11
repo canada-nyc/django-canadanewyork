@@ -8,7 +8,7 @@ class ArtistList(ListView):
 
 
 class ArtistDetail(DetailView):
-    queryset = Artist.in_gallery.all()
+    queryset = Artist.in_gallery.prefetch_related('photos')
 
 
 class ArtistPressList(DetailView):

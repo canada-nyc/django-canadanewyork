@@ -135,6 +135,7 @@ DATABASES = {
 
 if get_env_variable('CANADA_TESTRUNNER'):
     TEST_RUNNER = 'discover_runner.DiscoverRunner'
+    TEST_DISCOVER_TOP_LEVEL = rel_path('tests')
 
 
 ###########

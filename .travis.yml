@@ -14,7 +14,7 @@ env:
   global:
   - DJANGO_SETTINGS_MODULE=configs.settings
   - CANADA_TESTRUNNER=True
-  - CANADA_ALLOWED_HOSTS=*
+  - CANADA_ALLOWED_HOST=*
   - CANADA_DEBUG=False
   - CANADA_SENTRY=False
   - CANADA_STORAGE=local
@@ -22,6 +22,5 @@ env:
   - CANADA_CACHE_TEMPLATES=False
   - CANADA_CONSOLE_LOGGING_LEVEL=INFO
   - DATABASE_URL=postgres://postgres@localhost/django_canadanewyork
-  - CANADA_ALLOWED_HOST=False
   - DJANGO_SETTINGS_MODULE=configs.settings
   - SECRET_KEY=not_so_secret

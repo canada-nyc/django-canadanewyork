@@ -6,6 +6,7 @@ import json
 import httplib
 import sys
 import time
+import random
 
 from PIL import Image
 from factory.fuzzy import BaseFuzzyAttribute

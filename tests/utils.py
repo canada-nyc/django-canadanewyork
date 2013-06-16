@@ -1,14 +1,69 @@
 import StringIO
 from datetime import date
-import random
+import os
+import base64
+import json
+import httplib
+import sys
+import time
 
 from PIL import Image
 from factory.fuzzy import BaseFuzzyAttribute
+from selenium import webdriver
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.conf import settings
 from django.core.management import call_command
 from django.db.models import loading
+from django.test import LiveServerTestCase
+
+
+class Selenium2OnSauce(LiveServerTestCase):
+    def setUp(self):
+        if not settings.SELENIUM:
+            self.skitTest('Selenium not enabled in settings')
+        desired_capabilities = webdriver.DesiredCapabilities.CHROME
+        desired_capabilities['version'] = ''
+        desired_capabilities['platform'] = "OS X 10.8"
+        desired_capabilities['public'] = 'public'
+        desired_capabilities['name'] = str(self.id())
+        if 'TRAVIS_JOB_NUMBER' in os.environ:
+            desired_capabilities['tunnel-identifier'] = os.environ['TRAVIS_JOB_NUMBER']
+        if 'TRAVIS_BUILD_NUMBER' in os.environ:
+            desired_capabilities['build'] = os.environ['TRAVIS_BUILD_NUMBER']
+            desired_capabilities['tags'] = ['CI']
+        else:
+            desired_capabilities['build'] = 'local ' + str(time.time())
+        self.sauce_username = os.environ['SAUCE_USERNAME']
+        self.sauce_key = os.environ['SAUCE_ACCESS_KEY']
+        command_executor = "http://{}:{}@localhost:4445/wd/hub".format(
+            self.sauce_username,
+            self.sauce_key
+        )
+        self.driver = webdriver.Remote(
+            desired_capabilities=desired_capabilities,
+            command_executor=command_executor
+        )
+        self.jobid = self.driver.session_id
+        self.driver.implicitly_wait(30)
+
+    def tearDown(self):
+        self.driver.quit()
+        self._report_test_result()
+
+    def _report_test_result(self):
+        base64string = base64.encodestring(
+            '{}:{}'.format(self.sauce_username, self.sauce_key)
+        )[:-1]
+        result = json.dumps({'passed': sys.exc_info() == (None, None, None)})
+        connection = httplib.HTTPConnection("saucelabs.com")
+        connection.request(
+            'PUT',
+            '/rest/v1/{}/jobs/{}'.format(self.sauce_username, self.jobid),
+            result,
+            headers={"Authorization": "Basic " + base64string})
+        result = connection.getresponse()
+        return result.status == 200
 
 
 def django_image(name, size=200, color='red'):

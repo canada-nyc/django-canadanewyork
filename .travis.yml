@@ -5,6 +5,7 @@ install:
 - pip install -r configs/requirements/travis.txt
 before_script:
 - psql -c 'create database django_canadanewyork;' -U postgres
+- curl https://gist.github.com/santiycr/5139565/raw/sauce_connect_setup.sh | bash
 script:
 - python manage.py test tests
 notifications:
@@ -24,3 +25,14 @@ env:
   - CANADA_ALLOWED_HOST=False
   - DJANGO_SETTINGS_MODULE=configs.settings
   - SECRET_KEY=not_so_secret
+  - CANADA_USE_SELENIUM=True
+  - secure: ! 'MY8K2+wzstwVTUoqq4ZDeBGYijJAhuHNiI58EEkzrtwRJy+1a2Up5SGx2pas
+
+      2tjtp/B1nwNlrBbGaNTw7wwXX8XqxXhsaE3TmQ1RAkmL6Tbl1QfkijttAj83
+
+      XxbAlGNjKBTVbBcXlgwQNw0V68NfH6BrQKOPnUCXunk67BqJP/4='
+  - secure: ! 'f9y7DaXx9P7D5bdSYS0VDchQHh76wNPLkqkSTKJFmdrsnP/x7jJPn2GCRsDU
+
+      9o7uFwa24Q5pqf4QXXQFegomyq37nDhN4n8qUAiUkLqDQWyOCaF3b2p/WbUz
+
+      lRcgjsGlxupqa4Julus+HIwjwJbd+R8hZaV0Y9oAocnaaM3U1zE='

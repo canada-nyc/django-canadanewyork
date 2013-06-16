@@ -35,6 +35,8 @@ public. Currently it contains:
 * `ADMIN_PASSWORD` used by `manage.py clean_db` to create a superuser admin account
 * `AWS_ACCESS_KEY_ID`
 * `AWS_SECRET_ACCESS_KEY`
+* `SAUCE_USERNAME` for selenium based javascript testing on saucelabs
+* `SAUCE_ACCESS_KEY`
 
 To use the environental variables defined in the files, which are in turn
 defined in `.foreman`, prefex any command with `foreman run`. For example
@@ -47,6 +49,12 @@ have fish installed then stay away from it. Also, because I can not get `make`
 to run the commands in the current shell environment, I had to hardcode the
 python virtualenv path at the top of the makefile. If you do use the makefile
 then you will have to modify that for your own python interpreter.
+
+# Testing
+To test with selenium over saucelabs, first you must download and run
+[Sauce Connect](https://saucelabs.com/docs/connect). Then set the variable
+`CANADA_USE_SELENIUM` to anything but `False`. Then when you run the tests
+with Sauce Connect running as well.
 
 # Initial Data
 

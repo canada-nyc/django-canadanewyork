@@ -8,6 +8,12 @@ HEROKU_PROD_NAME="canada"
 
 ADDONS="blitz,pgbackups:auto-month,sentry,heroku-postgresql,newrelic,rediscloud"
 
+selenium-local:
+	foreman run java -jar ~/bin/Sauce-Connect.jar (grep '^SAUCE_USERNAME' configs/env/secret.env | cut -f2 -d'=') (grep '^SAUCE_ACCESS_KEY' configs/env/secret.env | cut -f2 -d'=')
+
+selenium-add-to-travis:
+	grep '^SAUCE_' configs/env/secret.env | travis encrypt --no-interactive -s --add
+
 setup-local: setup-local-compression
 	pip install -r configs/requirements/dev.txt
 	mkdir tmp

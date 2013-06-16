@@ -61,8 +61,8 @@ class Command(NoArgsCommand):
         call_command('syncdb', interactive=False, verbosity=0)
         self.log('Initial migrate')
         call_command('migrate', interactive=False, verbosity=0)
-        self.log('Collecting Static DB')
-        call_command('collectstatic', interactive=False, verbosity=0)
+        self.log('Compressing Static')
+        call_command('compress')
         self.log('Adding super user')
         call_command(
             'create_user_permissions',

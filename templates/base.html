@@ -1,5 +1,6 @@
-{% load staticfiles %}
+{% load static from staticfiles %}
 {% load sekizai_tags %}
+
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
@@ -7,24 +8,7 @@
   <title>{% block title %} ‹ CANADA{% endblock %}</title>
   <meta name="description" content="CANADA - lower East Side Art gallery exhibiting artists in New York.">
   <meta name="viewport" content="width=device-width">
-  {% render_block "css" postprocessor "compressor.contrib.sekizai.compress" %}
-  {% addtoblock "css" %}
-  <link type="text/less" rel="stylesheet" href="{% static "canada/less/styles.less" %}" media="all">
-  <link type="text/less" rel="stylesheet" href="{% static "canada/less/lightbox.less" %}" media="all">
-  <link type="text/less" rel="stylesheet" href="{% static "canada/less/print.less" %}" media="print">
-  {% endaddtoblock %}
-  {% addtoblock "js" %}
-  <script src="{% static "canada/js/jquery.js" %}"></script>
-  <script src="{% static "canada/js/jquery.imagesloaded.js" %}"></script>
-  <script src="{% static "canada/js/swipe.js" %}"></script>
-  <script src="{% static "canada/js/main.js" %}"></script>
-  <script src="{% static "canada/js/templates.js" %}"></script>
-  <script src="{% static "canada/js/store.js" %}"></script>
-  <script src="{% static "canada/js/lightbox.js" %}"></script>
-  {% endaddtoblock %}
-  <!--[if lt IE 9]>
-    <script src="{% static "canada/js/html5shiv.min.js" %}"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="{% static "canada/compressed/global.css" %}">
 </head>
 <body>
 <nav>
@@ -63,6 +47,6 @@
     </noscript>
   </span>
 </footer>
-{% render_block "js" postprocessor "compressor.contrib.sekizai.compress" %}
+{% render_block "js" %}
 </body>
 </html>

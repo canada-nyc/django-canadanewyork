@@ -1,4 +1,6 @@
 @import "variables.less";
+@import "lightbox.less";
+@import "print.less";
 
 html, body {
   font-size: @font-size;
@@ -116,7 +118,7 @@ footer {
 
 // A spinner / throbber to indicate progress
 .throbber {
-  background: url('{% load staticfiles %}{% static "canada/images/spinner.gif" %}') no-repeat center;
+  background: url('canada/images/spinner.gif') no-repeat center;
   background-size: 36px 36px;
 }
 

@@ -1,5 +1,6 @@
 import os
 import urlparse
+from datetime import datetime, timedelta
 
 import dj_database_url
 
@@ -150,15 +151,17 @@ _storage_backend = get_env_variable(
 )
 
 if _storage_backend == 'local':
-    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
 
     STATIC_URL = '/static/'
     STATIC_ROOT = rel_path('tmp/static')
 
-    MEDIA_ROOT = rel_path('tmp/media')
     MEDIA_URL = '/media/'
+    MEDIA_ROOT = rel_path('tmp/media')
+
 elif _storage_backend == 's3':
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    STATICFILES_STORAGE = 'configs.storage_backends.S3HashedFilesStorage'
 
     INSTALLED_APPS += (
         'storages',
@@ -167,8 +170,10 @@ elif _storage_backend == 's3':
     AWS_SECRET_ACCESS_KEY = get_env_variable('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = get_env_variable('AWS_BUCKET')
     AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME
+    _year_in_future = datetime.utcnow() + timedelta(days=365)
     AWS_HEADERS = {
         "Cache-Control": "public, max-age=31536000",
+        'Expires': _year_in_future.strftime('%a, %d %b %Y %H:%M:%S UTC')
     }
     AWS_QUERYSTRING_AUTH = False
     AWS_QUERYSTRING_EXPIRE = 600
@@ -177,28 +182,6 @@ elif _storage_backend == 's3':
     AWS_PRELOAD_METADATA = True
 
     STATIC_URL = 'http://{}/'.format(AWS_S3_CUSTOM_DOMAIN)
-
-STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
-
-###############
-# COMPRESSION #
-###############
-INSTALLED_APPS += ('compressor',)
-COMPRESS_ENABLED = True
-COMPRESS_STORAGE = STATICFILES_STORAGE
-STATICFILES_FINDERS += ('compressor.finders.CompressorFinder',)
-COMPRESS_CSS_FILTERS = [
-    'compressor.filters.template.TemplateFilter',
-    'compressor.filters.css_default.CssAbsoluteFilter',
-    # 'compressor.filters.cssmin.CSSMinFilter',
-]
-COMPRESS_JS_FILTERS = [
-    'configs.filters.UglifyJSFilter'
-]
-COMPRESS_PRECOMPILERS = (
-    ('text/less', 'lessc {infile} {outfile}'),
-)
-COMPRESS_TEMPLATE_FILTER_CONTEXT = {}
 
 
 ############
@@ -274,7 +257,6 @@ JOHNNY_MIDDLEWARE_KEY_PREFIX = 'jc'
 #########
 # DEBUG #
 #########
-
 if get_env_variable('CANADA_DEBUG'):
     DEBUG = TEMPLATE_DEBUG = True
 
@@ -352,9 +334,6 @@ LOGGING = {
 if get_env_variable('CANADA_SENTRY'):
     INSTALLED_APPS += (
         'raven.contrib.django.raven_compat',
-    )
-    TEMPLATE_CONTEXT_PROCESSORS += (
-        'libs.common.context_processors.sentry_dsn',
     )
     LOGGING['loggers'] = {
         'raven': {

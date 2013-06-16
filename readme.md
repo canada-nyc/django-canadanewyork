@@ -1,4 +1,5 @@
-[![Build Status](https://next.travis-ci.org/saulshanabrook/django-canadanewyork.png?branch=production)](https://next.travis-ci.org/saulshanabrook/django-canadanewyork)
+[![Travis Test Status](https://next.travis-ci.org/saulshanabrook/django-canadanewyork.png?branch=production)](https://next.travis-ci.org/saulshanabrook/django-canadanewyork)
+[![Selenium Test Status](https://saucelabs.com/buildstatus/canada)](https://saucelabs.com/u/canada)
 
 # Depedencies
 ## Essential

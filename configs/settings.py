@@ -134,15 +134,8 @@ DATABASES = {
 ###########
 
 if get_env_variable('CANADA_TESTRUNNER'):
-    # must come after 'south', so that this version of `./manage.py test` takes precedence
-    INSTALLED_APPS += ('django_nose', )
-    TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-    NOSE_ARGS = [
-        '--with-specplugin',
-        '--detailed-errors',
-        '--nologcapture',
-        'tests'
-    ]
+    TEST_RUNNER = 'discover_runner.DiscoverRunner'
+
 
 ###########
 # STORAGE #

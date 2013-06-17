@@ -1,12 +1,11 @@
 import os
 import urlparse
-from time import time
+from datetime import datetime, timedelta
 
 import dj_database_url
 
 from django.conf.global_settings import *
 from django.core.exceptions import ImproperlyConfigured
-from django.utils.http import http_date
 
 from libs.common.utils import rel_path
 
@@ -171,9 +170,10 @@ elif _storage_backend == 's3':
     AWS_SECRET_ACCESS_KEY = get_env_variable('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = get_env_variable('AWS_BUCKET')
     AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME
+    _year_in_future = datetime.utcnow() + timedelta(days=365)
     AWS_HEADERS = {
         "Cache-Control": "public, max-age=31536000",
-        'Expires': http_date(time() + 60 * 60 * 24 * 365)
+        'Expires': _year_in_future.strftime('%a, %d %b %Y %H:%M:%S UTC')
     }
     AWS_QUERYSTRING_AUTH = False
     AWS_QUERYSTRING_EXPIRE = 600

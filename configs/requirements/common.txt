@@ -34,7 +34,7 @@ psycopg2==2.4.5
 #Storage
 ##
 boto==2.9.5
-hg+https://bitbucket.org/david/django-storages@4294a23b33f324df878240d519be005415a914ac
+hg+https://bitbucket.org/david/django-storages@513c418116dd5a43a1160c0eb26c657a565dd960
 
 ##
 #Logging

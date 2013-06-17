@@ -95,7 +95,7 @@ INSTALLED_APPS += (
 )
 
 GRAPPELLI_ADMIN_TITLE = 'canada'
-
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
 #############
 # TEMPLATES #

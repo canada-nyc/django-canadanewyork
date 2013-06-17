@@ -1,10 +1,9 @@
 {% load static from staticfiles %}
 {% load sekizai_tags %}
 
-{% if photos %}
-{% with first_photo=photos|first %}
+{% if photos %}{% with first_photo=photos|first %}
   <div class="gallery" id="{{ id }}">
-    <img src="{{ first_photo.thumbnail_image.url }}" height="{{ first_photo.thumbnail_image_height }}" width="{{ first_photo.thumbnail_image_width }}" />
+    <img src="{{ first_photo.thumbnail_image.url }}" height="{{ first_photo.thumbnail_image_height }}" width="{{ first_photo.thumbnail_image_width }}" alt="photos" title="Click to view photos"/>
   {% addtoblock "js" %}
   <script src="{% static "canada/compressed/global.js" %}"></script>
   <script type="text/javascript">
@@ -43,5 +42,4 @@
   {% endaddtoblock %}
   </div>
   <br>
-{% endwith %}
-{% endif %}
+{% endwith %}{% endif %}

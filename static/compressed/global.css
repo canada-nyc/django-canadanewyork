@@ -1,12 +1,12 @@
 .lightbox{display:none;background-color:#111111;position:fixed;top:0;left:0;bottom:0;right:0;}
 .lightbox .swipe,.lightbox .swipe-wrap{position:absolute;top:0;left:0;bottom:0;right:0;}
 .lightbox .next,.lightbox .prev{cursor:pointer;position:fixed;top:0;bottom:0;width:50px;z-index:100;}
-.lightbox .next{top:50px;right:0;background:url("http:/assets-dev.canadanewyork.com/canada/images/icon-left-arrow.png") no-repeat center;background-size:25px 50px;box-shadow:-4px 0px 4px #111111;}
-.lightbox .next:active{background:url("http:/assets-dev.canadanewyork.com/canada/images/icon-left-arrow_hover.png") no-repeat center;background-size:25px 50px;}
-.lightbox .prev{left:0;background:url("http:/assets-dev.canadanewyork.com/canada/images/icon-right-arrow.png") no-repeat center;background-size:25px 50px;box-shadow:4px 0px 4px #111111;}
-.lightbox .prev:active{background:url("http:/assets-dev.canadanewyork.com/canada/images/icon-right-arrow_hover.png") no-repeat center;background-size:25px 50px;}
-.lightbox .close{cursor:pointer;position:absolute;top:0;right:0;height:50px;width:50px;z-index:100;background:url("http:/assets-dev.canadanewyork.com/canada/images/icon-cancel.png") no-repeat center;background-size:25px 25px;box-shadow:-4px 0px 4px #111111;}
-.lightbox .close:active{background:url("http:/assets-dev.canadanewyork.com/canada/images/icon-cancel_hover.png") no-repeat center;background-size:25px 25px;}
+.lightbox .next{top:50px;right:0;background:url("../images/icon-left-arrow.png") no-repeat center;background-size:25px 50px;box-shadow:-4px 0px 4px #111111;}
+.lightbox .next:active{background:url("../images/icon-left-arrow_hover.png") no-repeat center;background-size:25px 50px;}
+.lightbox .prev{left:0;background:url("../images/icon-right-arrow.png") no-repeat center;background-size:25px 50px;box-shadow:4px 0px 4px #111111;}
+.lightbox .prev:active{background:url("../images/icon-right-arrow_hover.png") no-repeat center;background-size:25px 50px;}
+.lightbox .close{cursor:pointer;position:absolute;top:0;right:0;height:50px;width:50px;z-index:100;background:url("../images/icon-cancel.png") no-repeat center;background-size:25px 25px;box-shadow:-4px 0px 4px #111111;}
+.lightbox .close:active{background:url("../images/icon-cancel_hover.png") no-repeat center;background-size:25px 25px;}
 .lightbox .swipe{left:50px;right:50px;}
 .lightbox figure{margin-top:25px;padding:0 20px;}
 .swipe{overflow:hidden;visibility:hidden;position:relative;}
@@ -30,7 +30,7 @@ figure aside{padding-top:20px;}
 figure em{font-weight:bold;font-style:italic;display:block;}
 section{width:600px;padding-left:200px;padding-right:20px;margin-top:80px;}
 footer{line-height:60px;position:absolute;left:200px;bottom:0;right:0;height:60px;}
-.throbber{background:url('http:/assets-dev.canadanewyork.com/canada/images/spinner.gif') no-repeat center;background-size:36px 36px;}
+.throbber{background:url('../images/spinner.gif') no-repeat center;background-size:36px 36px;}
 footer .adr:after,footer .tel:after{content:' | ';}
 nav{position:fixed;top:0;left:0;right:0;height:40px;background-color:#111111;box-shadow:0px 4px 4px #111111;}
 nav a{text-transform:uppercase;}

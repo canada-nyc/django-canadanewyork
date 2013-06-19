@@ -2,7 +2,6 @@ import subprocess
 
 from django.core.management.base import NoArgsCommand
 from django.core.management import call_command
-from django.conf import settings
 
 
 class Command(NoArgsCommand):
@@ -28,8 +27,7 @@ class Command(NoArgsCommand):
             ),
         )
         self.call_shell_command(
-            'lessc --compress --rootpath={} {} {}'.format(
-                settings.STATIC_URL,
+            'lessc --compress {} {}'.format(
                 self.STYLE_SOURCE,
                 self.STYLE_DESTINATION
             ),

@@ -260,44 +260,45 @@ JOHNNY_MIDDLEWARE_KEY_PREFIX = 'jc'
 if get_env_variable('CANADA_DEBUG'):
     DEBUG = TEMPLATE_DEBUG = True
 
-    if get_env_variable('CANADA_DEBUG_TOOLBAR'):
-        INSTALLED_APPS += (
-            'debug_toolbar',
-            'template_timings_panel'
-        )
-        MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-        DEBUG_TOOLBAR_CONFIG = {
-            'INTERCEPT_REDIRECTS': False,
-        }
-        DEBUG_TOOLBAR_PANELS = (
-            'debug_toolbar.panels.cache.CacheDebugPanel',
-            'debug_toolbar.panels.headers.HeaderDebugPanel',
-            'debug_toolbar.panels.logger.LoggingPanel',
-            'debug_toolbar.panels.profiling.ProfilingDebugPanel',
-            'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
-            'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
-            'debug_toolbar.panels.signals.SignalDebugPanel',
-            'debug_toolbar.panels.sql.SQLDebugPanel',
-            'debug_toolbar.panels.template.TemplateDebugPanel',
-            'debug_toolbar.panels.timer.TimerDebugPanel',
-            'debug_toolbar.panels.version.VersionDebugPanel',
+if get_env_variable('CANADA_DEVSERVER'):
+    INSTALLED_APPS += (
+        'devserver',
+    )
+    DEVSERVER_MODULES = (
+        'devserver.modules.sql.SQLRealTimeModule',
+        'devserver.modules.sql.SQLSummaryModule',
+        'devserver.modules.profile.ProfileSummaryModule',
 
-            'template_timings_panel.panels.TemplateTimings.TemplateTimings'
-        )
+        # Modules not enabled by default
+        'devserver.modules.cache.CacheSummaryModule',
+        # 'devserver.modules.profile.LineProfilerModule',
+    )
 
-    if get_env_variable('CANADA_DEVSERVER'):
-        INSTALLED_APPS += (
-            'devserver',
-        )
-        DEVSERVER_MODULES = (
-            'devserver.modules.sql.SQLRealTimeModule',
-            'devserver.modules.sql.SQLSummaryModule',
-            'devserver.modules.profile.ProfileSummaryModule',
+if get_env_variable('CANADA_DEBUG_TOOLBAR'):
+    INSTALLED_APPS += (
+        'debug_toolbar',
+        'template_timings_panel'
+    )
+    MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+        'SHOW_TOOLBAR_CALLBACK': lambda _: True,
+    }
+    DEBUG_TOOLBAR_PANELS = (
+        'debug_toolbar.panels.cache.CacheDebugPanel',
+        'debug_toolbar.panels.headers.HeaderDebugPanel',
+        'debug_toolbar.panels.logger.LoggingPanel',
+        'debug_toolbar.panels.profiling.ProfilingDebugPanel',
+        'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+        'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
+        'debug_toolbar.panels.signals.SignalDebugPanel',
+        'debug_toolbar.panels.sql.SQLDebugPanel',
+        'debug_toolbar.panels.template.TemplateDebugPanel',
+        'debug_toolbar.panels.timer.TimerDebugPanel',
+        'debug_toolbar.panels.version.VersionDebugPanel',
 
-            # Modules not enabled by default
-            'devserver.modules.cache.CacheSummaryModule',
-            # 'devserver.modules.profile.LineProfilerModule',
-        )
+        'template_timings_panel.panels.TemplateTimings.TemplateTimings'
+    )
 
 ###########
 # LOGGING #

@@ -81,7 +81,6 @@ promote-code-local:
 	heroku config:push -o --filename configs/env/secret.env
 	heroku config:push -o --filename configs/env/heroku-dev.env
 	git push heroku master
-	heroku run python manage.py compress
 
 promote-code-heroku-dev:
 	heroku pipeline:promote
@@ -89,7 +88,6 @@ promote-code-heroku-dev:
 	heroku config:push -o --filename configs/env/heroku.env --app ${HEROKU_PROD_NAME}
 	heroku config:push -o --filename configs/env/secret.env --app ${HEROKU_PROD_NAME}
 	heroku config:push -o --filename configs/env/heroku-prod.env --app ${HEROKU_PROD_NAME}
-	heroku run python manage.py compress --app ${HEROKU_PROD_NAME}
 
 promote-static-local:
 	${MANAGE} clone_bucket $$AWS_BUCKET (heroku config:get AWS_BUCKET --app ${HEROKU_DEV_NAME})

@@ -1,4 +1,0 @@
--r common.txt
--r testing.txt
-
-pylibmc==1.2.3

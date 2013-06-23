@@ -1,2 +1,0 @@
--r common.txt
--r import_wp.txt

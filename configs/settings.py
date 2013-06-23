@@ -263,7 +263,7 @@ if get_env_variable('CANADA_DEBUG'):
     if get_env_variable('CANADA_DEBUG_TOOLBAR'):
         INSTALLED_APPS += (
             'debug_toolbar',
-            'debug_toolbar_autoreload',
+            'template_timings_panel'
         )
         MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
         DEBUG_TOOLBAR_CONFIG = {
@@ -282,8 +282,7 @@ if get_env_variable('CANADA_DEBUG'):
             'debug_toolbar.panels.timer.TimerDebugPanel',
             'debug_toolbar.panels.version.VersionDebugPanel',
 
-            'debug_toolbar_autoreload.AutoreloadPanel',
-
+            'template_timings_panel.panels.TemplateTimings.TemplateTimings'
         )
 
     if get_env_variable('CANADA_DEVSERVER'):

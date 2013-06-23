@@ -46,6 +46,7 @@ newrelic
 pudb==2013.1
 git+git://github.com/django-debug-toolbar/django-debug-toolbar.git@5ae6fcc61c7596b4980e85186f3737fad01a0ad4
 django-devserver==0.6.2
+git+https://github.com/orf/django-debug-toolbar-template-timings.git@4e58877c68fcac61175e1bc9a9f53af2e804e854
 
 ##
 #Deployment

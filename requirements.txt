@@ -1,7 +1,7 @@
 Django==1.5.1
-South==0.7.6
+South==0.8.1
 django-extensions==1.1.1
-django-grappelli==2.4.4
+django-grappelli==2.4.5
 git+git://github.com/saulshanabrook/django-url-tracker@factor/testing
 
 ##
@@ -30,7 +30,7 @@ psycopg2==2.4.5
 ##
 #Storage
 ##
-boto==2.9.5
+boto==2.9.6
 hg+https://bitbucket.org/david/django-storages@513c418116dd5a43a1160c0eb26c657a565dd960
 
 ##
@@ -42,7 +42,6 @@ raven>=3
 #Tracing
 ##
 newrelic
-pudb==2013.1
 git+git://github.com/django-debug-toolbar/django-debug-toolbar.git@5ae6fcc61c7596b4980e85186f3737fad01a0ad4
 django-devserver==0.6.2
 django-debug-toolbar-template-timings==0.4.4
@@ -64,7 +63,7 @@ git+git://github.com/knowah/PyPDF2.git@65d57ddfee5775ff5036038cb306488cf97cb3d8
 ##
 #Testing
 ##
-factory-boy==2.0.2
+factory_boy==2.0.2
 django-webtest==1.6
 WebTest==2.0.3
 django-discover-runner==1.0

@@ -230,7 +230,7 @@ elif _cache_backend == 'dummy':
             'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
         }
     }
-    DISABLE_QUERYSET_CACHE = True
+    DISABLE_QUERYSET_CACHE = True  # Disables JohnyCachee
 
 
 if get_env_variable('CANADA_CACHE_TEMPLATES'):
@@ -245,13 +245,14 @@ MIDDLEWARE_CLASSES += (
     'django.middleware.gzip.GZipMiddleware',
 )
 
-# Johny Cache
-MIDDLEWARE_CLASSES = (
-    'johnny.middleware.LocalStoreClearMiddleware',
-    'johnny.middleware.QueryCacheMiddleware',
-) + MIDDLEWARE_CLASSES
+if get_env_variable('CANADA_JOHNY_CACHE'):
+    # Johny Cache
+    MIDDLEWARE_CLASSES = (
+        'johnny.middleware.LocalStoreClearMiddleware',
+        'johnny.middleware.QueryCacheMiddleware',
+    ) + MIDDLEWARE_CLASSES
 
-JOHNNY_MIDDLEWARE_KEY_PREFIX = 'jc'
+    JOHNNY_MIDDLEWARE_KEY_PREFIX = 'jc'
 
 
 #########

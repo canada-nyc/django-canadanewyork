@@ -24,3 +24,4 @@ env:
   - DATABASE_URL=postgres://postgres@localhost/django_canadanewyork
   - DJANGO_SETTINGS_MODULE=configs.settings
   - SECRET_KEY=not_so_secret
+  - CANADA_JOHNY_CACHE=False

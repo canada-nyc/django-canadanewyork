@@ -8,7 +8,6 @@ git+git://github.com/saulshanabrook/django-url-tracker@factor/testing
 #Caching
 ##
 django-clear-cache==0.3
-git+git://github.com/jmoiron/johnny-cache.git@37e75019625979487f17b47050da7f0af3fea42c
 django-redis==3.3
 
 ##

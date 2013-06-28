@@ -213,15 +213,13 @@ if _cache_backend == 'redis':
             'OPTIONS': {
                 'PASSWORD': redis_url.password,
             },
-            'JOHNNY_CACHE': True
         }
     }
 elif _cache_backend == 'memory':
     CACHES = {
         'default': {
-            'BACKEND': 'johnny.backends.locmem.LocMemCache',
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
             'LOCATION': 'django_canadanewyork',
-            'JOHNNY_CACHE': True
         }
     }
 elif _cache_backend == 'dummy':
@@ -230,7 +228,6 @@ elif _cache_backend == 'dummy':
             'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
         }
     }
-    DISABLE_QUERYSET_CACHE = True  # Disables JohnyCachee
 
 
 if get_env_variable('CANADA_CACHE_TEMPLATES'):
@@ -244,15 +241,6 @@ if get_env_variable('CANADA_CACHE_TEMPLATES'):
 MIDDLEWARE_CLASSES += (
     'django.middleware.gzip.GZipMiddleware',
 )
-
-if get_env_variable('CANADA_JOHNY_CACHE'):
-    # Johny Cache
-    MIDDLEWARE_CLASSES = (
-        'johnny.middleware.LocalStoreClearMiddleware',
-        'johnny.middleware.QueryCacheMiddleware',
-    ) + MIDDLEWARE_CLASSES
-
-    JOHNNY_MIDDLEWARE_KEY_PREFIX = 'jc'
 
 
 #########

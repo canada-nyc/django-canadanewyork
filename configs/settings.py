@@ -3,6 +3,7 @@ import urlparse
 from datetime import datetime, timedelta
 
 import dj_database_url
+from memcacheify import memcacheify
 
 from django.conf.global_settings import *
 from django.core.exceptions import ImproperlyConfigured
@@ -200,7 +201,7 @@ ALLOWED_HOSTS = (get_env_variable('CANADA_ALLOWED_HOST'),)
 ###########
 _cache_backend = get_env_variable(
     'CANADA_CACHE',
-    possible_options=['redis', 'memory', 'dummy']
+    possible_options=['redis', 'memcache', 'memory', 'dummy']
 )
 
 if _cache_backend == 'redis':
@@ -215,6 +216,8 @@ if _cache_backend == 'redis':
             },
         }
     }
+elif _cache_backend == 'memcache':
+    CACHES = memcacheify()
 elif _cache_backend == 'memory':
     CACHES = {
         'default': {

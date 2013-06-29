@@ -37,7 +37,7 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
 
     press_release_photo = models.ImageField(
         upload_to=image_path,
-        help_text='Used if it is the current exhibition',
+        help_text='Used if it is the current exhibition, if not specified will use first of the uploaded photos',
         blank=True,
         null=True
     )
@@ -70,7 +70,7 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
         if self.press_release_photo:
             return self.press_release_photo
         try:
-            return self.photos.all()[0].image
+            return self.photos.all()[0].thumbnail_image
         except IndexError:
             pass
 

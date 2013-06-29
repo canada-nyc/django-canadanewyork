@@ -6,7 +6,7 @@ MANAGE=foreman run ${PYTHON} manage.py
 HEROKU_DEV_NAME="canada-development"
 HEROKU_PROD_NAME="canada"
 
-ADDONS="blitz,pgbackups:auto-month,sentry,heroku-postgresql,newrelic,rediscloud"
+ADDONS="blitz,pgbackups:auto-month,sentry,heroku-postgresql,newrelic,rediscloud,memcachier"
 
 setup-local: setup-local-compression
 	pip install -r configs/requirements/dev.txt

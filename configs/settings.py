@@ -141,7 +141,9 @@ SOUTH_TESTS_MIGRATE = False
 SOUTH_DATABASE_ADAPTERS = {
     'default': 'south.db.postgresql_psycopg2'
 }
-DATABASES['default'] = dj_database_url.config()
+DATABASES = {
+    'default': dj_database_url.config()
+}
 DATABASES['default']['ENGINE'] = 'django_postgrespool'
 
 

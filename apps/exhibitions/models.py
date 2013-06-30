@@ -38,8 +38,20 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
     press_release_photo = models.ImageField(
         upload_to=image_path,
         help_text='Used if it is the current exhibition, if not specified will use first of the uploaded photos',
+        height_field='press_release_photo_height',
+        width_field='press_release_photo_width',
         blank=True,
         null=True
+    )
+    press_release_photo_height = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        editable=False,
+    )
+    press_release_photo_width = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        editable=False,
     )
 
     photos = generic.GenericRelation(Photo)
@@ -68,11 +80,20 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
 
     def get_press_release_photo(self):
         if self.press_release_photo:
-            return self.press_release_photo
+            return {
+                'image': self.press_release_photo,
+                'height': self.press_release_photo_height,
+                'width': self.press_release_photo_width
+            }
         try:
-            return self.photos.all()[0].thumbnail_image
+            photo = self.photos.all()[0]
+            return {
+                'image': photo.thumbnail_image,
+                'height': photo.thumbnail_image_height,
+                'width': photo.thumbnail_image_width
+            }
         except IndexError:
-            pass
+            return None
 
     @property
     def get_year(self):

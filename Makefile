@@ -81,13 +81,15 @@ promote-code-local:
 	heroku config:push -o --filename configs/env/secret.env
 	heroku config:push -o --filename configs/env/heroku-dev.env
 	git push heroku master
+	heroku run python manage.py migrate
 
 promote-code-heroku-dev:
-	heroku pipeline:promote
 	heroku config:push -o --filename configs/env/common.env --app ${HEROKU_PROD_NAME}
 	heroku config:push -o --filename configs/env/heroku.env --app ${HEROKU_PROD_NAME}
 	heroku config:push -o --filename configs/env/secret.env --app ${HEROKU_PROD_NAME}
 	heroku config:push -o --filename configs/env/heroku-prod.env --app ${HEROKU_PROD_NAME}
+	heroku pipeline:promote
+	heroku run python manage.py migrate --app ${HEROKU_PROD_NAME}
 
 promote-static-local:
 	${MANAGE} clone_bucket $$AWS_BUCKET (heroku config:get AWS_BUCKET --app ${HEROKU_DEV_NAME})

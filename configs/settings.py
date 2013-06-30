@@ -5,7 +5,6 @@ from datetime import datetime, timedelta
 import dj_database_url
 from memcacheify import memcacheify
 
-from django.conf.global_settings import *
 from django.core.exceptions import ImproperlyConfigured
 
 from libs.common.utils import rel_path
@@ -40,11 +39,25 @@ WSGI_APPLICATION = 'wsgi.application'
 DATE_FORMAT = 'F j'
 ROOT_URLCONF = 'configs.urls'
 PREPEND_WWW = False
-INSTALLED_APPS += ('django.contrib.sites',)
+INSTALLED_APPS = ('django.contrib.sites',)
 SITE_ID = 1
 # Disable translation
 USE_I18N = False
 
+MIDDLEWARE_CLASSES = (
+    'django.middleware.gzip.GZipMiddleware',
+    'django.middleware.http.ConditionalGetMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'url_tracker.middleware.URLChangePermanentRedirectMiddleware',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.debug",
+    "django.core.context_processors.tz",  # Time zone support
+)
 
 ########
 # MISC #
@@ -72,12 +85,8 @@ INSTALLED_APPS += (
 #############
 # URLTRACKER #
 #############
-
 INSTALLED_APPS += (
     "url_tracker",
-)
-MIDDLEWARE_CLASSES += (
-    'url_tracker.middleware.URLChangePermanentRedirectMiddleware',
 )
 
 
@@ -91,8 +100,11 @@ INSTALLED_APPS += (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.humanize',
+    'django.contrib.messages'
+)
+TEMPLATE_CONTEXT_PROCESSORS += (
+    "django.contrib.auth.context_processors.auth",
+    "django.contrib.messages.context_processors.messages"
 )
 
 GRAPPELLI_ADMIN_TITLE = 'canada'
@@ -147,12 +159,14 @@ INSTALLED_APPS += ('django.contrib.staticfiles',)
 STATICFILES_DIRS = (
     ('canada', rel_path('static')),
 )
-
+TEMPLATE_CONTEXT_PROCESSORS += (
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+)
 _storage_backend = get_env_variable(
     'CANADA_STORAGE',
     possible_options=['local', 's3']
 )
-
 if _storage_backend == 'local':
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
 
@@ -194,7 +208,10 @@ SECURE_FRAME_DENY = True
 SECURE_BROWSER_XSS_FILTER = True
 SESSION_COOKIE_SECURE = False
 SECURE_CONTENT_TYPE_NOSNIFF = True
-MIDDLEWARE_CLASSES += ('django.middleware.csrf.CsrfViewMiddleware',)
+# Adds extra time to response. Also messes with caching.
+# Admin overrides this, so unless we add any forms not in the admin
+# no need to enable.
+# MIDDLEWARE_CLASSES += ('django.middleware.csrf.CsrfViewMiddleware',)
 ALLOWED_HOSTS = (get_env_variable('CANADA_ALLOWED_HOST'),)
 
 
@@ -243,9 +260,7 @@ if get_env_variable('CANADA_CACHE_TEMPLATES'):
         )),
     )
 
-MIDDLEWARE_CLASSES += (
-    'django.middleware.gzip.GZipMiddleware',
-)
+USE_ETAGS = True
 
 
 #########

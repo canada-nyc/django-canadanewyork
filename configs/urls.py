@@ -1,3 +1,5 @@
+import os
+
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.contrib.staticfiles.storage import staticfiles_storage
@@ -9,6 +11,7 @@ from django.http import HttpResponse
 from .sitemaps import sitemaps
 
 from apps.exhibitions.views import ExhibitionCurrent
+
 
 admin.autodiscover()
 
@@ -38,5 +41,15 @@ urlpatterns += patterns(
     'django.contrib.flatpages.views',
     url(r'^contact/$', 'flatpage', {'url': '/contact/'}, name='contact')
 )
+
+loader_io_verification = os.environ.get('LOADER_IO_VERIFICATION', None)
+if loader_io_verification:
+    urlpatterns += patterns(
+        url(
+            '^' + loader_io_verification,
+            lambda request: HttpResponse(loader_io_verification)
+        ),
+    )
+
 if settings.DEFAULT_FILE_STORAGE == 'django.core.files.storage.FileSystemStorage':
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

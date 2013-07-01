@@ -1,4 +1,5 @@
 import os
+import re
 
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
@@ -21,8 +22,6 @@ urlpatterns = patterns(
         RedirectView.as_view(
             url=staticfiles_storage.url('canada/images/fire_favicon.ico')
         )),
-    url(r'^loaderio-98af061ca817542d668fabd7756e14b7\.txt',
-        lambda request: HttpResponse('loaderio-98af061ca817542d668fabd7756e14b7')),
     url(r'^sitemap\.xml$',
         'django.contrib.sitemaps.views.sitemap',
         {'sitemaps': sitemaps}),
@@ -46,7 +45,7 @@ loader_io_verification = os.environ.get('LOADER_IO_VERIFICATION', None)
 if loader_io_verification:
     urlpatterns += patterns(
         url(
-            '^' + loader_io_verification,
+            '^' + re.escape(loader_io_verification) + '$',
             lambda request: HttpResponse(loader_io_verification)
         ),
     )

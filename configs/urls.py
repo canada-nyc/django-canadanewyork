@@ -46,7 +46,7 @@ if loader_io_verification:
     urlpatterns += patterns(
         '',
         url(
-            r'^' + re.escape(loader_io_verification) + r'$',
+            r'^' + re.escape(loader_io_verification) + r'/$',
             lambda request: HttpResponse(loader_io_verification)
         ),
     )

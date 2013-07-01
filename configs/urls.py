@@ -4,6 +4,7 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
+from django.http import HttpResponse
 
 from .sitemaps import sitemaps
 
@@ -16,8 +17,9 @@ urlpatterns = patterns(
     url(r'^favicon\.ico$',
         RedirectView.as_view(
             url=staticfiles_storage.url('canada/images/fire_favicon.ico')
-        )
-        ),
+        )),
+    url(r'^loaderio-98af061ca817542d668fabd7756e14b7\.txt',
+        lambda request: HttpResponse('loaderio-98af061ca817542d668fabd7756e14b7')),
     url(r'^sitemap\.xml$',
         'django.contrib.sitemaps.views.sitemap',
         {'sitemaps': sitemaps}),

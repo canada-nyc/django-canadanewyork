@@ -44,8 +44,9 @@ urlpatterns += patterns(
 loader_io_verification = os.environ.get('LOADER_IO_VERIFICATION', None)
 if loader_io_verification:
     urlpatterns += patterns(
+        '',
         url(
-            '^' + re.escape(loader_io_verification) + '$',
+            r'^' + re.escape(loader_io_verification) + r'$',
             lambda request: HttpResponse(loader_io_verification)
         ),
     )

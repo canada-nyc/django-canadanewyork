@@ -34,6 +34,8 @@ setup-heroku-dev:
 setup-heroku-prod:
 	heroku fork -a ${HEROKU_DEV_NAME} ${HEROKU_PROD_NAME}
 	heroku labs:enable user-env-compile --app ${HEROKU_PROD_NAME}
+	heroku addons:remove heroku-postgresql:dev -a ${HEROKU_PROD_NAME}
+	heroku addons:add heroku-postgresql:crane -a ${HEROKU_PROD_NAME}
 	heroku pg:promote (heroku pg --app ${HEROKU_PROD_NAME} | grep '^===' | sed 's/^=== //g') --app ${HEROKU_PROD_NAME}
 	heroku config:push -o --filename configs/env/heroku-prod.env --app ${HEROKU_PROD_NAME}
 

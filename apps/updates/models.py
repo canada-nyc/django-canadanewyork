@@ -3,6 +3,7 @@ from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
 
 import url_tracker
+import dumper
 
 from apps.photos.models import Photo
 
@@ -25,4 +26,8 @@ class Update(url_tracker.URLTrackingMixin, models.Model):
     def get_absolute_url(self):
         return reverse('update-detail', kwargs={'pk': self.pk})
 
+    def dependent_paths(self):
+        yield self.get_absolute_url()
+
 url_tracker.track_url_changes_for_model(Update)
+dumper.register(Update)

@@ -20,8 +20,8 @@ def get_env_variable(var_name, possible_options=[]):
         raise ImproperlyConfigured(message)
     if possible_options and value not in possible_options:
         raise ImproperlyConfigured(
-            ("The variable {} must be set to one of the following: {}"
-             "It is set to {} instead").format(
+            ("The variable {} must be set to one of the following: {} "
+             "It is set to '{}'' instead").format(
                  var_name,
                  str(possible_options),
                  value
@@ -45,6 +45,8 @@ SITE_ID = 1
 USE_I18N = False
 
 MIDDLEWARE_CLASSES = (
+    'dumper.middleware.UpdateCacheMiddleware',
+    'response_timeout.middleware.SetCacheTimeoutMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'django.middleware.http.ConditionalGetMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -52,6 +54,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'url_tracker.middleware.URLChangePermanentRedirectMiddleware',
+    'dumper.middleware.FetchFromCacheMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -206,10 +209,6 @@ elif _storage_backend == 's3':
 ############
 # SECURITY #
 ############
-SECURE_FRAME_DENY = True
-SECURE_BROWSER_XSS_FILTER = True
-SESSION_COOKIE_SECURE = False
-SECURE_CONTENT_TYPE_NOSNIFF = True
 # Adds extra time to response. Also messes with caching.
 # Admin overrides this, so unless we add any forms not in the admin
 # no need to enable.
@@ -222,7 +221,7 @@ ALLOWED_HOSTS = (get_env_variable('CANADA_ALLOWED_HOST'),)
 ###########
 _cache_backend = get_env_variable(
     'CANADA_CACHE',
-    possible_options=['redis', 'memcache', 'memory', 'dummy']
+    possible_options=['redis', 'memcache', 'memory', 'database', 'dummy']
 )
 
 if _cache_backend == 'redis':
@@ -239,6 +238,13 @@ if _cache_backend == 'redis':
     }
 elif _cache_backend == 'memcache':
     CACHES = memcacheify()
+elif _cache_backend == 'database':
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+            'LOCATION': 'cache',
+        }
+    }
 elif _cache_backend == 'memory':
     CACHES = {
         'default': {
@@ -263,6 +269,11 @@ if get_env_variable('CANADA_CACHE_TEMPLATES'):
     )
 
 USE_ETAGS = True
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 60 * 60 * 24 * 365
+CACHE_MIDDLEWARE_KEY_PREFIX = ''
+
+RESPONSE_CACHE_SECONDS = 60
 
 
 #########
@@ -288,7 +299,7 @@ if get_env_variable('CANADA_DEVSERVER'):
 if get_env_variable('CANADA_DEBUG_TOOLBAR'):
     INSTALLED_APPS += (
         'debug_toolbar',
-        'template_timings_panel'
+        # 'template_timings_panel'
     )
     MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
     DEBUG_TOOLBAR_CONFIG = {
@@ -308,7 +319,7 @@ if get_env_variable('CANADA_DEBUG_TOOLBAR'):
         'debug_toolbar.panels.timer.TimerDebugPanel',
         'debug_toolbar.panels.version.VersionDebugPanel',
 
-        'template_timings_panel.panels.TemplateTimings.TemplateTimings'
+        # 'template_timings_panel.panels.TemplateTimings.TemplateTimings'
     )
 
 ###########

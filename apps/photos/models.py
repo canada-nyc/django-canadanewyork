@@ -5,7 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
 import simpleimages
-
+import dumper
 
 class Photo(models.Model):
 
@@ -94,5 +94,8 @@ class Photo(models.Model):
         }
     }
 
+    def dependent_paths(self):
+        yield self.content_object.get_absolute_url()
 
 simpleimages.track_model(Photo)
+dumper.register(Photo)

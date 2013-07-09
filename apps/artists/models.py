@@ -5,6 +5,7 @@ from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
 
 import url_tracker
+import dumper
 
 from libs.slugify.fields import SlugifyField
 from apps.photos.models import Photo
@@ -51,4 +52,14 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
             Q(artist=self) | Q(exhibition__artists__in=[self])
         )
 
+    def dependent_paths(self):
+        if self.visible:
+            yield self.get_absolute_url()
+            yield reverse('artist-list')
+            yield reverse('artist-press-list', kwargs={'slug': self.slug})
+            yield reverse('artist-exhibition-list', kwargs={'slug': self.slug})
+        for exhibition in self.exhibitions.all():
+            yield exhibition.get_absolute_url()
+
 url_tracker.track_url_changes_for_model(Artist)
+dumper.register(Artist)

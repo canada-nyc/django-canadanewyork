@@ -1,10 +1,11 @@
 import os
 
-import url_tracker
-
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
+
+import dumper
+import url_tracker
 
 from ..artists.models import Artist
 from ..exhibitions.models import Exhibition
@@ -69,4 +70,14 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
             return unicode(self.artist)
         return ''
 
+    def dependent_paths(self):
+        yield self.get_absolute_url()
+        if self.artist:
+            yield self.artist.get_absolute_url()
+            yield reverse('artist-press-list', kwargs={'slug': self.artist.slug})
+        if self.exhibition:
+            yield self.exhibition.get_absolute_url()
+            yield reverse('exhibition-press-list', kwargs={'slug': self.exhibition.slug})
+
 url_tracker.track_url_changes_for_model(Press)
+dumper.register(Press)

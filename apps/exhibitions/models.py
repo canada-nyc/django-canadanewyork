@@ -6,6 +6,7 @@ from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
 
 import url_tracker
+import dumper
 
 from ..artists.models import Artist
 from libs.slugify.fields import SlugifyField
@@ -100,4 +101,16 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
         'for the slug'
         return self.start_date.year
 
+    def dependent_paths(self):
+        yield self.get_absolute_url()
+        if self.current:
+            yield reverse('exhibition-current')
+        yield reverse('exhibition-press-list', kwargs={'slug': self.slug})
+        for artist in self.artists.all():
+            yield artist.get_absolute_url()
+            yield reverse('artist-exhibition-list', kwargs={'slug': artist.slug})
+        for press in self.press.all():
+            yield press.get_absolute_url()
+
 url_tracker.track_url_changes_for_model(Exhibition)
+dumper.register(Exhibition)

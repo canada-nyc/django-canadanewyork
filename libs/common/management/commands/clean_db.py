@@ -3,9 +3,8 @@ from optparse import make_option
 
 import psycopg2
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import NoArgsCommand, CommandError
 from django.core.management import call_command
-from django.contrib.auth.models import User
 from django.conf import settings
 
 
@@ -56,6 +55,11 @@ class Command(NoArgsCommand):
                 self.log(
                     ('Assuming db is already wiped\n'
                      '`heroku pg:reset DATABASE_URL` on Heroku')
+                )
+        except CommandError:
+                self.log(
+                    ('Cant drop with postgresqlpool. try dropdb `databasename`'
+                     ' createdb `databasename`')
                 )
         self.log('Initial sync')
         call_command('syncdb', interactive=False, verbosity=0)

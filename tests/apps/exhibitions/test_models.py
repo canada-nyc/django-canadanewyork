@@ -16,7 +16,7 @@ class ExhibitionPressReleasePhotoTest(TestCase):
     def test_related_photo(self):
         Exhibition = ExhibitionFactory.create(photos__n=1)
 
-        self.assertEqual(Exhibition.get_press_release_photo()['image'], Exhibition.photos.all()[0].image)
+        self.assertEqual(Exhibition.get_press_release_photo()['image'], Exhibition.photos.all()[0].thumbnail_image)
 
     def test_uploaded_overrides_related_photo(self):
         Exhibition = ExhibitionFactory.create(photos__n=1, press_release_photo__make=True)

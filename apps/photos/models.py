@@ -7,6 +7,7 @@ from django.contrib.contenttypes import generic
 import simpleimages
 import dumper
 
+
 class Photo(models.Model):
 
     def image_path_function(subfolder):
@@ -22,7 +23,9 @@ class Photo(models.Model):
     caption = models.TextField(blank=True)
     image = models.ImageField(
         upload_to=image_path_function('original'),
-        max_length=1000
+        max_length=1000,
+        help_text="To change images, delete this photo and upload a new one",
+
     )
     thumbnail_image = models.ImageField(
         blank=True,

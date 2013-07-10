@@ -132,6 +132,7 @@ INSTALLED_APPS += ('django.contrib.flatpages',)
 # IMAGES #
 ##########
 INSTALLED_APPS += ('simpleimages',)
+SIMPLEIMAGES_OVERWRITE = False
 
 
 ###########

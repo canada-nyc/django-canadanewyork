@@ -6,7 +6,7 @@ from apps.photos.admin import PhotoInline
 
 class ArtistAdmin(admin.ModelAdmin):
     inlines = [PhotoInline]
-    fields = (('first_name', 'last_name'), 'visible',)
+    fields = (('first_name', 'last_name'), 'visible', 'resume')
     list_display = ('first_name', 'last_name', 'visible')
     list_display_links = ('first_name', 'last_name')
 

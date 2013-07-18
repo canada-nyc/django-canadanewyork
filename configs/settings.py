@@ -36,7 +36,6 @@ def get_env_variable(var_name, possible_options=[]):
 ##################
 SECRET_KEY = get_env_variable('SECRET_KEY')
 WSGI_APPLICATION = 'wsgi.application'
-DATE_FORMAT = 'F j'
 ROOT_URLCONF = 'configs.urls'
 PREPEND_WWW = False
 INSTALLED_APPS = ('django.contrib.sites',)

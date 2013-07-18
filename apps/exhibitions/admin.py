@@ -1,17 +1,23 @@
 from django.contrib import admin
 
 
-from .models import Exhibition
 from apps.photos.admin import PhotoInline
+from libs.common.admin import editor_form
+from .models import Exhibition
 
 
 class ExhibitionAdmin(admin.ModelAdmin):
+    form = editor_form(['description'])
     inlines = [PhotoInline]
     date_hierarchy = 'start_date'
     list_display = ('name', 'start_date', 'current')
     fieldsets = (
         (None, {
             'fields': ('name', ('start_date', 'end_date'),)
+        }),
+        ('Description', {
+            'classes': ('full-width',),
+            'fields': ('description',)
         }),
         ('Frontpage', {
             'fields': ('current', 'press_release_photo',)

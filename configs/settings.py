@@ -38,7 +38,7 @@ SECRET_KEY = get_env_variable('SECRET_KEY')
 WSGI_APPLICATION = 'wsgi.application'
 ROOT_URLCONF = 'configs.urls'
 PREPEND_WWW = False
-INSTALLED_APPS = ('django.contrib.sites',)
+INSTALLED_APPS = ('django.contrib.sites', 'django.contrib.flatpages',)
 SITE_ID = 1
 # Disable translation
 USE_I18N = False
@@ -120,12 +120,6 @@ TEMPLATE_DIRS = rel_path('templates')
 
 INSTALLED_APPS += ('sekizai',)
 TEMPLATE_CONTEXT_PROCESSORS += ('sekizai.context_processors.sekizai',)
-
-
-#############
-# FLATPAGES #
-#############
-INSTALLED_APPS += ('django.contrib.flatpages',)
 
 
 ##########

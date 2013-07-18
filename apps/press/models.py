@@ -21,15 +21,18 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
         blank=True,
         help_text='If this is blank then the exhibition or artist will be used instead. Also when this is displayed on, it will be prefixed by the publisher, if one is set'
     )
-    link = models.URLField(null=True, blank=True, verbose_name=u'External link')
+
     content = models.TextField(blank=True)
     content_file = models.FileField(upload_to=file_path, blank=True, null=True, max_length=500)
 
     date = models.DateField()
 
     publisher = models.CharField(max_length=50, blank=True)
+    author = models.CharField(max_length=50, blank=True)
+
     artist = models.ForeignKey(Artist, blank=True, null=True, related_name='press')
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True, related_name='press',)
+
     slug = SlugifyField(
         populate_from=('date_year', '__unicode__',),
         slug_template=u'{}/{}',

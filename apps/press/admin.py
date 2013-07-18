@@ -7,12 +7,12 @@ from .models import Press
 class PressAdmin(admin.ModelAdmin):
     form = editor_form(['content'])
     date_hierarchy = 'date'
-    list_display = ('__unicode__', 'publisher', 'date', 'exhibition', 'artist')
-    llist_filter = ('publisher', 'date', 'exhibition', 'artist')
+    list_display = ('title', 'publisher', 'author', 'date', 'exhibition', 'artist')
+    list_filter = ('publisher', 'date', 'exhibition', 'artist')
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'date', 'publisher', 'link')
+            'fields': ('title', 'date', ('publisher', 'author'))
         }),
         ('Article', {
             'classes': ('full-width',),

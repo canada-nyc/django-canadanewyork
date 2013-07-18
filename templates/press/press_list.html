@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{% if related_object %}{{ related_object }} › {% endif %}Press{{ block.super }}{% endblock %}
+{% block title %}Press{% if related_object %} ‹ {{ related_object }}{% endif %}{{ block.super }}{% endblock %}
 
 {% block body %}
 <h1>

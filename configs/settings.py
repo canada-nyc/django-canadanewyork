@@ -96,9 +96,9 @@ INSTALLED_APPS += (
 #########
 # ADMIN #
 #########
-INSTALLED_APPS += ('grappelli',)
-
 INSTALLED_APPS += (
+    'grappelli',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -112,6 +112,7 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 
 GRAPPELLI_ADMIN_TITLE = 'canada'
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+
 
 #############
 # TEMPLATES #

@@ -56,7 +56,7 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
         if self.visible:
             yield self.get_absolute_url()
             yield reverse('artist-list')
-            yield reverse('artist-resume')
+            yield reverse('artist-resume', kwargs={'slug': self.slug})
             yield reverse('artist-press-list', kwargs={'slug': self.slug})
             yield reverse('artist-exhibition-list', kwargs={'slug': self.slug})
         for exhibition in self.exhibitions.all():

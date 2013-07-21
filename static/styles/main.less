@@ -201,50 +201,15 @@ header {
 // Lists
 //
 
-// Basic list styling
-ul {
-  padding: 0;
+
+// Object list styling
+
+.object-list {
   list-style: none;
-}
 
-li {
-  line-height: 2em;
-}
-
-dl {
-  margin: 0;
-  margin-bottom: @separation-size;
-
-  h2 {
-    padding-bottom: 5px; // add padding between the border and the header
-    border-bottom: 1px solid @rule-color;
-  }
-
-  dt, dd {
-    margin: 0;
-  }
-
-  dt {
-    margin-top: 10px;
-  }
-
-  dd {
-    margin-bottom: 10px;
-  }
-
-  // For styling Press lists with the double colon.
-  dd em:before {
-    content: ':: ';
-  }
-
-  &.inline {
-    dt, dd {
-      display: inline;
-    }
-    a {
-      display: block;
-      margin: 10px 0;
-    }
+  li {
+    padding: 0;
+    line-height: 2em;
   }
 }
 

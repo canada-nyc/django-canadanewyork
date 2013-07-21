@@ -1,6 +1,3 @@
-{% load canada_filters %}
-
-<a href="{{ model.get_absolute_url }}" title="{{ model.name }}">
-  <dt>{{ model.publisher }}</dt>
-  <dd><em>{{ model.title }}</em></dd>
+<a href="{{ object.get_absolute_url }}" title="{{ object.name }}">
+{{ object.publisher }}: <em>{{ object.title }}</em>
 </a>

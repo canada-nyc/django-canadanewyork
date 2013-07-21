@@ -1,10 +1,11 @@
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView
 from django.contrib.flatpages.models import FlatPage
 
 from .models import Exhibition
+from libs.common.views import ObjectList, ObjectListFromParent
 
 
-class ExhibitionList(ListView):
+class ExhibitionList(ObjectList):
     queryset = Exhibition.objects.all()
 
 
@@ -12,15 +13,11 @@ class ExhibitionDetail(DetailView):
     queryset = Exhibition.objects.prefetch_related('photos')
 
 
-class ExhibitionPressList(DetailView):
-    template_name = 'press/press_list.html'
-    context_object_name = "related_object"
+class ExhibitionPressList(ObjectListFromParent):
     queryset = Exhibition.objects.only('name').prefetch_related('press')
 
-    def get_context_data(self, **kwargs):
-        context = super(ExhibitionPressList, self).get_context_data(**kwargs)
-        context['press_list'] = context['related_object'].press.all()
-        return context
+    def get_object_list_from_parent(self, exhibition):
+        return exhibition.press.all()
 
 
 class ExhibitionCurrent(DetailView):

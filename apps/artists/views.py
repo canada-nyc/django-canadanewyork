@@ -1,9 +1,10 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import DetailView
 
 from .models import Artist
+from libs.common.views import ObjectList, ObjectListFromParent
 
 
-class ArtistList(ListView):
+class ArtistList(ObjectList):
     queryset = Artist.in_gallery.all()
 
 
@@ -11,26 +12,18 @@ class ArtistDetail(DetailView):
     queryset = Artist.in_gallery.prefetch_related('photos')
 
 
-class ArtistPressList(DetailView):
+class ArtistPressList(ObjectListFromParent):
     queryset = Artist.in_gallery.all()
-    template_name = 'press/press_list.html'
-    context_object_name = "related_object"
 
-    def get_context_data(self, **kwargs):
-        context = super(ArtistPressList, self).get_context_data(**kwargs)
-        context['press_list'] = context['related_object'].all_press
-        return context
+    def get_object_list_from_parent(self, exhibition):
+        return exhibition.all_press
 
 
-class ArtistExhibitionList(DetailView):
+class ArtistExhibitionList(ObjectListFromParent):
     queryset = Artist.in_gallery.all()
-    template_name = 'exhibitions/exhibition_list.html'
-    context_object_name = "related_object"
 
-    def get_context_data(self, **kwargs):
-        context = super(ArtistExhibitionList, self).get_context_data(**kwargs)
-        context['exhibition_list'] = context['related_object'].exhibitions.all()
-        return context
+    def get_object_list_from_parent(self, exhibition):
+        return exhibition.exhibitions.all()
 
 
 class ArtistResume(DetailView):

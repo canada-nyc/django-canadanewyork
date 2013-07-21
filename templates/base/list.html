@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {% if parent_object %}{{ parent_object }} › {% endif %}
+  {{ object_label }}
+  {% if not parent_object %}{{ block.super }}{% endif %}
+{% endblock %}
+
+{% block body %}
+<h1>
+  {% if parent_object %}
+    <a href="{{ parent_object.get_absolute_url }}">{{ parent_object }}</a> ›
+  {% endif %}
+  {{ object_label }}
+</h1>
+<ol class="object-list">
+{% for object in object_list %}
+  <li>{% include object_list_item_template with object=object %}</li>
+{% endfor %}
+</ol>
+{% endblock %}

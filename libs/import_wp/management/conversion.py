@@ -145,6 +145,12 @@ def create_press(element, all_elements):
     for artist in artists:
         P.artist = artist
     P.save()
+    image_links = helpers.image_links_from_html(
+        element.findtext('{http://purl.org/rss/1.0/modules/content/}encoded')
+    )
+    for link in image_links:
+        P.content_file.save(*_press_file_from_link(P, link))
+        P.save()
     old_path = helpers.path_from_element(element)
     add_old_url(P, 'get_absolute_url', old_path)
     return P

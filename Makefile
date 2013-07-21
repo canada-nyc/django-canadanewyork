@@ -41,12 +41,12 @@ setup-heroku-prod:
 
 reset-local:
 	${MANAGE} clean_db --noinput
-	${MANAGE} import_wp --traceback static/wordpress/.canada.wordpress.*
+	${MANAGE} import_wp static/wordpress/.canada.wordpress.* --traceback
 
 reset-heroku-dev:
 	heroku pg:reset DATABASE_URL --confirm canada-development
 	heroku run 'python manage.py clean_db --noinput'
-	heroku run 'python manage.py import_wp  --traceback static/wordpress/.canada.wordpress.*'
+	heroku run 'python manage.py import_wp  static/wordpress/.canada.wordpress.* --traceback '
 
 migrate-all:
 	for app in (${MANAGE} syncdb | grep - | sed 's/ - //g');${MANAGE} schemamigration $$app --auto;end

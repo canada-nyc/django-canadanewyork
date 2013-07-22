@@ -2,11 +2,11 @@ CANADA = {};
 
 $(document).ready(function () {
   // Initialize the lightbox
-  var lightbox = new CANADA.Lightbox();
+  CANADA.lightbox = new CANADA.Lightbox();
   $('.gallery').on('click', function () {
     var id = $(this).attr('id');
     window.location.hash = id;
-    lightbox.show(id);
+    CANADA.lightbox.show(id);
   });
 
   $('.open-gallery').on('click', function () {

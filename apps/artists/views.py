@@ -15,15 +15,15 @@ class ArtistDetail(DetailView):
 class ArtistPressList(ObjectListFromParent):
     queryset = Artist.in_gallery.all()
 
-    def get_object_list_from_parent(self, exhibition):
-        return exhibition.all_press
+    def get_object_list_from_parent(self, artist):
+        return artist.all_press
 
 
 class ArtistExhibitionList(ObjectListFromParent):
     queryset = Artist.in_gallery.all()
 
-    def get_object_list_from_parent(self, exhibition):
-        return exhibition.exhibitions.all()
+    def get_object_list_from_parent(self, artist):
+        return artist.exhibitions.all()
 
 
 class ArtistResume(DetailView):

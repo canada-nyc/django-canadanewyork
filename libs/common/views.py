@@ -17,8 +17,7 @@ class BaseCustomObjectList(object):
         rendered_template = select_template([model_template, generic_template])
         return rendered_template.name
 
-    def get_context_data(self, **kwargs):
-        context = super(BaseCustomObjectList, self).get_context_data(**kwargs)
+    def add_context_data(self, context):
         context['object_label'] = self.model_from_queryset(context['object_list'])
         context['object_list_item_template'] = self.list_item_template_name(
             queryset=context['object_list']
@@ -27,7 +26,9 @@ class BaseCustomObjectList(object):
 
 
 class ObjectList(BaseCustomObjectList, ListView):
-    pass
+    def get_context_data(self, **kwargs):
+        context = super(ObjectList, self).get_context_data(**kwargs)
+        return self.add_context_data(context)
 
 
 class ObjectListFromParent(BaseCustomObjectList, DetailView):
@@ -36,6 +37,8 @@ class ObjectListFromParent(BaseCustomObjectList, DetailView):
         raise NotImplementedError()
 
     def get_context_data(self, **kwargs):
-        kwargs['object_list'] = self.get_object_list_from_parent(kwargs['object'])
-        kwargs['parent_object'] = kwargs['object']
-        return super(ObjectListFromParent, self).get_context_data(**kwargs)
+        context = super(ObjectListFromParent, self).get_context_data(**kwargs)
+        context['object_list'] = self.get_object_list_from_parent(context['object'])
+        context['parent_object'] = context['object']
+        del context['object']
+        return self.add_context_data(context)

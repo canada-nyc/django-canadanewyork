@@ -11,7 +11,7 @@
   <hr>
   <aside>
     <ul>
-    {% if artist.photos %}
+    {% if artist.photos.exists %}
       <li>
         <a href="#{{ artist.id }}" class="open-gallery">Images</a>
       </li>

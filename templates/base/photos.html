@@ -1,13 +1,14 @@
 {% load static from staticfiles %}
 {% load sekizai_tags %}
 
-{% if photos %}{% with first_photo=photos|first %}
+{% with first_photo=photos|first %}
+{% if first_photo %}
   <div class="gallery" id="{{ id }}">
     <img src="{{ first_photo.thumbnail_image.url }}" height="{{ first_photo.thumbnail_image_height }}" width="{{ first_photo.thumbnail_image_width }}" alt="photos" title="Click to view photos"/>
   {% addtoblock "js" %}
   <script src="{% static "canada/compressed/global.js" %}"></script>
   <script type="text/javascript">
-    {% if id == None %}
+    {% if not id %}
     console.error("The photos template with the first image {{ first_photo.id }} ({{ first_photo.title }}) MUST be passed the id of the owning model.");
     {% endif %}
     CANADA.store.load('gallery', {
@@ -42,4 +43,5 @@
   {% endaddtoblock %}
   </div>
   <br>
-{% endwith %}{% endif %}
+{% endif %}
+{% endwith %}

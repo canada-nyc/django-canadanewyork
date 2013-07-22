@@ -5,6 +5,7 @@ $(document).ready(function () {
   var lightbox = new CANADA.Lightbox();
   $('.gallery').on('click', function () {
     var id = $(this).attr('id');
+    window.location.hash = id;
     lightbox.show(id);
   });
 

@@ -6,6 +6,7 @@ import psycopg2
 from django.core.management.base import NoArgsCommand, CommandError
 from django.core.management import call_command
 from django.conf import settings
+from django.db import DatabaseError
 
 
 class Command(NoArgsCommand):
@@ -36,7 +37,10 @@ class Command(NoArgsCommand):
 
     def handle(self, *args, **options):
         self.log('Clearing Cache')
-        call_command('clear_cache')
+        try:
+            call_command('clear_cache')
+        except DatabaseError:
+            self.log('Cache database doesnt exist')
         if options.get('wipe_static'):
             call_command('wipe_storage')
         self.log('Reseting DB')
@@ -58,8 +62,9 @@ class Command(NoArgsCommand):
                 )
         except CommandError:
                 self.log(
-                    ('Cant drop with postgresqlpool. try dropdb `databasename`'
-                     ' createdb `databasename`')
+                    'Cant drop with postgresqlpool. try\n'
+                    'dropdb django_canadanewyork; createdb'
+                    'django_canadanewyork'
                 )
         self.log('Adding cache table')
         call_command('createcachetable', 'cache', interactive=False, verbosity=0)

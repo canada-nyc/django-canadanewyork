@@ -14,7 +14,7 @@
 .swipe-wrap>div{float:left;width:100%;position:relative}
 .touch .lightbox .swipe{left:0;right:0}
 .touch .lightbox .prev,.touch .lightbox .next,.touch .lightbox .close{display:none !important}
-@media print{html,body{background-color:#fff;color:#250758} a,a:visited{color:#250758 !important} hr,header,dl h2{border-bottom:1px solid #250758} body{margin:0 0 100px} nav{display:none} section{width:auto;margin:0;padding:20px} .print{display:block !important} footer{left:0;height:150px} footer .logo{position:absolute;right:20px;height:auto;max-height:100%} footer *{height:0;overflow:hidden;display:none}}html,body{font-size:11px;font-family:Arial;color:#aaa;background-color:#000;line-height:1.5em;margin:0;padding:0}
+@media print{html,body{background-color:#fff;color:#250758} a,a:visited{color:#250758 !important} hr,header,dl h2{border-bottom:1px solid #250758} body{margin:0 0 100px} nav{display:none} section{width:auto;margin:0;padding:20px} .print{display:block !important} footer{left:0;height:150px} footer .logo{position:absolute;right:20px;height:auto;max-height:100%} footer *{height:0;overflow:hidden;display:none}}html,body{font-size:12px;font-family:Arial;color:#aaa;background-color:#000;line-height:1.5em;margin:0;padding:0}
 html{position:relative;min-height:100%}
 body{margin:0 0 60px}
 .print{display:none}
@@ -24,7 +24,7 @@ input[type="text"],input[type="email"]{color:#fff;border:1px solid #aaa;backgrou
 hr{border:0;border-bottom:1px solid #333}
 em{font-weight:bold;font-style:italic}
 img{max-width:100%;height:auto;vertical-align:middle;border:0;-ms-interpolation-mode:bicubic}
-h1,h2,h3,h4,h5,h6{font-size:12px;font-weight:bold}
+h1,h2,h3,h4,h5,h6{font-size:13px;font-weight:bold}
 figure{margin:0 auto}
 figure aside{padding-top:20px}
 figure em{font-weight:bold;font-style:italic;display:block}
@@ -38,7 +38,7 @@ nav ul{line-height:20px;padding-left:200px}
 nav li{display:inline-block;padding-right:20px}
 .brand{position:fixed;top:80px;left:20px}
 article{margin-bottom:40px}article li{display:inline;margin-left:5px;padding-right:20px}
-article li:before{content:'\203A';font-size:13px}
+article li:before{content:'\203A';font-size:14px}
 article iframe{max-width:100% !important}
 header{border-bottom:1px solid #333;margin-bottom:20px}
 .object-list{list-style:none}.object-list li{padding:0;line-height:2em}

@@ -6,7 +6,7 @@
 <article>
   <header>
     <h1>{{ exhibition }}</h1>
-    <p>{% include "base/full_date.html" with date=exhibition.start_date %}{% if exhibition.end_date %} - {% include "base/full_date.html" with date=exhibition.end_date %}{% endif %}
+    <p>{% include "base/full_date.html" with date=exhibition.start_date year=True %}{% if exhibition.end_date %} - {% include "base/full_date.html" with date=exhibition.end_date year=True %}{% endif %}
   </header>
   {{ exhibition.description|safe }}
   {% include "base/photos.html" with photos=exhibition.photos.all id=exhibition.id %}

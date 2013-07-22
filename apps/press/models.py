@@ -28,7 +28,8 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
     date = models.DateField()
 
     publisher = models.CharField(max_length=50, blank=True)
-    author = models.CharField(max_length=50, blank=True)
+    author_first_name = models.CharField(max_length=50, blank=True)
+    author_last_name = models.CharField(max_length=50, blank=True)
 
     artist = models.ForeignKey(Artist, blank=True, null=True, related_name='press')
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True, related_name='press',)

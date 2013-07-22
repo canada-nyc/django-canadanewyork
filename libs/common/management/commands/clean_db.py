@@ -61,6 +61,8 @@ class Command(NoArgsCommand):
                     ('Cant drop with postgresqlpool. try dropdb `databasename`'
                      ' createdb `databasename`')
                 )
+        self.log('Adding cache table')
+        call_command('createcachetable', 'cache', interactive=False, verbosity=0)
         self.log('Initial sync')
         call_command('syncdb', interactive=False, verbosity=0)
         self.log('Initial migrate')

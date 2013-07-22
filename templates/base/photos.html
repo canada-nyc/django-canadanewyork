@@ -5,8 +5,10 @@
 {% if first_photo %}
   <div class="gallery" id="{{ id }}">
     <img src="{{ first_photo.thumbnail_image.url }}" height="{{ first_photo.thumbnail_image_height }}" width="{{ first_photo.thumbnail_image_width }}" alt="photos" title="Click to view photos"/>
+  </div>
+  <br>
+  {% addtoblock "js" %} <script src="{% static "canada/compressed/global.js" %}"></script>{% endaddtoblock %}
   {% addtoblock "js" %}
-  <script src="{% static "canada/compressed/global.js" %}"></script>
   <script type="text/javascript">
     {% if not id %}
     console.error("The photos template with the first image {{ first_photo.id }} ({{ first_photo.title }}) MUST be passed the id of the owning model.");
@@ -41,7 +43,5 @@
     });
   </script>
   {% endaddtoblock %}
-  </div>
-  <br>
 {% endif %}
 {% endwith %}

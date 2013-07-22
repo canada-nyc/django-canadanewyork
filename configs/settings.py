@@ -76,6 +76,7 @@ INSTALLED_APPS += (
     'apps.artists',
     'apps.exhibitions',
     'apps.press',
+    'apps.books',
     'apps.updates',
     'apps.photos',
 

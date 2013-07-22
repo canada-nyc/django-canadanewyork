@@ -4,6 +4,7 @@ from apps.artists.models import Artist
 from ..exhibitions.related_factories import create_exhibitions
 from ..press.related_factories import create_press
 from ..photos.related_factories import create_photos
+from ..books.related_factories import create_books
 
 
 class ArtistFactory(factory.DjangoModelFactory):
@@ -16,3 +17,4 @@ class ArtistFactory(factory.DjangoModelFactory):
     photos = factory.PostGeneration(create_photos)
     exhibitions = factory.PostGeneration(create_exhibitions)
     press = factory.PostGeneration(create_press)
+    books = factory.PostGeneration(create_books)

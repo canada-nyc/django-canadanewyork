@@ -1,5 +1,8 @@
+import re
+
 from django_webtest import WebTest
 from django.core.urlresolvers import reverse
+from webtest.app import AppError
 
 from .factories import ArtistFactory
 from ..press.factories import PressFactory
@@ -102,6 +105,23 @@ class ArtistDetailTest(WebTest):
             href=reverse('artist-press-list', kwargs={'slug': Artist.slug})
         )
 
+    def test_no_book_link(self):
+        Artist = ArtistFactory.create()
+        artist_detail = self.app.get(Artist.get_absolute_url())
+        with self.assertRaises(IndexError):
+            artist_detail.click(
+                'Books',
+            )
+
+    def test_book_link(self):
+        Artist = ArtistFactory.create(books__n=1)
+        artist_detail = self.app.get(Artist.get_absolute_url())
+
+        artist_detail.click(
+            'Books',
+            href=reverse('artist-book-list', kwargs={'slug': Artist.slug})
+        )
+
 
 class ArtistPressListTest(WebTest):
     def test_parent_link(self):
@@ -169,3 +189,31 @@ class ArtistResumeTest(WebTest):
             reverse('artist-resume', kwargs={'slug': Artist.slug})
         )
         self.assertIn(Artist.resume, artist_resume)
+
+
+class ArtistBookListTest(WebTest):
+    def test_parent_link(self):
+        Artist = ArtistFactory.create()
+        artist_book_list = self.app.get(
+            reverse('artist-book-list', kwargs={'slug': Artist.slug})
+        )
+
+        artist_book_list.click(
+            unicode(Artist),
+            href=Artist.get_absolute_url()
+        )
+
+    def test_email_link(self):
+        Artist = ArtistFactory.create(books__n=1)
+        Book = Artist.books.all()[0]
+        artist_book_list = self.app.get(
+            reverse('artist-book-list', kwargs={'slug': Artist.slug})
+        )
+
+        # will raise AppError when hits 404, because index link is not a real
+        # page, but a mailto link
+        with self.assertRaises(AppError):
+            artist_book_list.click(
+                unicode(Book),
+                href=re.escape(Book.get_purchase_url()),
+            )

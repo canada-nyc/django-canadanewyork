@@ -31,6 +31,11 @@
         <a href="{% url 'artist-exhibition-list' slug=artist.slug %}">Exhibitions</a>
       </li>
     {% endif %}
+    {% if artist.books.exists %}
+      <li>
+        <a href="{% url 'artist-book-list' slug=artist.slug %}">Books</a>
+      </li>
+    {% endif %}
     </ul>
   </aside>
 </article>

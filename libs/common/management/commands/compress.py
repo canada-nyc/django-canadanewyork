@@ -13,7 +13,6 @@ class Command(NoArgsCommand):
         "static/scripts/templates.js",
         "static/scripts/store.js",
         "static/scripts/lightbox.js",
-        "static/scripts/html5shiv.min.js"
     ])
     SCRIPT_DESTINATION = "static/compressed/global.js"
     STYLE_SOURCE = "static/styles/main.less"

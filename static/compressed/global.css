@@ -1,14 +1,14 @@
 .lightbox{display:none;background-color:#111;position:fixed;top:0;left:0;bottom:0;right:0}
 .lightbox .swipe,.lightbox .swipe-wrap{position:absolute;top:0;left:0;bottom:0;right:0}
-.lightbox .next,.lightbox .prev{cursor:pointer;position:fixed;top:0;bottom:0;width:50px;z-index:100}
-.lightbox .next{top:50px;right:0;background:url("../images/icon-left-arrow.png") no-repeat center;background-size:25px 50px;box-shadow:-4px 0 4px #111}
-.lightbox .next:active{background:url("../images/icon-left-arrow_hover.png") no-repeat center;background-size:25px 50px}
-.lightbox .prev{left:0;background:url("../images/icon-right-arrow.png") no-repeat center;background-size:25px 50px;box-shadow:4px 0 4px #111}
-.lightbox .prev:active{background:url("../images/icon-right-arrow_hover.png") no-repeat center;background-size:25px 50px}
-.lightbox .close{cursor:pointer;position:absolute;top:0;right:0;height:50px;width:50px;z-index:100;background:url("../images/icon-cancel.png") no-repeat center;background-size:25px 25px;box-shadow:-4px 0 4px #111}
-.lightbox .close:active{background:url("../images/icon-cancel_hover.png") no-repeat center;background-size:25px 25px}
-.lightbox .swipe{left:50px;right:50px}
-.lightbox figure{margin-top:25px;padding:0 20px}
+.lightbox .next,.lightbox .prev{cursor:pointer;position:fixed;top:0;bottom:0;width:50%;z-index:100;background-repeat:no-repeat}
+.lightbox .next{right:0;background-image:url("../images/icon-left-arrow.png");background-size:40px;background-position:calc(100% - 100px) center}
+.lightbox .next:active{background-image:url("../images/icon-left-arrow_hover.png")}
+.lightbox .prev{left:0;background-image:url("../images/icon-right-arrow.png");background-size:40px;background-position:100px center}
+.lightbox .prev:active{background-image:url("../images/icon-right-arrow_hover.png")}
+.lightbox .close{cursor:pointer;position:absolute;top:0;right:0;height:100px;width:100px;z-index:100;background:url("../images/icon-cancel.png") no-repeat center;background-size:40px}
+.lightbox .close:active{background-image:url("../images/icon-cancel_hover.png")}
+.lightbox .swipe{left:140px;right:140px}
+.lightbox figure{margin-top:20px;padding:0 40px}
 .swipe{overflow:hidden;visibility:hidden;position:relative}
 .swipe-wrap{overflow:hidden;position:relative}
 .swipe-wrap>div{float:left;width:100%;position:relative}

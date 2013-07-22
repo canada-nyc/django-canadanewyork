@@ -1,3 +1,5 @@
+@import "variables.less";
+
 .lightbox {
   display: none;
   background-color: #111111;
@@ -21,53 +23,49 @@
   position: fixed;
   top: 0;
   bottom: 0;
-  width: 50px;
+  width: 50%;
   z-index: 100;
+  background-repeat: no-repeat;
 }
 .lightbox .next {
-  top: 50px;
   right: 0;
-  background: url("../images/icon-left-arrow.png") no-repeat center;
-  background-size: 25px 50px;
-  box-shadow: -4px 0px 4px #111111;
+  background-image: url("../images/icon-left-arrow.png");
+  background-size: @next-prev-background-width;
+  background-position: @next-width-position center;
 }
 .lightbox .next:active {
-  background: url("../images/icon-left-arrow_hover.png") no-repeat center;
-  background-size: 25px 50px;
+  background-image: url("../images/icon-left-arrow_hover.png");
 }
 .lightbox .prev {
   left: 0;
-  background: url("../images/icon-right-arrow.png") no-repeat center;
-  background-size: 25px 50px;
-  box-shadow: 4px 0px 4px #111111;
+  background-image: url("../images/icon-right-arrow.png");
+  background-size: @next-prev-background-width;
+  background-position: @prev-width-position center;
 }
 .lightbox .prev:active {
-  background: url("../images/icon-right-arrow_hover.png") no-repeat center;
-  background-size: 25px 50px;
+  background-image: url("../images/icon-right-arrow_hover.png");
 }
 .lightbox .close {
   cursor: pointer;
   position: absolute;
   top: 0;
   right: 0;
-  height: 50px;
-  width: 50px;
+  height: @close-width;
+  width: @close-width;
   z-index: 100;
   background: url("../images/icon-cancel.png") no-repeat center;
-  background-size: 25px 25px;
-  box-shadow: -4px 0px 4px #111111;
+  background-size: @close-background-width;
 }
 .lightbox .close:active {
-  background: url("../images/icon-cancel_hover.png") no-repeat center;
-  background-size: 25px 25px;
+  background-image: url("../images/icon-cancel_hover.png");
 }
 .lightbox .swipe {
-  left: 50px;
-  right: 50px;
+  left: @prev-width-position + @next-prev-background-width;
+  right: @prev-width-position + @next-prev-background-width;
 }
 .lightbox figure {
-  margin-top: 25px;
-  padding: 0 20px;
+  margin-top: @lightbox-image-top-margin;
+  padding: 0 @next-prev-background-width;
 }
 .swipe {
   overflow: hidden;

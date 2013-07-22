@@ -3,4 +3,4 @@
 {{ object.author_first_name }}
 {% if object.title %}"{{ object.title }}."{% endif %}
 {% if object.publisher %}<em>{{ object.publisher }}</em>{% endif %}
-{{ object.date }}
+{% include "base/full_date.html" with date=object.date year=True %}

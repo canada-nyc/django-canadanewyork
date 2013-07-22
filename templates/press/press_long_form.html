@@ -1,0 +1,6 @@
+{{ object.author_last_name }}
+{% if object.author_first_name %}, {% endif %}
+{{ object.author_first_name }}
+{% if object.title %}"{{ object.title }}."{% endif %}
+{% if object.publisher %}<em>{{ object.publisher }}</em>{% endif %}
+{{ object.date }}

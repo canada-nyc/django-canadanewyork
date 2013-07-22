@@ -116,7 +116,7 @@ class ArtistPressListTest(WebTest):
         )
 
     def test_detail_link(self):
-        Press = PressFactory.create()
+        Press = PressFactory.create(content='_')
         Artist = ArtistFactory.create(press=Press)
         artist_press_list = self.app.get(
             reverse('artist-press-list', kwargs={'slug': Artist.slug})

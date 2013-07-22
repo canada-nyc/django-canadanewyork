@@ -1,6 +1,7 @@
 from django_webtest import WebTest
 from django.core.urlresolvers import reverse
 from django.contrib.flatpages.models import FlatPage
+from django.core.files.base import ContentFile
 
 from .factories import ExhibitionFactory
 
@@ -99,6 +100,8 @@ class ExhibitionPressListTest(WebTest):
     def test_detail_link(self):
         Exhibition = ExhibitionFactory.create(press__n=1)
         Press = Exhibition.press.all()[0]
+        Press.content = '_'
+        Press.save()
         exhibition_press_list = self.app.get(
             reverse('exhibition-press-list', kwargs={'slug': Exhibition.slug})
         )
@@ -106,6 +109,21 @@ class ExhibitionPressListTest(WebTest):
         exhibition_press_list.click(
             unicode(Press),
             href=reverse('press-detail', kwargs={'slug': Press.slug}),
+        )
+
+    def test_content_file_link(self):
+        Exhibition = ExhibitionFactory.create(press__n=1)
+        Press = Exhibition.press.all()[0]
+
+        Press.content_file.save('file.txt', ContentFile("my string content"))
+        Press.save()
+
+        exhibition_press_list = self.app.get(
+            reverse('exhibition-press-list', kwargs={'slug': Exhibition.slug})
+        )
+        exhibition_press_list.click(
+            unicode(Press),
+            href=Press.content_file.url,
         )
 
 

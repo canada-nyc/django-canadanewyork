@@ -1,25 +1,19 @@
 from django.test import TestCase
+from django.core.files.base import ContentFile
 
 from .factories import PressFactory
-from ..exhibitions.factories import ExhibitionFactory
-from ..artists.factories import ArtistFactory
 
 
-class PressFullTitleTest(TestCase):
+class PressGetContentUrlTest(TestCase):
     def test_blank(self):
-        Press = PressFactory.create(title='')
-        self.assertEquals('', Press.full_title)
+        Press = PressFactory.create()
+        self.assertFalse(Press.get_content_url())
 
-    def test_title(self):
-        Press = PressFactory(title='title')
-        self.assertEquals(Press.title, Press.full_title)
+    def test_content_file(self):
+        Press = PressFactory()
+        Press.content_file.save('file.txt', ContentFile("my string content"))
+        self.assertEqual(Press.get_content_url(), Press.content_file.url)
 
-    def test_exhibition(self):
-        Exhibition = ExhibitionFactory.create()
-        Press = PressFactory(exhibition=Exhibition, title='')
-        self.assertEquals(unicode(Exhibition), Press.full_title)
-
-    def test_artist(self):
-        Artist = ArtistFactory.create()
-        Press = PressFactory(artist=Artist, title='')
-        self.assertEquals(unicode(Artist), Press.full_title)
+    def test_content(self):
+        Press = PressFactory(content='_')
+        self.assertEqual(Press.get_content_url(), Press.get_absolute_url())

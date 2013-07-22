@@ -2,7 +2,6 @@ import os
 
 from django.db import models
 from django.core.urlresolvers import reverse
-from django.core.exceptions import ValidationError
 
 import dumper
 import url_tracker
@@ -45,34 +44,25 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
         verbose_name_plural = "press"
 
     def __unicode__(self):
-        if self.publisher:
-            return u'{}: {}'.format(self.publisher, self.full_title)
-        return self.full_title
+        return self.title
 
     def clean(self):
         self.title = self.title.strip().title()
         self.content = self.content.strip()
         self.publisher = self.publisher.strip().title()
-        if not (self.artist or self.exhibition or self.title):
-            raise ValidationError('A press must have either a title or an artist or an exhibition')
 
     def get_absolute_url(self):
         return reverse('press-detail', kwargs={'slug': self.slug})
 
+    def get_content_url(self):
+        if self.content_file:
+            return self.content_file.url
+        if self.content:
+            return self.get_absolute_url()
+
     @property
     def date_year(self):
         return self.date.year
-
-    @property
-    def full_title(self):
-        'for display in template, prepended by publisher'
-        if self.title:
-            return self.title
-        elif self.exhibition:
-            return unicode(self.exhibition)
-        elif self.artist:
-            return unicode(self.artist)
-        return ''
 
     def dependent_paths(self):
         yield self.get_absolute_url()

@@ -4,4 +4,4 @@ from .models import Press
 
 
 class PressDetail(DetailView):
-    model = Press
+    queryset = Press.objects.exclude(content='')

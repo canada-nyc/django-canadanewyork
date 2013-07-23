@@ -36,11 +36,6 @@ class Command(NoArgsCommand):
     )
 
     def handle(self, *args, **options):
-        self.log('Clearing Cache')
-        try:
-            call_command('clear_cache')
-        except DatabaseError:
-            self.log('Cache database doesnt exist')
         if options.get('wipe_static'):
             call_command('wipe_storage')
         self.log('Reseting DB')

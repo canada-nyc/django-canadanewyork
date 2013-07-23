@@ -1,5 +1,4 @@
 {% with url=object.get_content_url %}
-fdf{{ object.get_content_url }}df
 {% if url %}<a target='_blank' href="{{ url }}">{% include "press/press_long_form.html" %}</a>
 {% else %}{% include "press/press_long_form.html" %}
 {% endif %}

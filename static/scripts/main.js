@@ -23,6 +23,7 @@ $(document).ready(function () {
         lightbox.show(hash.slice(1));
       }
     };
+    window.onhashchange();
   }
 
 });

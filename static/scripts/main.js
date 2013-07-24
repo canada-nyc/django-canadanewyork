@@ -1,16 +1,28 @@
 CANADA = {};
 
 $(document).ready(function () {
-  // Initialize the lightbox
-  CANADA.lightbox = new CANADA.Lightbox();
-  $('.gallery').on('click', function () {
-    var id = $(this).attr('id');
-    window.location.hash = id;
-    CANADA.lightbox.show(id);
-  });
+  if ("onhashchange" in window) {
+    var lightbox = new CANADA.Lightbox(),
+        _show = lightbox.show,
+        _close = lightbox.close;
 
-  $('.open-gallery').on('click', function () {
-    $($(this).attr('href')).click();
-  });
+    lightbox.show = function (galleryId) {
+      window.location.hash = galleryId;
+      _show.call(this, galleryId);
+    };
+    lightbox.close = function () {
+      window.location.hash = '';
+      _close.call(this);
+    };
+
+    window.onhashchange = function () {
+      var hash = window.location.hash;
+      if (hash === '') {
+        lightbox.close();
+      } else {
+        lightbox.show(hash.slice(1));
+      }
+    };
+  }
 
 });

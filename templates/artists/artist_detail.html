@@ -11,11 +11,6 @@
   <hr>
   <aside>
     <ul>
-    {% if artist.photos.exists %}
-      <li>
-        <a href="#{{ artist.id }}" class="open-gallery">Images</a>
-      </li>
-    {% endif %}
     {% if artist.resume %}
       <li>
         <a href="{% url 'artist-resume' slug=artist.slug %}">Resume</a>

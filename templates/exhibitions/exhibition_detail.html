@@ -10,9 +10,6 @@
   </header>
   {{ exhibition.description|safe }}
   {% include "base/photos.html" with photos=exhibition.photos.all id=exhibition.id %}
-  {% if exhibition.photos.exists %}
-    <p><a href="#{{ exhibition.id }}" class="open-gallery">Images</a></p>
-  {% endif %}
   {% if exhibition.press.exists %}
     <p><a href="{% url "exhibition-press-list" slug=exhibition.slug %}">Press</a>
   {% endif %}

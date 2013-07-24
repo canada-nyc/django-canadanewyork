@@ -4,7 +4,10 @@
 {% with first_photo=photos|first %}
 {% if first_photo %}
   <div class="gallery" id="{{ id }}">
-    <img src="{{ first_photo.thumbnail_image.url }}" height="{{ first_photo.thumbnail_image_height }}" width="{{ first_photo.thumbnail_image_width }}" alt="photos" title="Click to view photos"/>
+    <a href="#{{ id }}">
+      <img src="{{ first_photo.thumbnail_image.url }}" height="{{ first_photo.thumbnail_image_height }}" width="{{ first_photo.thumbnail_image_width }}" alt="photos" title="Click to view photos"/>
+      <br />Images
+    </a>
   </div>
   <br>
   {% addtoblock "js" %} <script src="{% static "canada/compressed/global.js" %}"></script>{% endaddtoblock %}

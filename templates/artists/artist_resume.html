@@ -4,7 +4,7 @@
 
 {% block body %}
 <article>
-  <h1>Resume › <a href="{{ artist.get_absolute_url }}">{{ artist }}</a></h1>
+  <h1><a href="{{ artist.get_absolute_url }}">{{ artist }}</a></h1>
   {{ artist.resume|safe }}
 </article>
 {% endblock body %}

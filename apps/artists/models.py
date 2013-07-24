@@ -38,6 +38,10 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
     def __unicode__(self):
         return ' '.join([self.first_name, self.last_name])
 
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("first_name__icontains", "last_name__icontains",)
+
     def clean(self):
         self.first_name = self.first_name.strip().title()
         self.last_name = self.last_name.strip().title()

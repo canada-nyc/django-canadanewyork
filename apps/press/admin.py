@@ -23,4 +23,9 @@ class PressAdmin(admin.ModelAdmin):
         }),
     )
 
+    raw_id_fields = ('artist', 'exhibition')
+    autocomplete_lookup_fields = {
+        'fk': ['artist', 'exhibition'],
+    }
+
 admin.site.register(Press, PressAdmin)

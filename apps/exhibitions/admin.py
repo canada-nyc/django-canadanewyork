@@ -26,4 +26,9 @@ class ExhibitionAdmin(admin.ModelAdmin):
             'fields': ('artists', )
         }),
     )
+    raw_id_fields = ('artists',)
+    autocomplete_lookup_fields = {
+        'm2m': ['artists'],
+    }
+
 admin.site.register(Exhibition, ExhibitionAdmin)

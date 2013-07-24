@@ -66,6 +66,10 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
     def get_absolute_url(self):
         return reverse('exhibition-detail', kwargs={'slug': self.slug})
 
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("name__icontains",)
+
     def save(self, *args, **kwargs):
         if self.start_date == self.end_date:
             self.end_date = None

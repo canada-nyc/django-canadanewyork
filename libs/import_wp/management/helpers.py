@@ -85,8 +85,8 @@ def image_from_link(url):
 
 def pdf_from_image(image):
     thumb_io = StringIO()
-
-    image.save(thumb_io, format='PDF', resolution=200)
+    image.thumbnail((8.5 * 72, 11 * 72), Image.ANTIALIAS)
+    image.save(thumb_io, format='PDF')
 
     return ContentFile(thumb_io.getvalue())
 

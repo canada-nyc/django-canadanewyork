@@ -55,6 +55,7 @@ def path_from_element(element, field='link'):
 
 def cleanup_html(html):
     html = html.replace('[gallery]', '')
+    html = html.replace('\n\n', '\n')
     html = html.replace('\n', '\n<br>')
     td = TagDropper(['img'])
     td.feed(html)

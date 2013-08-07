@@ -102,7 +102,9 @@ class Photo(models.Model):
         ordering = ['position']
 
     def __unicode__(self):
-        return u'#{} {}'.format(self.position + 1, self.title)
+        if self.position:
+            return u'#{} {}'.format(self.position + 1, self.title)
+        return self.title
 
     def clean(self):
         self.title = self.title.strip()

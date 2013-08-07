@@ -33,8 +33,7 @@
               height: "{{ photo.large_image_height|escapejs }}"
             }
           },
-          title: "{{ photo.title|escapejs }}",
-          caption: "{{ photo.caption|escapejs }}"
+          full_caption: "{{ photo.full_caption|escapejs }}",
         {% if forloop.last %}
         }
         {% else %}

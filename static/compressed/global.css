@@ -27,7 +27,6 @@ img{max-width:100%;height:auto;vertical-align:middle;border:0;-ms-interpolation-
 h1,h2,h3,h4,h5,h6{font-size:13px;font-weight:bold}
 figure{margin:0 auto}
 figure aside{padding-top:20px}
-figure em{font-weight:bold;font-style:italic;display:block}
 section{width:600px;padding-left:200px;padding-right:20px;margin-top:80px}
 footer{line-height:60px;position:absolute;left:200px;bottom:0;right:0;height:60px}
 .throbber{background:url('../images/spinner.gif') no-repeat center;background-size:36px 36px}

@@ -1,0 +1,6 @@
+<em>{{ photo.title }}</em>{% if photo.year %}, {{ photo.year }}{% endif %}</br>
+{% if photo.dimensions %}
+    {{ photo.dimensions|join:" x " }} inches ({{ photo.dimensions_cm|join:" x " }} cm)</br>
+{% endif %}
+{{ photo.medium }}</br>
+{{ photo.caption }}</br>

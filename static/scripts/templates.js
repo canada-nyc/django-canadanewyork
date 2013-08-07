@@ -40,15 +40,15 @@ CANADA.TEMPLATES['photos'] = function (photos) {
 CANADA.TEMPLATES['photo'] = function (photo) {
   var buffer = [],
       sizes = photo.sizes,
-      image;
+      image,
 
   image = sizes.large || sizes.thumb;
+
   buffer.push('<div>');
   buffer.push('<figure style="max-width: ' + image.width + 'px">');
-  buffer.push('<img id="photo-' + photo.id + '" src="' + image.url + '" title="' + photo.title + '"/>');
+  buffer.push('<img id="photo-' + photo.id + '" src="' + image.url + '"/>');
   buffer.push('<aside>');
-  buffer.push('<em>' + photo.title + '</em>');
-  buffer.push(photo.caption);
+  buffer.push(photo.full_caption);
   buffer.push('</aside>');
   buffer.push('</figure>');
   buffer.push('</div>');

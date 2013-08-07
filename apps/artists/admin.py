@@ -20,5 +20,6 @@ class ArtistAdmin(admin.ModelAdmin):
     ]
     list_display = ('first_name', 'last_name', 'visible')
     list_display_links = ('first_name', 'last_name')
+    list_filter = ('visible', )
 
 admin.site.register(Artist, ArtistAdmin)

@@ -35,8 +35,8 @@ class Photo(models.Model):
 
     caption = models.TextField(blank=True, verbose_name='Extra Text')
 
-    year = models.CharField(blank=True, max_length=400)
-    medium = models.CharField(blank=True, max_length=400)
+    year = models.PositiveIntegerField(null=True, blank=True)
+    medium = models.CharField(blank=True, max_length=100)
     height = models.DecimalField(verbose_name='Height (in)', **dimension_field_attributes)
     width = models.DecimalField(verbose_name='Width (in)', **dimension_field_attributes)
     depth = models.DecimalField(verbose_name='Depth (in)', **dimension_field_attributes)

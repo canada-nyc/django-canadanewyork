@@ -32,7 +32,7 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
     in_gallery = VisibleManager()
 
     class Meta:
-        ordering = ['last_name', 'first_name']
+        ordering = ['-visible', 'last_name', 'first_name']
         unique_together = ("first_name", "last_name")
 
     def __unicode__(self):

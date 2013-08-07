@@ -13,17 +13,10 @@ class ExhibitionAdmin(admin.ModelAdmin):
     list_display = ('name', 'start_date', 'current')
     fieldsets = (
         (None, {
-            'fields': ('name', ('start_date', 'end_date'),)
+            'fields': ('name', ('start_date', 'end_date'), 'artists',)
         }),
-        ('Description', {
-            'classes': ('full-width',),
-            'fields': ('description',)
-        }),
-        ('Frontpage', {
-            'fields': ('current', 'press_release_photo',)
-        }),
-        ('Related', {
-            'fields': ('artists', )
+        ('Homepage', {
+            'fields': (('current', 'press_release_photo',), 'description',)
         }),
     )
     raw_id_fields = ('artists',)

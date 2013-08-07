@@ -20,7 +20,7 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
         return os.path.join(instance.get_absolute_url()[1:], 'press_release_photos', filename)
 
     name = models.CharField(max_length=1000, unique_for_year='start_date')
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, verbose_name='Press Release', help_text='Only shows up on homepage, if it is current')
     artists = models.ManyToManyField(Artist, related_name='exhibitions',
                                      blank=True, null=True)
     start_date = models.DateField()
@@ -32,13 +32,13 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
     )
 
     current = UniqueBooleanField(
-        help_text="To switch to a different exhibition, activate on another",
+        help_text="Set the exhibition as the current show, appears on homepage with link",
         default=True
     )
 
     press_release_photo = models.ImageField(
         upload_to=image_path,
-        help_text='Used if it is the current exhibition, if not specified will use first of the uploaded photos',
+        help_text='Used if it is the current exhibition, on the homepage. If not specified will use first of the uploaded photos on the homepage',
         height_field='press_release_photo_height',
         width_field='press_release_photo_width',
         blank=True,

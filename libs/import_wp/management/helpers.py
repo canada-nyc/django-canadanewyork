@@ -57,7 +57,7 @@ def cleanup_html(html):
     html = html.replace('[gallery]', '')
     html = html.replace('\n\n', '\n')
     html = html.replace('\n', '\n<br>')
-    td = TagDropper(['img', 'font'])
+    td = TagDropper(['img', 'font', 'pre'])
     td.feed(html)
     return td.get_text()
 

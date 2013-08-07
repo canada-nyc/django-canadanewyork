@@ -12,4 +12,4 @@ class PhotoInline(generic.GenericTabularInline):
     model = Photo
     form = PhotoForm
     sortable_field_name = "position"
-    verbose_name_plural = 'Photos'
+    extra = 0

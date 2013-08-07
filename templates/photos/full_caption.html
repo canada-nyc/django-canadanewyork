@@ -1,6 +1,18 @@
-<em>{{ photo.title }}</em>{% if photo.year %}, {{ photo.year }}{% endif %}</br>
+{% spaceless %}
+{% if photo.title %}
+    <em>{{ photo.title }}</em>
+{% endif %}
+{% if photo.year and photo.title %}, {% endif %}{{ photo.year }}
+{% if photo.title or photo.year %}
+    </br>
+{% endif %}
 {% if photo.dimensions %}
     {{ photo.dimensions|join:" x " }} inches ({{ photo.dimensions_cm|join:" x " }} cm)</br>
 {% endif %}
-{{ photo.medium }}</br>
-{{ photo.caption }}</br>
+{% if photo.medium %}
+    {{ photo.medium }}</br>
+{% endif %}
+{% if photo.caption %}
+    {{ photo.caption }}</br>
+{% endif %}
+{% endspaceless %}

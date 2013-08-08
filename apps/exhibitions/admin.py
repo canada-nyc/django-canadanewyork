@@ -11,6 +11,7 @@ class ExhibitionAdmin(admin.ModelAdmin):
     inlines = [PhotoInline]
     date_hierarchy = 'start_date'
     list_display = ('name', 'start_date', 'current')
+    list_filter = ('current', )
     fieldsets = (
         (None, {
             'fields': ('name', ('start_date', 'end_date'), 'artists',)
@@ -19,6 +20,7 @@ class ExhibitionAdmin(admin.ModelAdmin):
             'fields': (('current', 'press_release_photo',), 'description',)
         }),
     )
+
     raw_id_fields = ('artists',)
     autocomplete_lookup_fields = {
         'm2m': ['artists'],

@@ -18,16 +18,19 @@ class Migration(SchemaMigration):
             ('slug', self.gf('libs.slugify.fields.SlugifyField')(unique=True, max_length=251, populate_from=('get_year', 'name'))),
             ('current', self.gf('libs.unique_boolean.fields.UniqueBooleanField')(default=True)),
             ('press_release_photo', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
+            ('press_release_photo_height', self.gf('django.db.models.fields.PositiveIntegerField')(null=True, blank=True)),
+            ('press_release_photo_width', self.gf('django.db.models.fields.PositiveIntegerField')(null=True, blank=True)),
         ))
         db.send_create_signal(u'exhibitions', ['Exhibition'])
 
         # Adding M2M table for field artists on 'Exhibition'
-        db.create_table(u'exhibitions_exhibition_artists', (
+        m2m_table_name = db.shorten_name(u'exhibitions_exhibition_artists')
+        db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('exhibition', models.ForeignKey(orm[u'exhibitions.exhibition'], null=False)),
             ('artist', models.ForeignKey(orm[u'artists.artist'], null=False))
         ))
-        db.create_unique(u'exhibitions_exhibition_artists', ['exhibition_id', 'artist_id'])
+        db.create_unique(m2m_table_name, ['exhibition_id', 'artist_id'])
 
 
     def backwards(self, orm):
@@ -35,12 +38,12 @@ class Migration(SchemaMigration):
         db.delete_table(u'exhibitions_exhibition')
 
         # Removing M2M table for field artists on 'Exhibition'
-        db.delete_table('exhibitions_exhibition_artists')
+        db.delete_table(db.shorten_name(u'exhibitions_exhibition_artists'))
 
 
     models = {
         u'artists.artist': {
-            'Meta': {'ordering': "['last_name', 'first_name']", 'unique_together': "(('first_name', 'last_name'),)", 'object_name': 'Artist'},
+            'Meta': {'ordering': "['-visible', 'last_name', 'first_name']", 'unique_together': "(('first_name', 'last_name'),)", 'object_name': 'Artist'},
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
@@ -64,6 +67,8 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '1000'}),
             'press_release_photo': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
+            'press_release_photo_height': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'press_release_photo_width': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'slug': ('libs.slugify.fields.SlugifyField', [], {'unique': 'True', 'max_length': '251', 'populate_from': "('get_year', 'name')"}),
             'start_date': ('django.db.models.fields.DateField', [], {})
         },
@@ -71,17 +76,22 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "['position']", 'object_name': 'Photo'},
             'caption': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
+            'depth': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '6', 'decimal_places': '2', 'blank': 'True'}),
+            'height': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '6', 'decimal_places': '2', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '1000'}),
             'large_image': ('django.db.models.fields.files.ImageField', [], {'max_length': '1000', 'null': 'True', 'blank': 'True'}),
             'large_image_height': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'large_image_width': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'medium': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'thumbnail_image': ('django.db.models.fields.files.ImageField', [], {'max_length': '1000', 'null': 'True', 'blank': 'True'}),
             'thumbnail_image_height': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'thumbnail_image_width': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '400', 'blank': 'True'})
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '400', 'blank': 'True'}),
+            'width': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '6', 'decimal_places': '2', 'blank': 'True'}),
+            'year': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'})
         }
     }
 

@@ -54,7 +54,7 @@ migrate-wipe:
 	rm -r {apps,libs}/*/migrations
 
 migrate-init: migrate-wipe
-	for app in (${MANAGE} syncdb | grep '^ . apps\|libs' | sed 's/ > //g' | sed 's/ - //g');${MANAGE} schemamigration $$app --initial;end
+	for app in (${MANAGE} syncdb | grep '^ . apps\|libs' | sed 's/ > //g' | sed 's/ - //g');${MANAGE} "schemamigration $$app --initial";end
 
 promote-db-local:
 	pg_dump -Fc --no-acl --no-owner -h localhost -U saul django_canadanewyork > django_canadanewyork.dump

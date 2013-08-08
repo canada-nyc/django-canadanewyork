@@ -31,6 +31,7 @@ urlpatterns = patterns(
     url(r'^updates/', include('apps.updates.urls')),
     url(r'^exhibitions/', include('apps.exhibitions.urls')),
     url(r'^press/', include('apps.press.urls')),
+    url(r'^books/', include('apps.books.urls')),
 
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),

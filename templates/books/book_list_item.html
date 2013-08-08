@@ -1,4 +1,6 @@
 <a href="{{ object.get_purchase_url|safe }}">
 "{{ object.title }}."
+{{ object.year }}
+{% if object.month %}, {{ object.month }}{% endif %}
 {% include "base/full_date.html" with date=object.date year=True %}
 </a>

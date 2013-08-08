@@ -10,11 +10,12 @@ from ..artists.models import Artist
 
 class Book(models.Model):
     title = models.CharField(max_length=500)
-    date = models.DateField()
+    year = models.PositiveSmallIntegerField()
+    month = models.CharField(max_length=20, blank=True)
     artist = models.ForeignKey(Artist, related_name='books')
 
     class Meta:
-        ordering = ['-date']
+        ordering = ['-year']
 
     def __unicode__(self):
         return self.title

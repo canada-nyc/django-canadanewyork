@@ -1,16 +1,4 @@
 <a href="{{ object.get_absolute_url }}" title="{{ object }}">
   <em>{{ object }}</em><br />
-  {% if object.end_date %}
-    {% if object.start_date.year != object.end_date.year %}
-      {% include "base/full_date.html" with date=object.start_date year=True %}
-      -
-      {% include "base/full_date.html" with date=object.end_date year=True %}
-    {% else %}
-      {% include "base/full_date.html" with date=object.start_date %}
-      -
-      {% include "base/full_date.html" with date=object.end_date year=True  %}
-    {% endif %}
-  {% else %}
-    {% include "base/full_date.html" with date=object.start_date year=True %}
-  {% endif %}
+  {% include 'base/date_range.html' with start_date=object.start_date end_date=object.end_date %}
 </a>

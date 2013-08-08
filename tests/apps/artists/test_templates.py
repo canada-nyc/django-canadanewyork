@@ -111,6 +111,7 @@ class ArtistDetailTest(WebTest):
         with self.assertRaises(IndexError):
             artist_detail.click(
                 'Books',
+                href=reverse('artist-book-list', kwargs={'slug': Artist.slug})
             )
 
     def test_book_link(self):

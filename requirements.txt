@@ -35,7 +35,6 @@ django-sekizai==0.7
 ##
 dj-database-url==0.2.1
 psycopg2==2.4.5
-git+https://github.com/kennethreitz/django-postgrespool.git@046c0e51f2fe8b32587a12878332c8880f5bf595
 
 ##
 #Storage

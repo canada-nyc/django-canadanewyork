@@ -1,4 +1,5 @@
 from django.views.generic import DetailView
+from django.views.generic.base import TemplateView
 from django.contrib.flatpages.models import FlatPage
 
 from .models import Exhibition
@@ -20,16 +21,22 @@ class ExhibitionPressList(ObjectListFromParent):
         return exhibition.press.all()
 
 
-class ExhibitionCurrent(DetailView):
+class ExhibitionCurrent(TemplateView):
     template_name = 'exhibitions/exhibition_current.html'
 
     def get_object(self):
+        return
         return Exhibition.objects.get(current=True)
 
     def get_context_data(self, **kwargs):
         context = super(ExhibitionCurrent, self).get_context_data(**kwargs)
+
         flatpage = FlatPage.objects.filter(url__exact='/')
         content = flatpage.values_list('content', flat=True)
         if content:
             context['extra_content'] = content[0]
+
+        current_exhibition = Exhibition.objects.filter(current=True)
+        if current_exhibition:
+            context['exhibition'] = current_exhibition[0]
         return context

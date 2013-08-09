@@ -157,3 +157,15 @@ class ExhibitionCurrentTest(WebTest):
         )
 
         self.assertIn(FlatPage_.content, exhibition_current)
+
+    def test_no_current_exhibition_flatpage_append(self):
+        FlatPage_ = FlatPage.objects.create(
+            url=reverse('exhibition-current'),
+            title='_',
+            content='some content',
+        )
+        exhibition_current = self.app.get(
+            reverse('exhibition-current')
+        )
+
+        self.assertIn(FlatPage_.content, exhibition_current)

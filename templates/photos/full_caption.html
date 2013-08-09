@@ -2,7 +2,12 @@
 {% if photo.title %}
     <em>{{ photo.title }}</em>
 {% endif %}
-{% if photo.year and photo.title %}, {% endif %}{{ photo.year }}
+{% if photo.year and photo.title %}
+  ,
+{% endif %}
+{% if photo.year %}
+  {{ year }}
+{% endif %}
 {% if photo.title or photo.year %}
     </br>
 {% endif %}

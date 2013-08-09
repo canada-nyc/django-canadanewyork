@@ -9,10 +9,10 @@ HEROKU_PROD_NAME="canada"
 ADDONS="blitz,pgbackups:auto-month,sentry,heroku-postgresql,newrelic,rediscloud,memcachier,loaderio"
 
 run-tests:
-	while true; ${MANAGE} test ; wait_on -wh (git ls-files  --modified --other --deleted --cached --exclude-standard); end
+	while true; ${MANAGE} test ; wait_on -h (git ls-files  --modified --other --deleted --cached --exclude-standard); end
 
 run-compress:
-	while true; ${MANAGE} compress ; wait_on -wh (find static); end
+	while true; ${MANAGE} compress ; wait_on -h (find static -not -path "static/compressed/*"); end
 
 setup-local: setup-local-compression
 	pip install -r configs/requirements/dev.txt

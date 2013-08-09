@@ -7,29 +7,16 @@ from ...utils import AddAppMixin
 class UniqueBooleanTest(AddAppMixin, TestCase):
     custom_apps = ('tests.libs.unique_boolean',)
 
-    def test_field(self):
-        # Create one model
-        UniqueBooleanModel(unique_boolean=False).save()
-        # Assert that it is True
+    def test_wont_change_to_true(self):
+        UniqueBooleanModel.objects.create(unique_boolean=False)
+        model = UniqueBooleanModel.objects.all()[0]
+        self.assertFalse(model.unique_boolean)
+
+    def test_adding_another_will_change(self):
+        UniqueBooleanModel.objects.create(unique_boolean=True)
+        # When saving the second model, it should turn the first ones boolean to false
+        UniqueBooleanModel.objects.create(unique_boolean=True)
+
+        # Should be the only model with True now
         UniqueBooleanModel.objects.get(unique_boolean=True)
 
-        # Create another UniqueBooleanModel with True
-        self.m1 = UniqueBooleanModel(unique_boolean=True)
-        self.m1.save()
-        # Should be the only model with True
-        self.assertEqual(UniqueBooleanModel.objects.get(unique_boolean=True), self.m1)
-
-        # Disable True on model1, shouldnt actually disable
-        self.m1.unique_boolean = False
-        self.m1.save()
-        # Still should be only model with True
-        self.assertEqual(UniqueBooleanModel.objects.get(unique_boolean=True), self.m1)
-
-    def test_model_method(self):
-        UniqueBooleanModel(unique_boolean=False).save()
-        model = UniqueBooleanModel.objects.get(unique_boolean=True)
-
-        self.assertEqual(
-            model._get_unique_boolean_value(),
-            True
-        )

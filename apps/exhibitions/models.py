@@ -32,7 +32,7 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
     )
 
     current = UniqueBooleanField(
-        help_text="Set the exhibition as the current show, appears on homepage with link",
+        help_text="Set the exhibition as the current show. Will appear on homepage with link",
         default=True
     )
 

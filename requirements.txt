@@ -24,6 +24,7 @@ django-response-timeout==0.1.0
 ##
 Pillow==2.1.0
 git+https://github.com/saulshanabrook/django-simpleimages.git
+django-rq==0.5.1
 
 ##
 #Templates

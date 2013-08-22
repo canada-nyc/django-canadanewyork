@@ -6,7 +6,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.template.loader import render_to_string
 
-import simpleimages
+import simpleimages.transforms
+import simpleimages.trackers
 import dumper
 
 
@@ -113,8 +114,8 @@ class Photo(models.Model):
 
     transformed_fields = {
         'image': {
-            'thumbnail_image': simpleimages.transforms.scale(height=600),
-            'large_image': simpleimages.transforms.scale(height=800),
+            'thumbnail_image': simpleimages.transforms.Scale(height=600),
+            'large_image': simpleimages.transforms.Scale(height=800),
         }
     }
 
@@ -157,5 +158,25 @@ class Photo(models.Model):
         mock_photo.convert_inches_to_cm = convert_mock_dimension_field_name_to_cm
         return mock_photo
 
-simpleimages.track_model(Photo)
+    @property
+    def safe_thumbnail_image(self):
+        if self.thumbnail_image:
+            return {
+                'url': self.thumbnail_image.url,
+                'width': self.thumbnail_image_width,
+                'height': self.thumbnail_image_height
+            }
+        return self.image
+
+    @property
+    def safe_large_image(self):
+        if self.large_image:
+            return {
+                'url': self.large_image.url,
+                'width': self.large_image_width,
+                'height': self.large_image_height
+            }
+        return self.image
+
+simpleimages.trackers.track_model(Photo)
 dumper.register(Photo)

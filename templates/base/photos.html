@@ -5,7 +5,7 @@
 {% if first_photo %}
   <div class="gallery" id="{{ id }}">
     <a href="#{{ id }}">
-      <img src="{{ first_photo.thumbnail_image.url }}" height="{{ first_photo.thumbnail_image_height }}" width="{{ first_photo.thumbnail_image_width }}" alt="photos" title="Click to view photos"/>
+      <img src="{{ first_photo.safe_thumbnail_image.url }}" height="{{ first_photo.safe_thumbnail_image.height }}" width="{{ first_photo.safe_thumbnail_image.width }}" alt="photos" title="Click to view photos"/>
     </a>
   </div>
   <br>
@@ -23,14 +23,14 @@
           id: "{{ photo.id }}",
           sizes: {
             thumb: {
-              url:    "{{ photo.thumbnail_image.url|escapejs }}",
-              width:  "{{ photo.thumbnail_image_width|escapejs }}",
-              height: "{{ photo.thumbnail_image_height|escapejs }}",
+              url:    "{{ photo.safe_thumbnail_image.url|escapejs }}",
+              width:  "{{ photo.safe_thumbnail_image.width|escapejs }}",
+              height: "{{ photo.safe_thumbnail_image.height|escapejs }}",
             },
             large: {
-              url:    "{{ photo.large_image.url|escapejs }}",
-              width:  "{{ photo.large_image_width|escapejs }}",
-              height: "{{ photo.large_image_height|escapejs }}"
+              url:    "{{ photo.safe_large_image.url|escapejs }}",
+              width:  "{{ photo.safe_large_image.width|escapejs }}",
+              height: "{{ photo.safe_large_image.height|escapejs }}"
             }
           },
           full_caption: "{{ photo.full_caption|escapejs }}",

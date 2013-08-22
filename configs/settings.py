@@ -20,15 +20,17 @@ def get_env_variable(var_name, possible_options=[]):
         raise ImproperlyConfigured(message)
     if possible_options and value not in possible_options:
         raise ImproperlyConfigured(
-            ("The variable {} must be set to one of the following: {} "
-             "It is set to '{}'' instead").format(
-                 var_name,
-                 str(possible_options),
-                 value
-             )
+            "The variable {} must be set to one of the following: {} "
+            "It is set to '{}'' instead".format(
+                var_name,
+                str(possible_options),
+                value
+            )
         )
     if value.lower() == 'false':
         return False
+    if value.lower() == 'true':
+        return True
     return value
 
 ##################
@@ -127,8 +129,7 @@ TEMPLATE_CONTEXT_PROCESSORS += ('sekizai.context_processors.sekizai',)
 # IMAGES #
 ##########
 INSTALLED_APPS += ('simpleimages',)
-SIMPLEIMAGES_OVERWRITE = False
-
+SIMPLEIMAGES_TRANFORM_CALLER = 'django_rq.enqueue'
 
 ###########
 # DATABASE #
@@ -141,12 +142,27 @@ DATABASES = {
     'default': dj_database_url.config()
 }
 
+
+######
+# RQ #
+######
+INSTALLED_APPS += ("django_rq", )
+
+RQ_QUEUES = {
+    'default': {
+        'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379'),
+        'DB': 0,
+        'ASYNC': get_env_variable('CANADA_RQ_ASYNC'),
+    },
+}
+
+
 ###########
 # TESTING #
 ###########
-
 if get_env_variable('CANADA_TESTRUNNER'):
     TEST_RUNNER = 'discover_runner.DiscoverRunner'
+
 
 ###########
 # STORAGE #
@@ -340,6 +356,10 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'DEBUG',
             'propagate': True,
+        },
+        "rq.worker": {
+            "handlers": ["console"],
+            "level": "DEBUG"
         },
     }
 }

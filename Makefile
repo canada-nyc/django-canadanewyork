@@ -6,7 +6,7 @@ MANAGE=foreman run ${PYTHON} manage.py
 HEROKU_DEV_NAME="canada-development"
 HEROKU_PROD_NAME="canada"
 
-ADDONS="blitz,pgbackups:auto-month,sentry,heroku-postgresql,newrelic,rediscloud,memcachier,loaderio"
+ADDONS="blitz,pgbackups:auto-month,sentry,heroku-postgresql,newrelic,rediscloud,redistogo,memcachier,loaderio"
 
 run-tests:
 	while true; ${MANAGE} test ; wait_on -h (git ls-files  --modified --other --deleted --cached --exclude-standard); end

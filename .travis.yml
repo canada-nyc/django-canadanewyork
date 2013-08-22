@@ -1,7 +1,5 @@
----
 language: python
 install:
-- sudo apt-get install -qq libmemcached-dev
 - pip install -r requirements.txt
 before_script:
 - psql -c 'create database django_canadanewyork;' -U postgres
@@ -27,3 +25,11 @@ env:
   - DJANGO_SETTINGS_MODULE=configs.settings
   - SECRET_KEY=not_so_secret
   - CANADA_RQ_SYNCRONOUS=True
+deploy:
+  provider: heroku
+  app: canada-development
+  api_key:
+    secure: BUuAQT37AoOLTRfOoyw17OkJGydKkJe9IAOygXon56kiqzNJPTd/AspS2OQRNx3T8TU5qZW0Q8b4Bvtg7r1IlyvwrRfXN9p5PLO9MUVo3zmuYbR4aYK/gth45PqqCfr0g9ZIuEuzjvJZZSope35hLKiHbkS6+PsI/UOToDGatJw=
+  run:
+    - "python manage.py migrate"
+    - "python manage.py collectstatic --noinput"

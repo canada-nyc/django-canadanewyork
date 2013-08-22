@@ -37,6 +37,7 @@ class Photo(models.Model):
 
     year = models.PositiveIntegerField(null=True, blank=True)
     medium = models.CharField(blank=True, max_length=100)
+    artist_text = models.CharField(blank=True, max_length=100, help_text='only specify in group show', verbose_name='Artist')
     height = models.DecimalField(verbose_name='Height (in)', **dimension_field_attributes)
     width = models.DecimalField(verbose_name='Width (in)', **dimension_field_attributes)
     depth = models.DecimalField(verbose_name='Depth (in)', **dimension_field_attributes)

@@ -1,4 +1,7 @@
 {% spaceless %}
+{% if photo.artist_text %}
+    {{ photo.artist_text }}</br>
+{% endif %}
 {% if photo.title %}
     <em>{{ photo.title }}</em>
 {% endif %}

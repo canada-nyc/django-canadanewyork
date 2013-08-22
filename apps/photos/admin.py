@@ -23,9 +23,9 @@ class PhotoInline(generic.GenericStackedInline):
     inline_classes = ('collapse open',)
     fields = (
         ('image', "position"),
-        'title',
+        'artist_text',
+        ('title', 'year'),
         ('height', 'width', 'depth'),
-        'year',
         'medium',
         'caption',
     )

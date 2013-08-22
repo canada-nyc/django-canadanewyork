@@ -21,12 +21,11 @@ class PhotoInline(generic.GenericStackedInline):
 
     classes = ('collapse open',)
     inline_classes = ('collapse open',)
-    fieldsets = (
-        ('', {
-            'fields': (('image', "position"),),
-        }),
-        ('Info (click to expand)', {
-            'classes': ('grp-collapse grp-closed',),
-            'fields': ('title', ('height', 'width', 'depth'), 'year', 'medium', 'caption',),
-        }),
+    fields = (
+        ('image', "position"),
+        'title',
+        ('height', 'width', 'depth'),
+        'year',
+        'medium',
+        'caption',
     )

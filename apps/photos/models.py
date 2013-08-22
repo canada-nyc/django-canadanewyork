@@ -5,7 +5,6 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.template.loader import render_to_string
-from django.db import models
 
 import simpleimages
 import dumper
@@ -21,6 +20,7 @@ dimension_field_attributes = {
 }
 
 DECIMAL_PLACES = Decimal(10) ** (-1 * dimension_field_attributes['decimal_places'])
+
 
 class Photo(models.Model):
     def image_path_function(subfolder):
@@ -147,6 +147,7 @@ class Photo(models.Model):
             depth='<depth>',
             caption='<extra text>'
         )
+
         def convert_mock_dimension_field_name_to_cm(field_name):
             '''
             <width> -> <width_cm>

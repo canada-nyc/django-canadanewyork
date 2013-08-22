@@ -3,6 +3,7 @@ from django.contrib.contenttypes import generic
 
 from .models import Photo
 
+
 class PhotoForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(PhotoForm, self).__init__(*args, **kwargs)
@@ -10,6 +11,7 @@ class PhotoForm(forms.ModelForm):
 
     class Meta:
         model = Photo
+
 
 class PhotoInline(generic.GenericStackedInline):
     model = Photo
@@ -24,8 +26,7 @@ class PhotoInline(generic.GenericStackedInline):
             'fields': (('image', "position"),),
         }),
         ('Info (click to expand)', {
-            'description': 'Caption will be displayed with any filled in fields:</br>' + Photo.create_mock().full_caption,
             'classes': ('grp-collapse grp-closed',),
-            'fields' : ('title', ('height', 'width', 'depth'), 'year', 'medium', 'caption',),
+            'fields': ('title', ('height', 'width', 'depth'), 'year', 'medium', 'caption',),
         }),
     )

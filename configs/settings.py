@@ -334,11 +334,7 @@ if get_env_variable('CANADA_DEBUG_TOOLBAR'):
 ###########
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
-    'root': {
-        'level': get_env_variable('CANADA_CONSOLE_LOGGING_LEVEL'),
-        'handlers': ['console'],
-    },
+    'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
             'format': '%(levelname)s %(module)s %(message)s'
@@ -352,14 +348,10 @@ LOGGING = {
         }
     },
     'loggers': {
-        'django': {
-            'handlers': ['console'],
+        '': {
+            'handlers': ['console', ],
             'level': 'DEBUG',
-            'propagate': True,
-        },
-        "rq.worker": {
-            "handlers": ["console"],
-            "level": "DEBUG"
+            'propagate': False,
         },
     }
 }
@@ -368,21 +360,8 @@ if get_env_variable('CANADA_SENTRY'):
     INSTALLED_APPS += (
         'raven.contrib.django.raven_compat',
     )
-    LOGGING['loggers'] = {
-        'raven': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
-            'propagate': False,
-        },
-        'sentry.errors': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
-            'propagate': False,
-        },
-    }
-
     LOGGING['handlers']['sentry'] = {
-        'level': 'ERROR',
+        'level': 'WARNING',
         'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
     }
-    LOGGING['root']['handlers'].append('sentry')
+    LOGGING['loggers']['']['handlers'].append('sentry')

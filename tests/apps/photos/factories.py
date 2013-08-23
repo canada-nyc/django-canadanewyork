@@ -7,7 +7,6 @@ from ... import utils
 
 class PhotoFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Photo
-    caption = factory.Sequence(lambda n: 'caption {}'.format(n))
     title = factory.Sequence(lambda n: 'title {}'.format(n))
 
     @factory.post_generation

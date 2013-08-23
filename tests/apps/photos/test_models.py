@@ -2,12 +2,12 @@ from decimal import Decimal as D
 
 from django.test import TestCase
 
-from apps.photos.models import Photo
+from apps.photos.models import ArtworkPhoto
 
 
-class PhotoDimensionTest(TestCase):
+class ArtworkPhotoDimensionTest(TestCase):
     def setUp(self):
-        self.photo = Photo()
+        self.photo = ArtworkPhoto()
 
     def test_dimensions(self):
         self.photo.height = 10

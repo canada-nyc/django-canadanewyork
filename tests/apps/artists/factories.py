@@ -1,9 +1,9 @@
 import factory
 
-from apps.artists.models import Artist
+from apps.artists.models import Artist, ArtistPhoto
 from ..exhibitions.related_factories import create_exhibitions
 from ..press.related_factories import create_press
-from ..photos.related_factories import create_photos
+from ..photos.factories import get_create_function
 from ..books.related_factories import create_books
 
 
@@ -14,7 +14,7 @@ class ArtistFactory(factory.DjangoModelFactory):
     last_name = factory.Sequence(lambda n: 'Lastname{}'.format(n))
     visible = True
 
-    photos = factory.PostGeneration(create_photos)
+    photos = factory.PostGeneration(get_create_function(ArtistPhoto))
     exhibitions = factory.PostGeneration(create_exhibitions)
     press = factory.PostGeneration(create_press)
     books = factory.PostGeneration(create_books)

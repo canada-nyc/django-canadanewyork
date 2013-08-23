@@ -1,12 +1,12 @@
 import factory
 
-from apps.updates.models import Update
-from ..photos.related_factories import create_photos
+from apps.updates.models import Update, UpdatePhoto
+from ..photos.factories import get_create_function
 from ... import utils
 
 
 class UpdateFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Update
 
-    photos = factory.PostGeneration(create_photos)
+    photos = factory.PostGeneration(get_create_function(UpdatePhoto))
     post_date = utils.FuzzyDate()

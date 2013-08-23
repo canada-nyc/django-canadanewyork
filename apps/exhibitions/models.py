@@ -88,11 +88,7 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
             }
         try:
             photo = self.photos.all()[0]
-            return {
-                'image': photo.thumbnail_image,
-                'height': photo.thumbnail_image_height,
-                'width': photo.thumbnail_image_width
-            }
+            return photo.safe_thumbnail_image
         except IndexError:
             return None
 

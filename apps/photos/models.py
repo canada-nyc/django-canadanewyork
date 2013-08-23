@@ -46,7 +46,6 @@ class Photo(models.Model):
     image = models.ImageField(
         upload_to=image_path_function('original'),
         max_length=1000,
-        help_text="To change image files on this photo, delete it and create a new one for the image",
         verbose_name='Image File'
 
     )

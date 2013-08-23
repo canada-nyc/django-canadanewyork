@@ -83,7 +83,7 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
     def get_press_release_photo(self):
         if self.press_release_photo:
             return {
-                'image': self.press_release_photo,
+                'url': self.press_release_photo.url,
                 'height': self.press_release_photo_height,
                 'width': self.press_release_photo_width
             }

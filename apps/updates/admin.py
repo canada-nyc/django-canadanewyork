@@ -10,7 +10,7 @@ class UpdateAdmin(admin.ModelAdmin):
     inlines = [PhotoInline]
     date_hierarchy = 'post_date'
     list_display = ('post_date',)
-    readonly_fields=('post_date',)
+    readonly_fields = ('post_date',)
     fieldsets = [
         (None, {
             'fields': ('post_date', 'description',),

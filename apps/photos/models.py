@@ -127,8 +127,8 @@ class ArtworkPhoto(BasePhoto):
     dimension_field_attributes = {
         'blank': True,
         'null': True,
-        'max_digits': 6,
-        'decimal_places': 2,
+        'max_digits': 10,
+        'decimal_places': 4,
     }
 
     DECIMAL_PLACES = Decimal(10) ** (-1 * dimension_field_attributes['decimal_places'])

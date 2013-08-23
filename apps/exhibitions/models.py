@@ -2,20 +2,18 @@ import os
 
 from django.db import models
 from django.core.exceptions import ValidationError
-from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
 
 import url_tracker
 import dumper
 
-from ..artists.models import Artist
+from apps.artists.models import Artist
+from apps.photos.models import ArtworkPhoto
 from libs.slugify.fields import SlugifyField
-from apps.photos.models import Photo
 from libs.unique_boolean.fields import UniqueBooleanField
 
 
 class Exhibition(url_tracker.URLTrackingMixin, models.Model):
-
     def image_path(instance, filename):
         return os.path.join(instance.get_absolute_url()[1:], 'press_release_photos', filename)
 
@@ -54,8 +52,6 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
         blank=True,
         editable=False,
     )
-
-    photos = generic.GenericRelation(Photo)
 
     class Meta:
         ordering = ["-start_date"]
@@ -116,5 +112,21 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
         for press in self.press.all():
             yield press.get_absolute_url()
 
+
+class ExhibitionPhoto(ArtworkPhoto):
+    content_object = models.ForeignKey(Exhibition, related_name='photos')
+    artist_text = models.CharField(
+        blank=True,
+        max_length=100,
+        help_text='Only use in group show',
+        verbose_name='Artist'
+    )
+
+    def dependent_paths(self):
+        yield self.content_object.get_absolute_url()
+        if self.content_object.current:
+            yield reverse('exhibition-current')
+
 url_tracker.track_url_changes_for_model(Exhibition)
 dumper.register(Exhibition)
+dumper.register(ExhibitionPhoto)

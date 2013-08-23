@@ -2,52 +2,27 @@ import os
 from decimal import Decimal
 
 from django.db import models
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes import generic
 from django.template.loader import render_to_string
 
 import simpleimages.transforms
-import simpleimages.trackers
-import dumper
 
 
-INCHES_PER_CM = 2.54
-
-dimension_field_attributes = {
-    'blank': True,
-    'null': True,
-    'max_digits': 6,
-    'decimal_places': 2,
-}
-
-DECIMAL_PLACES = Decimal(10) ** (-1 * dimension_field_attributes['decimal_places'])
-
-
-class Photo(models.Model):
+class BasePhoto(models.Model):
     def image_path_function(subfolder):
         return lambda instance, filename: os.path.join(
+            instance.content_name,
             'photos',
             subfolder,
-            unicode(instance.content_type),
-            unicode(instance.object_id),
             filename
         )
+
     title = models.CharField(blank=True, max_length=400)
-
     caption = models.TextField(blank=True, verbose_name='Extra Text')
-
-    year = models.PositiveIntegerField(null=True, blank=True)
-    medium = models.CharField(blank=True, max_length=100)
-    artist_text = models.CharField(blank=True, max_length=100, help_text='only specify in group show', verbose_name='Artist')
-    height = models.DecimalField(verbose_name='Height (in)', **dimension_field_attributes)
-    width = models.DecimalField(verbose_name='Width (in)', **dimension_field_attributes)
-    depth = models.DecimalField(verbose_name='Depth (in)', **dimension_field_attributes)
 
     image = models.ImageField(
         upload_to=image_path_function('original'),
         max_length=1000,
         verbose_name='Image File'
-
     )
     thumbnail_image = models.ImageField(
         blank=True,
@@ -89,27 +64,20 @@ class Photo(models.Model):
         editable=False,
     )
 
-    content_type = models.ForeignKey(ContentType)
-    object_id = models.PositiveIntegerField()
-    content_object = generic.GenericForeignKey()
-
     position = models.PositiveSmallIntegerField(
-        "Position",
+        verbose_name='',
         null=True,
         blank=True,
     )
 
     class Meta:
         ordering = ['position']
+        abstract = True
 
     def __unicode__(self):
         if self.position:
             return u'#{} {}'.format(self.position + 1, self.title)
         return self.title
-
-    def clean(self):
-        self.title = self.title.strip()
-        self.caption = self.caption.strip()
 
     transformed_fields = {
         'image': {
@@ -122,40 +90,15 @@ class Photo(models.Model):
         yield self.content_object.get_absolute_url()
 
     @property
-    def dimensions(self):
-        return filter(None, [self.height, self.width, self.depth])
-
-    def convert_inches_to_cm(self, inches):
-        cm = inches * Decimal(INCHES_PER_CM)
-        return cm.quantize(DECIMAL_PLACES)
-
-    @property
-    def dimensions_cm(self):
-        return map(self.convert_inches_to_cm, self.dimensions)
+    def content_name(self):
+        return os.path.join(
+            unicode(self.content_object._meta.app_label),
+            unicode(self.content_object.pk),
+        )
 
     @property
     def full_caption(self):
-        return render_to_string('photos/full_caption.html', {'photo': self})
-
-    @classmethod
-    def create_mock(self):
-        mock_photo = self(
-            title='<title>',
-            year='<year>',
-            medium='<medium>',
-            height='<height>',
-            width='<width>',
-            depth='<depth>',
-            caption='<extra text>'
-        )
-
-        def convert_mock_dimension_field_name_to_cm(field_name):
-            '''
-            <width> -> <width_cm>
-            '''
-            return field_name[:-1] + '_cm>'
-        mock_photo.convert_inches_to_cm = convert_mock_dimension_field_name_to_cm
-        return mock_photo
+        return render_to_string(self.caption_template, {'photo': self})
 
     @property
     def safe_thumbnail_image(self):
@@ -177,5 +120,42 @@ class Photo(models.Model):
             }
         return self.image
 
-simpleimages.trackers.track_model(Photo)
-dumper.register(Photo)
+
+class ArtworkPhoto(BasePhoto):
+    INCHES_PER_CM = 2.54
+
+    dimension_field_attributes = {
+        'blank': True,
+        'null': True,
+        'max_digits': 6,
+        'decimal_places': 2,
+    }
+
+    DECIMAL_PLACES = Decimal(10) ** (-1 * dimension_field_attributes['decimal_places'])
+
+    year = models.PositiveIntegerField(null=True, blank=True)
+    medium = models.CharField(blank=True, max_length=100)
+
+    height = models.DecimalField(verbose_name='Height (in)', **dimension_field_attributes)
+    width = models.DecimalField(verbose_name='Width (in)', **dimension_field_attributes)
+    depth = models.DecimalField(verbose_name='Depth (in)', **dimension_field_attributes)
+
+    class Meta:
+        abstract = True
+
+    caption_template = 'photos/full_caption.html'
+
+    def round_decimal(self, number):
+        return Decimal(number).normalize()
+
+    @property
+    def dimensions(self):
+        return map(self.round_decimal, filter(None, [self.height, self.width, self.depth]))
+
+    def convert_inches_to_cm(self, inches):
+        cm = inches * Decimal(self.INCHES_PER_CM)
+        return cm.quantize(self.DECIMAL_PLACES)
+
+    @property
+    def dimensions_cm(self):
+        return map(self.round_decimal, map(self.convert_inches_to_cm, self.dimensions))

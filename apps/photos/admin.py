@@ -1,31 +1,23 @@
 from django import forms
-from django.contrib.contenttypes import generic
-
-from .models import Photo
+from django.contrib import admin
 
 
-class PhotoForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(PhotoForm, self).__init__(*args, **kwargs)
-        self.fields['position'].widget = forms.HiddenInput()
+def photo_inline(photo_class):
+    class PhotoForm(forms.ModelForm):
+        def __init__(self, *args, **kwargs):
+            super(PhotoForm, self).__init__(*args, **kwargs)
+            self.fields['position'].widget = forms.HiddenInput()
 
-    class Meta:
-        model = Photo
+        class Meta:
+            model = photo_class
 
+    class PhotoInline(admin.StackedInline):
+        model = photo_class
+        form = PhotoForm
+        sortable_field_name = "position"
+        extra = 0
 
-class PhotoInline(generic.GenericStackedInline):
-    model = Photo
-    form = PhotoForm
-    sortable_field_name = "position"
-    extra = 0
+        classes = ('collapse open',)
+        inline_classes = ('collapse open',)
 
-    classes = ('collapse open',)
-    inline_classes = ('collapse open',)
-    fields = (
-        ('image', "position"),
-        'artist_text',
-        ('title', 'year'),
-        ('height', 'width', 'depth'),
-        'medium',
-        'caption',
-    )
+    return PhotoInline

@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 
 import url_tracker
 import dumper
+import simpleimages.trackers
 
 from apps.artists.models import Artist
 from apps.photos.models import ArtworkPhoto
@@ -126,3 +127,5 @@ class ExhibitionPhoto(ArtworkPhoto):
 url_tracker.track_url_changes_for_model(Exhibition)
 dumper.register(Exhibition)
 dumper.register(ExhibitionPhoto)
+simpleimages.trackers.track_model(ExhibitionPhoto)
+

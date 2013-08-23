@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 
 import url_tracker
 import dumper
+import simpleimages.trackers
 
 from apps.photos.models import BasePhoto
 
@@ -33,3 +34,4 @@ class UpdatePhoto(BasePhoto):
 url_tracker.track_url_changes_for_model(Update)
 dumper.register(Update)
 dumper.register(UpdatePhoto)
+simpleimages.trackers.track_model(UpdatePhoto)

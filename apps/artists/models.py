@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 
 import url_tracker
 import dumper
+import simpleimages.trackers
 
 from libs.slugify.fields import SlugifyField
 from apps.photos.models import ArtworkPhoto
@@ -71,3 +72,4 @@ class ArtistPhoto(ArtworkPhoto):
 url_tracker.track_url_changes_for_model(Artist)
 dumper.register(Artist)
 dumper.register(ArtistPhoto)
+simpleimages.trackers.track_model(ArtistPhoto)

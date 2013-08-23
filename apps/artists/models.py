@@ -8,7 +8,7 @@ import url_tracker
 import dumper
 
 from libs.slugify.fields import SlugifyField
-from apps.photos.models import Photo
+from apps.photos.models import ArtworkPhoto, Photo
 
 
 class VisibleManager(models.Manager):
@@ -66,5 +66,11 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
         for exhibition in self.exhibitions.all():
             yield exhibition.get_absolute_url()
 
+
+class ArtistPhoto(ArtworkPhoto):
+    content_object = models.ForeignKey(Artist, related_name='new_photos')
+
+
 url_tracker.track_url_changes_for_model(Artist)
 dumper.register(Artist)
+dumper.register(ArtistPhoto)

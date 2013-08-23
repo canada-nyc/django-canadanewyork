@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 import url_tracker
 import dumper
 
-from apps.photos.models import Photo
+from apps.photos.models import BasePhoto, Photo
 
 
 class Update(url_tracker.URLTrackingMixin, models.Model):
@@ -29,5 +29,10 @@ class Update(url_tracker.URLTrackingMixin, models.Model):
     def dependent_paths(self):
         yield self.get_absolute_url()
 
+
+class UpdatePhoto(BasePhoto):
+    content_object = models.ForeignKey(Update, related_name='new_photos')
+
 url_tracker.track_url_changes_for_model(Update)
 dumper.register(Update)
+dumper.register(UpdatePhoto)

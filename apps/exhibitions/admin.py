@@ -1,14 +1,25 @@
 from django.contrib import admin
 
 
-from apps.photos.admin import PhotoInline
+from apps.photos.admin import PhotoInline, photo_inline
 from libs.common.admin import editor_form
-from .models import Exhibition
+from .models import Exhibition, ExhibitionPhoto
+
+
+class ExhibitionPhotoInline(photo_inline(ExhibitionPhoto)):
+    fields = (
+        ('image', "position"),
+        'artist_text',
+        ('title', 'year'),
+        ('height', 'width', 'depth'),
+        'medium',
+        'caption'
+    )
 
 
 class ExhibitionAdmin(admin.ModelAdmin):
     form = editor_form(['description'])
-    inlines = [PhotoInline]
+    inlines = [PhotoInline, ExhibitionPhotoInline]
     date_hierarchy = 'start_date'
     list_display = ('name', 'start_date', 'current')
     list_filter = ('current', )

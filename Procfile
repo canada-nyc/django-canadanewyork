@@ -1,2 +1,2 @@
 web: newrelic-admin run-program gunicorn -c configs/gunicorn.py wsgi:application
-worker: python manage.py rqworker default
+worker: python manage.py celery worker --loglevel=info

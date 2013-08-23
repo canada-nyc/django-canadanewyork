@@ -34,7 +34,6 @@ urlpatterns = patterns(
 
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^django-rq/', include('django_rq.urls')),
 )
 
 urlpatterns += patterns(

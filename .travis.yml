@@ -6,8 +6,6 @@ before_script:
 - python manage.py collectstatic --noinput
 script:
 - python manage.py test tests --traceback
-notifications:
-  email: false
 env:
   global:
   - DJANGO_SETTINGS_MODULE=configs.settings

@@ -26,3 +26,11 @@ class ArtworkPhotoDimensionTest(TestCase):
 
         self.assertEqual(self.photo.dimensions_cm, [D('2.54')])
 
+    def test_full_dimensions(self):
+        self.photo.height = .5
+        self.photo.width = .5
+
+        self.assertEqual(
+            self.photo.full_dimensions,
+            '1/2 x 1/2 in (1.27 x 1.27 cm)'
+        )

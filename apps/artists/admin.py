@@ -11,7 +11,8 @@ class ArtistPhotoInline(photo_inline(ArtistPhoto)):
     fields = (
         ('image', "position"),
         ('title', 'year'),
-        ('height', 'width', 'depth'),
+        ('height', 'width', 'depth',),
+        'dimensions_text',
         'medium',
         'caption'
     )

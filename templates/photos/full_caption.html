@@ -14,8 +14,8 @@
 {% if photo.title or photo.year %}
     </br>
 {% endif %}
-{% if photo.dimensions %}
-    {{ photo.dimensions|join:" x " }} inches ({{ photo.dimensions_cm|join:" x " }} cm)</br>
+{% if photo.full_dimensions %}
+    {{ photo.full_dimensions }}</br>
 {% endif %}
 {% if photo.medium %}
     {{ photo.medium }}</br>

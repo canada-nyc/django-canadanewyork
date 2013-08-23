@@ -1,5 +1,6 @@
 import os
-from decimal import Decimal
+from decimal import Decimal, ROUND_DOWN
+from fractions import Fraction
 
 from django.db import models
 from django.template.loader import render_to_string
@@ -140,6 +141,13 @@ class ArtworkPhoto(BasePhoto):
     width = models.DecimalField(verbose_name='Width (in)', **dimension_field_attributes)
     depth = models.DecimalField(verbose_name='Depth (in)', **dimension_field_attributes)
 
+    dimensions_text = models.CharField(
+        verbose_name='Dimensions',
+        blank=True,
+        max_length=300,
+        help_text="Only use if the seperate dimension fields do not apply to this piece."
+    )
+
     class Meta:
         abstract = True
 
@@ -159,3 +167,21 @@ class ArtworkPhoto(BasePhoto):
     @property
     def dimensions_cm(self):
         return map(self.round_decimal, map(self.convert_inches_to_cm, self.dimensions))
+
+    def decimal_to_fraction(self, decimal):
+        integer = decimal.to_integral_value(ROUND_DOWN)
+        decimal_part = decimal - integer
+        fraction = Fraction(decimal_part)
+        fraction_string = '{}/{}'.format(fraction.numerator, fraction.denominator)
+        if integer:
+            return '{} {}'.format(integer, fraction_string)
+        return fraction_string
+
+    @property
+    def full_dimensions(self):
+        if self.dimensions_text:
+            return self.dimensions_text
+        if self.dimensions:
+            inches_dimensions = map(self.decimal_to_fraction, self.dimensions)
+            cm_dimensions = map(str, self.dimensions_cm)
+            return '{} in ({} cm)'.format(' x '.join(inches_dimensions), ' x '.join(cm_dimensions))

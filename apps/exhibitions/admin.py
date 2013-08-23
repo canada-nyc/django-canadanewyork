@@ -11,7 +11,8 @@ class ExhibitionPhotoInline(photo_inline(ExhibitionPhoto)):
         ('image', "position"),
         'artist_text',
         ('title', 'year'),
-        ('height', 'width', 'depth'),
+        ('height', 'width', 'depth',),
+        'dimensions_text',
         'medium',
         'caption'
     )

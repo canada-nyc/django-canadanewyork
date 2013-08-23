@@ -10,7 +10,7 @@ class ExhibitionPhotoInline(photo_inline(ExhibitionPhoto)):
     fields = (
         ('image', "position"),
         'artist_text',
-        ('title', 'year'),
+        ('title', 'date'),
         ('height', 'width', 'depth',),
         'dimensions_text',
         'medium',

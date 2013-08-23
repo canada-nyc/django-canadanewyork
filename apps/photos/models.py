@@ -134,7 +134,7 @@ class ArtworkPhoto(BasePhoto):
 
     DECIMAL_PLACES = Decimal(10) ** (-1 * dimension_field_attributes['decimal_places'])
 
-    year = models.PositiveIntegerField(null=True, blank=True)
+    date = models.CharField(blank=True, max_length=100)
     medium = models.CharField(blank=True, max_length=100)
 
     height = models.DecimalField(verbose_name='Height (in)', **dimension_field_attributes)
@@ -171,6 +171,8 @@ class ArtworkPhoto(BasePhoto):
     def decimal_to_fraction(self, decimal):
         integer = decimal.to_integral_value(ROUND_DOWN)
         decimal_part = decimal - integer
+        if not decimal_part:
+            return str(integer)
         fraction = Fraction(decimal_part)
         fraction_string = '{}/{}'.format(fraction.numerator, fraction.denominator)
         if integer:

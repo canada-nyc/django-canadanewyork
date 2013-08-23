@@ -10,7 +10,7 @@ from .models import Artist, ArtistPhoto
 class ArtistPhotoInline(photo_inline(ArtistPhoto)):
     fields = (
         ('image', "position"),
-        ('title', 'year'),
+        ('title', 'date'),
         ('height', 'width', 'depth',),
         'dimensions_text',
         'medium',

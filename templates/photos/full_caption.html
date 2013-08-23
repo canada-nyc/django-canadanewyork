@@ -2,16 +2,8 @@
 {% if photo.artist_text %}
     {{ photo.artist_text }}</br>
 {% endif %}
-{% if photo.title %}
-    <em>{{ photo.title }}</em>
-{% endif %}
-{% if photo.year and photo.title %}
-  ,
-{% endif %}
-{% if photo.year %}
-  {{ year }}
-{% endif %}
-{% if photo.title or photo.year %}
+{% if photo.title %}<em>{{ photo.title }}</em>{% endif %}{% if photo.date and photo.title %},{% endif %} {{ photo.date }}
+{% if photo.title or photo.date %}
     </br>
 {% endif %}
 {% if photo.full_dimensions %}

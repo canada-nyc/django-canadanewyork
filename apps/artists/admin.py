@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-from apps.photos.admin import PhotoInline, photo_inline
+from apps.photos.admin import photo_inline
 from apps.books.admin import BookInline
 from libs.common.admin import editor_form
+
 from .models import Artist, ArtistPhoto
 
 
@@ -18,7 +19,7 @@ class ArtistPhotoInline(photo_inline(ArtistPhoto)):
 
 class ArtistAdmin(admin.ModelAdmin):
     form = editor_form(['resume'])
-    inlines = [PhotoInline, ArtistPhotoInline, BookInline]
+    inlines = [ArtistPhotoInline, BookInline]
     fieldsets = [
         (None, {
             'fields': (('first_name', 'last_name'), 'visible')

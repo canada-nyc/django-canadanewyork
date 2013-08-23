@@ -2,14 +2,13 @@ import os
 
 from django.db import models
 from django.core.exceptions import ValidationError
-from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
 
 import url_tracker
 import dumper
 
 from apps.artists.models import Artist
-from apps.photos.models import Photo, ArtworkPhoto
+from apps.photos.models import ArtworkPhoto
 from libs.slugify.fields import SlugifyField
 from libs.unique_boolean.fields import UniqueBooleanField
 
@@ -53,8 +52,6 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
         blank=True,
         editable=False,
     )
-
-    photos = generic.GenericRelation(Photo)
 
     class Meta:
         ordering = ["-start_date"]
@@ -117,7 +114,7 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
 
 
 class ExhibitionPhoto(ArtworkPhoto):
-    content_object = models.ForeignKey(Exhibition, related_name='new_photos')
+    content_object = models.ForeignKey(Exhibition, related_name='photos')
     artist_text = models.CharField(
         blank=True,
         max_length=100,

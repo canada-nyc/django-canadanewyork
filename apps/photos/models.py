@@ -2,13 +2,9 @@ import os
 from decimal import Decimal
 
 from django.db import models
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes import generic
 from django.template.loader import render_to_string
 
 import simpleimages.transforms
-import simpleimages.trackers
-import dumper
 
 
 class BasePhoto(models.Model):
@@ -163,21 +159,3 @@ class ArtworkPhoto(BasePhoto):
     @property
     def dimensions_cm(self):
         return map(self.round_decimal, map(self.convert_inches_to_cm, self.dimensions))
-
-
-class Photo(ArtworkPhoto):
-    content_type = models.ForeignKey(ContentType)
-    object_id = models.PositiveIntegerField()
-    content_object = generic.GenericForeignKey()
-
-    artist_text = models.CharField(blank=True, max_length=100, help_text='only specify in group show', verbose_name='Artist')
-
-    @property
-    def content_name(self):
-        return os.path.join(
-            unicode(self.content_type),
-            unicode(self.object_id),
-        )
-
-simpleimages.trackers.track_model(Photo)
-dumper.register(Photo)

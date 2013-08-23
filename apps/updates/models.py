@@ -1,18 +1,15 @@
 from django.db import models
-from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
 
 import url_tracker
 import dumper
 
-from apps.photos.models import BasePhoto, Photo
+from apps.photos.models import BasePhoto
 
 
 class Update(url_tracker.URLTrackingMixin, models.Model):
     description = models.TextField(blank=True)
     post_date = models.DateField(auto_now_add=True)
-
-    photos = generic.GenericRelation(Photo)
 
     class Meta:
         ordering = ["-post_date"]
@@ -31,7 +28,7 @@ class Update(url_tracker.URLTrackingMixin, models.Model):
 
 
 class UpdatePhoto(BasePhoto):
-    content_object = models.ForeignKey(Update, related_name='new_photos')
+    content_object = models.ForeignKey(Update, related_name='photos')
 
 url_tracker.track_url_changes_for_model(Update)
 dumper.register(Update)

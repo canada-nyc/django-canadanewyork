@@ -2,6 +2,7 @@ Django==1.5.1
 South==0.8.1
 django-extensions==1.1.1
 git+git://github.com/saulshanabrook/django-url-tracker@factor/testing
+futures
 
 ##
 #Admin

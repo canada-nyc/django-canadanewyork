@@ -1,5 +1,7 @@
 from __future__ import print_function
 
+from concurrent import futures
+
 from django.core.files.storage import default_storage
 from django.core.management.base import BaseCommand
 
@@ -28,9 +30,19 @@ class Command(BaseCommand):
         self.log('Deleting keys')
         destination_bucket.delete_keys(destination_bucket.list())
         self.log('Copying new keys')
-        for key in source_bucket.list():
-            if not key.name.startswith('CACHE/'):
-                key.copy(DESTINATION_BUCKET_NAME, key.name, preserve_acl=True)
+
+        def copy_key(key):
+            key.copy(DESTINATION_BUCKET_NAME, key.name, preserve_acl=True)
+            print(key.name)
+
+        with futures.ThreadPoolExecutor(max_workers=10) as executor:
+            future_to_key = {executor.submit(copy_key, key): key for key in source_bucket.list()}
+            for future in futures.as_completed(future_to_key):
+                key = future_to_key[future]
+                try:
+                    future.result()
+                except Exception as exc:
+                    print('%r generated an exception: %s' % (key, exc))
 
         self.log('Getting CORS')
         cors_cfg = source_bucket.get_cors()

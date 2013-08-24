@@ -359,7 +359,7 @@ if get_env_variable('CANADA_SENTRY'):
         'raven.contrib.django.raven_compat',
     )
     LOGGING['handlers']['sentry'] = {
-        'level': 'WARNING',
+        'level': 'ERROR',
         'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
     }
     LOGGING['loggers']['']['handlers'].append('sentry')

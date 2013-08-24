@@ -52,8 +52,7 @@ setup-heroku-prod:
 	heroku config:push -o --filename configs/env/heroku-prod.env --app ${HEROKU_PROD_NAME}
 
 reset-local:
-	${MANAGE} clean_db --noinput
-	${MANAGE} import_wp static/wordpress/.canada.wordpress.* --traceback
+	${MANAGE} clean_db --noinput --init
 
 reset-heroku-dev:
 	heroku pg:reset DATABASE_URL --confirm canada-development
@@ -116,7 +115,13 @@ promote-static-local:
 	${MANAGE} clone_bucket $$AWS_BUCKET (heroku config:get AWS_BUCKET --app ${HEROKU_DEV_NAME})
 
 promote-static-heroku-dev:
-	heroku run 'python manage.py clone_bucket $$AWS_BUCKET' (heroku config:get AWS_BUCKET --app ${HEROKU_PROD_NAME})
+	heroku run 'python manage.py clone_bucket $$AWS_BUCKET' (heroku config:get AWS_BUCKET --app ${HEROKU_PROD_NAME})  --app ${HEROKU_DEV_NAME}
+
+demote-static-heroku-prod-to-heroku-dev:
+	heroku run 'python manage.py clone_bucket $$AWS_BUCKET' (heroku config:get AWS_BUCKET --app ${HEROKU_DEV_NAME}) --app ${HEROKU_PROD_NAME}
+	curl -o latest.dump (heroku pgbackups:url -a ${HEROKU_PROD_NAME})
+	pg_restore --verbose --clean --no-acl --no-owner -h localhost -U saul -d django_canadanewyork latest.dump
+	rm latest.dump
 
 promote-all-local: promote-static-local promote-code-local promote-db-local
 

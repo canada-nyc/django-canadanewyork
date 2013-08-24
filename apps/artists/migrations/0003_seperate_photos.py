@@ -72,5 +72,5 @@ class Migration(BasePhotoMigration, DataMigration):
         }
     }
 
-    complete_apps = ['artists']
+    complete_apps = ['artists', 'photos']
     symmetrical = True

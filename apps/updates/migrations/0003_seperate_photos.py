@@ -63,5 +63,5 @@ class Migration(BasePhotoMigration, DataMigration):
         }
     }
 
-    complete_apps = ['updates']
+    complete_apps = ['updates', 'photos']
     symmetrical = True

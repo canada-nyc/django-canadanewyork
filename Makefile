@@ -82,9 +82,15 @@ promote-db-heroku-dev:
 	heroku pgbackups:restore DATABASE -a ${HEROKU_PROD_NAME} (heroku pgbackups:url -a ${HEROKU_DEV_NAME}) --confirm ${HEROKU_PROD_NAME}
 	heroku run 'python manage.py set_site "$$CANADA_ALLOWED_HOST"' -a ${HEROKU_PROD_NAME}
 
-demote-db-heroku-dev:
-	heroku pgbackups:capture -a ${HEROKU_DEV_NAME}
-	curl -o latest.dump (heroku pgbackups:url -a ${HEROKU_DEV_NAME})
+demote-db-heroku-dev-to-local:
+	heroku pgbackups:capture --expire -a ${HEROKU_PROD_NAME}
+	curl -o latest.dump (heroku pgbackups:url -a ${HEROKU_PROD_NAME})
+	pg_restore --verbose --clean --no-acl --no-owner -h localhost -U saul -d django_canadanewyork latest.dump
+	rm latest.dump
+
+demote-db-heroku-prod-to-local:
+	heroku pgbackups:capture --expire -a ${HEROKU_PROD_NAME}
+	curl -o latest.dump (heroku pgbackups:url -a ${HEROKU_PROD_NAME})
 	pg_restore --verbose --clean --no-acl --no-owner -h localhost -U saul -d django_canadanewyork latest.dump
 	rm latest.dump
 

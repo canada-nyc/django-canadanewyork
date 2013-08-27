@@ -39,7 +39,13 @@ class Migration(SchemaMigration):
 
 
     models = {
-        
+
     }
+
+    depends_on = (
+        ("artists", "0003_seperate_photos"),
+        ("exhibitions", "0004_seperate_photos"),
+        ("updates", "0003_seperate_photos"),
+    )
 
     complete_apps = ['photos']

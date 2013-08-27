@@ -29,18 +29,20 @@
 }
 .lightbox .next {
   right: 0;
+  margin-right: @background-edge-offset;
   background-image: url("../images/icon-left-arrow.png");
   background-size: @next-prev-background-width;
-  background-position: @next-width-position center;
+  background-position: right center;
 }
 .lightbox .next:active {
   background-image: url("../images/icon-left-arrow_hover.png");
 }
 .lightbox .prev {
   left: 0;
+  margin-left: @background-edge-offset;
   background-image: url("../images/icon-right-arrow.png");
   background-size: @next-prev-background-width;
-  background-position: @prev-width-position center;
+  background-position: left center;
 }
 .lightbox .prev:active {
   background-image: url("../images/icon-right-arrow_hover.png");
@@ -60,8 +62,8 @@
   background-image: url("../images/icon-cancel_hover.png");
 }
 .lightbox .swipe {
-  left: @prev-width-position + @next-prev-background-width;
-  right: @prev-width-position + @next-prev-background-width;
+  left: @next-prev-background-width + @background-edge-offset;
+  right: @next-prev-background-width + @background-edge-offset;
 }
 .lightbox figure {
   margin-top: @lightbox-image-top-margin;
@@ -89,4 +91,23 @@
 .touch .lightbox .next,
 .touch .lightbox .close {
   display: none !important;
+}
+
+@media (max-width: 550px) {
+  @background-edge-offset-550: @background-edge-offset * 0.2;
+  @next-prev-background-width-550: @next-prev-background-width * 0.8;
+  .lightbox .next {
+    margin-right: @background-edge-offset-550;
+    background-size: @next-prev-background-width-550;
+  }
+
+  .lightbox .prev {
+    margin-left: @background-edge-offset-550;
+    background-size: @next-prev-background-width-550;
+  }
+  .lightbox .swipe {
+    left: @next-prev-background-width-550 + @background-edge-offset-550;
+    right: @next-prev-background-width-550 + @background-edge-offset-550;
+  }
+
 }

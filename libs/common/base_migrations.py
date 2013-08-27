@@ -37,3 +37,7 @@ class BasePhotoMigration(object):
         "Write your backwards methods here."
         NewPhoto = orm[orm.default_app + '.' + self.model_name + 'Photo']
         NewPhoto.objects.all().delete()
+
+    depends_on = (
+        ("photos", "0002_add_artist_field"),
+    )

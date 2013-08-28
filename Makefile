@@ -11,11 +11,12 @@ ADDONS="blitz,pgbackups:auto-month,sentry,heroku-postgresql,newrelic,rediscloud,
 run-tests:
 	watchmedo shell-command --patterns="*.py" \
           --ignore-pattern='tmp/' \
+          --ignore-pattern='static/compressed/' \
           --recursive \
           --command='${MANAGE} test'
 
 run-compress:
-	watchmedo shell-command --patterns="*.js;*.sass" \
+	watchmedo shell-command --patterns="*.less" \
           --ignore-pattern='tmp/' \
           --recursive \
           --command='${MANAGE} compress'

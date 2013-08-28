@@ -30,4 +30,5 @@ deploy:
   api_key:
     secure: BUuAQT37AoOLTRfOoyw17OkJGydKkJe9IAOygXon56kiqzNJPTd/AspS2OQRNx3T8TU5qZW0Q8b4Bvtg7r1IlyvwrRfXN9p5PLO9MUVo3zmuYbR4aYK/gth45PqqCfr0g9ZIuEuzjvJZZSope35hLKiHbkS6+PsI/UOToDGatJw=
   run:
-    - "python manage.py syncdb --migrate"
+    - "python manage.py migrate"
+    - "python manage.py syncdb"

@@ -72,6 +72,7 @@ promote-db-local:
 	pg_dump -Fc --no-acl --no-owner -h localhost -U saul django_canadanewyork > django_canadanewyork.dump
 	${MANAGE} upload_file django_canadanewyork.dump > dump_url.txt
 	rm django_canadanewyork.dump
+	heroku pg:reset DATABASE --confirm ${HEROKU_DEV_NAME}
 	heroku pgbackups:restore DATABASE (cat dump_url.txt) --confirm ${HEROKU_DEV_NAME}
 	rm dump_url.txt
 	${MANAGE} delete_file django_canadanewyork.dump
@@ -79,16 +80,21 @@ promote-db-local:
 
 promote-db-heroku-dev:
 	heroku pgbackups:capture -a ${HEROKU_DEV_NAME} --expire
-	heroku pgbackups:restore DATABASE (heroku pgbackups:url -a ${HEROKU_DEV_NAME}) -a ${HEROKU_PROD_NAME}  --confirm ${HEROKU_PROD_NAME}
+	heroku pg:reset DATABASE -a ${HEROKU_PROD_NAME} --confirm ${HEROKU_PROD_NAME}
+	heroku pgbackups:restore DATABASE (heroku pgbackups:url -a ${HEROKU_DEV_NAME}) -a ${HEROKU_PROD_NAME} --confirm ${HEROKU_PROD_NAME}
 	heroku run 'python manage.py set_site "$$CANADA_ALLOWED_HOST"' -a ${HEROKU_PROD_NAME}
 
 demote-db-heroku-dev-to-local:
+	dropdb django_canadanewyork
+	createdb django_canadanewyork
 	heroku pgbackups:capture --expire -a ${HEROKU_PROD_NAME}
 	curl -o latest.dump (heroku pgbackups:url -a ${HEROKU_PROD_NAME})
 	pg_restore --verbose --clean --no-acl --no-owner -h localhost -U saul -d django_canadanewyork latest.dump
 	rm latest.dump
 
 demote-db-heroku-prod-to-local:
+	dropdb django_canadanewyork
+	createdb django_canadanewyork
 	heroku pgbackups:capture --expire -a ${HEROKU_PROD_NAME}
 	curl -o latest.dump (heroku pgbackups:url -a ${HEROKU_PROD_NAME})
 	pg_restore --verbose --clean --no-acl --no-owner -h localhost -U saul -d django_canadanewyork latest.dump
@@ -96,6 +102,7 @@ demote-db-heroku-prod-to-local:
 
 demote-db-heroku-prod-to-heroku-dev:
 	heroku pgbackups:capture --expire -a ${HEROKU_PROD_NAME}
+	heroku pg:reset DATABASE --confirm ${HEROKU_DEV_NAME}
 	heroku pgbackups:restore DATABASE (heroku pgbackups:url -a ${HEROKU_PROD_NAME}) -a ${HEROKU_DEV_NAME} --confirm ${HEROKU_DEV_NAME}
 	heroku run 'python manage.py set_site "$$CANADA_ALLOWED_HOST"' -a ${HEROKU_DEV_NAME}
 

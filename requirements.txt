@@ -24,7 +24,7 @@ django-response-timeout==0.1.0
 #Images
 ##
 Pillow==2.1.0
-django-simpleimages==1.0.0
+django-simpleimages==1.0.1
 django-celery==3.0.21
 
 ##

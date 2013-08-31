@@ -10,3 +10,4 @@
 /static/wordpress/.image_cache.sqlite
 
 /.venv
+/latest.dump

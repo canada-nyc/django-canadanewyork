@@ -135,4 +135,4 @@ demote-static-heroku-prod-to-heroku-dev:
 
 promote-all-local: promote-static-local promote-code-local promote-db-local
 
-promote-all-heroku-dev: promote-static-heroku-dev promote-code-heroku-dev promote-db-heroku-dev
+promote-all-heroku-dev: promote-static-heroku-dev promote-db-heroku-dev promote-code-heroku-dev

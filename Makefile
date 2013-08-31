@@ -89,7 +89,7 @@ demote-db-heroku-dev-to-local:
 	createdb django_canadanewyork
 	heroku pgbackups:capture --expire -a ${HEROKU_PROD_NAME}
 	curl -o latest.dump (heroku pgbackups:url -a ${HEROKU_PROD_NAME})
-	pg_restore --verbose --clean --no-acl --no-owner -h localhost -U saul -d django_canadanewyork latest.dump
+	-pg_restore --clean --no-acl --no-owner -h localhost -U saul -d django_canadanewyork latest.dump
 	rm latest.dump
 
 demote-db-heroku-prod-to-local:
@@ -97,7 +97,7 @@ demote-db-heroku-prod-to-local:
 	createdb django_canadanewyork
 	heroku pgbackups:capture --expire -a ${HEROKU_PROD_NAME}
 	curl -o latest.dump (heroku pgbackups:url -a ${HEROKU_PROD_NAME})
-	pg_restore --verbose --clean --no-acl --no-owner -h localhost -U saul -d django_canadanewyork latest.dump
+	-pg_restore --clean --no-acl --no-owner -h localhost -U saul -d django_canadanewyork latest.dump
 	rm latest.dump
 
 demote-db-heroku-prod-to-heroku-dev:

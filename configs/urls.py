@@ -1,5 +1,6 @@
 import os
 import re
+import logging
 
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
@@ -17,10 +18,7 @@ admin.autodiscover()
 
 urlpatterns = patterns(
     '',
-    url(r'^favicon\.ico$',
-        RedirectView.as_view(
-            url=staticfiles_storage.url('canada/images/fire_favicon.ico')
-        )),
+
     url(r'^sitemap\.xml$',
         'django.contrib.sitemaps.views.sitemap',
         {'sitemaps': sitemaps}),
@@ -35,6 +33,21 @@ urlpatterns = patterns(
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
+
+try:
+    favicon_url = staticfiles_storage.url('canada/images/fire_favicon.ico')
+except ValueError:
+    logger = logging.getLogger(__name__)
+    logger.error('Favicon could not be found in storage', exc_info=True, extra={
+        'stack': True,
+    })
+else:
+    urlpatterns += patterns(
+        url(r'^favicon\.ico$',
+            RedirectView.as_view(
+                url=favicon_url
+            ))
+    )
 
 urlpatterns += patterns(
     'django.contrib.flatpages.views',

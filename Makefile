@@ -131,10 +131,7 @@ promote-static-heroku-dev:
 	heroku run 'python manage.py clone_bucket $$AWS_BUCKET' (heroku config:get AWS_BUCKET --app ${HEROKU_PROD_NAME})  --app ${HEROKU_DEV_NAME}
 
 demote-static-heroku-prod-to-heroku-dev:
-	heroku run 'python manage.py clone_bucket $$AWS_BUCKET' (heroku config:get AWS_BUCKET --app ${HEROKU_DEV_NAME}) --app ${HEROKU_PROD_NAME}
-	curl -o latest.dump (heroku pgbackups:url -a ${HEROKU_PROD_NAME})
-	pg_restore --verbose --clean --no-acl --no-owner -h localhost -U saul -d django_canadanewyork latest.dump
-	rm latest.dump
+	${MANAGE} clone_bucket (heroku config:get AWS_BUCKET -a ${HEROKU_DEV_NAME}) (heroku config:get AWS_BUCKET -a ${HEROKU_PROD_NAME})
 
 promote-all-local: promote-static-local promote-code-local promote-db-local
 

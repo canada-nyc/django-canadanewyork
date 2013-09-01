@@ -131,7 +131,7 @@ promote-static-heroku-dev:
 	heroku run 'python manage.py clone_bucket $$AWS_BUCKET' (heroku config:get AWS_BUCKET --app ${HEROKU_PROD_NAME})  --app ${HEROKU_DEV_NAME}
 
 demote-static-heroku-prod-to-heroku-dev:
-	${MANAGE} clone_bucket (heroku config:get AWS_BUCKET -a ${HEROKU_DEV_NAME}) (heroku config:get AWS_BUCKET -a ${HEROKU_PROD_NAME})
+	heroku run 'python manage.py clone_bucket' (heroku config:get AWS_BUCKET --app ${HEROKU_PROD_NAME}) '$$AWS_BUCKET'  --app ${HEROKU_DEV_NAME}
 
 promote-all-local: promote-static-local promote-code-local promote-db-local
 

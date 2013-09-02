@@ -48,7 +48,6 @@ USE_I18N = False
 
 MIDDLEWARE_CLASSES = (
     'dumper.middleware.UpdateCacheMiddleware',
-    'response_timeout.middleware.SetCacheTimeoutMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'django.middleware.http.ConditionalGetMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -274,11 +273,6 @@ if get_env_variable('CANADA_CACHE_TEMPLATES'):
     )
 
 USE_ETAGS = True
-CACHE_MIDDLEWARE_ALIAS = 'default'
-CACHE_MIDDLEWARE_SECONDS = 60 * 60 * 24 * 365
-CACHE_MIDDLEWARE_KEY_PREFIX = ''
-
-RESPONSE_CACHE_SECONDS = 1
 
 
 #########

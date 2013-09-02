@@ -16,8 +16,7 @@ django-clear-cache==0.3
 django-redis==3.3
 django-heroku-memcacheify==0.4
 pylibmc==1.2.3
-django-dumper==0.1.1
-django-response-timeout==0.1.0
+django-dumper==0.2.0
 
 ##
 #Images

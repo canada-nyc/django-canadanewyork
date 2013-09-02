@@ -19,7 +19,6 @@ pylibmc==1.2.3
 django-dumper==0.1.1
 django-response-timeout==0.1.0
 
-
 ##
 #Images
 ##

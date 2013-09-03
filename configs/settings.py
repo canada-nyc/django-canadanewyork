@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 
 import dj_database_url
 from memcacheify import memcacheify
-import djcelery
 
 from django.core.exceptions import ImproperlyConfigured
 
@@ -129,7 +128,8 @@ TEMPLATE_CONTEXT_PROCESSORS += ('sekizai.context_processors.sekizai',)
 # IMAGES #
 ##########
 INSTALLED_APPS += ('simpleimages',)
-SIMPLEIMAGES_TRANFORM_CALLER = 'configs.queues.enqueue'
+SIMPLEIMAGES_TRANSFORM_CALLER = 'django_rq.enqueue'
+
 
 ###########
 # DATABASE #
@@ -146,13 +146,15 @@ DATABASES = {
 #########
 # QUEUE #
 #########
-INSTALLED_APPS += ('djcelery', 'kombu.transport.django',)
-djcelery.setup_loader()
+INSTALLED_APPS += ("django_rq", )
 
-BROKER_URL = 'django://'
+RQ_QUEUES = {
+    'default': {
+        'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379'),
+        'DB': 0,
+    },
+}
 
-CELERY_ALWAYS_EAGER = not get_env_variable('CANADA_QUEUE_ASYNC')
-CELERY_IMPORTS = ("configs.tasks", )
 
 ###########
 # TESTING #

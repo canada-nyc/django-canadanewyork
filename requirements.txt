@@ -19,11 +19,15 @@ pylibmc==1.2.3
 django-dumper==0.2.0
 
 ##
+#Queue
+##
+django-rq==0.5.1
+
+##
 #Images
 ##
 Pillow==2.1.0
-django-simpleimages==1.0.2
-django-celery==3.0.21
+django-simpleimages==1.0.3
 
 ##
 #Templates

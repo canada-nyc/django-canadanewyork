@@ -4,6 +4,7 @@
 
 {% block body %}
 <article>
+  {% if exhibition %}
   <header>
     <a href="{{ exhibition.get_absolute_url }}">
       {% with photo=exhibition.get_press_release_photo %}
@@ -15,6 +16,7 @@
       <p>{% include 'base/date_range.html' with start_date=exhibition.start_date end_date=exhibition.end_date %}
     </a>
   </header>
+  {% endif %}
   {{ extra_content|safe }}
 </article>
 {% endblock body %}

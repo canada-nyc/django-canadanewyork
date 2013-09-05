@@ -60,17 +60,6 @@ urlpatterns += patterns(
     url(r'^contact/$', 'flatpage', {'url': '/contact/'}, name='contact')
 )
 
-
-loader_io_verification = os.environ.get('LOADER_IO_VERIFICATION', None)
-if loader_io_verification:
-    urlpatterns += patterns(
-        '',
-        url(
-            r'^' + re.escape(loader_io_verification) + r'/$',
-            lambda request: HttpResponse(loader_io_verification)
-        ),
-    )
-
 if settings.DEFAULT_FILE_STORAGE == 'django.core.files.storage.FileSystemStorage':
     urlpatterns += patterns(
         '',

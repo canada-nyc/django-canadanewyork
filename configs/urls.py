@@ -32,8 +32,13 @@ urlpatterns = patterns(
 
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^admin/django-rq/', include('django_rq.urls')),
 )
+
+if 'django_rq' in settings.INSTALLED_APPS:
+    urlpatterns += patterns(
+        '',
+        url(r'^admin/django-rq/', include('django_rq.urls')),
+    )
 
 try:
     favicon_url = staticfiles_storage.url('canada/images/fire_favicon.ico')

@@ -28,7 +28,7 @@ django-celery==3.0.21
 #Images
 ##
 Pillow==2.1.0
-django-simpleimages==1.0.3
+django-simpleimages==1.0.5
 
 ##
 #Templates

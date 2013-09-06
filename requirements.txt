@@ -58,7 +58,6 @@ raven>=3
 newrelic
 git+git://github.com/django-debug-toolbar/django-debug-toolbar.git@5ae6fcc61c7596b4980e85186f3737fad01a0ad4
 django-devserver==0.6.2
-django-debug-toolbar-template-timings==0.4.4
 
 ##
 #Deployment

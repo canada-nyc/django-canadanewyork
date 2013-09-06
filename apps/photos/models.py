@@ -153,8 +153,17 @@ class ArtworkPhoto(BasePhoto):
 
     caption_template = 'photos/full_caption.html'
 
+    def remove_exponent(self, d):
+        '''Remove exponent and trailing zeros.
+
+        >>> remove_exponent(Decimal('5E+3'))
+        Decimal('5000')
+
+        '''
+        return d.quantize(Decimal(1)) if d == d.to_integral() else d.normalize()
+
     def round_decimal(self, number):
-        return Decimal(number).normalize()
+        return self.remove_exponent(Decimal(number).normalize())
 
     @property
     def dimensions(self):

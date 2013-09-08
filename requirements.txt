@@ -46,6 +46,7 @@ psycopg2==2.4.5
 ##
 boto==2.9.6
 hg+https://bitbucket.org/david/django-storages@e27c8b61ab57e5afaf21cccfee005c980d89480f
+dj-static==0.0.5
 
 ##
 #Logging

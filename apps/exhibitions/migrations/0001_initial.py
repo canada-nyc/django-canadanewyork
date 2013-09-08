@@ -95,4 +95,8 @@ class Migration(SchemaMigration):
         }
     }
 
+    depends_on = (
+        ("artists", "0001_initial"),
+    )
+
     complete_apps = ['exhibitions']

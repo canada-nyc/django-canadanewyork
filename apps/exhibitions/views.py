@@ -40,3 +40,8 @@ class ExhibitionCurrent(TemplateView):
         if current_exhibition:
             context['exhibition'] = current_exhibition[0]
         return context
+
+
+class ExhibitionPressRelease(DetailView):
+    model = Exhibition
+    template_name = 'exhibitions/exhibition_pressrelease.html'

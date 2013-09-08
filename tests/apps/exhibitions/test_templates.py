@@ -84,6 +84,24 @@ class ExhibitionDetailTest(WebTest):
             href=reverse('exhibition-press-list', kwargs={'slug': Exhibition.slug})
         )
 
+    def test_no_press_release_link(self):
+        Exhibition = ExhibitionFactory.create()
+        exhibition_detail = self.app.get(Exhibition.get_absolute_url())
+        with self.assertRaises(IndexError):
+            exhibition_detail.click(
+                'Press Release',
+                href=reverse('exhibition-pressrelease', kwargs={'slug': Exhibition.slug})
+            )
+
+    def test_press_release_link(self):
+        Exhibition = ExhibitionFactory.create(description='_')
+        exhibition_detail = self.app.get(Exhibition.get_absolute_url())
+
+        exhibition_detail.click(
+            'Press Release',
+            href=reverse('exhibition-pressrelease', kwargs={'slug': Exhibition.slug})
+        )
+
 
 class ExhibitionPressListTest(WebTest):
     def test_parent_link(self):
@@ -125,6 +143,25 @@ class ExhibitionPressListTest(WebTest):
             unicode(Press),
             href=Press.content_file.url,
         )
+
+
+class ExhibitionPressReleaseTest(WebTest):
+    def test_parent_link(self):
+        Exhibition = ExhibitionFactory.create(description='a press release')
+        exhibition_press_release = self.app.get(
+            reverse('exhibition-pressrelease', kwargs={'slug': Exhibition.slug})
+        )
+        exhibition_press_release.click(
+            unicode(Exhibition),
+            href=Exhibition.get_absolute_url()
+        )
+
+    def test_content(self):
+        Exhibition = ExhibitionFactory.create(description='a press release')
+        exhibition_press_release = self.app.get(
+            reverse('exhibition-pressrelease', kwargs={'slug': Exhibition.slug})
+        )
+        self.assertIn(Exhibition.description, exhibition_press_release)
 
 
 class ExhibitionCurrentTest(WebTest):

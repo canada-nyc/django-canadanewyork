@@ -13,6 +13,9 @@
   {% if exhibition.press.exists %}
     <p><a href="{% url "exhibition-press-list" slug=exhibition.slug %}">Press</a>
   {% endif %}
+  {% if exhibition.description %}
+    <p><a href="{% url "exhibition-pressrelease" slug=exhibition.slug %}">Press Release</a>
+  {% endif %}
   {% for artist in exhibition.artists.all %}
     {% if forloop.first %}<ul class="inline">{% endif %}
     <li>

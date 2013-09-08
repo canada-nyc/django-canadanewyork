@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from .views import ExhibitionDetail, ExhibitionList, ExhibitionPressList
+from .views import ExhibitionDetail, ExhibitionList, ExhibitionPressList, ExhibitionPressRelease
 
 
 urlpatterns = patterns(
@@ -10,4 +10,8 @@ urlpatterns = patterns(
         name='exhibition-detail'),
     url(r'^(?P<slug>\d{4}/[-\w]+)/press/$',
         ExhibitionPressList.as_view(),
-        name='exhibition-press-list'))
+        name='exhibition-press-list'),
+    url(r'^(?P<slug>\d{4}/[-\w]+)/press-release/$',
+        ExhibitionPressRelease.as_view(),
+        name='exhibition-pressrelease'),
+)

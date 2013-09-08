@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Press Release › {{ exhibition }}{% endblock %}
+
+{% block body %}
+<article>
+  <h1><a href="{{ exhibition.get_absolute_url }}">{{ exhibition }}</a></h1>
+  {{ exhibition.description|safe }}
+</article>
+{% endblock body %}

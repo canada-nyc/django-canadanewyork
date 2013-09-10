@@ -17,6 +17,7 @@
     </a>
   </header>
   {% endif %}
+  {{ exhibition.extra_info|default_if_none:""|safe }}
   {{ extra_content|safe }}
 </article>
 {% endblock body %}

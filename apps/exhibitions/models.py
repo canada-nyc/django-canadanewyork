@@ -35,6 +35,8 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
         default=True
     )
 
+    extra_info = models.TextField(blank=True, verbose_name='Extra Info', help_text='Only shows up on homepage, below exhibition picture and name, if it is current')
+
     press_release_photo = models.ImageField(
         upload_to=image_path,
         help_text='Used if it is the current exhibition, on the homepage. If not specified will use first of the uploaded photos on the homepage',

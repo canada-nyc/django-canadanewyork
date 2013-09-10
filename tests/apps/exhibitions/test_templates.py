@@ -173,6 +173,14 @@ class ExhibitionCurrentTest(WebTest):
 
         self.assertIn(unicode(Exhibition), exhibition_current)
 
+    def test_extra_info(self):
+        Exhibition = ExhibitionFactory.create(extra_info='some info')
+        exhibition_current = self.app.get(
+            reverse('exhibition-current')
+        )
+
+        self.assertIn(Exhibition.extra_info, exhibition_current)
+
     def test_link_to_exhibition(self):
         Exhibition = ExhibitionFactory.create()
         exhibition_current = self.app.get(

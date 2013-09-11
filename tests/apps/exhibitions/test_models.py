@@ -24,22 +24,22 @@ class ExhibitionPressReleasePhotoTest(TestCase):
         self.assertEqual(Exhibition.get_press_release_photo()['url'], Exhibition.press_release_photo.url)
 
 
-class ExhibitionGroupShowTest(TestCase):
+class ExhibitionNotGroupShowTest(TestCase):
     def test_no_artists(self):
         Exhibition = ExhibitionFactory(artists__n=0)
-        self.assertFalse(Exhibition.group_show)
+        self.assertFalse(Exhibition.not_group_show)
 
     def test_one_artist(self):
         Exhibition = ExhibitionFactory(artists__n=1)
-        self.assertFalse(Exhibition.group_show)
+        self.assertTrue(Exhibition.not_group_show)
 
     def test_two_artists(self):
         Exhibition = ExhibitionFactory(artists__n=2)
-        self.assertFalse(Exhibition.group_show)
+        self.assertTrue(Exhibition.not_group_show)
 
     def test_three_or_more_artists(self):
         Exhibition = ExhibitionFactory(artists__n=3)
-        self.assertTrue(Exhibition.group_show)
+        self.assertFalse(Exhibition.not_group_show)
 
 
 class ExhibitionJoinArtistsTest(TestCase):
@@ -77,4 +77,3 @@ class ExhibitionJoinArtistsTest(TestCase):
                 unicode(Exhibition.artists.all()[2])
             )
         )
-

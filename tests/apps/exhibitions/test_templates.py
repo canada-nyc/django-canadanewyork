@@ -2,6 +2,7 @@ from django_webtest import WebTest
 from django.core.urlresolvers import reverse
 from django.contrib.flatpages.models import FlatPage
 from django.core.files.base import ContentFile
+from django.core.cache import cache
 
 from .factories import ExhibitionFactory
 
@@ -22,15 +23,24 @@ class ExhibitionListTest(WebTest):
         )
 
     def test_detail_link(self):
-        Exhibition = ExhibitionFactory.create()
+        cache.clear()
+        Exhibition = ExhibitionFactory.create(artists__n=0)
+
         exhibition_list = self.app.get(
             reverse('exhibition-list')
         )
-
         exhibition_list.click(
             unicode(Exhibition),
             href=reverse('exhibition-detail', kwargs={'slug': Exhibition.slug})
         )
+
+    def test_artist_text(self):
+        Exhibition = ExhibitionFactory.create(artists__n=1)
+        exhibition_list = self.app.get(
+            reverse('exhibition-list')
+        )
+
+        self.assertIn(Exhibition.join_artists, exhibition_list)
 
 
 class ExhibitionDetailTest(WebTest):
@@ -172,6 +182,14 @@ class ExhibitionCurrentTest(WebTest):
         )
 
         self.assertIn(unicode(Exhibition), exhibition_current)
+
+    def test_artist_text(self):
+        Exhibition = ExhibitionFactory.create(artists__n=1)
+        exhibition_current = self.app.get(
+            reverse('exhibition-current')
+        )
+
+        self.assertIn(Exhibition.join_artists, exhibition_current)
 
     def test_extra_info(self):
         Exhibition = ExhibitionFactory.create(extra_info='some info')

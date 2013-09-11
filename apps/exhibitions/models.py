@@ -102,8 +102,8 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
         return self.start_date.year
 
     @property
-    def group_show(self):
-        if self.artists.count() > 2:
+    def not_group_show(self):
+        if 0 < self.artists.count() < 3:
             return True
 
     @property

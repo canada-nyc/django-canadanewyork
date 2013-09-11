@@ -12,6 +12,7 @@ from apps.artists.models import Artist
 from apps.photos.models import ArtworkPhoto
 from libs.slugify.fields import SlugifyField
 from libs.unique_boolean.fields import UniqueBooleanField
+from libs.common.utils import sentance_join
 
 
 class Exhibition(url_tracker.URLTrackingMixin, models.Model):
@@ -99,6 +100,16 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
     def get_year(self):
         'for the slug'
         return self.start_date.year
+
+    @property
+    def group_show(self):
+        if self.artists.count() > 2:
+            return True
+
+    @property
+    def join_artists(self):
+        names = map(unicode, self.artists.all())
+        return sentance_join(names)
 
     def dependent_paths(self):
         yield self.get_absolute_url()

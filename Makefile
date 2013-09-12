@@ -32,17 +32,17 @@ setup-local-compression:
 	npm install --global --production "less" "git://github.com/mishoo/UglifyJS2.git#3bd7ca9961125b39dcd54d2182cb72bd1ca6006e"
 
 setup-heroku:
-	heroku plugins:install git://github.com/joelvh/heroku-config.git
+	heroku plugins:install git://github.com/saulshanabrook/heroku-config.git
 	heroku plugins:install git://github.com/heroku/heroku-pg-extras.git
 
 setup-heroku-dev:
 	heroku labs:enable user-env-compile #enabled so that collectstatic has access to amazon ec2 key
 	heroku create ${HEROKU_DEV_NAME} --addons ${ADDONS}
 	heroku labs:enable log-runtime-metrics
-	heroku config:push -o --filename configs/env/common.env
-	heroku config:push -o --filename configs/env/heroku.env
-	heroku config:push -o --filename configs/env/secret.env
-	heroku config:push -o --filename configs/env/heroku-dev.env
+	heroku config:push -o configs/env/common.env
+	heroku config:push -o configs/env/heroku.env
+	heroku config:push -o configs/env/secret.env
+	heroku config:push -o configs/env/heroku-dev.env
 
 setup-heroku-prod:
 	heroku fork -a ${HEROKU_DEV_NAME} ${HEROKU_PROD_NAME}
@@ -50,7 +50,7 @@ setup-heroku-prod:
 	heroku addons:remove heroku-postgresql:dev -a ${HEROKU_PROD_NAME}
 	heroku addons:add heroku-postgresql:basic -a ${HEROKU_PROD_NAME}
 	heroku pg:promote (heroku pg --app ${HEROKU_PROD_NAME} | grep '^===' | sed 's/^=== //g') --app ${HEROKU_PROD_NAME}
-	heroku config:push -o --filename configs/env/heroku-prod.env --app ${HEROKU_PROD_NAME}
+	heroku config:push -o configs/env/heroku-prod.env --app ${HEROKU_PROD_NAME}
 
 reset-local:
 	${MANAGE} clean_db --noinput --init
@@ -107,19 +107,19 @@ demote-db-heroku-prod-to-heroku-dev:
 	heroku run 'python manage.py set_site "$$CANADA_ALLOWED_HOST"' -a ${HEROKU_DEV_NAME}
 
 promote-code-local:
-	heroku config:push -o --filename configs/env/common.env
-	heroku config:push -o --filename configs/env/heroku.env
-	heroku config:push -o --filename configs/env/secret.env
-	heroku config:push -o --filename configs/env/heroku-dev.env
+	heroku config:push -o configs/env/common.env
+	heroku config:push -o configs/env/heroku.env
+	heroku config:push -o configs/env/secret.env
+	heroku config:push -o configs/env/heroku-dev.env
 	git push heroku master
 	heroku run python manage.py migrate
 	heroku run python manage.py collectstatic --noinput
 
 promote-code-heroku-dev:
-	heroku config:push -o --filename configs/env/common.env --app ${HEROKU_PROD_NAME}
-	heroku config:push -o --filename configs/env/heroku.env --app ${HEROKU_PROD_NAME}
-	heroku config:push -o --filename configs/env/secret.env --app ${HEROKU_PROD_NAME}
-	heroku config:push -o --filename configs/env/heroku-prod.env --app ${HEROKU_PROD_NAME}
+	heroku config:push -o configs/env/common.env --app ${HEROKU_PROD_NAME}
+	heroku config:push -o configs/env/heroku.env --app ${HEROKU_PROD_NAME}
+	heroku config:push -o configs/env/secret.env --app ${HEROKU_PROD_NAME}
+	heroku config:push -o configs/env/heroku-prod.env --app ${HEROKU_PROD_NAME}
 	heroku pipeline:promote
 	heroku run python manage.py migrate --app ${HEROKU_PROD_NAME}
 	heroku run python manage.py collectstatic --noinput --app ${HEROKU_PROD_NAME}

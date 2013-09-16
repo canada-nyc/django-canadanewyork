@@ -26,7 +26,7 @@ class ExhibitionAdmin(admin.ModelAdmin):
     list_filter = ('current', )
     fieldsets = (
         (None, {
-            'fields': ('name', ('start_date', 'end_date'), 'description', 'extra_info')
+            'fields': ('name', ('start_date', 'end_date'), 'description',)
         }),
         ('Homepage', {
             'fields': (('current', 'press_release_photo',), 'extra_info',)

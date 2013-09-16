@@ -76,7 +76,7 @@ class BasePhoto(models.Model):
         abstract = True
 
     def __unicode__(self):
-        if self.position:
+        if self.position is not None:
             return u'#{} {}'.format(self.position + 1, self.title)
         return self.title
 
@@ -149,6 +149,7 @@ class ArtworkPhoto(BasePhoto):
     )
 
     class Meta:
+        ordering = ['position']
         abstract = True
 
     caption_template = 'photos/full_caption.html'

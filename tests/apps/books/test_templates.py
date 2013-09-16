@@ -8,6 +8,7 @@ from .factories import BookFactory
 
 
 class BookListTest(WebTest):
+
     def test_reverse(self):
         self.app.get(
             reverse('book-list')
@@ -36,3 +37,10 @@ class BookListTest(WebTest):
                 href=re.escape(Book.get_purchase_url()),
             )
 
+    def test_artist_name_in(self):
+        Book = BookFactory.create()
+        book_list = self.app.get(
+            reverse('book-list')
+        )
+
+        self.assertIn(unicode(Book.artist), book_list)

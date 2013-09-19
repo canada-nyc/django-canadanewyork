@@ -19,11 +19,10 @@ class ExhibitionPhotoInline(photo_inline(ExhibitionPhoto)):
 
 
 class ExhibitionAdmin(admin.ModelAdmin):
-    form = editor_form(['description', 'extra_info'])
-    inlines = [ExhibitionPhotoInline]
     date_hierarchy = 'start_date'
     list_display = ('name', 'start_date', 'current')
     list_filter = ('current', )
+
     fieldsets = (
         (None, {
             'fields': ('name', ('start_date', 'end_date'), 'artists', 'description',)
@@ -32,6 +31,8 @@ class ExhibitionAdmin(admin.ModelAdmin):
             'fields': (('current', 'press_release_photo',), 'extra_info',)
         }),
     )
+    inlines = [ExhibitionPhotoInline]
+    form = editor_form(['description', 'extra_info'])
 
     raw_id_fields = ('artists',)
     autocomplete_lookup_fields = {

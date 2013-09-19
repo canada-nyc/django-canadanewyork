@@ -8,7 +8,6 @@
     <h1>{{ exhibition }}</h1>
     <p>{% include 'base/date_range.html' with start_date=object.start_date end_date=object.end_date %}
   </header>
-  {{ exhibition.description|safe }}
   {% include "base/photos.html" with photos=exhibition.photos.all id=exhibition.id %}
   {% if exhibition.press.exists %}
     <p><a href="{% url "exhibition-press-list" slug=exhibition.slug %}">Press</a>

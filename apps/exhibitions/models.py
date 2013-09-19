@@ -20,7 +20,7 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
         return os.path.join(instance.get_absolute_url()[1:], 'press_release_photos', filename)
 
     name = models.CharField(max_length=1000, unique_for_year='start_date')
-    description = models.TextField(blank=True, verbose_name='Press Release', help_text='Only shows up on homepage, if it is current')
+    description = models.TextField(blank=True, verbose_name='Press Release')
     artists = models.ManyToManyField(Artist, related_name='exhibitions',
                                      blank=True, null=True)
     start_date = models.DateField()
@@ -32,7 +32,7 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
     )
 
     current = UniqueBooleanField(
-        help_text="Set the exhibition as the current show. Will appear on homepage with link",
+        help_text="Set the exhibition as the current show. Will appear on homepage",
         default=True
     )
 
@@ -128,7 +128,7 @@ class ExhibitionPhoto(ArtworkPhoto):
     artist_text = models.CharField(
         blank=True,
         max_length=100,
-        help_text='Only use in group show',
+        help_text='Only use if not solo artist in show',
         verbose_name='Artist'
     )
 
@@ -141,4 +141,3 @@ url_tracker.track_url_changes_for_model(Exhibition)
 dumper.register(Exhibition)
 dumper.register(ExhibitionPhoto)
 simpleimages.trackers.track_model(ExhibitionPhoto)
-

@@ -106,6 +106,19 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
         if 0 < self.artists.count() < 3:
             return True
 
+    def link_artist_if_visble(self, artist):
+        if artist.visible:
+            return '<a href="{}">{}</a>'.format(
+                artist.get_absolute_url(),
+                unicode(artist)
+            )
+        return unicode(artist)
+
+    @property
+    def join_artists_with_links(self):
+        link_or_names = map(self.link_artist_if_visble, self.artists.all())
+        return sentance_join(link_or_names)
+
     @property
     def join_artists(self):
         names = map(unicode, self.artists.all())

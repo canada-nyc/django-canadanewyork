@@ -6,23 +6,24 @@
 <article>
   <header>
     <h1>{{ exhibition }}</h1>
+    <p>{{ exhibition.join_artists_with_links|safe }}</p>
     <p>{% include 'base/date_range.html' with start_date=object.start_date end_date=object.end_date %}
   </header>
   {% include "base/photos.html" with photos=exhibition.photos.all id=exhibition.id %}
-  {% if exhibition.press.exists %}
-    <p><a href="{% url "exhibition-press-list" slug=exhibition.slug %}">Press</a>
-  {% endif %}
-  {% if exhibition.description %}
-    <p><a href="{% url "exhibition-pressrelease" slug=exhibition.slug %}">Press Release</a>
-  {% endif %}
-  {% for artist in exhibition.artists.all %}
-    {% if forloop.first %}<ul class="inline">{% endif %}
-    <li>
-      {% if artist.visible %}<a href="{{ artist.get_absolute_url }}">{% endif %}
-        {{ artist }}
-      {% if artist.visible %}</a>{% endif %}
-  </li>
-  {% if forloop.last %}</ul>{% endif %}
-  {% endfor %}
+  <hr>
+  <aside>
+    <ul class="related-links">
+      {% if exhibition.press.exists %}
+      <li>
+        <a href="{% url "exhibition-press-list" slug=exhibition.slug %}">Press</a>
+      </li>
+      {% endif %}
+      {% if exhibition.description %}
+      <li>
+        <a href="{% url "exhibition-pressrelease" slug=exhibition.slug %}">Press Release</a>
+      </li>
+      {% endif %}
+    </ul>
+  </aside>
 </article>
 {% endblock %}

@@ -165,18 +165,6 @@ nav li {
 //
 
 article {
-  li {
-    display: inline;
-    margin-left: 5px;
-    padding-right: 20px;
-  }
-
-  // Add a chevron before the links
-  li:before {
-    content: '\203A'; // ›
-    font-size: @font-size + 2px;
-  }
-
   margin-bottom: @separation-size;
 
   // Constrain embeds so the page doesn't expand
@@ -188,6 +176,18 @@ article {
 header {
   border-bottom: 1px solid @rule-color;
   margin-bottom: 20px;
+  padding-bottom: 10px;
+
+  h1 {
+    margin-bottom: .5em
+  }
+
+  // For subheadings
+  p {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+  }
 }
 
 // ...............................................
@@ -202,6 +202,24 @@ header {
   padding: 0;
   li {
     padding-bottom: 1%;
+  }
+}
+
+
+// Related links list styling
+.related-links {
+  padding-left: 0;
+
+  li {
+    display: inline;
+    margin-left: 5px;
+    padding-right: 20px;
+  }
+
+  // Add a chevron before the links
+  li:before {
+    content: '\203A'; // ›
+    font-size: @font-size + 2px;
   }
 }
 

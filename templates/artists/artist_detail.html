@@ -10,7 +10,7 @@
   {% include "base/photos.html" with photos=artist.photos.all id=artist.id %}
   <hr>
   <aside>
-    <ul>
+    <ul class="related-links">
     {% if artist.photos.exists %}
       <li>
         <a href="#{{ artist.id }}">Images</a>

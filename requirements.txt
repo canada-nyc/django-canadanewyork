@@ -7,7 +7,7 @@ futures
 ##
 #Admin
 ##
-django-grappelli==2.4.5
+django-grappelli==2.4.6
 
 ##
 #Caching

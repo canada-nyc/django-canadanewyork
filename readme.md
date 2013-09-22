@@ -3,7 +3,7 @@
 # Depedencies
 ## Essential
 * python 2.7.x
-* less and uglify-js for compression: ` npm install --global --production "less" "git://github.com/mishoo/UglifyJS2.git#3bd7ca9961125b39dcd54d2182cb72bd1ca6006e"`
+* less and sass for compression: ` npm install --global --production "less" "sass"`
 
 ## Recommended
 * libmemcached-dev: Mac -> `brew install libmemcached`

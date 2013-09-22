@@ -25,6 +25,11 @@ django-rq==0.5.1
 django-celery==3.0.21
 
 ##
+#Static
+##
+libsass==0.2.4
+
+##
 #Images
 ##
 Pillow==2.1.0

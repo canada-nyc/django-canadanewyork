@@ -16,10 +16,11 @@ run-tests:
           --command='${MANAGE} test'
 
 run-compress:
-	watchmedo shell-command --patterns="*.less" \
+	watchmedo shell-command \
           --ignore-pattern='tmp/' \
           --recursive \
-          --command='${MANAGE} compress'
+          --command='${MANAGE} compress' \
+          static/styles
 
 setup-local: setup-local-compression
 	pip install -r configs/requirements/dev.txt

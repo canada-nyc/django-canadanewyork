@@ -5,29 +5,17 @@ from django.core.management import call_command
 
 
 class Command(NoArgsCommand):
-    SCRIPT_SOURCE = ' '.join([
-        "static/scripts/jquery.js",
-        "static/scripts/jquery.imagesloaded.js",
-        "static/scripts/swipe.js",
-        "static/scripts/main.js",
-        "static/scripts/templates.js",
-        "static/scripts/store.js",
-        "static/scripts/lightbox.js",
-    ])
-    SCRIPT_DESTINATION = "static/compressed/global.js"
-    STYLE_SOURCE = "static/styles/main.less"
+    LESS_SOURCE = "static/styles/main.less"
+    SASS_DIRECTORY = "static/styles/"
+    SASS_SOURCE = SASS_DIRECTORY + "magnific-popup.scss"
     STYLE_DESTINATION = "static/compressed/global.css"
 
     def handle(self, *args, **options):
         self.call_shell_command(
-            'uglifyjs {} -o {}'.format(
-                self.SCRIPT_SOURCE,
-                self.SCRIPT_DESTINATION
-            ),
-        )
-        self.call_shell_command(
-            'lessc --compress {} {}'.format(
-                self.STYLE_SOURCE,
+            'lessc --compress {} | cat - {} | sass --scss --stdin --trace --style nested --load-path {} {}'.format(
+                self.LESS_SOURCE,
+                self.SASS_SOURCE,
+                self.SASS_DIRECTORY,
                 self.STYLE_DESTINATION
             ),
         )

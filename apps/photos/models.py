@@ -90,6 +90,8 @@ class BasePhoto(models.Model):
     def dependent_paths(self):
         yield self.content_object.get_absolute_url()
 
+    caption_template = 'photos/full_caption.html'
+
     @property
     def content_name(self):
         return os.path.join(
@@ -151,8 +153,6 @@ class ArtworkPhoto(BasePhoto):
     class Meta:
         ordering = ['position']
         abstract = True
-
-    caption_template = 'photos/full_caption.html'
 
     def remove_exponent(self, d):
         '''Remove exponent and trailing zeros.

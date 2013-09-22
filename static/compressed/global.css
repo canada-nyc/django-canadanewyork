@@ -212,10 +212,6 @@ footer {
   right: 0;
   height: 60px; }
 
-.throbber {
-  background: url("../images/spinner.gif") no-repeat center;
-  background-size: 36px 36px; }
-
 footer .adr:after, footer .tel:after {
   content: ' | '; }
 
@@ -256,7 +252,7 @@ header {
   padding-bottom: 10px; }
 
 header h1 {
-  margin-bottom: .5em; }
+  margin-bottom: 0; }
 
 header p {
   margin-top: 0;

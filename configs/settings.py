@@ -1,6 +1,7 @@
 import os
 import urlparse
 from datetime import datetime, timedelta
+import logging
 
 import dj_database_url
 from memcacheify import memcacheify
@@ -119,7 +120,7 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 #############
 # TEMPLATES #
 #############
-TEMPLATE_DIRS = rel_path('templates')
+TEMPLATE_DIRS = (rel_path('templates'), )
 
 INSTALLED_APPS += ('sekizai',)
 TEMPLATE_CONTEXT_PROCESSORS += ('sekizai.context_processors.sekizai',)
@@ -335,27 +336,31 @@ if get_env_variable('CANADA_DEBUG_TOOLBAR'):
 ###########
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '%(levelname)s %(module)s %(message)s'
-        },
-    },
+    'disable_existing_loggers': True,
     'handlers': {
         'console': {
-            'level': get_env_variable('CANADA_CONSOLE_LOGGING_LEVEL'),
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
         }
     },
     'loggers': {
-        '': {
-            'handlers': ['console', ],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-    }
+        'django': {},
+    },
+    'root': {
+        'handlers': ['console', ],
+        'level': 'INFO'
+    },
 }
+
+
+# Get all the existing loggers
+root = logging.root
+existing = root.manager.loggerDict.keys()
+
+# Set them explicitly to a blank value so that they are overidden
+# and propogate to the root logger
+for logger in existing:
+    LOGGING['loggers'][logger] = {}
 
 if get_env_variable('CANADA_SENTRY'):
     INSTALLED_APPS += (
@@ -365,4 +370,4 @@ if get_env_variable('CANADA_SENTRY'):
         'level': 'ERROR',
         'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
     }
-    LOGGING['loggers']['']['handlers'].append('sentry')
+    LOGGING['root']['handlers'].append('sentry')

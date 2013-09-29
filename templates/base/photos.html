@@ -4,7 +4,7 @@
 
 {% with first_photo=photos|first %}
 {% if first_photo %}
-<a href="{{ first_photo.safe_thumbnail_image.url }}" title="Click to view photos" class="gallery-{{ id }}"/>
+<a href="{{ first_photo.safe_thumbnail_image.url }}" title="Click to view photos" class="gallery-{{ id }} zoom-cursor"/>
   <img src="{{ first_photo.safe_thumbnail_image.url }}" height="{{ first_photo.safe_thumbnail_image.height }}" width="{{ first_photo.safe_thumbnail_image.width }}"/>
 </a>
 {% addtoblock "js" %}

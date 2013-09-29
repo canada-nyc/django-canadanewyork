@@ -285,6 +285,11 @@ header p {
 .gallery img {
   margin-bottom: 20px; }
 
+.zoom-cursor {
+  cursor: -webkit-zoom-in;
+  cursor: -moz-zoom-in;
+  cursor: zoom-in; }
+
 @media (max-width: 820px) {
   body {
     margin: 0 0 100px; }

@@ -13,6 +13,11 @@
   <hr>
   <aside>
     <ul class="related-links">
+      {% if exhibition.photos.exists %}
+        <li>
+          <a class="gallery-{{ exhibition.id }}" href="">Images</a>
+        </li>
+      {% endif %}
       {% if exhibition.press.exists %}
       <li>
         <a href="{% url "exhibition-press-list" slug=exhibition.slug %}">Press</a>

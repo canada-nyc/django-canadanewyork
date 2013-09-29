@@ -4,7 +4,7 @@
 
 {% with first_photo=photos|first %}
 {% if first_photo %}
-<a href="{{ first_photo.safe_thumbnail_image.url }}" title="Click to view photos" id="gallery-{{ id }}"/>
+<a href="{{ first_photo.safe_thumbnail_image.url }}" title="Click to view photos" class="gallery-{{ id }}"/>
   <img src="{{ first_photo.safe_thumbnail_image.url }}" height="{{ first_photo.safe_thumbnail_image.height }}" width="{{ first_photo.safe_thumbnail_image.width }}"/>
 </a>
 {% addtoblock "js" %}
@@ -23,7 +23,7 @@
   console.error("The photos template with the first image {{ first_photo.id }} ({{ first_photo.title }}) MUST be passed the id of the owning model.");
   {% endif %}
   $(document).ready(function() {
-    $('#gallery-{{ id }}').magnificPopup({
+    $('.gallery-{{ id }}').magnificPopup({
       type: 'image',
       key: 1, // because they all use the same layout, this reuses the html so it doesnt have to be recreated,
       preload: [1,3], // preload one previous image and three next images

@@ -13,7 +13,7 @@
     <ul class="related-links">
     {% if artist.photos.exists %}
       <li>
-        <a href="#{{ artist.id }}">Images</a>
+        <a class="gallery-{{ artist.id }}" href="">Images</a>
       </li>
     {% endif %}
     {% if artist.resume %}

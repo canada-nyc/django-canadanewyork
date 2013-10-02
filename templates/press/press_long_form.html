@@ -2,4 +2,4 @@
 {{ object.author_first_name }}
 {% if object.title %}"{{ object.title }}."{% endif %}
 {% if object.publisher %}<em>{{ object.publisher }}</em>{% endif %}
-{% include "base/full_date.html" with date=object.date year=True %}
+{% if press.date_text %}{{ press.date_text }}{% else %}{% include "base/full_date.html" with date=object.date year=True %}{% endif %}

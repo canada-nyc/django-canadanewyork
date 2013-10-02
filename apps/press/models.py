@@ -24,7 +24,16 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
     content = models.TextField(blank=True)
     content_file = models.FileField(upload_to=file_path, blank=True, null=True, max_length=500)
 
-    date = models.DateField()
+    date = models.DateField(
+        verbose_name='Precise Date',
+        help_text='Used to order in list, so it is required.'
+    )
+    date_text = models.TextField(
+        verbose_name='Inprecise Date',
+        max_length=500,
+        blank=True,
+        help_text="If set, will not display precise date on site. However the precise date will still be used for sorting, so that must be set as well."
+    )
 
     publisher = models.CharField(max_length=50, blank=True)
     author_first_name = models.CharField(max_length=50, blank=True)

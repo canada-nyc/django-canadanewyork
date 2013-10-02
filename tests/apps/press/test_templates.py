@@ -1,3 +1,5 @@
+import datetime
+
 from django_webtest import WebTest
 from django.core.files.base import ContentFile
 
@@ -19,3 +21,15 @@ class PressDetailTest(WebTest):
         Press = PressFactory()
         Press.content_file.save('file.txt', ContentFile("my string content"))
         self.app.get(Press.get_absolute_url(), status=404)
+
+    def test_date_text(self):
+        Press = PressFactory(content='_', date_text='some text')
+        press_detail = self.app.get(Press.get_absolute_url())
+        self.assertIn(Press.date_text, press_detail)
+
+    def test_date_text_overrides_date(self):
+        year, month, day = (3000, 1, 1)
+        date = datetime.datetime(year, month, day)
+        Press = PressFactory(content='_', date_text='some text', date=date)
+        press_detail = self.app.get(Press.get_absolute_url())
+        self.assertNotIn(str(year), press_detail)

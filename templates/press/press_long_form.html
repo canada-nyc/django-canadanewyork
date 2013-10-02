@@ -3,3 +3,4 @@
 {% if object.title %}"{{ object.title }}."{% endif %}
 {% if object.publisher %}<em>{{ object.publisher }}</em>{% endif %}
 {% if object.date_text %}{{ object.date_text }}{% else %}{% include "base/full_date.html" with date=object.date year=True %}{% endif %}
+{{ object.pages_range }}

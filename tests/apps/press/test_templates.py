@@ -33,3 +33,8 @@ class PressDetailTest(WebTest):
         Press = PressFactory(content='_', date_text='some text', date=date)
         press_detail = self.app.get(Press.get_absolute_url())
         self.assertNotIn(str(year), press_detail)
+
+    def test_pages_range_displayed(self):
+        Press = PressFactory(content='_', pages_range='some text')
+        press_detail = self.app.get(Press.get_absolute_url())
+        self.assertIn(Press.pages_range, press_detail)

@@ -18,7 +18,7 @@ class PressAdmin(admin.ModelAdmin):
             'classes': ('full-width',),
             'fields': ('content', 'content_file',)
         }),
-        ('Related', {
+        ('Related to', {
             'fields': ('exhibition', 'artist')
         }),
     )

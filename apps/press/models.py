@@ -26,13 +26,13 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
 
     date = models.DateField(
         verbose_name='Precise Date',
-        help_text='Used to order in list, so it is required.'
+        help_text='Used for ordering'
     )
     date_text = models.CharField(
         verbose_name='Inprecise Date',
         max_length=500,
         blank=True,
-        help_text="If set, will not display precise date on site. However the precise date will still be used for sorting, so that must be set as well."
+        help_text="If set, will display <strong>instead of</strong> the precise date."
     )
 
     publisher = models.CharField(max_length=50, blank=True)

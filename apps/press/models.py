@@ -28,7 +28,7 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
         verbose_name='Precise Date',
         help_text='Used to order in list, so it is required.'
     )
-    date_text = models.TextField(
+    date_text = models.CharField(
         verbose_name='Inprecise Date',
         max_length=500,
         blank=True,

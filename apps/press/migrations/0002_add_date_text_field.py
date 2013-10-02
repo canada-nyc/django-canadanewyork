@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'Press.date_text'
         db.add_column(u'press_press', 'date_text',
-                      self.gf('django.db.models.fields.TextField')(default='', max_length=500, blank=True),
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=500, blank=True),
                       keep_default=False)
 
 
@@ -52,7 +52,7 @@ class Migration(SchemaMigration):
             'content': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'content_file': ('django.db.models.fields.files.FileField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
             'date': ('django.db.models.fields.DateField', [], {}),
-            'date_text': ('django.db.models.fields.TextField', [], {'max_length': '500', 'blank': 'True'}),
+            'date_text': ('django.db.models.fields.CharField', [], {'max_length': '500', 'blank': 'True'}),
             'exhibition': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'press'", 'null': 'True', 'to': u"orm['exhibitions.Exhibition']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'publisher': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),

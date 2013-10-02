@@ -12,7 +12,12 @@ class PressAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'date', ('publisher', 'author_first_name', 'author_last_name'))
+            'fields': (
+                'title',
+                ('date', 'date_text'),
+                'publisher',
+                ('author_first_name', 'author_last_name'),
+            ),
         }),
         ('Article', {
             'classes': ('full-width',),

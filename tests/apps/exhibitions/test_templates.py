@@ -154,6 +154,18 @@ class ExhibitionPressListTest(WebTest):
             href=Press.content_file.url,
         )
 
+    def test_date_text(self):
+        Exhibition = ExhibitionFactory.create(press__n=1)
+        Press = Exhibition.press.all()[0]
+        Press.content = '_'
+        Press.date_text ='some text'
+        Press.save()
+
+        exhibition_press_list = self.app.get(
+            reverse('exhibition-press-list', kwargs={'slug': Exhibition.slug})
+        )
+        self.assertIn(Press.date_text, exhibition_press_list)
+
 
 class ExhibitionPressReleaseTest(WebTest):
     def test_parent_link(self):

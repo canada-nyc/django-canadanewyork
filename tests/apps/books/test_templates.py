@@ -1,4 +1,5 @@
 import re
+import datetime
 
 from django_webtest import WebTest
 from django.core.urlresolvers import reverse
@@ -44,3 +45,21 @@ class BookListTest(WebTest):
         )
 
         self.assertIn(unicode(Book.artist), book_list)
+
+
+    def test_date_text(self):
+        Book = BookFactory(date_text='some text')
+        book_list = self.app.get(
+            reverse('book-list')
+        )
+        self.assertIn(Book.date_text, book_list)
+
+    def test_date_text_overrides_date(self):
+        year, month, day = (3000, 1, 1)
+        date = datetime.datetime(year, month, day)
+        Book = BookFactory(date_text='some text', date=date)
+        book_list = self.app.get(
+            reverse('book-list')
+        )
+        self.assertNotIn(str(year), book_list)
+

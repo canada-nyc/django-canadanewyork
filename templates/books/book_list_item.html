@@ -1,6 +1,4 @@
 <a href="{{ object.get_purchase_url|safe }}">
-{{ object.year }}
-{% if object.month %}, {{ object.month }}{% endif %}
-{% include "base/full_date.html" with date=object.date year=True %}
 {{ object.artist }} "{{ object.title }}."
+{% if object.date_text %}{{ object.date_text }}{% else %}{% include "base/full_date.html" with date=object.date year=True %}{% endif %}
 </a>

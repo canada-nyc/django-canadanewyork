@@ -10,12 +10,21 @@ from ..artists.models import Artist
 
 class Book(models.Model):
     title = models.CharField(max_length=500)
-    year = models.PositiveSmallIntegerField()
-    month = models.CharField(max_length=20, blank=True)
     artist = models.ForeignKey(Artist, related_name='books')
 
+    date = models.DateField(
+        verbose_name='Precise Date',
+        help_text='Used for ordering'
+    )
+    date_text = models.CharField(
+        verbose_name='Inprecise Date',
+        max_length=500,
+        blank=True,
+        help_text="If set, will display <strong>instead of</strong> the precise date."
+    )
+
     class Meta:
-        ordering = ['-year']
+        ordering = ['-date']
 
     def __unicode__(self):
         return self.title

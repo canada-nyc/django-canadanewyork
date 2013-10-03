@@ -18,8 +18,6 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
     title = models.CharField(
         max_length=500,
         blank=True,
-        help_text='If this is blank then the exhibition or artist will be used instead. Also when this is displayed on, it will be prefixed by the publisher, if one is set',
-        unique_for_year='date',
     )
 
     content = models.TextField(blank=True)
@@ -45,7 +43,7 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True, related_name='press',)
 
     slug = SlugifyField(
-        populate_from=('date_year', 'title',),
+        populate_from=('date_year', 'slug_title',),
         slug_template=u'{}/{}',
         unique=True
     )
@@ -53,14 +51,11 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
     class Meta:
         ordering = ['-date']
         verbose_name_plural = "press"
+        unique_together = ("publisher", "title", "artist", "exhibition")
+
 
     def __unicode__(self):
         return self.title
-
-    def clean(self):
-        self.title = self.title.strip().title()
-        self.content = self.content.strip()
-        self.publisher = self.publisher.strip().title()
 
     def get_absolute_url(self):
         return reverse('press-detail', kwargs={'slug': self.slug})
@@ -70,6 +65,16 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
             return self.content_file.url
         if self.content:
             return self.get_absolute_url()
+
+    @property
+    def slug_title(self):
+        slug_fields = [
+            self.publisher,
+            self.title,
+            self.artist,
+            self.exhibition
+        ]
+        return '-'.join(map(str, filter(None, slug_fields)))
 
     @property
     def date_year(self):

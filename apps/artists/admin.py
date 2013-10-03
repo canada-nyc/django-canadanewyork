@@ -21,9 +21,10 @@ class ArtistPhotoInline(photo_inline(ArtistPhoto)):
 class ArtistAdmin(admin.ModelAdmin):
     form = editor_form(['resume'])
     inlines = [ArtistPhotoInline, BookInline]
+    readonly_fields=('slug',)
     fieldsets = [
         (None, {
-            'fields': (('first_name', 'last_name'), 'visible')
+            'fields': ('slug', ('first_name', 'last_name'), 'visible')
         }),
         ('Resume', {
             'classes': ('full-width',),

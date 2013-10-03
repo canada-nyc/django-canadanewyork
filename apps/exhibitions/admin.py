@@ -25,7 +25,13 @@ class ExhibitionAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('name', ('start_date', 'end_date'), 'artists', 'description',)
+            'fields': (
+                'slug',
+                'name',
+                ('start_date', 'end_date'),
+                'artists',
+                'description',
+            )
         }),
         ('Homepage', {
             'fields': (('current', 'press_release_photo',), 'extra_info',)
@@ -33,6 +39,7 @@ class ExhibitionAdmin(admin.ModelAdmin):
     )
     inlines = [ExhibitionPhotoInline]
     form = editor_form(['description', 'extra_info'])
+    readonly_fields=('slug',)
 
     raw_id_fields = ('artists',)
     autocomplete_lookup_fields = {

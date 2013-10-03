@@ -42,7 +42,7 @@ class SlugifyField(SlugField):
                  'be passed a list, not a string').format(model_instance,
                                                           self.attname))
 
-        values = [getattr(model_instance, field)() if callable(getattr(model_instance, field)) else getattr(model_instance, field) for field in self.populate_from]
+        values = [getattr(model_instance, field) for field in self.populate_from]
 
         slugified_values = map(slugify, values)
         slug = self.slug_joiner(slugified_values)

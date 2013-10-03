@@ -25,13 +25,3 @@ class SlugifyTemplateModel(models.Model):
         populate_from=('text', 'text2'),
         slug_template='{}/{}'
     )
-
-
-class SlugifyPopulateFromCallableModel(models.Model):
-    slug = SlugifyField(
-        populate_from=('__unicode__',),
-        slug_template=u'{}'
-    )
-
-    def __unicode__(self):
-        return unicode('returned')

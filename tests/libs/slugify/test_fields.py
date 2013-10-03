@@ -55,8 +55,3 @@ class TestSlugify(AddAppMixin, TestCase):
         model_slug = _SlugifyTemplateModel.slug
         self.assertEqual(calculated_slug, model_slug)
 
-    def test_callable(self):
-        _SlugifyPopulateFromCallableModel = slug_models.SlugifyPopulateFromCallableModel.objects.create()
-        calculated_slug = unicode(_SlugifyPopulateFromCallableModel)
-        model_slug = _SlugifyPopulateFromCallableModel.slug
-        self.assertEqual(calculated_slug, model_slug)

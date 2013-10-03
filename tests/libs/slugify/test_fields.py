@@ -18,14 +18,14 @@ class TestSlugify(AddAppMixin, TestCase):
         model_slug = _SlugifyModel.slug
         self.assertEqual(calculated_slug, model_slug)
 
-    def test_change_on_save(self):
+    def test_doesnt_change_on_save(self):
         _SlugifyModel = slug_models.SlugifyModel.objects.create(
             text='text',
             related_model=slug_models.RelatedModel.objects.create()
         )
         _SlugifyModel.text = 'new_text'
         _SlugifyModel.save()
-        new_calculated_slug = slugify('-'.join([_SlugifyModel.text, str(_SlugifyModel.related_model)]))
+        new_calculated_slug = slugify('-'.join(['text', str(_SlugifyModel.related_model)]))
         model_slug = _SlugifyModel.slug
         self.assertEqual(new_calculated_slug, model_slug)
 

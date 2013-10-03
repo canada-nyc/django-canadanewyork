@@ -28,9 +28,12 @@ class SlugifyField(SlugField):
         super(SlugifyField, self).__init__(*args, **kwargs)
 
     def pre_save(self, model_instance, add):
-        slug = self._get_value(model_instance)
+        slug = getattr(model_instance, self.attname)
+        if not slug:
+            slug = self._get_value(model_instance)
         setattr(model_instance, self.attname, slug)
         return slug
+
 
     def _get_value(self, model_instance):
         if isinstance(self.populate_from, basestring):

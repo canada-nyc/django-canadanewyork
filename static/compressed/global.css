@@ -272,7 +272,7 @@ header p {
 .related-links li {
   display: inline;
   margin-left: 5px;
-  padding-right: 20px; }
+  padding-right: 2%; }
 
 .related-links li:before {
   content: '\203A';

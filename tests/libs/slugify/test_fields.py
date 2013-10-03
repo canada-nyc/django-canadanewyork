@@ -6,7 +6,7 @@ from . import models as slug_models
 from ...utils import AddAppMixin
 
 
-class TestContentRedirects(AddAppMixin, TestCase):
+class TestSlugify(AddAppMixin, TestCase):
     custom_apps = ('tests.libs.slugify',)
 
     def test_save(self):

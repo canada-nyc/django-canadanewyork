@@ -18,7 +18,8 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
     title = models.CharField(
         max_length=500,
         blank=True,
-        help_text='If this is blank then the exhibition or artist will be used instead. Also when this is displayed on, it will be prefixed by the publisher, if one is set'
+        help_text='If this is blank then the exhibition or artist will be used instead. Also when this is displayed on, it will be prefixed by the publisher, if one is set',
+        unique_for_year='date',
     )
 
     content = models.TextField(blank=True)
@@ -44,7 +45,7 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
     exhibition = models.ForeignKey(Exhibition, blank=True, null=True, related_name='press',)
 
     slug = SlugifyField(
-        populate_from=('date_year', '__unicode__',),
+        populate_from=('date_year', 'title',),
         slug_template=u'{}/{}',
         unique=True
     )

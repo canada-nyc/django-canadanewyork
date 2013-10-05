@@ -126,8 +126,8 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
 
     def dependent_paths(self):
         yield self.get_absolute_url()
-        if self.current:
-            yield reverse('exhibition-current')
+        yield reverse('exhibition-list')
+        yield reverse('exhibition-current')
         yield reverse('exhibition-press-list', kwargs={'slug': self.slug})
         for artist in self.artists.all():
             yield artist.get_absolute_url()

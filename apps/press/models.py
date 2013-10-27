@@ -60,15 +60,22 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
     def __unicode__(self):
         return self.title
 
+    def clean(self):
+        if not any(self._slug_field_values):
+            raise ValidationError('At least one of the following must be filled in: ' + str(SLUG_FIELD_NAMES))
+
+    @property
+    def slug_title(self):
+        return '-'.join(map(str, self._slug_field_values))
+
+    @property
+    def date_year(self):
+        return self.date.year
+
     @property
     def _slug_field_values(self):
         values = [getattr(self, field_name) for field_name in SLUG_FIELD_NAMES]
         return filter(None, values)
-
-
-    def clean(self):
-        if not any(self._slug_field_values):
-            raise ValidationError('At least one of the following must be filled in: ' + str(SLUG_FIELD_NAMES))
 
     def get_absolute_url(self):
         return reverse('press-detail', kwargs={'slug': self.slug})
@@ -78,14 +85,6 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
             return self.content_file.url
         if self.content:
             return self.get_absolute_url()
-
-    @property
-    def slug_title(self):
-        return '-'.join(map(str, self._slug_field_values))
-
-    @property
-    def date_year(self):
-        return self.date.year
 
     def dependent_paths(self):
         yield self.get_absolute_url()

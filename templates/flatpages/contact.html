@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{{ flatpage.title }}{{ block.super }}{% endblock title %}
+
+{% block body %}
+<article>
+<iframe width="640" height="480" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps?sll=40.719021999999974,-73.99403436438699&amp;sspn=0.0015922653571729597,0.0037026391897967267&amp;t=m&amp;q=333+Broome+St,+New+York,+NY&amp;dg=opt&amp;ie=UTF8&amp;hq=&amp;hnear=333+Broome+St,+New+York,+10002&amp;ll=40.724494,-73.995581&amp;spn=0.031223,0.054932&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe>
+<h2>Subscribe to our mailing list</h2>
+<form action="http://canadanewyork.us6.list-manage.com/subscribe/post?u=f55caeef42&amp;id=69fdfb4ce7" method="post" target="_blank">
+    <input type="email" value="" id="mce-EMAIL" name="EMAIL" placeholder="email address" autofocus>
+    <input type="submit" value="Subscribe" name="subscribe" >
+</form>
+{{ flatpage.content|safe }}
+</article>
+{% endblock body %}

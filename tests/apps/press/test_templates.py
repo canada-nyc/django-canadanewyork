@@ -1,4 +1,5 @@
 import datetime
+import re
 
 from django_webtest import WebTest
 from django.core.files.base import ContentFile
@@ -17,10 +18,13 @@ class PressDetailTest(WebTest):
         press_detail = self.app.get(Press.get_absolute_url())
         self.assertIn(Press.content, press_detail)
 
-    def test_no_content_cant_get(self):
+    def test_content_file_path(self):
         Press = PressFactory()
         Press.content_file.save('file.txt', ContentFile("my string content"))
-        self.app.get(Press.get_absolute_url(), status=404)
+        press_detail = self.app.get(Press.get_absolute_url())
+        press_detail.click(
+            href=re.escape(Press.content_file.url),
+        )
 
     def test_date_text(self):
         Press = PressFactory(content='_', date_text='some text')

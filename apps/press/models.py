@@ -14,6 +14,7 @@ from libs.slugify.fields import SlugifyField
 
 SLUG_FIELD_NAMES = ("publisher", "title", "artist", "exhibition")
 
+
 class Press(url_tracker.URLTrackingMixin, models.Model):
     def file_path(instance, filename):
         return os.path.join(instance.get_absolute_url()[1:], 'content', filename)
@@ -31,7 +32,7 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
         help_text='Used for ordering'
     )
     date_text = models.CharField(
-        verbose_name='Inprecise Date',
+        verbose_name='Imprecise Date',
         max_length=500,
         blank=True,
         help_text="If set, will display <strong>instead of</strong> the precise date."
@@ -55,7 +56,6 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
         ordering = ['-date']
         verbose_name_plural = "press"
         unique_together = SLUG_FIELD_NAMES
-
 
     def __unicode__(self):
         return self.title

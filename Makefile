@@ -22,7 +22,7 @@ run-compress:
           --command='${MANAGE} compress' \
           static/styles
 
-setup-local: setup-local-compression
+setup-local: setup-local-compression setup-heroku
 	pip install -r configs/requirements/dev.txt
 	mkdir tmp
 
@@ -34,7 +34,7 @@ setup-local-compression:
 
 setup-heroku:
 	heroku plugins:install git://github.com/saulshanabrook/heroku-config.git
-	heroku plugins:install git://github.com/heroku/heroku-pg-extras.git
+	heroku plugins:install git://github.com/heroku/heroku-pipeline.git
 
 setup-heroku-dev:
 	heroku labs:enable user-env-compile #enabled so that collectstatic has access to amazon ec2 key

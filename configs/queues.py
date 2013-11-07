@@ -1,4 +1,4 @@
-from configs.tasks import transform_task
+from configs.jobs import transform_task
 
 
 def enqueue(function, *args, **kwargs):

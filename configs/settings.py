@@ -158,7 +158,7 @@ djcelery.setup_loader()
 BROKER_URL = 'django://'
 
 CELERY_ALWAYS_EAGER = not get_env_variable('CANADA_QUEUE_ASYNC')
-CELERY_IMPORTS = ("configs.tasks",)
+CELERY_IMPORTS = ("configs.jobs",)
 
 
 # For RQ setup:

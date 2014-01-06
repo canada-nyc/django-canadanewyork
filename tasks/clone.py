@@ -1,0 +1,88 @@
+from invoke import ctask as task
+
+from .base import DoubleAppManager
+from .apps import manage, get_env_variable
+from .reset import database as reset_database
+
+
+@task()
+def database(ctx, source_label=None, destination_label=None):
+    apps = DoubleAppManager(ctx)(source_label, destination_label)
+
+    reset_database(ctx, destination_label)
+
+    if 'local' in apps.types:
+        local_database_name = ctx.run(
+            'foreman run python manage.py database_name',
+            hide='out'
+        ).stdout
+        if apps.source.type == 'local':
+            pg_command = 'push'
+            heroku_app_name = apps.destination.name
+            source_db, dest_db = (local_database_name, 'DATABASE_URL')
+        else:
+            pg_command = 'pull'
+            heroku_app_name = apps.source.name
+            source_db, dest_db = ('DATABASE_URL', local_database_name)
+
+        ctx.run(
+            'heroku pg:{} {} {} -a {}'.format(
+                pg_command,
+                source_db,
+                dest_db,
+                heroku_app_name
+            )
+        )
+    else:
+        ctx.run(
+            'heroku pgbackups:capture '
+            '-a {} --expire'.format(apps.source.name)
+        )
+
+        ctx.run('# Creating backup of target app. To revert run:', echo=True)
+        ctx.run(
+            '# heroku pgbackups:restore DATABASE_URL -a {}'.format(
+                apps.destination.name
+            ),
+            echo=True
+        )
+        ctx.run(
+            'heroku pgbackups:capture '
+            '-a {} --expire'.format(apps.destination.name)
+        )
+
+        source_url = ctx.run(
+            'heroku pgbackups:url -a {}'.format(apps.source.name),
+            hide='out'
+        ).stdout
+
+        ctx.run('heroku pgbackups:restore DATABASE_URL {} -a {}'.format(
+            source_url,
+            apps.destination,
+        ))
+
+
+@task()
+def storage(ctx, source_label=None, destination_label=None):
+    apps = DoubleAppManager(ctx)(source_label, destination_label)
+
+    bucket_names = map(
+        lambda app: get_env_variable(ctx, app, 'AWS_BUCKET'),
+        apps.both
+    )
+
+    manage(ctx, source_label, 'clone_bucket {} {}'.format(*bucket_names))
+
+
+# @task()
+# def code(ctx, source_label=None, destination_label=None):
+#     apps = AppManager(ctx)(source_label, destination_label)
+#     source_apps_pipeline =
+#     if getattr(apps.source, 'pipeline', destination_label)
+#     apps.source.pipeline
+#     bucket_names = map(
+#         lambda app: get_env_variable(ctx, app, 'AWS_BUCKET'),
+#         (apps.source, apps.destination)
+#     )
+
+#     manage(ctx, source_label, 'clone_bucket {} {}'.format(*bucket_names))

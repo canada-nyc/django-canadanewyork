@@ -148,7 +148,6 @@ DATABASES = {
 DATABASES['default']['ENGINE'] = 'django_postgrespool'
 
 
-
 #########
 # QUEUE #
 #########

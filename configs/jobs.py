@@ -1,4 +1,5 @@
 from celery import task
+
 import simpleimages.utils
 
 

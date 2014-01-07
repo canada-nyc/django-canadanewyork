@@ -1,20 +1,20 @@
 from invoke import ctask as task
 
-from .base import AppManager
+from .base import get_app
 from .apps import manage
 
 
 @task()
 def database(ctx, app_label=None, test_data=False):
-    app = AppManager(ctx)(app_label)
+    app = get_app(ctx, app_label)
 
-    if app.type == 'local':
-        database_name = manage(ctx, app_label, 'database_name', hide='out').stdout
+    if app['type'] == 'local':
+        database_name = manage(ctx, 'database_name', app_label, hide='out').stdout
         ctx.run('dropdb ' + database_name)
         ctx.run('createdb ' + database_name)
-    elif app.type == 'heroku':
+    elif app['type'] == 'heroku':
         ctx.run('heroku pg:reset DATABASE_URL -a {0} --confirm {0}'.format(
-            app.name
+            app['name']
         ))
 
     manage(ctx, app_label, 'init_db')
@@ -24,12 +24,12 @@ def database(ctx, app_label=None, test_data=False):
 
 
 @task()
-def cache(ctx, app_label=None):
+def cache(ctx, app_label):
     manage(ctx, app_label, 'clear_cache')
 
 
 @task()
-def storage(ctx, app_label=None, only_static=False):
+def storage(ctx, app_label, only_static=False):
     if only_static:
         manage(ctx, app_label, 'wipe_storage --only_static')
     else:

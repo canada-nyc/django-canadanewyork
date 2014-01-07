@@ -12,6 +12,7 @@ ns.configure({
         'configs/env/heroku.env',
         'configs/env/secret.env'
     ],
+    'default_app_label': 'local',
     'apps': {
         'local': {'type': 'local', 'pipeline': 'canada'},
         'heroku-dev': {'type': 'heroku', 'name': 'canada-dev', 'pipeline': 'canada'},

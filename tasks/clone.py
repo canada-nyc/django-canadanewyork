@@ -1,28 +1,30 @@
 from invoke import ctask as task
 
-from .base import DoubleAppManager
+from .base import get_app
 from .apps import manage, get_env_variable
 from .reset import database as reset_database
 
 
 @task()
 def database(ctx, source_label=None, destination_label=None):
-    apps = DoubleAppManager(ctx)(source_label, destination_label)
+    assert source_label != destination_label
+    source = get_app(ctx, source_label)
+    destination = get_app(ctx, destination_label)
 
     reset_database(ctx, destination_label)
 
-    if 'local' in apps.types:
+    if 'local' in [source['type'], destination['type']]:
         local_database_name = ctx.run(
             'foreman run python manage.py database_name',
             hide='out'
         ).stdout
-        if apps.source.type == 'local':
+        if source['type'] == 'local':
             pg_command = 'push'
-            heroku_app_name = apps.destination.name
+            heroku_app_name = destination['name']
             source_db, dest_db = (local_database_name, 'DATABASE_URL')
         else:
             pg_command = 'pull'
-            heroku_app_name = apps.source.name
+            heroku_app_name = source['name']
             source_db, dest_db = ('DATABASE_URL', local_database_name)
 
         ctx.run(
@@ -36,39 +38,39 @@ def database(ctx, source_label=None, destination_label=None):
     else:
         ctx.run(
             'heroku pgbackups:capture '
-            '-a {} --expire'.format(apps.source.name)
+            '-a {} --expire'.format(source['name'])
         )
 
         ctx.run('# Creating backup of target app. To revert run:', echo=True)
         ctx.run(
             '# heroku pgbackups:restore DATABASE_URL -a {}'.format(
-                apps.destination.name
+                destination['name']
             ),
             echo=True
         )
         ctx.run(
             'heroku pgbackups:capture '
-            '-a {} --expire'.format(apps.destination.name)
+            '-a {} --expire'.format(destination['name'])
         )
 
         source_url = ctx.run(
-            'heroku pgbackups:url -a {}'.format(apps.source.name),
+            'heroku pgbackups:url -a {}'.format(source['name']),
             hide='out'
         ).stdout
 
         ctx.run('heroku pgbackups:restore DATABASE_URL {} -a {}'.format(
             source_url,
-            apps.destination,
+            destination['name'],
         ))
 
 
 @task()
 def storage(ctx, source_label=None, destination_label=None):
-    apps = DoubleAppManager(ctx)(source_label, destination_label)
+    assert source_label != destination_label
 
     bucket_names = map(
         lambda app: get_env_variable(ctx, app, 'AWS_BUCKET'),
-        apps.both
+        [source_label, destination_label]
     )
 
     manage(ctx, source_label, 'clone_bucket {} {}'.format(*bucket_names))

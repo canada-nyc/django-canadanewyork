@@ -73,7 +73,7 @@ def storage(ctx, source_label=None, destination_label=None):
         [source_label, destination_label]
     )
 
-    manage(ctx, source_label, 'clone_bucket {} {}'.format(*bucket_names))
+    manage(ctx, 'clone_bucket {} {}'.format(*bucket_names), source_label)
 
 
 # @task()

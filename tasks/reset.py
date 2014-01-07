@@ -17,21 +17,21 @@ def database(ctx, app_label=None, test_data=False):
             app['name']
         ))
 
-    manage(ctx, app_label, 'init_db')
+    manage(ctx, 'init_db', app_label)
 
     if test_data:
-        manage(ctx, app_label, 'test_data')
+        manage(ctx, 'test_data', app_label)
 
 
 @task()
 def cache(ctx, app_label):
-    manage(ctx, app_label, 'clear_cache')
+    manage(ctx, 'clear_cache', app_label)
 
 
 @task()
 def storage(ctx, app_label, only_static=False):
     if only_static:
-        manage(ctx, app_label, 'wipe_storage --only_static')
+        manage(ctx, 'wipe_storage --only_static', app_label)
     else:
-        manage(ctx, app_label, 'wipe_storage')
-    manage(ctx, app_label, 'collectstatic --verbosity=0 --noinput')
+        manage(ctx, 'wipe_storage', app_label)
+    manage(ctx, 'collectstatic --verbosity=0 --noinput', app_label)

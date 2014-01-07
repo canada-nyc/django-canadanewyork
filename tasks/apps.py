@@ -4,7 +4,7 @@ from .base import get_app
 
 
 @task
-def manage(ctx, app_label, command, *args, **kwargs):
+def manage(ctx, command='', app_label=None, *args, **kwargs):
     app = get_app(ctx, app_label)
 
     if app['type'] == 'local':

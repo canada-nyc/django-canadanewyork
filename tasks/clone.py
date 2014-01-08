@@ -52,8 +52,9 @@ def database(ctx, source_label=None, destination_label=None):
             hide='out'
         ).stdout
 
-        ctx.run('heroku pgbackups:restore DATABASE_URL {} -a {}'.format(
+        ctx.run("heroku pgbackups:restore DATABASE_URL '{}' -a {} --confirm {}".format(
             source_url,
+            destination['name'],
             destination['name'],
         ))
 

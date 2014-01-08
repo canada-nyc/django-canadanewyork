@@ -4,7 +4,7 @@ from django.core.files.storage import default_storage
 
 
 class Command(NoArgsCommand):
-    help = 'Deletes the canada static folder'
+    help = 'Deletes the canada static folder on S3'
 
     def handle(self, *args, **options):
         prefix = 'canada/'

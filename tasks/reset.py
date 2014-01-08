@@ -38,7 +38,7 @@ def cache(ctx, app_label):
 def storage(ctx, app_label, only_static=False):
     print 'Resetting Storage'
     if only_static:
-        manage(ctx, 'wipe_storage --only_static', app_label)
+        manage(ctx, 'delete_canada_static', app_label)
     else:
         manage(ctx, 'wipe_storage', app_label)
     manage(ctx, 'collectstatic --verbosity=0 --noinput', app_label)

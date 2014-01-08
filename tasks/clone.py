@@ -1,15 +1,13 @@
 from invoke import ctask as task
 
-from .base import get_app
+from .base import get_apps
 from .apps import manage, get_env_variable
 from .reset import database as reset_database
 
 
 @task()
 def database(ctx, source_label=None, destination_label=None):
-    assert source_label != destination_label
-    source = get_app(ctx, source_label)
-    destination = get_app(ctx, destination_label)
+    source, destination = get_apps(ctx, source_label, destination_label)
 
     reset_database(ctx, destination_label)
 
@@ -66,7 +64,8 @@ def database(ctx, source_label=None, destination_label=None):
 
 @task()
 def storage(ctx, source_label=None, destination_label=None):
-    assert source_label != destination_label
+    print 'Cloning Storage'
+    get_apps(ctx, source_label, destination_label)
 
     bucket_names = map(
         lambda app: get_env_variable(ctx, app, 'AWS_BUCKET'),

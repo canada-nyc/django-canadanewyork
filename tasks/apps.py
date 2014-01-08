@@ -31,3 +31,5 @@ def get_env_variable(ctx, key, app_label=None):
             app['name']
         )
     value = ctx.run(shell_command, hide='stdout').stdout.strip()
+    print '{}:{}'.format(key, value)
+    return value

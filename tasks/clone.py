@@ -6,6 +6,13 @@ from .reset import _wipe_database
 
 
 @task()
+def all(ctx, source_label=None, destination_label=None):
+    print 'Cloning All'
+    database(ctx, source_label, destination_label)
+    storage(ctx, source_label, destination_label)
+
+
+@task()
 def database(ctx, source_label=None, destination_label=None):
     print 'Cloning Database'
     source, destination = get_apps(ctx, source_label, destination_label)

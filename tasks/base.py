@@ -42,14 +42,15 @@ def confirm_app(ctx, app, prompt):
         confirm(ctx, prompt=prompt)
 
 
-def get_app(ctx, app_label):
+def get_app(ctx, app_label, confirm=True):
     '''
     Get an app from the context, logs the label, and confirms in neccesary
     '''
     resolved_label = _resolve_app_label(ctx, app_label)
     print '-> {}'.format(resolved_label)
     app = _get_single_app(ctx, resolved_label)
-    confirm_app(ctx, app, prompt='Really run on {}?\n'.format(app_label))
+    if confirm:
+        confirm_app(ctx, app, prompt='Really run on {}?\n'.format(app_label))
     return app
 
 

@@ -21,7 +21,7 @@ def manage(ctx, command='', app_label=None, *args, **kwargs):
 @task
 def get_env_variable(ctx, key, app_label=None):
     print 'Getting key from environemnt'
-    app = get_app(ctx, app_label)
+    app = get_app(ctx, app_label, confirm=False)
 
     if app['type'] == 'local':
         shell_command = 'echo $' + key

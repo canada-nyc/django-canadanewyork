@@ -16,6 +16,6 @@ ns.configure({
     'apps': {
         'local': {'type': 'local', 'pipeline': 'canada'},
         'dev': {'type': 'heroku', 'name': 'canada-dev', 'pipeline': 'canada'},
-        'prod': {'type': 'heroku', 'name': 'canada'}
+#        'prod': {'type': 'heroku', 'name': 'canada', 'confirm': True}
     }
 })

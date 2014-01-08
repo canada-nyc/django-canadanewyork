@@ -65,7 +65,7 @@ def storage(ctx, source_label=None, destination_label=None):
     get_apps(ctx, source_label, destination_label)
 
     bucket_names = map(
-        lambda app: get_env_variable(ctx, app, 'AWS_BUCKET'),
+        lambda app_label: get_env_variable(ctx, 'AWS_BUCKET', app_label),
         [source_label, destination_label]
     )
 

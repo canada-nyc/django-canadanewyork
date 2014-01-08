@@ -24,7 +24,7 @@ def get_env_variable(ctx, key, app_label=None):
     app = get_app(ctx, app_label, confirm=False)
 
     if app['type'] == 'local':
-        shell_command = 'echo $' + key
+        shell_command = 'foreman run printenv ' + key
     elif app['type'] == 'heroku':
         shell_command = "heroku config:get {} -a {}".format(
             key,

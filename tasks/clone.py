@@ -2,7 +2,7 @@ from invoke import ctask as task
 
 from .base import get_apps
 from .apps import manage, get_env_variable
-from .reset import database as reset_database
+from .reset import _wipe_database
 
 
 @task()
@@ -10,7 +10,7 @@ def database(ctx, source_label=None, destination_label=None):
     print 'Cloning Database'
     source, destination = get_apps(ctx, source_label, destination_label)
 
-    reset_database(ctx, destination_label)
+    _wipe_database(ctx, destination_label)
 
     if 'local' in [source['type'], destination['type']]:
         local_database_name = ctx.run(

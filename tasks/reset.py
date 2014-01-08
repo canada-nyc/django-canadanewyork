@@ -5,19 +5,23 @@ from .apps import manage
 
 
 @task()
-def database(ctx, app_label=None, test_data=False):
-    print 'Resetting Database'
+def _wipe_database(ctx, app_label=None):
+    print 'Wiping Database'
     app = get_app(ctx, app_label)
 
     if app['type'] == 'local':
         database_name = manage(ctx, 'database_name', app_label, hide='out').stdout
         ctx.run('dropdb ' + database_name)
-        ctx.run('createdb ' + database_name)
     elif app['type'] == 'heroku':
         ctx.run('heroku pg:reset DATABASE_URL -a {0} --confirm {0}'.format(
             app['name']
         ))
 
+
+@task()
+def database(ctx, app_label=None, test_data=False):
+    print 'Resetting Database'
+    _wipe_database(ctx, app_label)
     manage(ctx, 'init_db', app_label)
 
     if test_data:

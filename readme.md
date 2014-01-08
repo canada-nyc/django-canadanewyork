@@ -24,9 +24,7 @@ from the config files at runtime, when developing locally.
 
 The default environemt variable files that are read by foreman are listed in
 `.foreman`. Take a look at those files and what their options are. If you want
-to overide any of the options you can change the file. In the future I plan
-to allow configuring all options by command line flags as well as
-environemental variables.
+to overide any of the options you can change `configs/env/loca.env`.
 
 The only file that is not checked into version control is
 `configs/env/secret.evn`. Put any variables in that file that should not be
@@ -40,28 +38,16 @@ To use the environental variables defined in the files, which are in turn
 defined in `.foreman`, prefex any command with `foreman run`. For example
 `foreman run python manage.py runserver`.
 
-# `Makefile`
-The `Makefile` is written for the
-[fish shell](https://github.com/fish-shell/fish-shell) syntax. If you don't
-have fish installed then stay away from it. Also, because I can not get `make`
-to run the commands in the current shell environment, I had to hardcode the
-python virtualenv path at the top of the makefile. If you do use the makefile
-then you will have to modify that for your own python interpreter.
+# Running Tasks
+There are two ways to run one off tasks on any app. The first is through
+`manage.py` commands. These are meant for any task that can be executed only
+through Python on one specific instance of the app. For instance, creating default
+user permssions or importing the existing database file.
 
-# Initial Data
-
-To wipe static, media, cache, and database
-```
-foreman run python manage.py clean_db --noinput
-```
-
-To import the old wordpres site:
-```
-foreman run python python manage.py import_wp static/wordpress/.canada.wordpress.*
-```
-
-Or if you don't feel like waiting to get all of those images, just
-create some factory models.
-```
-foreman run python manage.py clean_db --noinput --init
-```
+The other is through the `inv[oke]` command. This replace the previous `make`
+command in running command that involve multiple apps, or that do not only use
+Python. It is a nice wrapper around any tasks that need to be automated. It
+while the management commands are meant to be run on any instance, the invoke
+commands should only be run locally. To see all of the commands run
+`inv --list`. Most commands take one or more `app_label`s. This specifies which
+instance to run the command on, local, dev, or prod.

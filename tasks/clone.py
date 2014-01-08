@@ -47,18 +47,6 @@ def database(ctx, source_label=None, destination_label=None):
             '-a {} --expire'.format(source['name'])
         )
 
-        ctx.run('# Creating backup of target app. To revert run:', echo=True)
-        ctx.run(
-            '# heroku pgbackups:restore DATABASE_URL -a {}'.format(
-                destination['name']
-            ),
-            echo=True
-        )
-        ctx.run(
-            'heroku pgbackups:capture '
-            '-a {} --expire'.format(destination['name'])
-        )
-
         source_url = ctx.run(
             'heroku pgbackups:url -a {}'.format(source['name']),
             hide='out'

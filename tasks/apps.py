@@ -30,4 +30,4 @@ def get_env_variable(ctx, key, app_label=None):
             key,
             app['name']
         )
-    return ctx.run(shell_command, hide='stdout').stdout
+    value = ctx.run(shell_command, hide='stdout').stdout.strip()

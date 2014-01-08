@@ -6,6 +6,7 @@ from .apps import manage
 
 @task()
 def database(ctx, app_label=None, test_data=False):
+    print 'Resetting Database'
     app = get_app(ctx, app_label)
 
     if app['type'] == 'local':
@@ -25,11 +26,13 @@ def database(ctx, app_label=None, test_data=False):
 
 @task()
 def cache(ctx, app_label):
+    print 'Resetting Cache'
     manage(ctx, 'clear_cache', app_label)
 
 
 @task()
 def storage(ctx, app_label, only_static=False):
+    print 'Resetting Storage'
     if only_static:
         manage(ctx, 'wipe_storage --only_static', app_label)
     else:

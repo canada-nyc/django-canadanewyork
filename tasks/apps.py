@@ -5,6 +5,7 @@ from .base import get_app
 
 @task
 def manage(ctx, command='', app_label=None, *args, **kwargs):
+    print 'Running management command'
     app = get_app(ctx, app_label)
 
     if app['type'] == 'local':
@@ -19,6 +20,7 @@ def manage(ctx, command='', app_label=None, *args, **kwargs):
 
 @task
 def get_env_variable(ctx, key, app_label=None):
+    print 'Getting key from environemnt'
     app = get_app(ctx, app_label)
 
     if app['type'] == 'local':

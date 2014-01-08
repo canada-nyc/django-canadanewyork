@@ -7,6 +7,7 @@ from .reset import database as reset_database
 
 @task()
 def database(ctx, source_label=None, destination_label=None):
+    print 'Cloning Database'
     source, destination = get_apps(ctx, source_label, destination_label)
 
     reset_database(ctx, destination_label)

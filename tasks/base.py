@@ -47,6 +47,7 @@ def get_app(ctx, app_label):
     Get an app from the context, logs the label, and confirms in neccesary
     '''
     resolved_label = _resolve_app_label(ctx, app_label)
+    print '-> {}'.format(resolved_label)
     app = _get_single_app(ctx, resolved_label)
     confirm_app(ctx, app, prompt='Really run on {}?'.format(app_label))
     return app
@@ -58,6 +59,7 @@ def get_apps(ctx, source_app_label, destination_app_label):
     if neccesary
     '''
     source_resolved_label, destination_resolved_label = [_resolve_app_label(ctx, source_app_label), _resolve_app_label(ctx, destination_app_label)]
+    print '{} -> {}'.format(source_resolved_label, destination_resolved_label)
     source_app, destination_app = [_get_single_app(ctx, source_resolved_label), _get_single_app(ctx, destination_resolved_label)]
 
     confirm_app(ctx, destination_app, prompt='Really run on {}?'.format(destination_app_label))

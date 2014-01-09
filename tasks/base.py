@@ -13,7 +13,13 @@ def _get_single_app(ctx, app_label):
     '''
     Returns the app from the Invoke context
     '''
-    return ctx['apps'][app_label]
+    try:
+        return ctx['apps'][app_label]
+    except KeyError:
+        raise ParseError('"{}" not valid app label. Choices are: {}'.format(
+            app_label,
+            ' '.join(ctx['apps'].keys())
+        ))
 
 
 def confirm(ctx, prompt='Continue?\n', failure_prompt='User cancelled task'):

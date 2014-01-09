@@ -1,19 +1,17 @@
-from invoke import ctask as task
+from invoke import Collection, ctask as task
 
+ns = Collection()
 from .base import get_apps
 from .apps import manage, get_env_variable
-from .reset import _wipe_database
-
-
-@task()
-def all(ctx, source_label=None, destination_label=None):
-    print 'Cloning All'
-    database(ctx, source_label, destination_label)
-    storage(ctx, source_label, destination_label)
+from .reset import _wipe_database, _set_site
 
 
 @task()
 def database(ctx, source_label=None, destination_label=None):
+    '''
+    Wipes the destination database and then copies the source database to it,
+    finally setting the Site object to the correct host.
+    '''
     print 'Cloning Database'
     source, destination = get_apps(ctx, source_label, destination_label)
 
@@ -58,9 +56,15 @@ def database(ctx, source_label=None, destination_label=None):
             destination['name'],
         ))
 
+    _set_site(ctx, destination_label)
+
 
 @task()
 def storage(ctx, source_label=None, destination_label=None):
+    '''
+    Clones the S3 bucket from the source to the destination, running the
+    clone command on the source. Only works when both use S3 storage.
+    '''
     print 'Cloning Storage'
     get_apps(ctx, source_label, destination_label)
 
@@ -84,3 +88,14 @@ def storage(ctx, source_label=None, destination_label=None):
 #     )
 
 #     manage(ctx, source_label, 'clone_bucket {} {}'.format(*bucket_names))
+
+@task()
+def all(ctx, source_label=None, destination_label=None):
+    '''
+    Clones database and storage from source to destination.
+    '''
+    print 'Cloning All'
+    database(ctx, source_label, destination_label)
+    storage(ctx, source_label, destination_label)
+
+ns = Collection(all, database, storage)

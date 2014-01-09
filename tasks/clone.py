@@ -1,6 +1,5 @@
 from invoke import Collection, ctask as task
 
-ns = Collection()
 from .base import get_apps
 from .apps import manage, get_env_variable
 from .reset import _wipe_database, _set_site
@@ -98,4 +97,4 @@ def all(ctx, source_label=None, destination_label=None):
     database(ctx, source_label, destination_label)
     storage(ctx, source_label, destination_label)
 
-ns = Collection(all, database, storage)
+namespace = Collection(all, database, storage)

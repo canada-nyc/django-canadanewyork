@@ -3,7 +3,7 @@ from __future__ import print_function
 from concurrent import futures
 
 from django.core.files.storage import default_storage
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 
 
 class Command(BaseCommand):
@@ -21,7 +21,10 @@ class Command(BaseCommand):
             DESTINATION_BUCKET_NAME)
         )
         self.log('Getting connection')
-        connection = default_storage.connection
+        try:
+            connection = default_storage.connection
+        except AttributeError:
+            raise CommandError('Must be using S3 to clone buckets')
         self.log('Getting source bucket')
         source_bucket = connection.get_bucket(SOURCE_BUCKET_NAME)
         self.log('Getting destination bucket')

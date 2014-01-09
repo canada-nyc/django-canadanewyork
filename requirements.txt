@@ -3,6 +3,7 @@ South==0.8.2
 django-extensions==1.1.1
 git+git://github.com/saulshanabrook/django-url-tracker@factor/testing
 futures
+invoke==0.5.1
 
 ##
 #Admin
@@ -66,7 +67,7 @@ git+git://github.com/django-debug-toolbar/django-debug-toolbar.git@5ae6fcc61c759
 django-devserver==0.6.2
 
 ##
-#Deployment
+#Production
 ##
 gunicorn==0.17.4
 

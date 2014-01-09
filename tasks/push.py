@@ -29,7 +29,7 @@ def environemntal_variables(ctx, app_label):
         raise ParseError('Can only push environmental variables to Heroku apps')
 
     for path in _get_env_var_paths(ctx, app_label):
-        ctx.run('heroku config:push -o "{}"'.format(path))
+        ctx.run('heroku config:push -o "{}" --app {}'.format(path, app['name']))
 
 
 namespace = Collection(environemntal_variables)

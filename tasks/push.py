@@ -32,6 +32,7 @@ def env(ctx, app_label):
         ctx.run('heroku config:push -o "{}" --app {}'.format(path, app['name']))
 
 
+@task
 def code(ctx, source_label='dev', destination_label='prod'):
     '''
     Pushes code between heroku apps using the pipeline heroku command
@@ -42,6 +43,7 @@ def code(ctx, source_label='dev', destination_label='prod'):
     ctx.run('heroku pipeline:promote --app {}'.format(source['name']))
 
 
+@task
 def all(ctx, source_label='dev', destination_label='prod', syncdb=True, static=True, wipe_static=False, wipe_cache=True):
     '''
     Pushes code between heroku apps, and optionally syncs the database and
@@ -52,7 +54,6 @@ def all(ctx, source_label='dev', destination_label='prod', syncdb=True, static=T
     code(ctx, source_label, destination_label)
 
     if syncdb:
-        print 'Syncing database with new code'
         manage(ctx, 'syncdb --migrate', destination_label)
     if wipe_cache:
         reset_cache(ctx, destination_label)

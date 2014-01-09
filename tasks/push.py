@@ -37,7 +37,7 @@ def code(ctx, source_label='dev', destination_label='prod'):
     '''
     Pushes code between heroku apps using the pipeline heroku command
     '''
-    print 'Pushing code'
+
     source, destination = get_apps(ctx, source_label, destination_label)
 
     ctx.run('heroku pipeline:promote --app {}'.format(source['name']))

@@ -75,19 +75,6 @@ def storage(ctx, source_label=None, destination_label=None):
     manage(ctx, 'clone_bucket {} {}'.format(*bucket_names), source_label)
 
 
-# @task()
-# def code(ctx, source_label=None, destination_label=None):
-#     apps = AppManager(ctx)(source_label, destination_label)
-#     source_apps_pipeline =
-#     if getattr(apps.source, 'pipeline', destination_label)
-#     apps.source.pipeline
-#     bucket_names = map(
-#         lambda app: get_env_variable(ctx, app, 'AWS_BUCKET'),
-#         (apps.source, apps.destination)
-#     )
-
-#     manage(ctx, source_label, 'clone_bucket {} {}'.format(*bucket_names))
-
 @task()
 def all(ctx, source_label=None, destination_label=None):
     '''

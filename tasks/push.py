@@ -19,7 +19,7 @@ def _get_env_var_paths(ctx, app):
 
 
 @task(aliases=['environemntal_variables'])
-def env(ctx, app_label):
+def env(ctx, app_label=None):
     '''
     Pushes environemntal variables from the local configs/env/* files to
     Heroku apps.
@@ -34,13 +34,15 @@ def env(ctx, app_label):
 
 
 @task
-def all(ctx, source_label='dev', destination_label='prod', syncdb=True, static=True, wipe_static=False, wipe_cache=True):
+def all(ctx, syncdb=True, static=True, wipe_static=False, wipe_cache=True):
     '''
     Pushes code between heroku apps, and optionally syncs the database and
     static of the destination app with the newly pushed code. Also can wipe
     the cache of the destination app and static.
     '''
     print 'Pushing all'
+    source_label, destination_label = (ctx['staging_app_label'], ctx['production_app_label'])
+
     clone_code(ctx, source_label, destination_label)
 
     if syncdb:

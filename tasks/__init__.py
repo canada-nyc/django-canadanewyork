@@ -13,6 +13,8 @@ ns.configure({
         'configs/env/secret.env'
     ],
     'default_app_label': 'local',
+    'staging_app_label': 'staging',  # Used for task clone.code as source
+    'production_app_label': 'prod',  # Used for task clone.code as destination
     'apps': {
         'local': {
             'type': 'local',

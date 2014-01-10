@@ -76,12 +76,13 @@ def storage(ctx, source_label=None, destination_label=None):
 
 
 @task
-def code(ctx, source_label='dev', destination_label='prod'):
+def code(ctx):
     '''
-    Clones code from dev to prod
+    Clones code from staging app to production app. Determined by
+    ``staging_app_label`` and  ``production_app_label`` in the context.
     '''
 
-    source, destination = get_apps(ctx, source_label, destination_label)
+    source, destination = get_apps(ctx, ctx['staging_app_label'], ctx['production_app_label'])
 
     ctx.run('heroku pipeline:promote --app {}'.format(source['name']))
 

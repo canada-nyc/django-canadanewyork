@@ -8,7 +8,7 @@
 ## Recommended
 * libmemcached-dev: Mac -> `brew install libmemcached`
   For postgresql database
-* Postgresql: Mac -> `brew install postgresql` or [Postgress.app](http://postgresapp.com/).
+* Postgresql: Mac -> `brew install postgresql``
 * foreman: `gem install foreman`
   For managing environmental variables
 

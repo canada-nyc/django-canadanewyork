@@ -1,9 +1,10 @@
 from invoke import Collection, ctask as task
 from invoke.exceptions import ParseError
 
-from .base import get_app, get_apps
+from .base import get_app
 from .apps import manage
 from .reset import cache as reset_cache, storage as reset_storage
+from .clone import code as clone_code
 
 
 def _get_env_var_paths(ctx, app):
@@ -33,17 +34,6 @@ def env(ctx, app_label):
 
 
 @task
-def code(ctx, source_label='dev', destination_label='prod'):
-    '''
-    Pushes code between heroku apps using the pipeline heroku command
-    '''
-
-    source, destination = get_apps(ctx, source_label, destination_label)
-
-    ctx.run('heroku pipeline:promote --app {}'.format(source['name']))
-
-
-@task
 def all(ctx, source_label='dev', destination_label='prod', syncdb=True, static=True, wipe_static=False, wipe_cache=True):
     '''
     Pushes code between heroku apps, and optionally syncs the database and
@@ -51,7 +41,7 @@ def all(ctx, source_label='dev', destination_label='prod', syncdb=True, static=T
     the cache of the destination app and static.
     '''
     print 'Pushing all'
-    code(ctx, source_label, destination_label)
+    clone_code(ctx, source_label, destination_label)
 
     if syncdb:
         manage(ctx, 'syncdb --migrate', destination_label)
@@ -63,4 +53,4 @@ def all(ctx, source_label='dev', destination_label='prod', syncdb=True, static=T
         manage(ctx, 'collectstatic --verbosity=0 --noinput', destination_label)
 
 
-namespace = Collection(env, code, all)
+namespace = Collection(env, all)

@@ -75,6 +75,17 @@ def storage(ctx, source_label=None, destination_label=None):
     manage(ctx, 'clone_bucket {} {}'.format(*bucket_names), source_label)
 
 
+@task
+def code(ctx, source_label='dev', destination_label='prod'):
+    '''
+    Clones code from dev to prod
+    '''
+
+    source, destination = get_apps(ctx, source_label, destination_label)
+
+    ctx.run('heroku pipeline:promote --app {}'.format(source['name']))
+
+
 @task()
 def all(ctx, source_label=None, destination_label=None):
     '''
@@ -84,4 +95,4 @@ def all(ctx, source_label=None, destination_label=None):
     database(ctx, source_label, destination_label)
     storage(ctx, source_label, destination_label)
 
-namespace = Collection(all, database, storage)
+namespace = Collection(all, code, database, storage)

@@ -6,8 +6,8 @@ from django.core.management import call_command
 
 class Command(NoArgsCommand):
     LESS_SOURCE = "static/styles/main.less"
-    SASS_DIRECTORY = "static/styles/"
-    SASS_SOURCE = SASS_DIRECTORY + "magnific-popup.scss"
+    SASS_SOURCE_DIRECTORY = "static/styles/"
+    SASS_SOURCE = SASS_SOURCE_DIRECTORY + "magnific-popup.scss"
     STYLE_DESTINATION = "static/compressed/global.css"
 
     def handle(self, *args, **options):

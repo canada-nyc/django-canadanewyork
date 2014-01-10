@@ -19,7 +19,7 @@ ns.configure({
         'local': {
             'type': 'local',
         },
-        'dev': {
+        'staging': {
             'type': 'heroku',
             'name': 'canada-development',
             'env_file': 'configs/env/heroku-dev.env',

@@ -10,8 +10,10 @@
 * Postgresql: Mac -> `brew install postgresql``
 * foreman: `gem install foreman`
   For managing environmental variables
-* Less and Sass: `npm install --global --production "less" "sass"`
-  For compressing static.
+* Less: `npm install --global --production less`
+  For compressing static
+* Sass: `gem install sass`
+  For compressing Magnific Popup static
 
 # Setup
 All runtime options are chosen using environmental variables.

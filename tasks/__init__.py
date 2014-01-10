@@ -1,9 +1,9 @@
 from invoke import Collection
 
-from . import setup, reset, clone, apps, push
+from . import setup, reset, clone, apps, push, dev
 
 
-ns = Collection(setup, reset, clone, apps, push)
+ns = Collection(setup, reset, clone, apps, push, dev)
 
 
 ns.configure({

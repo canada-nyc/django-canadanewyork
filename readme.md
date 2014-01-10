@@ -3,7 +3,6 @@
 # Depedencies
 ## Essential
 * python 2.7.x
-* less and sass for compression: ` npm install --global --production "less" "sass"`
 
 ## Recommended
 * libmemcached-dev: Mac -> `brew install libmemcached`
@@ -11,6 +10,8 @@
 * Postgresql: Mac -> `brew install postgresql``
 * foreman: `gem install foreman`
   For managing environmental variables
+* Less and Sass: `npm install --global --production "less" "sass"`
+  For compressing static.
 
 # Setup
 All runtime options are chosen using environmental variables.

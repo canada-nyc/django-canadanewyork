@@ -2,7 +2,7 @@ from invoke import Collection, ctask as task
 
 from .base import get_apps
 from .apps import manage, get_env_variable
-from .reset import _wipe_database, _set_site
+from .reset import _wipe_database
 
 
 @task()
@@ -54,8 +54,7 @@ def database(ctx, source_label=None, destination_label=None):
             destination['name'],
             destination['name'],
         ))
-
-    _set_site(ctx, destination_label)
+    manage(ctx, 'set_site', 'destination_label')
 
 
 @task()

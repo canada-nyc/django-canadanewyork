@@ -3,7 +3,6 @@ from optparse import make_option
 
 from django.core.management.base import NoArgsCommand
 from django.core.management import call_command
-from django.conf import settings
 
 
 class Command(NoArgsCommand):
@@ -36,7 +35,7 @@ class Command(NoArgsCommand):
             'sessions',
             'auth'
         )
-        call_command('set_site', settings.ALLOWED_HOSTS[0])
+        call_command('set_site')
         self.log('Loading contact fixture')
         call_command('loaddata', 'configs/fixtures/contact.json')
         if options.get('init'):

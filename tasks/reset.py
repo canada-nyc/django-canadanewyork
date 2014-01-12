@@ -1,7 +1,7 @@
 from invoke import Collection, ctask as task
 
 from .base import get_app
-from .apps import manage, get_env_variable
+from .apps import manage
 
 
 @task()
@@ -19,18 +19,6 @@ def _wipe_database(ctx, app_label=None):
         ctx.run('heroku pg:reset DATABASE_URL -a {0} --confirm {0}'.format(
             app['name']
         ))
-
-
-@task()
-def _set_site(ctx, app_label=None):
-    '''
-    Sets the site model in the database to have the host specified in
-    CANADA_ALLOWED_HOST. This makes sure the admin redirects correctly
-    when clicking view
-    '''
-    print 'Setting site host'
-    allowed_host = get_env_variable(ctx, 'CANADA_ALLOWED_HOST', app_label)
-    manage(ctx, 'set_site "{}"'.format(allowed_host), app_label)
 
 
 @task()

@@ -77,9 +77,9 @@ def all(ctx, app_label, test_data=True, only_static=False):
     Resets The database, cache, and storage.
     '''
     print 'Resetting All'
-    database(ctx, app_label, test_data)
     cache(ctx, app_label)
     storage(ctx, app_label, only_static)
+    database(ctx, app_label, test_data)
 
 
 namespace = Collection(database, cache, storage, all)

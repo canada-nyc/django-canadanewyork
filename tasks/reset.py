@@ -5,9 +5,11 @@ from .apps import manage
 
 
 @task()
-def _wipe_database(ctx, app_label=None):
+def _wipe_database(ctx, app_label, recreate_local=True):
     '''
-    Only wipes database, does not create new one.
+    Wipes the database. By default will create a new database using the
+    database_name management command to get the name from the settings.
+    If you dont want to create a new one, call with ``recreate_local=False``
     '''
     print 'Wiping Database'
     app = get_app(ctx, app_label)
@@ -17,6 +19,8 @@ def _wipe_database(ctx, app_label=None):
         # Don't fail if this comand exits poorly. IT just means the database
         # doesnt exist, which is fine
         ctx.run('dropdb ' + database_name, warn=True, hide='err')
+        if recreate_local:
+            ctx.run('createdb ' + database_name)
     elif app['type'] == 'heroku':
         ctx.run('heroku pg:reset DATABASE_URL -a {0} --confirm {0}'.format(
             app['name']
@@ -68,7 +72,7 @@ def storage(ctx, app_label, only_static=False):
 
 
 @task()
-def all(ctx, app_label, test_data=False, only_static=False):
+def all(ctx, app_label, test_data=True, only_static=False):
     '''
     Resets The database, cache, and storage.
     '''

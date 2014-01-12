@@ -14,7 +14,7 @@ def database(ctx, source_label=None, destination_label=None):
     print 'Cloning Database'
     source, destination = get_apps(ctx, source_label, destination_label)
 
-    _wipe_database(ctx, destination_label)
+    _wipe_database(ctx, destination_label, recreate_local=False)
 
     if 'local' in [source['type'], destination['type']]:
         local_database_name = ctx.run(

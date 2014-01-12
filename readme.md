@@ -33,6 +33,7 @@ The only file that is not checked into version control is
 `configs/env/secret.evn`. Put any variables in that file that should not be
 public. Currently it contains:
 * `SECRET_KEY` needed by django to make the application safe.
+* `ADMIN_USERNAME` used by `manage.py clean_db` to create a superuser admin account
 * `ADMIN_PASSWORD` used by `manage.py clean_db` to create a superuser admin account
 * `AWS_ACCESS_KEY_ID`
 * `AWS_SECRET_ACCESS_KEY`

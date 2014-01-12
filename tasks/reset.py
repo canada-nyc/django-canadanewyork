@@ -14,7 +14,9 @@ def _wipe_database(ctx, app_label=None):
 
     if app['type'] == 'local':
         database_name = manage(ctx, 'database_name', app_label, hide='out').stdout
-        ctx.run('dropdb ' + database_name)
+        # Don't fail if this comand exits poorly. IT just means the database
+        # doesnt exist, which is fine
+        ctx.run('dropdb ' + database_name, warn=True, hide='err')
     elif app['type'] == 'heroku':
         ctx.run('heroku pg:reset DATABASE_URL -a {0} --confirm {0}'.format(
             app['name']

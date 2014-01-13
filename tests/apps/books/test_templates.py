@@ -15,14 +15,14 @@ class BookListTest(WebTest):
             reverse('book-list')
         )
 
-    def test_nav_click(self):
+    def test_no_nav_click(self):
         book_list = self.app.get(
             reverse('book-list')
         )
-        book_list.click(
-            'Books',
-            href=reverse('book-list')
-        )
+        with self.assertRaises(IndexError):
+            book_list.click(
+                'Books',
+            )
 
     def test_link(self):
         Book = BookFactory.create()
@@ -46,7 +46,6 @@ class BookListTest(WebTest):
 
         self.assertIn(unicode(Book.artist), book_list)
 
-
     def test_date_text(self):
         Book = BookFactory(date_text='some text')
         book_list = self.app.get(
@@ -57,9 +56,8 @@ class BookListTest(WebTest):
     def test_date_text_overrides_date(self):
         year, month, day = (3000, 1, 1)
         date = datetime.datetime(year, month, day)
-        Book = BookFactory(date_text='some text', date=date)
+        BookFactory(date_text='some text', date=date)
         book_list = self.app.get(
             reverse('book-list')
         )
         self.assertNotIn(str(year), book_list)
-

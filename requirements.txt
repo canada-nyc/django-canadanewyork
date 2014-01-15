@@ -22,8 +22,7 @@ django-dumper==0.2.0
 ##
 #Queue
 ##
-django-rq==0.5.1
-django-celery==3.0.21
+django-pq==0.3.2
 
 ##
 #Static

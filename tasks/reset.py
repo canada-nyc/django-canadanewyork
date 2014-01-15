@@ -72,7 +72,7 @@ def storage(ctx, app_label, only_static=False):
 
 
 @task(aliases=['transformed_images'])
-def images(ctx, app_label=None):
+def images(ctx, app_label):
     '''
     Retransforms all the Photo subclasses
     '''

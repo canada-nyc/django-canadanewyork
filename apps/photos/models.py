@@ -82,7 +82,7 @@ class BasePhoto(models.Model):
 
     transformed_fields = {
         'image': {
-            'thumbnail_image': simpleimages.transforms.Scale(height=600),
+            'thumbnail_image': simpleimages.transforms.Scale(height=500),
             'large_image': simpleimages.transforms.Scale(height=800),
         }
     }

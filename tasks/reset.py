@@ -71,6 +71,19 @@ def storage(ctx, app_label, only_static=False):
     manage(ctx, 'collectstatic --verbosity=0 --noinput', app_label)
 
 
+@task(aliases=['transformed_images'])
+def images(ctx, app_label=None):
+    '''
+    Retransforms all the Photo subclasses
+    '''
+    manage(
+        ctx,
+        'retransform artists.ArtistPhoto exhibitions.ExhibitionPhoto updates.UpdatePhoto',
+        app_label,
+        pty=True
+    )
+
+
 @task()
 def all(ctx, app_label, test_data=True, only_static=False):
     '''
@@ -82,4 +95,4 @@ def all(ctx, app_label, test_data=True, only_static=False):
     database(ctx, app_label, test_data)
 
 
-namespace = Collection(database, cache, storage, all)
+namespace = Collection(database, cache, storage, all, images)

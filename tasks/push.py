@@ -41,9 +41,9 @@ def all(ctx, syncdb=True, static=True, wipe_static=False, wipe_cache=True):
     the cache of the destination app and static.
     '''
     print 'Pushing all'
-    source_label, destination_label = (ctx['staging_app_label'], ctx['production_app_label'])
+    destination_label = ctx['production_app_label']
 
-    clone_code(ctx, source_label, destination_label)
+    clone_code(ctx)
 
     if syncdb:
         manage(ctx, 'syncdb --migrate', destination_label)

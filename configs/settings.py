@@ -84,7 +84,6 @@ INSTALLED_APPS += (
     'apps.photos',
 
     'libs.common',
-    'libs.import_wp'
 )
 
 

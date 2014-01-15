@@ -146,6 +146,7 @@ DATABASES = {
 }
 DATABASES['default']['ENGINE'] = 'django_postgrespool'
 
+
 #########
 # QUEUE #
 #########
@@ -155,6 +156,8 @@ QUEUE_ASYNC = get_env_variable('CANADA_QUEUE_ASYNC')
 
 # not default in django 1.5
 DATABASES['default']['OPTIONS'] = {'autocommit': True}
+PQ_QUEUE_CACHE = True
+
 
 ###########
 # TESTING #

@@ -2,6 +2,7 @@ from django.contrib.flatpages.models import FlatPage
 from django.core.urlresolvers import reverse
 
 import dumper
+import configs.queues  # so that it will autocreate the queue
 
 
 def flatpage_dependent_paths(self):

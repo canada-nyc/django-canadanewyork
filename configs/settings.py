@@ -128,7 +128,7 @@ TEMPLATE_CONTEXT_PROCESSORS += ('sekizai.context_processors.sekizai',)
 # IMAGES #
 ##########
 INSTALLED_APPS += ('simpleimages',)
-SIMPLEIMAGES_TRANSFORM_CALLER = 'configs.queues.queue.enqueue'
+SIMPLEIMAGES_TRANSFORM_CALLER = 'configs.queues.enqueue'
 
 
 ###########

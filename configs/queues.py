@@ -11,3 +11,5 @@ try:
     queue.save()
 except DatabaseError:
     pass
+
+enqueue = queue.enqueue

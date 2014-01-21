@@ -22,7 +22,7 @@ django-dumper==0.2.0
 ##
 #Queue
 ##
-django-pq==0.3.2
+git+https://github.com/bretth/django-pq.git@ca16b4f76a910817898c465501ee34cf6c0bbf54
 
 ##
 #Static

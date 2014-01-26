@@ -155,11 +155,11 @@ class ArtworkPhoto(BasePhoto):
         abstract = True
 
     def remove_exponent(self, d):
-        '''Remove exponent and trailing zeros.
+        '''
+        Remove exponent and trailing zeros.
 
         >>> remove_exponent(Decimal('5E+3'))
         Decimal('5000')
-
         '''
         return d.quantize(Decimal(1)) if d == d.to_integral() else d.normalize()
 

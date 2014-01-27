@@ -342,17 +342,24 @@ LOGGING = {
             'formatter': 'simple'
         }
     },
+    'loggers': {
+        'pq': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True
+        },
+    },
     'root': {
         'handlers': ['console', ],
         'level': 'WARNING'
     },
+
 }
 
 if get_env_variable('CANADA_DUMPER_LOG'):
-    LOGGING['loggers'] = {
-        'dumper': {
-            'level': 'DEBUG',
-        }
+    LOGGING['loggers']['dumper'] = {
+        'level': 'DEBUG',
+        'propagate': True
     }
 
 if get_env_variable('CANADA_SENTRY'):

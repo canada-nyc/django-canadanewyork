@@ -42,7 +42,7 @@ def all(ctx, syncdb=True, static=True, wipe_static=False, wipe_cache=True):
     '''
     print 'Pushing all'
     destination_label = ctx['production_app_label']
-
+    env(ctx, destination_label)
     clone_code(ctx)
 
     if syncdb:

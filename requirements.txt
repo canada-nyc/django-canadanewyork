@@ -33,7 +33,7 @@ libsass==0.2.4
 #Images
 ##
 Pillow==2.1.0
-django-simpleimages==1.1.0
+django-simpleimages==1.1.1
 
 ##
 #Templates

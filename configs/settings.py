@@ -342,11 +342,6 @@ LOGGING = {
             'formatter': 'simple'
         }
     },
-    'loggers': {
-        'dumper': {
-            'level': 'DEBUG',
-        }
-    },
     'root': {
         'handlers': ['console', ],
         'level': 'WARNING'

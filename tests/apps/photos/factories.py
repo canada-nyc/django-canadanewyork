@@ -1,6 +1,7 @@
 import factory
 
 from ... import utils
+from .models import MockPhoto, MockRelated
 
 
 def get_create_function(photo_model):
@@ -27,3 +28,23 @@ def get_create_function(photo_model):
             obj.photos.add(photo)
 
     return create_photos
+
+
+class MockRelatedFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = MockRelated
+
+
+class MockPhotoFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = MockPhoto
+
+    title = factory.Sequence(lambda n: 'title {}'.format(n))
+    content_object = factory.SubFactory(MockRelatedFactory)
+
+    @factory.post_generation
+    def image(self, create, extracted, **kwargs):
+        if extracted:
+            image_name, image = extracted
+        else:
+            image_name = 'image.jpg'
+            image = utils.django_image(image_name, **kwargs)
+        self.image.save(image_name, image)

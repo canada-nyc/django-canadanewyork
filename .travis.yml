@@ -31,5 +31,7 @@ deploy:
   app: canada-development
   api_key:
     secure: KTw/uTcUc66zhxdbh6RwqEIeq4kHuSiy2RvF44f39Is1F0lR5Fs8U6mN2kfKOJjFl19tFHxmfc9JdJi+Z572Pit35rlS0q8dM6Ot1+qmj7cXJMZJfe2A5kB9AZyj1+df+w0vD3Bd0Dv/iyzUPUqR/YTXyMVGwvR/o+kQ3r1qWEc=
+  on:
+    all_branches: true
   run:
   - python manage.py syncdb --migrate

@@ -332,29 +332,27 @@ LOGGING = {
     'disable_existing_loggers': True,
     'handlers': {
         'console': {
-            'level': 'INFO',
+            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
         }
     },
     'loggers': {
-        'django': {},
-        'pq': {},
+        'dumper': {
+            'level': 'DEBUG',
+        }
     },
     'root': {
         'handlers': ['console', ],
-        'level': 'INFO'
+        'level': 'DEBUG'
     },
 }
 
-
-# Get all the existing loggers
-root = logging.root
-existing = root.manager.loggerDict.keys()
-
-# Set them explicitly to a blank value so that they are overidden
-# and propogate to the root logger
-for logger in existing:
-    LOGGING['loggers'][logger] = {}
+if get_env_variable('CANADA_DUMPER_LOG'):
+    LOGGING['loggers'] = {
+        'dumper': {
+            'level': 'DEBUG',
+        }
+    }
 
 if get_env_variable('CANADA_SENTRY'):
     SENTRY_DSN = get_env_variable('SENTRY_DSN')

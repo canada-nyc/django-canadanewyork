@@ -332,7 +332,7 @@ LOGGING = {
     'disable_existing_loggers': True,
     'formatters': {
         'simple': {
-            'format': '%(name)s %(levelname)s %(pathname)s:%(lineno)s %(message)s'
+            'format': '%(name)s %(levelname)s %(message)s'
         },
     },
     'handlers': {

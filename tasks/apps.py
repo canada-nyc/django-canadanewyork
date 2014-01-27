@@ -4,11 +4,12 @@ from .base import get_app
 
 
 @task
-def manage(ctx, command='', app_label=None, *args, **kwargs):
+def manage(ctx, command='', app_label=None, pty=True):
     '''
     Runs a manage.py command, through foreman locally or heroku run remotely.
 
-    Mostly for internal use, returns the running command to get stdout
+    Mostly for internal use, returns the running command, in case you want to
+    get stdout
     '''
     print 'Running "{}" management command'.format(command)
     app = get_app(ctx, app_label)
@@ -20,7 +21,7 @@ def manage(ctx, command='', app_label=None, *args, **kwargs):
             command,
             app['name']
         )
-    return ctx.run(shell_command, *args, **kwargs)
+    return ctx.run(shell_command, pty=pty)
 
 
 @task

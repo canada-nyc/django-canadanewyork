@@ -24,6 +24,7 @@ env:
   - DJANGO_SETTINGS_MODULE=configs.settings
   - SECRET_KEY=not_so_secret
   - CANADA_QUEUE_ASYNC=False
+  - CANADA_DUMPER_LOG=False
 deploy:
   provider: heroku
   strategy: git

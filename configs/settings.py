@@ -343,24 +343,32 @@ LOGGING = {
         }
     },
     'loggers': {
-        'pq': {
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': True
-        },
+        'django': {},
     },
     'root': {
         'handlers': ['console', ],
         'level': 'WARNING'
     },
-
 }
+
+
+# Get all the existing loggers
+existing = logging.root.manager.loggerDict.keys()
+
+# Set them explicitly to a blank value so that they are overidden
+# and propogate to the root logger
+for logger in existing:
+    LOGGING['loggers'][logger] = {}
 
 if get_env_variable('CANADA_DUMPER_LOG'):
     LOGGING['loggers']['dumper'] = {
         'level': 'DEBUG',
-        'propagate': True
     }
+
+LOGGING['loggers']['pq'] = {
+    'level': 'INFO',
+}
+
 
 if get_env_variable('CANADA_SENTRY'):
     SENTRY_DSN = get_env_variable('SENTRY_DSN')

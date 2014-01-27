@@ -330,10 +330,16 @@ if get_env_variable('CANADA_DEBUG_TOOLBAR'):
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
+    'formatters': {
+        'simple': {
+            'format': '%(name)s %(levelname)s %(pathname)s:%(lineno)s %(message)s'
+        },
+    },
     'handlers': {
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
+            'formatter': 'simple'
         }
     },
     'loggers': {
@@ -343,7 +349,7 @@ LOGGING = {
     },
     'root': {
         'handlers': ['console', ],
-        'level': 'DEBUG'
+        'level': 'WARNING'
     },
 }
 

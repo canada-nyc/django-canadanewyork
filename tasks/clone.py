@@ -54,7 +54,7 @@ def database(ctx, source_label=None, destination_label=None):
             destination['name'],
             destination['name'],
         ))
-    manage(ctx, 'set_site', 'destination_label')
+    manage(ctx, 'set_site', destination_label)
 
 
 @task()
@@ -71,7 +71,7 @@ def storage(ctx, source_label=None, destination_label=None):
         [source_label, destination_label]
     )
 
-    manage(ctx, 'clone_bucket {} {}'.format(*bucket_names), source_label)
+    manage(ctx, 'clone_bucket {} {}'.format(*bucket_names), destination_label)
 
 
 @task

@@ -32,7 +32,7 @@ def get_env_variable(ctx, key, app_label=None):
     Mostly for internal use, returns the value of the variable
     '''
     print 'Getting "{}" from environemnt'.format(key)
-    app = get_app(ctx, app_label, confirm=False)
+    app = get_app(ctx, app_label, prompt_confirm=False)
 
     if app['type'] == 'local':
         shell_command = 'foreman run printenv ' + key

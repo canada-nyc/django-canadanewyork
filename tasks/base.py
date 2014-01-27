@@ -39,14 +39,14 @@ def confirm(prompt='Continue?\n', failure_prompt='User cancelled task'):
         raise ParseError(failure_prompt)
 
 
-def get_app(ctx, app_label, confirm=True):
+def get_app(ctx, app_label, prompt_confirm=True):
     '''
     Get an app from the context, logs the label, and confirms in neccesary
     '''
     resolved_label = _resolve_app_label(ctx, app_label)
     print '-> {}'.format(resolved_label)
     app = _get_single_app(ctx, resolved_label)
-    if confirm and app.pop('confirm', False):
+    if prompt_confirm and app.pop('confirm', False):
         confirm(prompt='Really run on {}?\n'.format(app_label))
     return app
 

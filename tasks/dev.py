@@ -13,7 +13,7 @@ def compile_css(ctx):
     Runs less and sass on the local machine.
     '''
     ctx.run(
-        'lessc --compress {} | cat - {} | sass --scss --stdin --trace --style nested --load-path {} {}'.format(
+        'lessc --compress {} | cat - {} | sass --scss --stdin --trace --style compressed --load-path {} {}'.format(
             LESS_SOURCE,
             SASS_SOURCE,
             SASS_SOURCE_DIRECTORY,

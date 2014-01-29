@@ -31,6 +31,11 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
 )
 
+urlpatterns += patterns(
+    'django.contrib.flatpages.views',
+    url(r'^contact/$', 'flatpage', {'url': '/contact/'}, name='contact')
+)
+
 if 'django_rq' in settings.INSTALLED_APPS:
     urlpatterns += patterns(
         '',
@@ -52,10 +57,6 @@ else:
             ))
     )
 
-urlpatterns += patterns(
-    'django.contrib.flatpages.views',
-    url(r'^contact/$', 'flatpage', {'url': '/contact/'}, name='contact')
-)
 
 if settings.DEFAULT_FILE_STORAGE == 'django.core.files.storage.FileSystemStorage':
     urlpatterns += patterns(

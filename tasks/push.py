@@ -34,7 +34,7 @@ def env(ctx, app_label=None):
 
 
 @task
-def all(ctx, syncdb=True, static=True, wipe_static=False, wipe_cache=True):
+def all(ctx, syncdb=False, static=False, wipe_static=False, wipe_cache=True):
     '''
     Pushes code between heroku apps, and optionally syncs the database and
     static of the destination app with the newly pushed code. Also can wipe

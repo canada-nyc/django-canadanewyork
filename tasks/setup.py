@@ -17,7 +17,6 @@ def static(ctx):
     '''
     print 'Setting up static'
     ctx.run('mkdir -p tmp')
-    ctx.run('npm install --global --production "less" "git://github.com/mishoo/UglifyJS2.git#3bd7ca9961125b39dcd54d2182cb72bd1ca6006e"')
     ctx.run('npm install --global --production "less"')
     ctx.run('gem install sass')
 

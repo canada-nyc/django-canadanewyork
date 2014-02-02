@@ -15,8 +15,8 @@ class Migration(DataMigration):
             press.author = press.author_first_name.strip() + ' ' + press.author_last_name.strip()
             press.save(update_fields=['author'])
 
-        orm.Press.objects.exclude(author='').update(author=F('author_first_name'))
-        orm.Press.objects.exclude(author='').update(author=F('author_last_name'))
+        orm.Press.objects.filter(author='').update(author=F('author_first_name'))
+        orm.Press.objects.filter(author='').update(author=F('author_last_name'))
 
     def backwards(self, orm):
         "Write your backwards methods here."

@@ -12,8 +12,8 @@ class ArtistPhotoInline(photo_inline(ArtistPhoto)):
         ('image', "position"),
         ('title', 'date'),
         ('height', 'width', 'depth',),
-        'dimensions_text',
         'medium',
+        'dimensions_text',
         'caption'
     )
 
@@ -21,7 +21,7 @@ class ArtistPhotoInline(photo_inline(ArtistPhoto)):
 class ArtistAdmin(admin.ModelAdmin):
     form = editor_form(['resume'])
     inlines = [ArtistPhotoInline, BookInline]
-    readonly_fields=('slug',)
+    readonly_fields = ('slug',)
     fieldsets = [
         (None, {
             'fields': ('slug', ('first_name', 'last_name'), 'visible')

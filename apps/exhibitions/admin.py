@@ -12,8 +12,8 @@ class ExhibitionPhotoInline(photo_inline(ExhibitionPhoto)):
         'artist_text',
         ('title', 'date'),
         ('height', 'width', 'depth',),
-        'dimensions_text',
         'medium',
+        'dimensions_text',
         'caption'
     )
 
@@ -39,7 +39,7 @@ class ExhibitionAdmin(admin.ModelAdmin):
     )
     inlines = [ExhibitionPhotoInline]
     form = editor_form(['description', 'extra_info'])
-    readonly_fields=('slug',)
+    readonly_fields = ('slug',)
 
     raw_id_fields = ('artists',)
     autocomplete_lookup_fields = {

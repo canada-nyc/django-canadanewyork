@@ -1,9 +1,5 @@
-import logging
-
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from django.contrib.staticfiles.storage import staticfiles_storage
-from django.views.generic import RedirectView
 from django.conf import settings
 
 from .sitemaps import sitemaps
@@ -40,21 +36,6 @@ if 'django_rq' in settings.INSTALLED_APPS:
     urlpatterns += patterns(
         '',
         url(r'^admin/django-rq/', include('django_rq.urls')),
-    )
-
-try:
-    favicon_url = staticfiles_storage.url('canada/images/fire_favicon.ico')
-except ValueError:
-    logger = logging.getLogger(__name__)
-    logger.error('Favicon could not be found in storage', exc_info=True, extra={
-        'stack': True,
-    })
-else:
-    urlpatterns += patterns(
-        url(r'^favicon\.ico$',
-            RedirectView.as_view(
-                url=favicon_url
-            ))
     )
 
 

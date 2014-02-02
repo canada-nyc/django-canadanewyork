@@ -7,7 +7,7 @@ def python(ctx):
     Install required python packages
     '''
     print 'Setting up Python'
-    ctx.run('pip install -r requirements.txt')
+    ctx.run('pip install -r requirements-dev.txt')
 
 
 @task

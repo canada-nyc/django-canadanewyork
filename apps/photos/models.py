@@ -141,11 +141,11 @@ class BasePhoto(models.Model):
 
     @property
     def safe_thumbnail_image(self):
-        return self._get_safe_image('thumbnail_image')
+        return self._get_safe_image('thumbnail_image', 'image')
 
     @property
     def safe_large_image(self):
-        return self._get_safe_image('large_image')
+        return self._get_safe_image('large_image', 'image')
 
 
 class ArtworkPhoto(BasePhoto):

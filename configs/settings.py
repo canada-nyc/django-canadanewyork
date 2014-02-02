@@ -66,7 +66,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 ########
 # MISC #
 ########
-INSTALLED_APPS += ('django_extensions',)
 INSTALLED_APPS += ('django.contrib.sitemaps',)
 INSTALLED_APPS += ('clear_cache',)
 
@@ -323,6 +322,7 @@ if get_env_variable('CANADA_DEBUG_TOOLBAR'):
         'debug_toolbar.panels.timer.TimerDebugPanel',
         'debug_toolbar.panels.version.VersionDebugPanel',
     )
+
 
 ###########
 # LOGGING #

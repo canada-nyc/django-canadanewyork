@@ -1,9 +1,7 @@
 Django==1.5.4
 South==0.8.2
-django-extensions==1.1.1
 git+git://github.com/saulshanabrook/django-url-tracker@factor/testing
 futures
-invoke==0.5.1
 
 ##
 #Admin
@@ -23,11 +21,6 @@ django-dumper==0.2.3
 #Queue
 ##
 git+https://github.com/bretth/django-pq.git@ca16b4f76a910817898c465501ee34cf6c0bbf54
-
-##
-#Static
-##
-libsass==0.2.4
 
 ##
 #Images
@@ -62,18 +55,8 @@ raven>=3
 #Tracing
 ##
 newrelic
-git+git://github.com/django-debug-toolbar/django-debug-toolbar.git@5ae6fcc61c7596b4980e85186f3737fad01a0ad4
-django-devserver==0.6.2
 
 ##
 #Production
 ##
 gunicorn==0.17.4
-
-##
-#Testing
-##
-factory_boy==2.0.2
-django-webtest==1.6
-WebTest==2.0.3
-django-discover-runner==1.0

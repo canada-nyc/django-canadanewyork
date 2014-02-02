@@ -36,3 +36,4 @@ deploy:
     all_branches: true
   run:
   - python manage.py syncdb --migrate
+  - python manage.py clear_cache

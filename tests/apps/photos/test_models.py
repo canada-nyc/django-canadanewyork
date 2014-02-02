@@ -1,12 +1,94 @@
 from decimal import Decimal as D
 
 from django.test import TestCase
+from django.test.utils import override_settings
 
 from simpleimages.utils import perform_transformation
 
-from apps.photos.models import ArtworkPhoto
+from apps.photos.models import ArtworkPhoto, BasePhoto
 from ...utils import AddAppMixin, django_image
 from .factories import MockPhotoFactory
+
+
+class BasePhotoGetSafeImageTest(TestCase):
+    def setUp(self):
+        self.photo = BasePhoto()
+        self.photo.image = lambda _: _
+        self.photo.image.url = 'url atrribute'
+        self.photo.image.height = 'height atrribute'
+        self.photo.image.width = 'width atrribute'
+        self.photo.image_height = 'height field'
+        self.photo.image_width = 'width field'
+
+        self.photo.backup_image = 'backup image'
+
+        self.get_safe_image = lambda self: self.photo._get_safe_image('image', 'backup_image')
+
+    def test_no_image_returns_backup_image(self):
+        self.photo.image = False
+
+        self.assertEqual(
+            self.get_safe_image(self),
+            'backup image'
+        )
+
+    @override_settings(CANADA_IMAGE_DIMENSION_FIELDS='_')
+    def test_returns_url(self):
+        self.assertEqual(
+            self.get_safe_image(self)['url'],
+            'url atrribute'
+        )
+
+    @override_settings(CANADA_IMAGE_DIMENSION_FIELDS=True)
+    def test_returns_dimension_fields(self):
+        self.assertEqual(
+            self.get_safe_image(self)['width'],
+            'width field'
+        )
+
+        self.assertEqual(
+            self.get_safe_image(self)['height'],
+            'height field'
+        )
+
+    @override_settings(CANADA_IMAGE_DIMENSION_FIELDS=False)
+    def test_no_canada_image_dimension_fields(self):
+        self.assertEqual(
+            self.get_safe_image(self)['width'],
+            'width atrribute'
+        )
+
+        self.assertEqual(
+            self.get_safe_image(self)['height'],
+            'height atrribute'
+        )
+
+
+class BasePhotoCachedDimensionsTest(AddAppMixin, TestCase):
+    custom_apps = ('tests.apps.photos',)
+
+    def test_dimension_fields_filled(self):
+        photo = MockPhotoFactory(image__size=1000)
+        self.assertTrue(photo.thumbnail_image)
+        self.assertEqual(photo.thumbnail_image.height, photo.thumbnail_image_height)
+
+    def test_dimensions_field_change(self):
+        photo = MockPhotoFactory(image__size=10)
+        self.assertEqual(photo.thumbnail_image.height, photo.thumbnail_image_height, 10)
+
+        photo.image.save('_.jpg', django_image('_.jpg', size=1000))
+        self.assertEqual(photo.thumbnail_image.height, photo.thumbnail_image_height)
+        self.assertNotEqual(photo.thumbnail_image.height, 10)
+
+    def test_overriding_existing(self):
+        photo = MockPhotoFactory(image__size=10)
+        photo.thumbnail_image_height = 1000
+        photo.save(update_fields=['thumbnail_image_height'])
+        self.assertEqual(photo.thumbnail_image_height, 1000)
+
+        perform_transformation(photo)
+
+        self.assertNotEqual(photo.thumbnail_image_height, 1000)
 
 
 class ArtworkPhotoDimensionTest(TestCase):
@@ -54,33 +136,6 @@ class ArtworkPhotoDimensionTest(TestCase):
             self.photo.full_dimensions,
             '10 in (25.4 cm)'
         )
-
-
-class ArtworkPhotoCachedDimensionsTest(AddAppMixin, TestCase):
-    custom_apps = ('tests.apps.photos',)
-
-    def test_dimension_fields_filled(self):
-        photo = MockPhotoFactory(image__size=1000)
-        self.assertTrue(photo.thumbnail_image)
-        self.assertEqual(photo.thumbnail_image.height, photo.thumbnail_image_height)
-
-    def test_dimensions_field_change(self):
-        photo = MockPhotoFactory(image__size=10)
-        self.assertEqual(photo.thumbnail_image.height, photo.thumbnail_image_height, 10)
-
-        photo.image.save('_.jpg', django_image('_.jpg', size=1000))
-        self.assertEqual(photo.thumbnail_image.height, photo.thumbnail_image_height)
-        self.assertNotEqual(photo.thumbnail_image.height, 10)
-
-    def test_overriding_existing(self):
-        photo = MockPhotoFactory(image__size=10)
-        photo.thumbnail_image_height = 1000
-        photo.save(update_fields=['thumbnail_image_height'])
-        self.assertEqual(photo.thumbnail_image_height, 1000)
-
-        perform_transformation(photo)
-
-        self.assertNotEqual(photo.thumbnail_image_height, 1000)
 
 
 class ArtworkPhotoFullCaptionTest(TestCase):

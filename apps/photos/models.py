@@ -3,6 +3,7 @@ from decimal import Decimal, ROUND_DOWN
 from fractions import Fraction
 
 from django.db import models
+from django.conf import settings
 from django.template.loader import render_to_string
 
 import simpleimages.transforms
@@ -103,25 +104,48 @@ class BasePhoto(models.Model):
     def full_caption(self):
         return render_to_string(self.caption_template, {'photo': self})
 
+    def _get_safe_image(self, image_field_name, backup_image_field_name):
+        '''
+        Returns a dictionary with the URL, width, and height of the image
+        in ``image_field_name``.
+
+        It gets the dimensions from the cached dimensions fields. Django
+        provides a way to cache image dimensions in other fields,
+        so that it won't have to retrieve the image every time you want
+        its dimensions. It assumes these fields are named the same
+        as the original image field with a `_width` or `_height` suffix.
+
+        So if ``image_field_name`` was ``thumbnail``, it would return
+        dimensions from the fields ``thumbnail_width`` and ``thumbnail_height``.
+
+        If the image in ``image_field_name`` is blank, it will return the
+        ``backup_image_field_name`` image instead.
+        '''
+
+        image_field = getattr(self, image_field_name)
+        if not image_field:
+            return getattr(self, backup_image_field_name)
+
+        if settings.CANADA_IMAGE_DIMENSION_FIELDS:
+            width, height = map(
+                lambda suffix: getattr(self, image_field_name + suffix),
+                ['_width', '_height']
+            )
+        else:
+            width, height = image_field.width, image_field.height
+        return {
+            'url': image_field.url,
+            'width': width,
+            'height': height,
+        }
+
     @property
     def safe_thumbnail_image(self):
-        if self.thumbnail_image:
-            return {
-                'url': self.thumbnail_image.url,
-                'width': self.thumbnail_image_width,
-                'height': self.thumbnail_image_height
-            }
-        return self.image
+        return self._get_safe_image('thumbnail_image')
 
     @property
     def safe_large_image(self):
-        if self.large_image:
-            return {
-                'url': self.large_image.url,
-                'width': self.large_image_width,
-                'height': self.large_image_height
-            }
-        return self.image
+        return self._get_safe_image('large_image')
 
 
 class ArtworkPhoto(BasePhoto):

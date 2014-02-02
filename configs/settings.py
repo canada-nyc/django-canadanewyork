@@ -129,7 +129,7 @@ TEMPLATE_CONTEXT_PROCESSORS += ('sekizai.context_processors.sekizai',)
 ##########
 INSTALLED_APPS += ('simpleimages',)
 SIMPLEIMAGES_TRANSFORM_CALLER = 'configs.queues.enqueue'
-
+CANADA_IMAGE_DIMENSION_FIELDS = get_env_variable('CANADA_IMAGE_DIMENSION_FIELDS')
 
 ###########
 # DATABASE #

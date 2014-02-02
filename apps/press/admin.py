@@ -18,7 +18,7 @@ class PressAdmin(admin.ModelAdmin):
                 'title',
                 ('date', 'date_text'),
                 'publisher',
-                ('author_first_name', 'author_last_name'),
+                'author',
                 'pages_range',
             ),
         }),

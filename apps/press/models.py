@@ -39,8 +39,6 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
     )
 
     publisher = models.CharField(max_length=50, blank=True)
-    author_first_name = models.CharField(max_length=50, blank=True)
-    author_last_name = models.CharField(max_length=50, blank=True)
     author = models.CharField(max_length=500, blank=True)
     pages_range = models.CharField(max_length=50, blank=True)
 

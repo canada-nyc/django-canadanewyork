@@ -25,6 +25,7 @@ env:
   - SECRET_KEY=not_so_secret
   - CANADA_QUEUE_ASYNC=False
   - CANADA_DUMPER_LOG=False
+  - CANADA_IMAGE_DIMENSION_FIELDS=True
 deploy:
   provider: heroku
   strategy: git

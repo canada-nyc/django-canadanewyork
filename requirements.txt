@@ -1,7 +1,7 @@
 Django==1.5.4
 South==0.8.2
 git+git://github.com/saulshanabrook/django-url-tracker@factor/testing
-futures
+futures==2.1.4
 
 ##
 #Admin
@@ -49,12 +49,12 @@ hg+https://bitbucket.org/david/django-storages@e27c8b61ab57e5afaf21cccfee005c980
 ##
 #Logging
 ##
-raven>=3
+raven==3.5.1
 
 ##
 #Tracing
 ##
-newrelic
+newrelic==2.12.0.10
 
 ##
 #Production

@@ -16,11 +16,13 @@
         <a class="gallery-{{ artist.id }}" href="">Images</a>
       </li>
     {% endif %}
-    {% if artist.resume %}
-      <li>
-        <a href="{% url 'artist-resume' slug=artist.slug %}">Resume</a>
-      </li>
-    {% endif %}
+    {% with resume_url=artist.get_resume_url %}
+      {% if resume_url %}
+        <li>
+          <a href="{{ resume_url }}">Resume</a>
+        </li>
+      {% endif %}
+    {% endwith %}
     {% if artist.all_press.exists %}
       <li>
         <a href="{% url 'artist-press-list' slug=artist.slug %}">Press</a>

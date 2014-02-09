@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.core.files.base import ContentFile
 
 from .factories import ArtistFactory
 from ..exhibitions.factories import ExhibitionFactory
@@ -6,6 +7,7 @@ from ..press.factories import PressFactory
 
 
 class ArtistVisibleTest(TestCase):
+
     def setUp(self):
         self.in_gallery = ArtistFactory.FACTORY_FOR.in_gallery
 
@@ -20,7 +22,21 @@ class ArtistVisibleTest(TestCase):
         self.assertFalse(self.in_gallery.exists())
 
 
+class ArtistResumeTest(TestCase):
+
+    def test_resume_file(self):
+        Artist = ArtistFactory()
+        Artist.resume_file.save('file.txt', ContentFile("my string content"))
+        self.assertEqual(Artist.get_resume_url(), Artist.resume_file.url)
+
+    def test_resume(self):
+        Artist = ArtistFactory(resume='_')
+
+        self.assertEqual(Artist.get_resume_url(), Artist.get_resume_page_url())
+
+
 class ArtistAllPressTest(TestCase):
+
     def setUp(self):
         self.ArtistPress = PressFactory.create(title='artist_press')
         self.ExhibitionPress = PressFactory.create(title='exhibition_press')

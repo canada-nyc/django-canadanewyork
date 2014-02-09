@@ -28,7 +28,7 @@ class ArtistAdmin(admin.ModelAdmin):
         }),
         ('Resume', {
             'classes': ('full-width',),
-            'fields': ('resume',)
+            'fields': ('resume_file', 'resume',)
         }),
     ]
     list_display = ('first_name', 'last_name', 'visible')

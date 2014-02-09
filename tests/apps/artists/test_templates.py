@@ -1,8 +1,11 @@
 import re
 
-from django_webtest import WebTest
-from django.core.urlresolvers import reverse
 from webtest.app import AppError
+
+from django.core.urlresolvers import reverse
+from django.core.files.base import ContentFile
+
+from django_webtest import WebTest
 
 from .factories import ArtistFactory
 from ..press.factories import PressFactory
@@ -43,6 +46,7 @@ class ArtistListTest(WebTest):
 
 
 class ArtistDetailTest(WebTest):
+
     def test_visible_exists(self):
         Artist = ArtistFactory.create()
         artist_detail = self.app.get(Artist.get_absolute_url())
@@ -79,12 +83,21 @@ class ArtistDetailTest(WebTest):
                 href=reverse('artist-resume', kwargs={'slug': Artist.slug})
             )
 
-    def test_resume_link(self):
+    def test_resume_page_link(self):
         Artist = ArtistFactory.create(resume='resume')
         artist_detail = self.app.get(Artist.get_absolute_url())
         artist_detail.click(
             'Resume',
-            href=reverse('artist-resume', kwargs={'slug': Artist.slug})
+            href=re.escape(Artist.get_resume_url())
+        )
+
+    def test_resume_file_link(self):
+        Artist = ArtistFactory.create()
+        Artist.resume_file.save('file.txt', ContentFile("my string content"))
+        artist_detail = self.app.get(Artist.get_absolute_url())
+        artist_detail.click(
+            'Resume',
+            href=re.escape(Artist.get_resume_url())
         )
 
     def test_no_press_link(self):

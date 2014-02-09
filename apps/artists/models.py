@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 from django.db.models import Q
 from django.db.models.loading import get_model
@@ -12,19 +14,36 @@ from apps.photos.models import ArtworkPhoto
 
 
 class VisibleManager(models.Manager):
+
     def get_query_set(self):
         return super(VisibleManager, self).get_query_set().filter(visible=True)
 
 
 class Artist(url_tracker.URLTrackingMixin, models.Model):
 
+    def file_path(instance, filename):
+        return os.path.join(
+            instance.get_absolute_url()[1:],
+            'resume',
+            filename)
+
+    date = models
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    resume = models.TextField(blank=True)
+    resume = models.TextField(
+        blank=True,
+        verbose_name='Resume text'
+        )
+    resume_file = models.FileField(
+        upload_to=file_path,
+        blank=True,
+        null=True,
+        max_length=500,
+        help_text="Takes preference over resume text")
     slug = SlugifyField(populate_from=('first_name', 'last_name'))
     visible = models.BooleanField(
         default=False,
-        help_text="Whether it appears in the artists list, and has an artist page")
+        help_text="Whether it appears in artists list and has a page")
 
     objects = models.Manager()
     in_gallery = VisibleManager()
@@ -53,6 +72,15 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
         return get_model('press', 'Press').objects.filter(
             Q(artist=self) | Q(exhibition__artists__in=[self])
         )
+
+    def get_resume_page_url(self):
+        return reverse('artist-resume', kwargs={'slug': self.slug})
+
+    def get_resume_url(self):
+        if self.resume_file:
+            return self.resume_file.url
+        if self.resume:
+            return self.get_resume_page_url()
 
     def dependent_paths(self):
         yield reverse('artist-list')

@@ -20,6 +20,7 @@ def _wipe_database(ctx, app_label, recreate_local=True):
         # doesnt exist, which is fine
         ctx.run('dropdb ' + database_name, warn=True, hide='err')
         if recreate_local:
+            print 'Creating local database'
             ctx.run('createdb ' + database_name)
     elif app['type'] == 'heroku':
         ctx.run('heroku pg:reset DATABASE_URL -a {0} --confirm {0}'.format(

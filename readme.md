@@ -1,4 +1,6 @@
 [![Build Status](https://next.travis-ci.org/saulshanabrook/django-canadanewyork.png?branch=production)](https://next.travis-ci.org/saulshanabrook/django-canadanewyork)
+[![Requirements Status](https://requires.io/github/saulshanabrook/django-canadanewyork/requirements.png?branch=master)](https://requires.io/github/saulshanabrook/django-canadanewyork/requirements/?branch=master)
+
 
 # Depedencies
 ## Essential

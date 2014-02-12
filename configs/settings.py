@@ -159,13 +159,6 @@ PQ_QUEUE_CACHE = True
 
 
 ###########
-# TESTING #
-###########
-if get_env_variable('CANADA_TESTRUNNER'):
-    TEST_RUNNER = 'discover_runner.DiscoverRunner'
-
-
-###########
 # STORAGE #
 ###########
 INSTALLED_APPS += ('django.contrib.staticfiles',)

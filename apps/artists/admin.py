@@ -24,7 +24,7 @@ class ArtistAdmin(admin.ModelAdmin):
     readonly_fields = ('slug',)
     fieldsets = [
         (None, {
-            'fields': ('slug', ('first_name', 'last_name'), 'visible')
+            'fields': ('slug', ('first_name', 'last_name'), 'website', 'visible')
         }),
         ('Resume', {
             'classes': ('full-width',),

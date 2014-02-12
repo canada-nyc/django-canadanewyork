@@ -32,8 +32,8 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
     last_name = models.CharField(max_length=30)
     resume = models.TextField(
         blank=True,
-        verbose_name='Resume text'
-        )
+        verbose_name='Resume text')
+    website = models.URLField(blank=True)
     resume_file = models.FileField(
         upload_to=file_path,
         blank=True,

@@ -136,6 +136,24 @@ class ArtistDetailTest(WebTest):
             href=reverse('artist-book-list', kwargs={'slug': Artist.slug})
         )
 
+    def test_no_website_link(self):
+        Artist = ArtistFactory.create(website='')
+        artist_detail = self.app.get(Artist.get_absolute_url())
+
+        with self.assertRaises(IndexError):
+            artist_detail.click(
+                'Website',
+            )
+
+    def test_website_link(self):
+        Artist = ArtistFactory.create(website='http://test.com/')
+        artist_detail = self.app.get(Artist.get_absolute_url())
+
+        artist_detail.click(
+            'Website',
+            href=re.escape('http://test.com/')
+        )
+
 
 class ArtistPressListTest(WebTest):
     def test_parent_link(self):

@@ -16,6 +16,11 @@
         <a class="gallery-{{ artist.id }}" href="">Images</a>
       </li>
     {% endif %}
+    {% if artist.website %}
+      <li>
+        <a href="{{ artist.website }}">Website</a>
+      </li>
+    {% endif %}
     {% with resume_url=artist.get_resume_url %}
       {% if resume_url %}
         <li>

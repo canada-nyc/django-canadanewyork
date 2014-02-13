@@ -1,19 +1,19 @@
-Django==1.5.4
-South==0.8.2
+Django==1.6.2
+South==0.8.4
 git+git://github.com/saulshanabrook/django-url-tracker@factor/testing
-futures==2.1.4
+futures==2.1.6
 
 ##
 #Admin
 ##
-django-grappelli==2.4.6
+django-grappelli==2.5.1
 
 ##
 #Caching
 ##
 django-clear-cache==0.3
-django-redis==3.3
-django-heroku-memcacheify==0.4
+django-redis==3.5.1
+django-heroku-memcacheify==0.5
 pylibmc==1.2.3
 django-dumper==0.2.3
 
@@ -25,7 +25,7 @@ git+https://github.com/bretth/django-pq.git@ca16b4f76a910817898c465501ee34cf6c0b
 ##
 #Images
 ##
-Pillow==2.1.0
+Pillow==2.3.0
 django-simpleimages==1.1.1
 
 ##
@@ -36,20 +36,20 @@ django-sekizai==0.7
 ##
 #Database
 ##
-dj-database-url==0.2.1
-psycopg2==2.4.5
+dj-database-url==0.2.2
+psycopg2==2.5.2
 git+https://github.com/kennethreitz/django-postgrespool.git@046c0e51f2fe8b32587a12878332c8880f5bf595
 
 ##
 #Storage
 ##
-boto==2.9.6
+boto==2.25.0
 hg+https://bitbucket.org/david/django-storages@e27c8b61ab57e5afaf21cccfee005c980d89480f
 
 ##
 #Logging
 ##
-raven==3.5.1
+raven==4.0.4
 
 ##
 #Tracing
@@ -59,4 +59,4 @@ newrelic==2.12.0.10
 ##
 #Production
 ##
-gunicorn==0.17.4
+gunicorn==18.0

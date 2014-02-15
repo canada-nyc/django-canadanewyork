@@ -10,7 +10,6 @@ script:
 env:
   global:
   - DJANGO_SETTINGS_MODULE=configs.settings
-  - CANADA_TESTRUNNER=True
   - CANADA_ALLOWED_HOST=*
   - CANADA_DEBUG=False
   - CANADA_DEBUG_TOOLBAR=False

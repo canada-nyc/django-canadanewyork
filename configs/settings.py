@@ -34,6 +34,15 @@ def get_env_variable(var_name, possible_options=[]):
         return True
     return value
 
+
+def insert_after(tuple_, index_item, new_item):
+    '''
+    Used to insert a middleware class after another one.
+    '''
+    list_ = list(tuple_)
+    list_.insert(list_.index(index_item) + 1, new_item)
+    return tuple(list_)
+
 ##################
 # DJANGO DEFAULT #
 ##################
@@ -137,13 +146,9 @@ INSTALLED_APPS += (
     'south',
 )
 SOUTH_TESTS_MIGRATE = False
-SOUTH_DATABASE_ADAPTERS = {
-    'default': 'south.db.postgresql_psycopg2'
-}
 DATABASES = {
     'default': dj_database_url.config()
 }
-DATABASES['default']['ENGINE'] = 'django_postgrespool'
 
 
 #########
@@ -156,13 +161,6 @@ QUEUE_ASYNC = get_env_variable('CANADA_QUEUE_ASYNC')
 # not default in django 1.5
 DATABASES['default']['OPTIONS'] = {'autocommit': True}
 PQ_QUEUE_CACHE = True
-
-
-###########
-# TESTING #
-###########
-if get_env_variable('CANADA_TESTRUNNER'):
-    TEST_RUNNER = 'discover_runner.DiscoverRunner'
 
 
 ###########
@@ -304,24 +302,21 @@ if get_env_variable('CANADA_DEBUG_TOOLBAR'):
     INSTALLED_APPS += (
         'debug_toolbar',
     )
-    MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+
+    # One way to tell debug-toolbar to run no matter
+    # if in debug mode or not.
+    # Solution from: https://github.com/django-debug-toolbar/django-debug-toolbar/issues/523#issuecomment-31879680
     DEBUG_TOOLBAR_CONFIG = {
-        'INTERCEPT_REDIRECTS': False,
-        'SHOW_TOOLBAR_CALLBACK': lambda _: True,
+        'SHOW_TOOLBAR_CALLBACK': "%s._true" % __name__,
     }
-    DEBUG_TOOLBAR_PANELS = (
-        'debug_toolbar.panels.cache.CacheDebugPanel',
-        'debug_toolbar.panels.headers.HeaderDebugPanel',
-        'debug_toolbar.panels.logger.LoggingPanel',
-        'debug_toolbar.panels.profiling.ProfilingDebugPanel',
-        'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
-        'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
-        'debug_toolbar.panels.signals.SignalDebugPanel',
-        'debug_toolbar.panels.sql.SQLDebugPanel',
-        'debug_toolbar.panels.template.TemplateDebugPanel',
-        'debug_toolbar.panels.timer.TimerDebugPanel',
-        'debug_toolbar.panels.version.VersionDebugPanel',
-    )
+
+    def _true(request):
+        return True
+
+    MIDDLEWARE_CLASSES = insert_after(
+        MIDDLEWARE_CLASSES,
+        new_item='debug_toolbar.middleware.DebugToolbarMiddleware',
+        index_item='django.middleware.gzip.GZipMiddleware')
 
 
 ###########

@@ -1,5 +1,5 @@
 -r requirements-testing.txt
 
-git+git://github.com/django-debug-toolbar/django-debug-toolbar.git@5ae6fcc61c7596b4980e85186f3737fad01a0ad4
-django-devserver==0.6.2
-invoke==0.5.1
+django-debug-toolbar==1.0.1
+django-devserver==0.7.0
+invoke==0.7.0

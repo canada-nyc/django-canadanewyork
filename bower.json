@@ -2,6 +2,7 @@
   "name": "django-canadanewyork",
   "private": true,
   "dependencies": {
+    "html5shiv": "3.7.0",
     "jquery": "1.10.2"
   }
 }

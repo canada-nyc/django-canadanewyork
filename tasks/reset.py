@@ -1,11 +1,11 @@
-from invoke import Collection, ctask as task
+from invoke import Collection, ctask as task, exceptions
 
 from .base import get_app
 from .apps import manage
 
 
 @task()
-def _wipe_database(ctx, app_label, recreate_local=True):
+def _wipe_database(ctx, app_label=None, recreate_local=True):
     '''
     Wipes the database. By default will create a new database using the
     database_name management command to get the name from the settings.
@@ -15,10 +15,17 @@ def _wipe_database(ctx, app_label, recreate_local=True):
     app = get_app(ctx, app_label)
 
     if app['type'] == 'local':
-        database_name = manage(ctx, 'database_name', app_label, hide='out').stdout
-        # Don't fail if this comand exits poorly. IT just means the database
-        # doesnt exist, which is fine
-        ctx.run('dropdb ' + database_name, warn=True, hide='err')
+        database_name = manage(
+            ctx, 'database_name', app_label, hide='out').stdout
+        # Don't fail if this comand exits because the database does not
+        # existerror
+        dropdb = ctx.run('dropdb ' + database_name, warn=True, hide='err', pty=True)
+        database_does_not_exist = 'database "{}" does not exist'.format(
+            database_name)
+        failed_because_database_does_not_exist = database_does_not_exist in dropdb.stderr
+        if not dropdb.ok and not failed_because_database_does_not_exist:
+            raise exceptions.Failure(dropdb)
+
         if recreate_local:
             print 'Creating local database'
             ctx.run('createdb ' + database_name)
@@ -79,7 +86,10 @@ def images(ctx, app_label):
     '''
     manage(
         ctx,
-        'retransform artists.ArtistPhoto exhibitions.ExhibitionPhoto updates.UpdatePhoto',
+        ('retransform '
+         'artists.ArtistPhoto '
+         'exhibitions.ExhibitionPhoto '
+         'updates.UpdatePhoto'),
         app_label,
         pty=True
     )

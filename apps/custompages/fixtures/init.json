@@ -1,0 +1,18 @@
+[
+{
+    "model": "custompages.custompage",
+    "pk": 1,
+    "fields": {
+        "content": "content that appears below exhibition at index",
+        "path": "/",
+    }
+},
+{
+    "model": "custompages.custompage",
+    "pk": 2,
+    "fields": {
+        "content": "",
+        "path": "/contact/",
+    }
+}
+]

@@ -50,7 +50,7 @@ SECRET_KEY = get_env_variable('SECRET_KEY')
 WSGI_APPLICATION = 'wsgi.application'
 ROOT_URLCONF = 'configs.urls'
 PREPEND_WWW = False
-INSTALLED_APPS = ('django.contrib.sites', 'django.contrib.flatpages',)
+INSTALLED_APPS = ('django.contrib.sites', )
 SITE_ID = 1
 # Disable translation
 USE_I18N = False
@@ -89,6 +89,7 @@ INSTALLED_APPS += (
     'apps.books',
     'apps.updates',
     'apps.photos',
+    'apps.custompages',
 
     'libs.common',
 )

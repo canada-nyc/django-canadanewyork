@@ -1,9 +1,9 @@
 from django_webtest import WebTest
 from django.core.urlresolvers import reverse
-from django.contrib.flatpages.models import FlatPage
 from django.core.files.base import ContentFile
 from django.core.cache import cache
 
+from apps.custompages.models import CustomPage
 from .factories import ExhibitionFactory
 
 
@@ -222,25 +222,23 @@ class ExhibitionCurrentTest(WebTest):
 
     def test_flatpage_append(self):
         ExhibitionFactory.create()
-        FlatPage_ = FlatPage.objects.create(
-            url=reverse('exhibition-current'),
-            title='_',
+        CustomPage_ = CustomPage.objects.create(
+            path=reverse('exhibition-current'),
             content='some content',
         )
         exhibition_current = self.app.get(
             reverse('exhibition-current')
         )
 
-        self.assertIn(FlatPage_.content, exhibition_current)
+        self.assertIn(CustomPage_.content, exhibition_current)
 
     def test_no_current_exhibition_flatpage_append(self):
-        FlatPage_ = FlatPage.objects.create(
-            url=reverse('exhibition-current'),
-            title='_',
+        CustomPage_ = CustomPage.objects.create(
+            path=reverse('exhibition-current'),
             content='some content',
         )
         exhibition_current = self.app.get(
             reverse('exhibition-current')
         )
 
-        self.assertIn(FlatPage_.content, exhibition_current)
+        self.assertIn(CustomPage_.content, exhibition_current)

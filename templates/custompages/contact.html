@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ flatpage.title }}{{ block.super }}{% endblock title %}
+{% block title %}Contact and Info{{ block.super }}{% endblock title %}
 
 {% block body %}
 <article>
@@ -10,6 +10,6 @@
     <input type="email" value="" required id="mce-EMAIL" name="EMAIL" placeholder="email address" autofocus>
     <input type="submit" value="Subscribe" name="subscribe" >
 </form>
-{{ flatpage.content|safe }}
+{{ custompage.content }}
 </article>
 {% endblock body %}

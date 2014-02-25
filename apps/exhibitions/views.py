@@ -1,9 +1,9 @@
 from django.views.generic import DetailView
 from django.views.generic.base import TemplateView
-from django.contrib.flatpages.models import FlatPage
 
 from .models import Exhibition
 from libs.common.views import ObjectList, ObjectListFromParent
+from apps.custompages.models import CustomPage
 
 
 class ExhibitionList(ObjectList):
@@ -27,8 +27,8 @@ class ExhibitionCurrent(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ExhibitionCurrent, self).get_context_data(**kwargs)
 
-        flatpage = FlatPage.objects.filter(url__exact='/')
-        content = flatpage.values_list('content', flat=True)
+        custompage = CustomPage.objects.filter(path__exact='/')
+        content = custompage.values_list('content', flat=True)
         if content:
             context['extra_content'] = content[0]
 

@@ -1,9 +1,0 @@
-{% extends "base.html" %}
-
-{% block title %}{{ flatpage.title }}{{ block.super }}{% endblock title %}
-
-{% block body %}
-<article>
- {{ flatpage.content|safe }}
-</article>
-{% endblock body %}

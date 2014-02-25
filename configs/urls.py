@@ -5,6 +5,7 @@ from django.conf import settings
 from .sitemaps import sitemaps
 
 from apps.exhibitions.views import ExhibitionCurrent
+from apps.custompages.views import CustomPageDetail
 
 
 admin.autodiscover()
@@ -22,15 +23,12 @@ urlpatterns = patterns(
     url(r'^exhibitions/', include('apps.exhibitions.urls')),
     url(r'^press/', include('apps.press.urls')),
     url(r'^books/', include('apps.books.urls')),
+    url(r'^contact/$', CustomPageDetail.as_view(), name='contact'),
 
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
 
-urlpatterns += patterns(
-    'django.contrib.flatpages.views',
-    url(r'^contact/$', 'flatpage', {'url': '/contact/'}, name='contact')
-)
 
 if 'django_rq' in settings.INSTALLED_APPS:
     urlpatterns += patterns(

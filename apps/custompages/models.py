@@ -2,10 +2,12 @@ from django.db import models
 
 import dumper
 
+from libs.ckeditor.fields import CKEditorField
+
 
 class CustomPage(models.Model):
     path = models.CharField(max_length=100, db_index=True)
-    content = models.TextField(blank=True)
+    content = CKEditorField(blank=True)
 
     class Meta:
         verbose_name = 'custom page'

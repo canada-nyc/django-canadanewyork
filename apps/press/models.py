@@ -10,6 +10,7 @@ import url_tracker
 from ..artists.models import Artist
 from ..exhibitions.models import Exhibition
 from libs.slugify.fields import SlugifyField
+from libs.ckeditor.fields import CKEditorField
 
 
 SLUG_FIELD_NAMES = ("publisher", "title", "artist", "exhibition")
@@ -24,7 +25,7 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
         blank=True,
     )
 
-    content = models.TextField(blank=True)
+    content = CKEditorField(blank=True)
     content_file = models.FileField(upload_to=file_path, blank=True, null=True, max_length=500)
 
     date = models.DateField(

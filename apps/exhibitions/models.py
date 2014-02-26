@@ -13,6 +13,7 @@ from apps.photos.models import ArtworkPhoto
 from libs.slugify.fields import SlugifyField
 from libs.unique_boolean.fields import UniqueBooleanField
 from libs.common.utils import sentance_join
+from libs.ckeditor.fields import CKEditorField
 
 
 class Exhibition(url_tracker.URLTrackingMixin, models.Model):
@@ -20,9 +21,9 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
         return os.path.join(instance.get_absolute_url()[1:], 'press_release_photos', filename)
 
     name = models.CharField(max_length=1000, unique_for_year='start_date')
-    description = models.TextField(blank=True, verbose_name='Press Release')
     artists = models.ManyToManyField(Artist, related_name='exhibitions',
                                      blank=True, null=True)
+    description = CKEditorField(blank=True, verbose_name='Press Release')
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
     slug = SlugifyField(

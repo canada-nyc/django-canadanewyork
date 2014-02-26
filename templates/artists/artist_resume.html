@@ -5,6 +5,6 @@
 {% block body %}
 <article>
   <h1><a href="{{ artist.get_absolute_url }}">{{ artist }}</a></h1>
-  {{ artist.resume|safe }}
+  {{ artist.resume.as_html }}
 </article>
 {% endblock body %}

@@ -2,7 +2,6 @@ from django.contrib import admin
 
 
 from apps.photos.admin import photo_inline
-from libs.common.admin import editor_form
 from .models import Exhibition, ExhibitionPhoto
 
 
@@ -38,7 +37,6 @@ class ExhibitionAdmin(admin.ModelAdmin):
         }),
     )
     inlines = [ExhibitionPhotoInline]
-    form = editor_form(['description', 'extra_info'])
     readonly_fields = ('slug',)
 
     raw_id_fields = ('artists',)

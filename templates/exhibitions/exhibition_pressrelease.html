@@ -5,6 +5,6 @@
 {% block body %}
 <article>
   <h1><a href="{{ exhibition.get_absolute_url }}">{{ exhibition }}</a></h1>
-  {{ exhibition.description|safe }}
+  {{ exhibition.description.as_html }}
 </article>
 {% endblock body %}

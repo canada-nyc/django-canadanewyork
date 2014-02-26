@@ -9,7 +9,7 @@
     <a href="{{ update.get_absolute_url }}"><h1 id="update_{{ update.pk }}">{% include "base/full_date.html" with date=update.post_date year=True %}</h1></a>
   </header>
   {% include "base/photos.html" with photos=update.photos.all id=update.id %}
-  {{ update.description|safe }}
+  {{ update.description.as_html }}
 </article>
 {% endfor %}
 {% endblock %}

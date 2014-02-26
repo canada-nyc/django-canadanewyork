@@ -1,11 +1,9 @@
 from django.contrib import admin
 
-from libs.common.admin import editor_form
 from .models import Press
 
 
 class PressAdmin(admin.ModelAdmin):
-    form = editor_form(['content'])
     date_hierarchy = 'date'
     list_display = ('title', 'publisher', 'author', 'date', 'exhibition', 'artist')
     list_filter = ('publisher', 'date', 'exhibition', 'artist')

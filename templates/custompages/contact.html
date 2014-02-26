@@ -10,6 +10,6 @@
     <input type="email" value="" required id="mce-EMAIL" name="EMAIL" placeholder="email address" autofocus>
     <input type="submit" value="Subscribe" name="subscribe" >
 </form>
-{{ custompage.content }}
+{{ custompage.content.as_html }}
 </article>
 {% endblock body %}

@@ -7,7 +7,7 @@
   <header>
     <h1>{% include "press/press_long_form.html" %}</h1>
   </header>
-  {{ press.content|safe }}
+  {{ press.content.as_html }}
   {% if press.content_file %}<a href="{{ press.content_file.url }}">View PDF of article</a>{% endif %}
 </article>
 {% endblock body %}

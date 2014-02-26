@@ -17,8 +17,8 @@
       <p>{% include 'base/date_range.html' with start_date=exhibition.start_date end_date=exhibition.end_date %}
     </a>
   </header>
+  {{ exhibition.extra_info.as_html }}
   {% endif %}
-  {{ exhibition.extra_info|default_if_none:""|safe }}
-  {{ extra_content|safe }}
+  {{ extra_content }}
 </article>
 {% endblock body %}

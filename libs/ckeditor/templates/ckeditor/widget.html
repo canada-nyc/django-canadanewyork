@@ -1,0 +1,59 @@
+{% load static from staticfiles %}
+<script type="text/javascript">
+CKEDITOR.replace("{{ element_id }}", {
+    on: {
+        instanceReady: function(ev) {
+            // Output paragraphs as <p>Text</p>.
+            this.dataProcessor.writer.setRules('p', {
+                indent: false,
+                breakBeforeOpen: false,
+                breakAfterOpen: false,
+                breakBeforeClose: false,
+                breakAfterClose: false
+            });
+            // Break after <br />.
+            this.dataProcessor.writer.setRules('br', {
+                indent: false,
+                breakBeforeOpen: true,
+                breakAfterOpen: false,
+                breakBeforeClose: false,
+                breakAfterClose: true
+            });
+        }
+    },
+    enterMode: CKEDITOR.ENTER_BR,
+    shiftEnterMode: CKEDITOR.ENTER_P,
+    // plugins: [
+    //     'a11yhelp',
+    //     'basicstyles',
+    //     'blockquote',
+    //     'clipboard',
+    //     'elementspath',
+    //     'enterkey',
+    //     'entities',
+    //     'floatingspace',
+    //     'htmlwriter',
+    //     'indentblock',
+    //     'indentlist',
+    //     'link',
+    //     'list',
+    //     'magicline',
+    //     'maximize',
+    //     'removeformat',
+    //     'resize',
+    //     'scayt',
+    //     'sourcearea',
+    //     'specialchar',
+    //     'tab',
+    //     'toolbar',
+    //     'undo',
+    //     'wysiwygarea',
+    //     'wsc'
+    // ].join(','),
+    linkShowAdvancedTab: false,
+    bodyClass: '{{ body_class }}',
+    linkShowTargetTab: false,
+    contentsCss: '{% static "canada/compressed/global.css" %}',
+    languages_list: ['eb:English']
+});
+</script>

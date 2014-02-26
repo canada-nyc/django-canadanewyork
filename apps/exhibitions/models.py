@@ -13,16 +13,27 @@ from apps.photos.models import ArtworkPhoto
 from libs.slugify.fields import SlugifyField
 from libs.unique_boolean.fields import UniqueBooleanField
 from libs.common.utils import sentance_join
+from libs.ckeditor.fields import CKEditorField
 
 
 class Exhibition(url_tracker.URLTrackingMixin, models.Model):
+
     def image_path(instance, filename):
-        return os.path.join(instance.get_absolute_url()[1:], 'press_release_photos', filename)
+        return (
+            os.path.join(
+                instance.get_absolute_url()[1:],
+                'press_release_photos',
+                filename)
+        )
 
     name = models.CharField(max_length=1000, unique_for_year='start_date')
-    description = models.TextField(blank=True, verbose_name='Press Release')
-    artists = models.ManyToManyField(Artist, related_name='exhibitions',
-                                     blank=True, null=True)
+    description = CKEditorField(blank=True, verbose_name='Press Release')
+    artists = models.ManyToManyField(
+        Artist,
+        related_name='exhibitions',
+        blank=True,
+        null=True
+    )
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
     slug = SlugifyField(
@@ -32,15 +43,24 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
     )
 
     current = UniqueBooleanField(
-        help_text="Set the exhibition as the current show. Will appear on homepage",
+        help_text=(
+            "Set the exhibition as the current show. Will appear on homepage"),
         default=True
     )
 
-    extra_info = models.TextField(blank=True, verbose_name='Extra Info', help_text='Only shows up on homepage, below exhibition picture and name, if it is current')
+    extra_info = CKEditorField(
+        blank=True,
+        verbose_name='Extra Info',
+        help_text=(
+            'Only shows up on homepage, below exhibition picture and'
+            'name, if it is current')
+    )
 
     press_release_photo = models.ImageField(
         upload_to=image_path,
-        help_text='Used if it is the current exhibition, on the homepage. If not specified will use first of the uploaded photos on the homepage',
+        help_text=(
+            'Used if it is the current exhibition, on the homepage. If not '
+            'specified will use first of the uploaded photos on the homepage'),
         height_field='press_release_photo_height',
         width_field='press_release_photo_width',
         blank=True,
@@ -131,7 +151,8 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
         yield reverse('exhibition-press-list', kwargs={'slug': self.slug})
         for artist in self.artists.all():
             yield artist.get_absolute_url()
-            yield reverse('artist-exhibition-list', kwargs={'slug': artist.slug})
+            yield reverse('artist-exhibition-list', kwargs={
+                'slug': artist.slug})
         for press in self.press.all():
             yield press.get_absolute_url()
 

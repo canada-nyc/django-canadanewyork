@@ -27,14 +27,20 @@ class ExhibitionCurrent(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ExhibitionCurrent, self).get_context_data(**kwargs)
 
-        custompage = CustomPage.objects.filter(path__exact='/')
-        content = custompage.values_list('content', flat=True)
-        if content:
-            context['extra_content'] = content[0]
+        try:
+            custompage = CustomPage.objects.get(path__exact='/')
+        except CustomPage.DoesNotExist:
+            context['extra_content'] = None
+        else:
+            context['extra_content'] = custompage.content.as_html
 
-        current_exhibition = Exhibition.objects.filter(current=True)
-        if current_exhibition:
-            context['exhibition'] = current_exhibition[0]
+        try:
+            current_exhibition = Exhibition.objects.get(current=True)
+        except Exhibition.DoesNotExist:
+            context['exhibition'] = None
+        else:
+            context['exhibition'] = current_exhibition
+
         return context
 
 

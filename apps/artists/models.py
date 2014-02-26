@@ -10,6 +10,7 @@ import dumper
 import simpleimages.trackers
 
 from libs.slugify.fields import SlugifyField
+from libs.ckeditor.fields import CKEditorField
 from apps.photos.models import ArtworkPhoto
 
 
@@ -30,7 +31,7 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
     date = models
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    resume = models.TextField(
+    resume = CKEditorField(
         blank=True,
         verbose_name='Resume text')
     website = models.URLField(blank=True)

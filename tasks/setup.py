@@ -17,7 +17,7 @@ def static(ctx):
     '''
     print 'Setting up static'
     ctx.run('mkdir -p tmp')
-    ctx.run('npm install --global --production "less"')
+    ctx.run('npm install --global --production less bower')
     ctx.run('gem install sass')
 
 

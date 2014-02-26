@@ -2,8 +2,8 @@ from invoke import Collection, ctask as task
 
 
 LESS_SOURCE = "static/styles/main.less"
-SASS_SOURCE_DIRECTORY = "static/styles/"
-SASS_SOURCE = SASS_SOURCE_DIRECTORY + "magnific-popup.scss"
+SASS_SOURCE_DIRECTORY = "static/styles/magnific"
+SASS_SOURCE = "static/bower_components/magnific-popup/src/css/main.scss"
 STYLE_DESTINATION = "static/compressed/global.css"
 
 

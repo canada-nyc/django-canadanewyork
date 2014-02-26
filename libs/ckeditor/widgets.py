@@ -8,7 +8,7 @@ from .settings import get_html_class
 class CKEditorWidget(widgets.Textarea):
 
     class Media:
-        js = ('canada/ckeditor/ckeditor.js',)
+        js = ('canada/bower_components/ckeditor/ckeditor.js',)
 
     def render(self, name, value, attrs=None):
         output = super(CKEditorWidget, self).render(name, value, attrs)

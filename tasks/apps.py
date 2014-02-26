@@ -21,6 +21,7 @@ def manage(ctx, command='', app_label=None, **kwargs):
             command,
             app['name']
         )
+    kwargs.setdefault('pty', True)
     return ctx.run(shell_command, **kwargs)
 
 

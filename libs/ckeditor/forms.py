@@ -1,19 +1,10 @@
-from django.forms import Textarea
-from django.utils.safestring import mark_safe
-from django.template.loader import render_to_string
+from django import forms
 
-from .settings import get_html_class
+from .widgets import CKEditorWidget
 
 
-class CKEditorWidget(Textarea):
+class CKEditorFormField(forms.fields.Field):
 
-    class Media:
-        js = ('canada/ckeditor/ckeditor.js',)
-
-    def render(self, name, value, attrs=None):
-        output = super(CKEditorWidget, self).render(name, value, attrs)
-        output += mark_safe(render_to_string('ckeditor/widget.html', {
-            'element_id': name,
-            'body_class': get_html_class(),
-        }))
-        return output
+    def __init__(self, *args, **kwargs):
+        kwargs.update({'widget': CKEditorWidget()})
+        super(CKEditorFormField, self).__init__(*args, **kwargs)

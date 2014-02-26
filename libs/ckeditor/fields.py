@@ -4,8 +4,8 @@ from django.utils.safestring import mark_safe
 
 from south.modelsinspector import add_introspection_rules
 
-from .forms import CKEditorWidget
 from .settings import get_html_class
+from .forms import CKEditorFormField
 
 
 class CKEditorField(TextField):
@@ -17,7 +17,7 @@ class CKEditorField(TextField):
         ' ``CKEDITOR_CLASS``')
 
     def formfield(self, **kwargs):
-        defaults = {'widget': CKEditorWidget}
+        defaults = {'form_class': CKEditorFormField}
         defaults.update(kwargs)
         return super(CKEditorField, self).formfield(**defaults)
 

@@ -123,8 +123,9 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 GRAPPELLI_ADMIN_TITLE = 'canada'
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
-INSTALLED_APPS += ('libs.ckeditor',)
 
+INSTALLED_APPS += ('libs.ckeditor',)
+CKEDITOR_CLASS = 'user-created'
 
 #############
 # TEMPLATES #

@@ -7,38 +7,35 @@
 <a href="{{ first_photo.safe_thumbnail_image.url }}" title="Click to view photos" class="gallery-{{ id }} zoom-cursor"/>
   <img src="{{ first_photo.safe_thumbnail_image.url }}" height="{{ first_photo.safe_thumbnail_image.height }}" width="{{ first_photo.safe_thumbnail_image.width }}"/>
 </a>
-{% addtoblock "js" %}
-<script type="text/javascript">
-  document.write(
-    '<script src=' +
-    ('__proto__' in {} ? '{% static "canada/scripts/zepto.min.js" %}' : '{% static "canada/bower_components/jquery/jquery.min.js" %}') +
-    '><\/script>'
-  )
-</script>
-<script src="{% static "canada/bower_components/magnific-popup/dist/jquery.magnific-popup.min.js" %}"></script>
+{% addtoblock "css" %}
+  <link rel="stylesheet" href="{% static "canada/compressed/magnific-popup.css" %}">
 {% endaddtoblock %}
 {% addtoblock "js" %}
-<script>
-  {% if not id %}
-  console.error("The photos template with the first image {{ first_photo.id }} ({{ first_photo.title }}) MUST be passed the id of the owning model.");
-  {% endif %}
-  $(document).ready(function() {
-    $('.gallery-{{ id }}').magnificPopup({
-      type: 'image',
-      key: 1, // because they all use the same layout, this reuses the html so it doesnt have to be recreated,
-      preload: [1,3], // preload one previous image and three next images
-      gallery: {
-        enabled: true
-      },
-      items: [{% for photo in photos %}
-        {
-          src: {{ photo.safe_large_image.url|escapejson }},
-          title: $("<div/>").html({{ photo.full_caption|escapejson }})
-        },{% endfor %}
-      ]
+  <script src="{% static "canada/bower_components/jquery/jquery.min.js" %}"></script>
+  <script src="{% static "canada/bower_components/magnific-popup/dist/jquery.magnific-popup.min.js" %}"></script>
+{% endaddtoblock %}
+{% addtoblock "js_inline" %}
+  <script>
+    {% if not id %}
+    console.error("The photos template with the first image {{ first_photo.id }} ({{ first_photo.title }}) MUST be passed the id of the owning model.");
+    {% endif %}
+    $(document).ready(function() {
+      $('.gallery-{{ id }}').magnificPopup({
+        type: 'image',
+        key: 1, // because they all use the same layout, this reuses the html so it doesnt have to be recreated,
+        preload: [1,3], // preload one previous image and three next images
+        gallery: {
+          enabled: true
+        },
+        items: [{% for photo in photos %}
+          {
+            src: {{ photo.safe_large_image.url|escapejson }},
+            title: $("<div/>").html({{ photo.full_caption|escapejson }})
+          },{% endfor %}
+        ]
+      });
     });
-  });
-</script>
+  </script>
 {% endaddtoblock %}
 {% endif %}
 {% endwith %}

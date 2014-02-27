@@ -13,13 +13,18 @@ def compile_css(ctx):
     Runs less and sass on the local machine.
     '''
     ctx.run(
-        'lessc --compress {} | cat - {} | sass --scss --stdin --trace --style compressed --load-path {} {}'.format(
-            LESS_SOURCE,
-            SASS_SOURCE,
-            SASS_SOURCE_DIRECTORY,
-            STYLE_DESTINATION
-        ),
-        pty=True
+        'lessc '
+        '--compress '
+        'static/styles/main.less '
+        'static/compressed/main.css'
+    )
+    ctx.run(
+        'scss '
+        '--trace '
+        '--style compressed '
+        '--load-path static/styles/magnific '
+        'static/bower_components/magnific-popup/src/css/main.scss '
+        'static/compressed/magnific-popup.css'
     )
 
 namespace = Collection(compile_css)

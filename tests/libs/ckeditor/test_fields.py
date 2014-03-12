@@ -1,3 +1,5 @@
+import pickle
+
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.template import Context, Template
@@ -23,3 +25,6 @@ class CKEditorTest(AddAppMixin, TestCase):
         )
 
         self.assertEqual(rendered, self.target_html)
+
+    def test_pickle(self):
+        pickle.dumps(self.model)

@@ -62,21 +62,13 @@ def cache(ctx, app_label):
 
 
 @task()
-def storage(ctx, app_label, only_static=False):
+def storage(ctx, app_label):
     '''
-    Deletes every item in the storage, either locally or on S3. It can also
-    only delete the ``canada`` static folder, in order to help on invalidating
-    cached static files.
+    Deletes every item in the storage, either locally or on S3.
     '''
-    if only_static:
-        print 'Resetting only static. Only works on S3, not local files'
-    else:
-        print 'Resetting Storage'
-    if only_static:
-        manage(ctx, 'delete_canada_static', app_label)
-    else:
-        manage(ctx, 'wipe_storage', app_label)
-    manage(ctx, 'collectstatic --verbosity=0 --noinput', app_label)
+    print 'Resetting Storage'
+    manage(ctx, 'wipe_storage', app_label)
+    manage(ctx, 'collectstatic --noinput', app_label)
 
 
 @task(aliases=['transformed_images'])
@@ -96,13 +88,13 @@ def images(ctx, app_label):
 
 
 @task()
-def all(ctx, app_label, test_data=True, only_static=False):
+def all(ctx, app_label, test_data=True):
     '''
     Resets The database, cache, and storage.
     '''
     print 'Resetting All'
     cache(ctx, app_label)
-    storage(ctx, app_label, only_static)
+    storage(ctx, app_label)
     database(ctx, app_label, test_data)
 
 

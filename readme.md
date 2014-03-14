@@ -29,7 +29,7 @@ from the config files at runtime, when developing locally.
 
 The default environemt variable files that are read by foreman are listed in
 `.foreman`. Take a look at those files and what their options are. If you want
-to overide any of the options you can change `configs/env/loca.env`.
+to overide any of the options you can change `configs/env/local.env`.
 
 The only file that is not checked into version control is
 `configs/env/secret.evn`. Put any variables in that file that should not be

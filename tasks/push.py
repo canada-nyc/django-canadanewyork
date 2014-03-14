@@ -34,11 +34,11 @@ def env(ctx, app_label=None):
 
 
 @task
-def all(ctx, syncdb=False, static=False, wipe_static=False, wipe_cache=True):
+def all(ctx, syncdb=False, wipe_cache=True):
     '''
     Pushes code between heroku apps, and optionally syncs the database and
     static of the destination app with the newly pushed code. Also can wipe
-    the cache of the destination app and static.
+    the cache of the destination app.
     '''
     print 'Pushing all'
     destination_label = ctx['production_app_label']
@@ -49,10 +49,5 @@ def all(ctx, syncdb=False, static=False, wipe_static=False, wipe_cache=True):
         manage(ctx, 'syncdb --migrate', destination_label)
     if wipe_cache:
         reset_cache(ctx, destination_label)
-    if wipe_static:
-        reset_storage(ctx, destination_label, only_static=True)
-    elif static:
-        manage(ctx, 'collectstatic --verbosity=0 --noinput', destination_label)
-
 
 namespace = Collection(env, all)

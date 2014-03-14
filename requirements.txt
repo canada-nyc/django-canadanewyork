@@ -15,7 +15,7 @@ django-clear-cache==0.3
 django-redis==3.5.1
 django-heroku-memcacheify==0.5
 pylibmc==1.2.3
-django-dumper==0.2.3
+django-dumper==0.2.4
 
 ##
 #Queue

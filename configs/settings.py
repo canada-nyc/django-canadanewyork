@@ -170,30 +170,43 @@ PQ_QUEUE_CACHE = True
 ###########
 # STORAGE #
 ###########
-INSTALLED_APPS += ('django.contrib.staticfiles',)
+# Static
+INSTALLED_APPS += (
+    'django.contrib.staticfiles',
+    'whitenoise',
+)
+
 STATICFILES_DIRS = (
+    # Static files in top level directory `static` are accessible under the
+    # `canada` path. For example, the file located at `static/images/favicon`
+    # would be accessible via {{ static prefix }}/canada/images/favicon
     ('canada', rel_path('static')),
 )
+
 TEMPLATE_CONTEXT_PROCESSORS += (
-    "django.core.context_processors.media",
     "django.core.context_processors.static",
 )
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
+
+STATIC_URL = '/static/'
+STATIC_ROOT = rel_path('tmp/static')
+
+# Media
+TEMPLATE_CONTEXT_PROCESSORS += (
+    "django.core.context_processors.media",
+)
+
 _storage_backend = get_env_variable(
     'CANADA_STORAGE',
     possible_options=['local', 's3']
 )
 if _storage_backend == 'local':
-    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
-
-    STATIC_URL = '/static/'
-    STATIC_ROOT = rel_path('tmp/static')
-
     MEDIA_URL = '/media/'
     MEDIA_ROOT = rel_path('tmp/media')
 
 elif _storage_backend == 's3':
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    STATICFILES_STORAGE = 'configs.storage_backends.S3HashedFilesStorage'
 
     INSTALLED_APPS += (
         'storages',
@@ -212,8 +225,6 @@ elif _storage_backend == 's3':
     AWS_S3_SECURE_URLS = False
     AWS_IS_GZIPPED = True
     AWS_PRELOAD_METADATA = True
-
-    STATIC_URL = 'http://{}/'.format(AWS_S3_CUSTOM_DOMAIN)
 
 
 ############

@@ -45,6 +45,11 @@ boto==2.25.0
 hg+https://bitbucket.org/david/django-storages@e27c8b61ab57e5afaf21cccfee005c980d89480f
 
 ##
+#Static
+##
+whitenoise==0.13
+
+##
 #Logging
 ##
 raven==4.0.4

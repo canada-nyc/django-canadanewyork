@@ -16,7 +16,8 @@ def compile_css(ctx):
         'lessc '
         '--compress '
         'static/styles/main.less '
-        'static/compressed/main.css'
+        'static/compressed/main.css '
+        'static/bower_components/object-fit/dev/polyfill.object-fit.css '
     )
     ctx.run(
         'scss '

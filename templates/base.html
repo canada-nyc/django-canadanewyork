@@ -57,6 +57,19 @@
     </noscript>
   </span>
 </footer>
+
+{% addtoblock "js" %}
+  <script src="{% static "canada/bower_components/object-fit/dist/polyfill.object-fit.min.js" %}"></script>
+{% endaddtoblock %}
+{% addtoblock "js_inline" %}
+  <script>
+      objectFit.polyfill({
+          selector: 'img',
+          fittype: 'contain' // either contain, cover, fill or none
+      });
+  </script>
+{% endaddtoblock %}
+
 {% render_block "css" %}
 {% render_block "js" %}
 {% render_block "js_inline" %}

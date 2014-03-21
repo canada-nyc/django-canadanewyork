@@ -6,13 +6,13 @@ futures==2.1.6
 ##
 #Admin
 ##
-django-grappelli==2.5.1
+django-grappelli==2.5.2
 
 ##
 #Caching
 ##
 django-clear-cache==0.3
-django-redis==3.5.1
+django-redis==3.5.2
 django-heroku-memcacheify==0.5
 pylibmc==1.2.3
 django-dumper==0.2.4
@@ -35,13 +35,13 @@ django-sekizai==0.7
 ##
 #Database
 ##
-dj-database-url==0.2.2
+dj-database-url==0.3.0
 psycopg2==2.5.2
 
 ##
 #Storage
 ##
-boto==2.25.0
+boto==2.27.0
 hg+https://bitbucket.org/david/django-storages@e27c8b61ab57e5afaf21cccfee005c980d89480f
 
 ##
@@ -52,12 +52,12 @@ whitenoise==0.13
 ##
 #Logging
 ##
-raven==4.0.4
+raven==4.1.0
 
 ##
 #Tracing
 ##
-newrelic==2.12.0.10
+newrelic==2.16.0.12
 
 ##
 #Production

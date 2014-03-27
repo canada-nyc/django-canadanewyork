@@ -291,7 +291,7 @@ if get_env_variable('CANADA_CACHE_TEMPLATES'):
 
 USE_ETAGS = True
 
-DUMPER_PATH_IGNORE_REGEX = r'^/(?:(?:admin)|(?:grappelli))/'
+DUMPER_PATH_IGNORE_REGEX = r'^/(?:(?:admin)|(?:grappelli)|(?:media))/'
 
 #########
 # DEBUG #

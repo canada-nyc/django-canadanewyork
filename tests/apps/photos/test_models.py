@@ -11,6 +11,7 @@ from .factories import MockPhotoFactory
 
 
 class BasePhotoGetSafeImageTest(TestCase):
+
     def setUp(self):
         self.photo = BasePhoto()
         self.photo.image = lambda _: _
@@ -80,18 +81,9 @@ class BasePhotoCachedDimensionsTest(AddAppMixin, TestCase):
         self.assertEqual(photo.thumbnail_image.height, photo.thumbnail_image_height)
         self.assertNotEqual(photo.thumbnail_image.height, 10)
 
-    def test_overriding_existing(self):
-        photo = MockPhotoFactory(image__size=10)
-        photo.thumbnail_image_height = 1000
-        photo.save(update_fields=['thumbnail_image_height'])
-        self.assertEqual(photo.thumbnail_image_height, 1000)
-
-        perform_transformation(photo)
-
-        self.assertNotEqual(photo.thumbnail_image_height, 1000)
-
 
 class ArtworkPhotoDimensionTest(TestCase):
+
     def setUp(self):
         self.photo = ArtworkPhoto()
 

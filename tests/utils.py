@@ -11,8 +11,13 @@ from django.core.management import call_command
 from django.db.models import loading
 
 
-def django_image(name, size=200, color='red'):
-    thumb = Image.new('RGB', (size, size,), color)
+def django_image(name, size=200, color='red', width=None, height=None):
+    if width and height:
+        dimensions = (width, height)
+    else:
+        dimensions = (size, size)
+
+    thumb = Image.new('RGB', dimensions, color)
 
     thumb_io = StringIO.StringIO()
     thumb.save(thumb_io, format='JPEG')

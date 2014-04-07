@@ -25,7 +25,7 @@ git+https://github.com/bretth/django-pq.git@ca16b4f76a910817898c465501ee34cf6c0b
 ##
 #Images
 ##
-django-simpleimages==1.1.1
+django-simpleimages==1.2.0
 
 ##
 #Templates

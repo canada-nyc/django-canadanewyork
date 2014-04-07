@@ -11,6 +11,7 @@ from .factories import MockPhotoFactory
 
 
 class BasePhotoGetSafeImageTest(TestCase):
+
     def setUp(self):
         self.photo = BasePhoto()
         self.photo.image = lambda _: _
@@ -22,7 +23,8 @@ class BasePhotoGetSafeImageTest(TestCase):
 
         self.photo.backup_image = 'backup image'
 
-        self.get_safe_image = lambda self: self.photo._get_safe_image('image', 'backup_image')
+        self.get_safe_image = lambda self: self.photo._get_safe_image(
+            'image', 'backup_image')
 
     def test_no_image_returns_backup_image(self):
         self.photo.image = False
@@ -70,28 +72,51 @@ class BasePhotoCachedDimensionsTest(AddAppMixin, TestCase):
     def test_dimension_fields_filled(self):
         photo = MockPhotoFactory(image__size=1000)
         self.assertTrue(photo.thumbnail_image)
-        self.assertEqual(photo.thumbnail_image.height, photo.thumbnail_image_height)
+        self.assertEqual(
+            photo.thumbnail_image.height,
+            photo.thumbnail_image_height)
 
     def test_dimensions_field_change(self):
         photo = MockPhotoFactory(image__size=10)
-        self.assertEqual(photo.thumbnail_image.height, photo.thumbnail_image_height, 10)
 
         photo.image.save('_.jpg', django_image('_.jpg', size=1000))
-        self.assertEqual(photo.thumbnail_image.height, photo.thumbnail_image_height)
+        self.assertEqual(
+            photo.thumbnail_image.height,
+            photo.thumbnail_image_height)
+        # make sure photo height is not the same as before, it should be larger
+        # now
         self.assertNotEqual(photo.thumbnail_image.height, 10)
 
-    def test_overriding_existing(self):
+    def test_unequal_dimensions(self):
         photo = MockPhotoFactory(image__size=10)
-        photo.thumbnail_image_height = 1000
-        photo.save(update_fields=['thumbnail_image_height'])
-        self.assertEqual(photo.thumbnail_image_height, 1000)
 
-        perform_transformation(photo)
+        photo.image.save('_.jpg', django_image('_.jpg', width=1, height=2))
+        self.assertEqual(
+            photo.thumbnail_image.height,
+            photo.thumbnail_image_height,
+            2)
+        self.assertEqual(
+            photo.thumbnail_image.width,
+            photo.thumbnail_image_width,
+            1)
 
-        self.assertNotEqual(photo.thumbnail_image_height, 1000)
+    def test_dimensions_saved_on_field(self):
+        photo = MockPhotoFactory(image__size=10)
+
+        photo.image.save('_.jpg', django_image('_.jpg', size=100))
+
+        photo = photo.__class__.objects.get(pk=photo.pk)
+        self.assertEqual(
+            photo.thumbnail_image.height,
+            photo.thumbnail_image_height)
+
+        # make sure photo height is not the same as before, it should be larger
+        # now
+        self.assertNotEqual(photo.thumbnail_image.height, 10)
 
 
 class ArtworkPhotoDimensionTest(TestCase):
+
     def setUp(self):
         self.photo = ArtworkPhoto()
 
@@ -139,6 +164,7 @@ class ArtworkPhotoDimensionTest(TestCase):
 
 
 class ArtworkPhotoFullCaptionTest(TestCase):
+
     def setUp(self):
         self.photo = ArtworkPhoto()
 

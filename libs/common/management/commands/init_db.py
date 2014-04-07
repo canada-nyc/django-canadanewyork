@@ -26,15 +26,9 @@ class Command(NoArgsCommand):
         call_command('migrate', interactive=False, verbosity=0)
         self.log('Adding super user')
         call_command(
-            'create_user_permissions',
+            'create_super_user',
             os.environ['ADMIN_USERNAME'],
-            os.environ['ADMIN_PASSWORD'],
-            'admin',
-            'contenttypes',
-            'url_tracker',
-            'sessions',
-            'auth'
-        )
+            os.environ['ADMIN_PASSWORD'])
         call_command('set_site')
         self.log('Loading contact fixture')
         call_command('loaddata', 'configs/fixtures/contact.json')

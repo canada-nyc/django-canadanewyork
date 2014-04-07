@@ -4,4 +4,4 @@ from libs.ckeditor.fields import CKEditorField
 
 
 class CKEditorModel(models.Model):
-    html = CKEditorField()
+    html = CKEditorField(blank=True)

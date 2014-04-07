@@ -30,7 +30,7 @@ class ExhibitionCurrent(TemplateView):
         try:
             custompage = CustomPage.objects.get(path__exact='/')
         except CustomPage.DoesNotExist:
-            context['extra_content'] = None
+            context['extra_content'] = ''
         else:
             context['extra_content'] = custompage.content.as_html
 

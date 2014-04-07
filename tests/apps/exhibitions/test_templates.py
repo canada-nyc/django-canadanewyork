@@ -211,6 +211,16 @@ class ExhibitionCurrentTest(WebTest):
 
         self.assertIn(Exhibition.extra_info, exhibition_current)
 
+    def test_no_extra_info(self):
+        'if there is no extra info, should not display'
+        ExhibitionFactory.create(extra_info='')
+        exhibition_current = self.app.get(
+            reverse('exhibition-current')
+        )
+
+        self.assertNotIn('none', exhibition_current)
+        self.assertNotIn('None', exhibition_current)
+
     def test_link_to_exhibition(self):
         Exhibition = ExhibitionFactory.create()
         exhibition_current = self.app.get(

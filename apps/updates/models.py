@@ -11,7 +11,7 @@ from libs.ckeditor.fields import CKEditorField
 
 class Update(url_tracker.URLTrackingMixin, models.Model):
     description = CKEditorField(blank=True)
-    post_date = models.DateField(auto_now_add=True)
+    post_date = models.DateField(verbose_name='Date')
 
     class Meta:
         ordering = ["-post_date"]

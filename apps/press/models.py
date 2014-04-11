@@ -66,7 +66,7 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
 
     @property
     def slug_title(self):
-        return '-'.join(map(str, self._slug_field_values))
+        return '-'.join(map(repr, self._slug_field_values))
 
     @property
     def date_year(self):

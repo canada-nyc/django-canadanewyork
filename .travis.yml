@@ -30,7 +30,7 @@ deploy:
   strategy: git
   app: canada-development
   api_key:
-    secure: KTw/uTcUc66zhxdbh6RwqEIeq4kHuSiy2RvF44f39Is1F0lR5Fs8U6mN2kfKOJjFl19tFHxmfc9JdJi+Z572Pit35rlS0q8dM6Ot1+qmj7cXJMZJfe2A5kB9AZyj1+df+w0vD3Bd0Dv/iyzUPUqR/YTXyMVGwvR/o+kQ3r1qWEc=
+    secure: y8OxeJGww8gnsiamNyE2/w+SNz1MAx4HLWwIaf2r2oUUQL7NdFYQor0JRnAFWkSBVwLtDWZP2eIKCXwyWi12ot7wM6bziUBGi7qBI1P3lIShe4U70eEkZ2VlkAdV5kbzHD0WkU/VPO0779VMr60MifymukfblARu1AF6yqRzXKY=
   on:
     all_branches: true
   run:

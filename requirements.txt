@@ -1,4 +1,4 @@
-Django==1.6.2
+Django==1.6.3
 South==0.8.4
 git+git://github.com/saulshanabrook/django-url-tracker@factor/testing
 futures==2.1.6
@@ -6,15 +6,15 @@ futures==2.1.6
 ##
 #Admin
 ##
-django-grappelli==2.5.2
+django-grappelli==2.5.3
 
 ##
 #Caching
 ##
 django-clear-cache==0.3
-django-redis==3.5.2
+django-redis==3.6.1
 django-heroku-memcacheify==0.5
-pylibmc==1.2.3
+pylibmc==1.3.0
 django-dumper==0.2.4
 
 ##
@@ -47,17 +47,17 @@ hg+https://bitbucket.org/david/django-storages@e27c8b61ab57e5afaf21cccfee005c980
 ##
 #Static
 ##
-whitenoise==0.13
+whitenoise==1.0.1
 
 ##
 #Logging
 ##
-raven==4.1.0
+raven==4.2.1
 
 ##
 #Tracing
 ##
-newrelic==2.16.0.12
+newrelic==2.18.1.15
 
 ##
 #Production

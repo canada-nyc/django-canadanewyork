@@ -1,5 +1,5 @@
 -r requirements-testing.txt
 
-django-debug-toolbar==1.0.1
+django-debug-toolbar==1.1
 django-devserver==0.7.0
 invoke==0.7.0

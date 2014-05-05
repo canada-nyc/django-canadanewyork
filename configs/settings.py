@@ -187,10 +187,10 @@ TEMPLATE_CONTEXT_PROCESSORS += (
     "django.core.context_processors.static",
 )
 
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = rel_path('tmp/static')
+STATIC_ROOT = rel_path('.static')
 
 # Media
 TEMPLATE_CONTEXT_PROCESSORS += (

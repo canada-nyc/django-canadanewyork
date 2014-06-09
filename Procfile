@@ -1,3 +1,3 @@
-web: python manage.py collectstatic --noinput; python manage.py runserver $PORT
+web: gunicorn -c configs/gunicorn.py wsgi:application
 worker: python manage.py pqworker
 

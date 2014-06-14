@@ -41,25 +41,25 @@ psycopg2==2.5.3
 ##
 #Storage
 ##
-boto==2.28.0
+boto==2.29.1
 hg+https://bitbucket.org/david/django-storages@e27c8b61ab57e5afaf21cccfee005c980d89480f
 
 ##
 #Static
 ##
-whitenoise==1.0.2
+whitenoise==1.0.3
 
 ##
 #Logging
 ##
-raven==4.2.1
+raven==5.0.0
 
 ##
 #Tracing
 ##
-newrelic==2.18.1.15
+newrelic==2.20.1.18
 
 ##
 #Production
 ##
-gunicorn==18.0
+gunicorn==19.0.0

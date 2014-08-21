@@ -139,7 +139,7 @@ class ExhibitionPressListTest(WebTest):
             href=reverse('press-detail', kwargs={'slug': Press.slug}),
         )
 
-    def test_content_file_link(self):
+    def test_content_link_still_links_to_get_absolue_url(self):
         Exhibition = ExhibitionFactory.create(press__n=1)
         Press = Exhibition.press.all()[0]
 
@@ -151,7 +151,7 @@ class ExhibitionPressListTest(WebTest):
         )
         exhibition_press_list.click(
             unicode(Press),
-            href=Press.content_file.url,
+            href=Press.get_absolute_url(),
         )
 
     def test_date_text(self):

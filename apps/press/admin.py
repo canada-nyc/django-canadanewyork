@@ -22,7 +22,7 @@ class PressAdmin(admin.ModelAdmin):
         }),
         ('Article', {
             'classes': ('full-width',),
-            'fields': ('content', 'content_file',)
+            'fields': ('content', 'content_file', 'content_link')
         }),
         ('Related to', {
             'fields': ('exhibition', 'artist')

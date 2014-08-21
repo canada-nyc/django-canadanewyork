@@ -26,6 +26,14 @@ class PressDetailTest(WebTest):
             href=re.escape(Press.content_file.url),
         )
 
+    def test_content_link_path(self):
+        Press = PressFactory(content_link='http://domain.com')
+        press_detail = self.app.get(Press.get_absolute_url())
+        print press_detail
+        press_detail.click(
+            href=re.escape(Press.content_link),
+        )
+
     def test_date_text(self):
         Press = PressFactory(content='_', date_text='some text')
         press_detail = self.app.get(Press.get_absolute_url())

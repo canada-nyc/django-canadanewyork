@@ -27,6 +27,7 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
 
     content = CKEditorField(blank=True)
     content_file = models.FileField(upload_to=file_path, blank=True, null=True, max_length=500)
+    content_link = models.URLField(blank=True)
 
     date = models.DateField(
         verbose_name='Precise Date',
@@ -79,12 +80,6 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
 
     def get_absolute_url(self):
         return reverse('press-detail', kwargs={'slug': self.slug})
-
-    def get_content_url(self):
-        if self.content_file:
-            return self.content_file.url
-        if self.content:
-            return self.get_absolute_url()
 
     def dependent_paths(self):
         yield self.get_absolute_url()

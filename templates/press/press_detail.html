@@ -8,6 +8,7 @@
     <h1>{% include "press/press_long_form.html" %}</h1>
   </header>
   {{ press.content.as_html }}
-  {% if press.content_file %}<a href="{{ press.content_file.url }}">View PDF of article</a>{% endif %}
+  {% if press.content_file %}<p><a target='_blank' href="{{ press.content_file.url }}">View PDF of article</a></p>{% endif %}
+  {% if press.content_link %}<p><a target='_blank' href="{{ press.content_link }}">View external link of article</a></p>{% endif %}
 </article>
 {% endblock body %}

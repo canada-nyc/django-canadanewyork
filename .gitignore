@@ -12,3 +12,4 @@
 /.venv
 /latest.dump
 .sass-cache/*
+.static/

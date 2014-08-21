@@ -1,5 +1,1 @@
-{% with url=object.get_content_url %}
-{% if url %}<a target='_blank' href="{{ url }}">{% include "press/press_long_form.html" %}</a>
-{% else %}{% include "press/press_long_form.html" %}
-{% endif %}
-{% endwith %}
+<a target='_blank' href="{{ object.get_absolute_url }}">{% include "press/press_long_form.html" %}</a>

@@ -155,7 +155,7 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
                 'slug': artist.slug})
         for press in self.press.all():
             yield press.get_absolute_url()
-        yield reverse('exhibition-pressrelease')
+        yield reverse('exhibition-pressrelease', kwargs={'slug': self.slug})
 
 
 class ExhibitionPhoto(ArtworkPhoto):

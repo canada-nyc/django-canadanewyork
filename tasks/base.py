@@ -1,6 +1,8 @@
 from distutils.util import strtobool
 from invoke.exceptions import ParseError
 
+from .utils import confirm
+
 
 def _resolve_app_label(ctx, app_label):
     '''
@@ -20,23 +22,6 @@ def _get_single_app(ctx, app_label):
             app_label,
             ' '.join(ctx['apps'].keys())
         ))
-
-
-def confirm(prompt='Continue?\n', failure_prompt='User cancelled task'):
-    '''
-    Prompt the user to continue. Repeat on unknown response. Raise
-    ParseError on negative response
-    '''
-    response = raw_input(prompt)
-
-    try:
-        response_bool = strtobool(response)
-    except ValueError:
-        print 'Unkown Response. Confirm with y, yes, t, true, on or 1; cancel with n, no, f, false, off or 0.'
-        confirm(prompt, failure_prompt)
-
-    if not response_bool:
-        raise ParseError(failure_prompt)
 
 
 def get_app(ctx, app_label, prompt_confirm=True):

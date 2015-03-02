@@ -1,6 +1,4 @@
 language: python
-install:
-- pip install -r requirements-testing.txt
 before_script:
 - psql -c 'create database django_canadanewyork;' -U postgres
 - python manage.py validate

@@ -21,9 +21,9 @@ class Command(NoArgsCommand):
         else:
             self.log('Found local storage')
             self.log('Deleting {}'.format(settings.MEDIA_ROOT))
-            call('rm -rf {}'.format(settings.MEDIA_ROOT), shell=True)
+            call('rm -rf {}/*'.format(settings.MEDIA_ROOT), shell=True)
             self.log('Deleting {}'.format(settings.STATIC_ROOT))
-            call('rm -rf {}'.format(settings.STATIC_ROOT), shell=True)
+            call('rm -rf {}/*'.format(settings.STATIC_ROOT), shell=True)
 
     def log(self, string):
         self.stdout.write(string + '\n')

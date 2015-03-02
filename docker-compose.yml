@@ -1,0 +1,52 @@
+web:
+  build: .
+  volumes:
+  ports:
+    - "8000:8000"
+  links:
+    - db
+  env_file:
+    - configs/env/common.env
+    - configs/env/local.env
+    - configs/env/secret.env
+  volumes:
+    - apps:/app/apps/
+    - configs:/app/configs/
+    - libs:/app/libs/
+    - static:/app/static/
+    - tasks:/app/tasks/
+    - templates:/app/templates/
+    - tests:/app/tests/
+  volumes_from:
+    - static
+    - media
+  environment:
+    PORT: 8000
+
+static:
+  image: tianon/true
+  volumes:
+    - /app/tmp/static
+media:
+  image: tianon/true
+  volumes:
+    - /app/tmp/media
+
+worker:
+  build: .
+  command: start worker
+  env_file:
+    - configs/env/common.env
+    - configs/env/local.env
+    - configs/env/secret.env
+  links:
+    - db
+
+db:
+  image: postgres
+  volumes_from:
+    - dbdata
+dbdata:
+  image: tianon/true
+  volumes:
+    - /var/lib/postgresql/data

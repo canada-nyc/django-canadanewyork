@@ -3,7 +3,7 @@ from invoke.exceptions import ParseError
 
 from .base import get_app
 from .apps import manage
-from .reset import cache as reset_cache, storage as reset_storage
+from .reset import cache as reset_cache
 from .clone import code as clone_code
 
 

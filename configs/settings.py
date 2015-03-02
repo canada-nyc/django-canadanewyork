@@ -190,7 +190,7 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = rel_path('.static')
+STATIC_ROOT = rel_path('tmp/static')
 
 # Media
 TEMPLATE_CONTEXT_PROCESSORS += (

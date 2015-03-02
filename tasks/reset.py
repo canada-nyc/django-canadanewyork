@@ -1,7 +1,7 @@
-from invoke import Collection, ctask as task, exceptions
+from invoke import Collection, ctask as task
 
 from .base import get_app
-from .apps import manage
+from .apps import manage, start_if_local
 
 
 @task()
@@ -15,20 +15,12 @@ def _wipe_database(ctx, app_label=None, recreate_local=True):
     app = get_app(ctx, app_label)
 
     if app['type'] == 'local':
-        database_name = manage(
-            ctx, 'database_name', app_label, hide='out').stdout
-        # Don't fail if this comand exits because the database does not
-        # existerror
-        dropdb = ctx.run('dropdb ' + database_name, warn=True, hide='err', pty=True)
-        database_does_not_exist = 'database "{}" does not exist'.format(
-            database_name)
-        failed_because_database_does_not_exist = database_does_not_exist in dropdb.stderr
-        if not dropdb.ok and not failed_because_database_does_not_exist:
-            raise exceptions.Failure(dropdb)
-
-        if recreate_local:
-            print 'Creating local database'
-            ctx.run('createdb ' + database_name)
+        # have to stop web as well, so it is relinked
+        ctx.run('docker-compose stop db web')
+        ctx.run('docker-compose rm --force db')
+        if not recreate_local:
+            print 'Removing auto-created local database'
+            ctx.run("docker-compose run db bash -c 'dropdb postgres --host=$DB_1_PORT_5432_TCP_ADDR --user=postgres'")
     elif app['type'] == 'heroku':
         ctx.run('heroku pg:reset DATABASE_URL -a {0} --confirm {0}'.format(
             app['name']
@@ -93,9 +85,9 @@ def all(ctx, app_label, test_data=True):
     Resets The database, cache, and storage.
     '''
     print 'Resetting All'
+    database(ctx, app_label, test_data)
     cache(ctx, app_label)
     storage(ctx, app_label)
-    database(ctx, app_label, test_data)
 
 
 namespace = Collection(database, cache, storage, all, images)

@@ -1,5 +1,6 @@
 [![Stories in Ready](https://badge.waffle.io/saulshanabrook/django-canadanewyork.png?label=ready&title=Ready)](https://waffle.io/saulshanabrook/django-canadanewyork)
 [![Build Status](https://next.travis-ci.org/saulshanabrook/django-canadanewyork.png?branch=production)](https://next.travis-ci.org/saulshanabrook/django-canadanewyork)
+[![Code Health](https://landscape.io/github/saulshanabrook/django-canadanewyork/master/landscape.svg?style=flat)](https://landscape.io/github/saulshanabrook/django-canadanewyork/master)
 [![Requirements Status](https://requires.io/github/saulshanabrook/django-canadanewyork/requirements.png?branch=master)](https://requires.io/github/saulshanabrook/django-canadanewyork/requirements/?branch=master)
 
 

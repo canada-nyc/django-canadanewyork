@@ -63,3 +63,17 @@ newrelic==2.20.1.18
 #Production
 ##
 gunicorn==19.0.0
+
+
+##
+#Development
+##
+django-debug-toolbar==1.2.1
+django-devserver==0.8.0
+
+##
+#Testing
+##
+factory_boy==2.3.1
+django-webtest==1.7.7
+WebTest==2.0.15

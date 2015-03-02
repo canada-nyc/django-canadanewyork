@@ -2,6 +2,7 @@
 [![Build Status](https://next.travis-ci.org/saulshanabrook/django-canadanewyork.png?branch=production)](https://next.travis-ci.org/saulshanabrook/django-canadanewyork)
 [![Code Health](https://landscape.io/github/saulshanabrook/django-canadanewyork/master/landscape.svg?style=flat)](https://landscape.io/github/saulshanabrook/django-canadanewyork/master)
 [![Requirements Status](https://requires.io/github/saulshanabrook/django-canadanewyork/requirements.png?branch=master)](https://requires.io/github/saulshanabrook/django-canadanewyork/requirements/?branch=master)
+[![Dependency Status](https://gemnasium.com/saulshanabrook/django-canadanewyork.svg)](https://gemnasium.com/saulshanabrook/django-canadanewyork)
 
 
 # Depedencies

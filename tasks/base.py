@@ -1,4 +1,3 @@
-from distutils.util import strtobool
 from invoke.exceptions import ParseError
 
 from .utils import confirm

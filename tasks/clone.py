@@ -17,10 +17,8 @@ def database(ctx, source_label=None, destination_label=None):
     _wipe_database(ctx, destination_label, recreate_local=False)
 
     if 'local' in [source['type'], destination['type']]:
-        local_database_name = ctx.run(
-            'foreman run python manage.py database_name',
-            hide='out'
-        ).stdout
+
+        local_database_name = manage(ctx, 'database_name', 'local', hide='out')
         if source['type'] == 'local':
             pg_command = 'push'
             heroku_app_name = destination['name']

@@ -1,6 +1,8 @@
 {
   "name":"canada-development",
-  "scripts":{},
+  "scripts":{
+    "postdeploy": "python manage.py init_db"
+  },
   "env":{
     "ADMIN_EMAIL":{
       "required":true

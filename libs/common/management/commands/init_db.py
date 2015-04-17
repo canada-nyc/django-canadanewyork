@@ -1,7 +1,7 @@
 import os
 from optparse import make_option
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import NoArgsCommand, CommandError
 from django.core.management import call_command
 
 
@@ -19,7 +19,10 @@ class Command(NoArgsCommand):
 
     def handle(self, *args, **options):
         self.log('Adding cache table')
-        call_command('createcachetable', 'cache', interactive=False, verbosity=0)
+        try:
+            call_command('createcachetable', 'cache', interactive=False, verbosity=0)
+        except CommandError:
+            self.log('Table already created')
         self.log('Initial sync')
         call_command('syncdb', interactive=False, verbosity=0)
         self.log('Initial migrate')

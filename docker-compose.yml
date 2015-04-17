@@ -17,6 +17,9 @@ web:
     - tasks:/app/tasks/
     - templates:/app/templates/
     - tests:/app/tests/
+    - Procfile:/app/Procfile
+    - manage.py:/app/manage.py
+    - wsgi.py:/app/wsgi.py
   volumes_from:
     - static
     - media
@@ -24,13 +27,13 @@ web:
     PORT: 8000
 
 static:
-  image: tianon/true
+  image: cogniteev/echo
   volumes:
-    - /app/tmp/static
+    - /app/.static
 media:
-  image: tianon/true
+  image: cogniteev/echo
   volumes:
-    - /app/tmp/media
+    - /app/.media
 
 worker:
   build: .
@@ -41,12 +44,14 @@ worker:
     - configs/env/secret.env
   links:
     - db
-
+  volumes_from:
+    - static
+    - media
 db:
   image: postgres
   volumes_from:
     - dbdata
 dbdata:
-  image: tianon/true
+  image: cogniteev/echo
   volumes:
     - /var/lib/postgresql/data

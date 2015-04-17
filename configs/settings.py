@@ -190,7 +190,7 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = rel_path('tmp/static')
+STATIC_ROOT = rel_path('.static')
 
 # Media
 TEMPLATE_CONTEXT_PROCESSORS += (
@@ -199,21 +199,27 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 
 _storage_backend = get_env_variable(
     'CANADA_STORAGE',
-    possible_options=['local', 's3']
+    possible_options=['local', 's3', 'planter']
 )
 if _storage_backend == 'local':
     MEDIA_URL = '/media/'
-    MEDIA_ROOT = rel_path('tmp/media')
+    MEDIA_ROOT = rel_path('.media')
 
-elif _storage_backend == 's3':
+else:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
     INSTALLED_APPS += (
         'storages',
     )
-    AWS_ACCESS_KEY_ID = get_env_variable('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = get_env_variable('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = get_env_variable('AWS_BUCKET')
+    if _storage_backend == 's3':
+        AWS_ACCESS_KEY_ID = get_env_variable('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = get_env_variable('AWS_SECRET_ACCESS_KEY')
+        AWS_STORAGE_BUCKET_NAME = get_env_variable('AWS_BUCKET')
+    else:
+        AWS_ACCESS_KEY_ID = get_env_variable('PLANTER_S3_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = get_env_variable('PLANTER_S3_SECRET_ACCESS_KEY')
+        AWS_STORAGE_BUCKET_NAME = get_env_variable('PLANTER_BUCKET_NAME')
+
     AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME
     _year_in_future = datetime.utcnow() + timedelta(days=365)
     AWS_HEADERS = {
@@ -339,7 +345,7 @@ if get_env_variable('CANADA_DEBUG_TOOLBAR'):
 ###########
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
+    'disable_existing_loggers': False,
     'formatters': {
         'simple': {
             'format': '%(name)s %(levelname)s %(message)s'
@@ -357,18 +363,9 @@ LOGGING = {
     },
     'root': {
         'handlers': ['console', ],
-        'level': 'WARNING'
+        'level': 'DEBUG'
     },
 }
-
-
-# Get all the existing loggers
-existing = logging.root.manager.loggerDict.keys()
-
-# Set them explicitly to a blank value so that they are overidden
-# and propogate to the root logger
-for logger in existing:
-    LOGGING['loggers'][logger] = {}
 
 if get_env_variable('CANADA_DUMPER_LOG'):
     LOGGING['loggers']['dumper'] = {

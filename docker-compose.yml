@@ -47,6 +47,6 @@ db:
   volumes_from:
     - dbdata
 dbdata:
-  image: tianon/true
+  image: cogniteev/echo
   volumes:
     - /var/lib/postgresql/data

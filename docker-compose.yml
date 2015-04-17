@@ -24,11 +24,11 @@ web:
     PORT: 8000
 
 static:
-  image: tianon/true
+  image: cogniteev/echo
   volumes:
     - /app/tmp/static
 media:
-  image: tianon/true
+  image: cogniteev/echo
   volumes:
     - /app/tmp/media
 

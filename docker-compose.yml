@@ -17,6 +17,9 @@ web:
     - tasks:/app/tasks/
     - templates:/app/templates/
     - tests:/app/tests/
+    - Procfile:/app/Procfile
+    - manage.py:/app/manage.py
+    - wsgi.py:/app/wsgi.py
   volumes_from:
     - static
     - media

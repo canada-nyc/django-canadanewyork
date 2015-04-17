@@ -190,7 +190,7 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = rel_path('tmp/static')
+STATIC_ROOT = rel_path('.static')
 
 # Media
 TEMPLATE_CONTEXT_PROCESSORS += (
@@ -203,7 +203,7 @@ _storage_backend = get_env_variable(
 )
 if _storage_backend == 'local':
     MEDIA_URL = '/media/'
-    MEDIA_ROOT = rel_path('tmp/media')
+    MEDIA_ROOT = rel_path('.media')
 
 else:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'

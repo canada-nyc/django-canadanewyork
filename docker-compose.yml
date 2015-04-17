@@ -29,11 +29,11 @@ web:
 static:
   image: cogniteev/echo
   volumes:
-    - /app/tmp/static
+    - /app/.static
 media:
   image: cogniteev/echo
   volumes:
-    - /app/tmp/media
+    - /app/.media
 
 worker:
   build: .
@@ -44,7 +44,6 @@ worker:
     - configs/env/secret.env
   links:
     - db
-
   volumes_from:
     - static
     - media

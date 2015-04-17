@@ -211,9 +211,14 @@ elif _storage_backend == 's3':
     INSTALLED_APPS += (
         'storages',
     )
-    AWS_ACCESS_KEY_ID = get_env_variable('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = get_env_variable('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = get_env_variable('AWS_BUCKET')
+    if _storage_backend == 's3':
+        AWS_ACCESS_KEY_ID = get_env_variable('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = get_env_variable('AWS_SECRET_ACCESS_KEY')
+        AWS_STORAGE_BUCKET_NAME = get_env_variable('AWS_BUCKET')
+    else:
+        AWS_ACCESS_KEY_ID = get_env_variable('PLANTER_S3_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = get_env_variable('PLANTER_S3_SECRET_ACCESS_KEY')
+        AWS_STORAGE_BUCKET_NAME = get_env_variable('PLANTER_BUCKET_NAME')
     AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME
     _year_in_future = datetime.utcnow() + timedelta(days=365)
     AWS_HEADERS = {

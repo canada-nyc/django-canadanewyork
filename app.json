@@ -1,79 +1,62 @@
 {
-  "name":"canada-development",
-  "scripts":{
-    "postdeploy": "python manage.py init_db"
+  "name": "canada-development",
+  "scripts": {
+    "postdeploy": "python manage.py init_db --init; python manage.py collectstatic --noinput"
   },
-  "env":{
-    "ADMIN_EMAIL":{
-      "required":true
+  "env": {
+    "ADMIN_PASSWORD": {
+      "generator": "secret"
     },
-    "AWS_ACCESS_KEY_ID":{
-      "required":true
+    "ADMIN_USERNAME": {
+      "required": true
     },
-    "ADMIN_PASSWORD":{
-      "required":true
+    "DJANGO_SETTINGS_MODULE": {
+      "required": true
     },
-    "BUILDPACK_URL":{
-      "required":true
+    "SECRET_KEY": {
+      "generator": "secret"
     },
-    "AWS_BUCKET":{
-      "required":true
+    "CANADA_CACHE_TEMPLATES": {
+      "required": true
     },
-    "DJANGO_SETTINGS_MODULE":{
-      "required":true
+    "CANADA_DEBUG": {
+      "required": true
     },
-    "SECRET_KEY":{
-      "generator":"secret"
+    "CANADA_STORAGE": "s3",
+    "AWS_ACCESS_KEY_ID": {
+      "required": true
     },
-    "ADMIN_USERNAME":{
-      "required":true
+    "AWS_SECRET_ACCESS_KEY": {
+      "required": true
     },
-    "CANADA_CACHE_TEMPLATES":{
-      "required":true
+    "AWS_BUCKET": {
+      "required": true
     },
-    "CANADA_TESTRUNNER":{
-      "required":true
+    "CANADA_CACHE": {
+      "required": true
     },
-    "CANADA_DEBUG":{
-      "required":true
+    "CANADA_SENTRY": {
+      "required": true
     },
-    "CANADA_STORAGE":{
-      "required":true
+    "CANADA_ALLOWED_HOST": "*",
+    "CANADA_DEBUG_TOOLBAR": {
+      "required": true
     },
-    "CANADA_CONSOLE_LOGGING_LEVEL":{
-      "required":true
+    "CANADA_DEVSERVER": {
+      "required": true
     },
-    "CANADA_CACHE":{
-      "required":true
+    "CANADA_QUEUE_ASYNC": {
+      "required": true
     },
-    "CANADA_SENTRY":{
-      "required":true
+    "CANADA_DUMPER_LOG": {
+      "required": true
     },
-    "CANADA_ALLOWED_HOST":"*.herokuapp.com",
-    "CANADA_DEBUG_TOOLBAR":{
-      "required":true
-    },
-    "CANADA_DEVSERVER":{
-      "required":true
-    },
-    "CANADA_QUEUE_ASYNC":{
-      "required":true
-    },
-    "GUNICORN_WORKERS":{
-      "required":true
-    },
-    "CANADA_DUMPER_LOG":{
-      "required":true
-    },
-    "CANADA_IMAGE_DIMENSION_FIELDS":{
-      "required":true
+    "CANADA_IMAGE_DIMENSION_FIELDS": {
+      "required": true
     }
   },
-  "addons":[
-    "deployhooks:http",
+  "addons": [
     "newrelic:stark",
-    "librato:development",
-    "pgbackups:auto-month",
     "heroku-postgresql:dev"
   ]
 }

@@ -47,7 +47,7 @@ hg+https://bitbucket.org/david/django-storages@e27c8b61ab57e5afaf21cccfee005c980
 ##
 #Static
 ##
-whitenoise==1.0.3
+whitenoise==1.0.6
 
 ##
 #Logging
@@ -57,12 +57,12 @@ raven==5.0.0
 ##
 #Tracing
 ##
-newrelic==2.20.1.18
+newrelic==2.44.0.36
 
 ##
 #Production
 ##
-gunicorn==19.0.0
+gunicorn==19.2.1
 
 
 ##

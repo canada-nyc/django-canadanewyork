@@ -199,13 +199,13 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 
 _storage_backend = get_env_variable(
     'CANADA_STORAGE',
-    possible_options=['local', 's3']
+    possible_options=['local', 's3', 'planter']
 )
 if _storage_backend == 'local':
     MEDIA_URL = '/media/'
     MEDIA_ROOT = rel_path('tmp/media')
 
-elif _storage_backend == 's3':
+else:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
     INSTALLED_APPS += (

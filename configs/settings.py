@@ -219,6 +219,7 @@ else:
         AWS_ACCESS_KEY_ID = get_env_variable('PLANTER_S3_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = get_env_variable('PLANTER_S3_SECRET_ACCESS_KEY')
         AWS_STORAGE_BUCKET_NAME = get_env_variable('PLANTER_BUCKET_NAME')
+
     AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME
     _year_in_future = datetime.utcnow() + timedelta(days=365)
     AWS_HEADERS = {
@@ -344,7 +345,7 @@ if get_env_variable('CANADA_DEBUG_TOOLBAR'):
 ###########
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
+    'disable_existing_loggers': False,
     'formatters': {
         'simple': {
             'format': '%(name)s %(levelname)s %(message)s'
@@ -362,18 +363,9 @@ LOGGING = {
     },
     'root': {
         'handlers': ['console', ],
-        'level': 'WARNING'
+        'level': 'DEBUG'
     },
 }
-
-
-# Get all the existing loggers
-existing = logging.root.manager.loggerDict.keys()
-
-# Set them explicitly to a blank value so that they are overidden
-# and propogate to the root logger
-for logger in existing:
-    LOGGING['loggers'][logger] = {}
 
 if get_env_variable('CANADA_DUMPER_LOG'):
     LOGGING['loggers']['dumper'] = {

@@ -1,7 +1,7 @@
-Django==1.8
+Django==1.8.1
 South==1.0.2
 git+git://github.com/saulshanabrook/django-url-tracker@factor/testing
-futures==2.2.0
+futures==3.0.2
 
 ##
 #Admin
@@ -12,7 +12,7 @@ django-grappelli==2.6.4
 #Caching
 ##
 django-clear-cache==0.3
-django-redis==3.8.3
+django-redis==4.0.0
 django-heroku-memcacheify==0.8
 pylibmc==1.4.2
 django-dumper==0.2.5
@@ -52,7 +52,7 @@ whitenoise==1.0.6
 ##
 #Logging
 ##
-raven==5.2.0
+raven==5.3.1
 
 ##
 #Tracing
@@ -74,6 +74,6 @@ django-devserver==0.8.0
 ##
 #Testing
 ##
-factory-boy==2.5.1
-django-webtest==1.7.7
+factory-boy==2.5.2
+django-webtest==1.7.8
 WebTest==2.0.18

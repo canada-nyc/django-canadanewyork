@@ -1,4 +1,4 @@
-Django==1.8.1
+Django==1.8.2
 South==1.0.2
 git+git://github.com/saulshanabrook/django-url-tracker@factor/testing
 futures==3.0.2
@@ -6,7 +6,7 @@ futures==3.0.2
 ##
 #Admin
 ##
-django-grappelli==2.6.4
+django-grappelli==2.6.5
 
 ##
 #Caching
@@ -14,7 +14,7 @@ django-grappelli==2.6.4
 django-clear-cache==0.3
 django-redis==4.0.0
 django-heroku-memcacheify==0.8
-pylibmc==1.4.2
+pylibmc==1.4.3
 django-dumper==0.2.5
 
 ##

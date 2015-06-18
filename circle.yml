@@ -2,6 +2,7 @@ dependencies:
   override:
     - pip install -U docker-compose
     - echo SECRET_KEY=_ > configs/env/secret.env
+    - docker-compose pull
 machine:
   services:
     - docker

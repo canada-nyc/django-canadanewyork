@@ -1,0 +1,9 @@
+dependencies:
+  pre:
+    - pip install -U docker-compose
+machine:
+  services:
+    - docker
+test:
+  override:
+    - docker-compose run -e SECRET_KEY=_ web python manage.py test

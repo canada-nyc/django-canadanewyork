@@ -140,7 +140,8 @@ TEMPLATE_CONTEXT_PROCESSORS += ('sekizai.context_processors.sekizai',)
 # IMAGES #
 ##########
 INSTALLED_APPS += ('simpleimages',)
-SIMPLEIMAGES_TRANSFORM_CALLER = 'configs.queues.enqueue'
+if get_env_variable('CANADA_QUEUE_ASYNC'):
+    SIMPLEIMAGES_TRANSFORM_CALLER = 'configs.queues.enqueue'
 CANADA_IMAGE_DIMENSION_FIELDS = get_env_variable('CANADA_IMAGE_DIMENSION_FIELDS')
 
 ###########

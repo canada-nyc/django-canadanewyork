@@ -8,5 +8,5 @@ machine:
     - docker
 test:
   override:
-    - docker-compose run web python manage.py collectstatic
+    - docker-compose run web python manage.py --noinput collectstatic
     - docker-compose run web python manage.py test

@@ -74,9 +74,10 @@ class Book(models.Model):
         )
 
     def dependent_paths(self):
+        yield reverse('book-list')
+        yield self.get_absolute_url()
         if self.artist:
             yield self.artist.get_absolute_url()
             yield reverse('artist-book-list', kwargs={'slug': self.artist.slug})
-            yield reverse('book-list')
 
 dumper.register(Book)

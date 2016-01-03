@@ -4,6 +4,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from libs.ckeditor.fields import CKEditorField
+from libs.slugify.fields import SlugifyField
 import dumper
 
 from ..artists.models import Artist
@@ -25,8 +26,14 @@ class Book(models.Model):
         help_text="If set, will display <strong>instead of</strong> the precise date."
     )
 
+    slug = SlugifyField(
+        populate_from=('artist', 'title',),
+        unique=True
+    )
+
     class Meta:
         ordering = ['-date']
+        unique_together = ['artist', 'title']
 
     def __str__(self):
         return self.title
@@ -35,7 +42,7 @@ class Book(models.Model):
         self.title = self.title.strip().title()
 
     def get_absolute_url(self):
-        return reverse('book-detail', kwargs={'pk': self.pk})
+        return reverse('book-detail', kwargs={'slug': self.slug})
 
     @property
     def link_email(self):

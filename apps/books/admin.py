@@ -4,10 +4,6 @@ from django.contrib import admin
 from .models import Book
 
 
-class BookInline(admin.TabularInline):
-    model = Book
-
-
 class BookAdmin(admin.ModelAdmin):
     list_display = ('title', 'date', 'date_text')
     list_filter = ('artist',)

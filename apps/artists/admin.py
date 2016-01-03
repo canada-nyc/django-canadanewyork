@@ -1,7 +1,6 @@
 from django.contrib import admin
 
 from apps.photos.admin import PhotoInline
-from apps.books.admin import BookInline
 
 from .models import Artist, ArtistPhoto
 
@@ -21,7 +20,7 @@ class ArtistPhotoInline(PhotoInline):
 
 
 class ArtistAdmin(admin.ModelAdmin):
-    inlines = [ArtistPhotoInline, BookInline]
+    inlines = [ArtistPhotoInline]
     readonly_fields = ('slug',)
     fieldsets = [
         (None, {

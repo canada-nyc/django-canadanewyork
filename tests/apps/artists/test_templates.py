@@ -1,7 +1,5 @@
 import re
 
-from webtest.app import AppError
-
 from django.core.urlresolvers import reverse
 from django.core.files.base import ContentFile
 
@@ -235,17 +233,14 @@ class ArtistBookListTest(WebTest):
             href=Artist.get_absolute_url()
         )
 
-    def test_email_link(self):
+    def test_link(self):
         Artist = ArtistFactory.create(books__n=1)
         Book = Artist.books.all()[0]
         artist_book_list = self.app.get(
             reverse('artist-book-list', kwargs={'slug': Artist.slug})
         )
 
-        # will raise AppError when hits 404, because index link is not a real
-        # page, but a mailto link
-        with self.assertRaises(AppError):
-            artist_book_list.click(
-                str(Book),
-                href=re.escape(Book.get_purchase_url()),
-            )
+        artist_book_list.click(
+            Book.title,
+            href=Book.get_absolute_url(),
+        )

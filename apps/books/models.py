@@ -32,6 +32,9 @@ class Book(models.Model):
     def clean(self):
         self.title = self.title.strip().title()
 
+    def get_absolute_url(self):
+        return reverse('book-detail', kwargs={'pk': self.pk})
+
     @property
     def link_email(self):
         return 'gallery@canadanewyork.com'

@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models import Q
 from django.apps import apps
 from django.core.urlresolvers import reverse
+from django.utils.html import format_html
 
 import url_tracker
 import dumper
@@ -92,6 +93,16 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
         yield reverse('artist-exhibition-list', kwargs={'slug': self.slug})
         for exhibition in self.exhibitions.all():
             yield exhibition.get_absolute_url()
+
+    @property
+    def link_if_visible(self):
+        if self.visible:
+            return format_html(
+                '<a href="{}">{}</a>',
+                self.get_absolute_url(),
+                self,
+            )
+        return str(self)
 
 
 class ArtistPhoto(ArtworkPhoto):

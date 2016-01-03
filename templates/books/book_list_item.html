@@ -1,4 +1,4 @@
-<a href="{{ object.get_purchase_url|safe }}">
-{{ object.artist }} "{{ object.title }}."
-{% if object.date_text %}{{ object.date_text }}{% else %}{% include "base/full_date.html" with date=object.date year=True %}{% endif %}
+<a href="{{ object.get_absolute_url }}">
+<em>{{ object.artist }}</em><br />
+{{ object.title}}
 </a>

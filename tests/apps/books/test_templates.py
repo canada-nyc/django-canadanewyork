@@ -15,14 +15,13 @@ class BookListTest(WebTest):
             reverse('book-list')
         )
 
-    def test_no_nav_click(self):
+    def test_nav_click(self):
         book_list = self.app.get(
             reverse('book-list')
         )
-        with self.assertRaises(IndexError):
-            book_list.click(
-                'Books',
-            )
+        book_list.click(
+            'Books',
+        )
 
     def test_link(self):
         Book = BookFactory.create()

@@ -9,7 +9,6 @@
     <p>{{ book.artist.link_if_visible}}</p>
     <p>{% if object.date_text %}{{ object.date_text }}{% else %}{% include "base/full_date.html" with date=object.date year=True %}{% endif %}</p>
   </header>
-  <hr>
   <aside>
     <ul class="related-links">
       <li>

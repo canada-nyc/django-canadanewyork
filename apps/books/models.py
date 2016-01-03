@@ -3,9 +3,13 @@ import urllib.parse
 from django.db import models
 from django.core.urlresolvers import reverse
 
+import dumper
+import simpleimages.trackers
+
 from libs.ckeditor.fields import CKEditorField
 from libs.slugify.fields import SlugifyField
-import dumper
+from apps.photos.models import BasePhoto
+
 
 from ..artists.models import Artist
 
@@ -80,4 +84,11 @@ class Book(models.Model):
             yield self.artist.get_absolute_url()
             yield reverse('artist-book-list', kwargs={'slug': self.artist.slug})
 
+
+class BookPhoto(BasePhoto):
+    content_object = models.ForeignKey(Book, related_name='photos')
+
+
 dumper.register(Book)
+dumper.register(BookPhoto)
+simpleimages.trackers.track_model(BookPhoto)

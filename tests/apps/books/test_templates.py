@@ -80,3 +80,6 @@ class BookDetailTest(WebTest):
                 'Buy',
                 href=re.escape(self.book.get_purchase_url())
             )
+
+    def test_description(self):
+        assert self.book.description in self.book_detail

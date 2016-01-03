@@ -13,4 +13,6 @@ class BookFactory(factory.DjangoModelFactory):
     title = factory.Sequence(lambda n: 'title{}'.format(n))
     date = utils.FuzzyDate()
 
+    description = factory.Faker('text')
+
     artist = factory.SubFactory(ArtistFactory)

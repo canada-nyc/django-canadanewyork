@@ -3,6 +3,7 @@ import urllib.parse
 from django.db import models
 from django.core.urlresolvers import reverse
 
+from libs.ckeditor.fields import CKEditorField
 import dumper
 
 from ..artists.models import Artist
@@ -11,6 +12,7 @@ from ..artists.models import Artist
 class Book(models.Model):
     title = models.CharField(max_length=500)
     artist = models.ForeignKey(Artist, related_name='books')
+    description = CKEditorField(blank=True)
 
     date = models.DateField(
         verbose_name='Precise Date',

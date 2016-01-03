@@ -11,8 +11,9 @@ class BookAdmin(admin.ModelAdmin):
 
     fields = (
         'title',
+        'artist',
         ('date', 'date_text'),
-        'artist'
+        'description',
     )
 
     form = autocomplete_light.modelform_factory(Book, fields='__all__')

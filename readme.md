@@ -44,6 +44,8 @@ To run the tests:
 docker-compose --x-networking up -d db
 docker-compose --x-networking run --rm web python manage.py collectstatic --noinput
 docker-compose --x-networking run --rm -e CANADA_QUEUE_ASYNC=False web py.test
+# or to run continiously use looponfail:
+docker-compose --x-networking run --rm -e CANADA_QUEUE_ASYNC=False web py.test -f
 ```
 
 To make all migrations:

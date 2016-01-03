@@ -1,57 +1,26 @@
 web:
-  build: .
-  volumes:
+  extends:
+    file: docker-compose.base.yml
+    service: app
+  volumes_from:
+    - data
   ports:
     - "8000:8000"
-  links:
-    - db
-  env_file:
-    - configs/env/common.env
-    - configs/env/local.env
-    - configs/env/secret.env
-  volumes:
-    - apps:/app/apps/
-    - configs:/app/configs/
-    - libs:/app/libs/
-    - static:/app/static/
-    - tasks:/app/tasks/
-    - templates:/app/templates/
-    - tests:/app/tests/
-    - Procfile:/app/Procfile
-    - manage.py:/app/manage.py
-    - wsgi.py:/app/wsgi.py
-  volumes_from:
-    - static
-    - media
-  environment:
-    PORT: 8000
-
-static:
-  image: cogniteev/echo
-  volumes:
-    - /app/.static
-media:
-  image: cogniteev/echo
-  volumes:
-    - /app/.media
-
 worker:
-  build: .
-  command: start worker
-  env_file:
-    - configs/env/common.env
-    - configs/env/local.env
-    - configs/env/secret.env
-  links:
-    - db
+  extends:
+    file: docker-compose.base.yml
+    service: app
   volumes_from:
-    - static
-    - media
+    - data
+  command: ["/start", "worker"]
 db:
   image: postgres
-  volumes_from:
-    - dbdata
-dbdata:
-  image: cogniteev/echo
+data:
+  # must use same image for data, to avoid permission problems
+  # http://container42.com/2014/11/18/data-only-container-madness/
+  build: .
+  entrypoint: ["true"]
+  command: []
   volumes:
-    - /var/lib/postgresql/data
+    - /app/.media
+    - /app/.static

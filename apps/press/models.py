@@ -16,10 +16,11 @@ from libs.ckeditor.fields import CKEditorField
 SLUG_FIELD_NAMES = ("publisher", "title", "artist", "exhibition")
 
 
-class Press(url_tracker.URLTrackingMixin, models.Model):
-    def file_path(instance, filename):
-        return os.path.join(instance.get_absolute_url()[1:], 'content', filename)
+def file_path(instance, filename):
+    return os.path.join(instance.get_absolute_url()[1:], 'content', filename)
 
+
+class Press(url_tracker.URLTrackingMixin, models.Model):
     title = models.CharField(
         max_length=500,
         blank=True,
@@ -49,7 +50,7 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
 
     slug = SlugifyField(
         populate_from=('date_year', 'slug_title',),
-        slug_template=u'{}/{}',
+        slug_template='{}/{}',
         unique=True
     )
 
@@ -58,7 +59,7 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
         verbose_name_plural = "press"
         unique_together = SLUG_FIELD_NAMES
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def clean(self):
@@ -76,7 +77,7 @@ class Press(url_tracker.URLTrackingMixin, models.Model):
     @property
     def _slug_field_values(self):
         values = [getattr(self, field_name) for field_name in SLUG_FIELD_NAMES]
-        return filter(None, values)
+        return [_f for _f in values if _f]
 
     def get_absolute_url(self):
         return reverse('press-detail', kwargs={'slug': self.slug})

@@ -1,14 +1,15 @@
 from django.contrib import admin
 
-from apps.photos.admin import photo_inline
+from apps.photos.admin import PhotoInline
 from .models import Update, UpdatePhoto
 
 
-class UpdatePhotoInline(photo_inline(UpdatePhoto)):
+class UpdatePhotoInline(PhotoInline):
+    model = UpdatePhoto
     fields = (
-        ('image', "position"),
-        'title',
-        'caption',
+        "position",
+        'image',
+        ('title', 'caption'),
     )
 
 

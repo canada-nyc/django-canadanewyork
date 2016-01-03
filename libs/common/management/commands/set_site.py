@@ -16,7 +16,7 @@ class Command(BaseCommand):
             raise CommandError('set_site must be called with 0 or 1 arguments')
 
         if int(options['verbosity']):
-            print 'Settings site to {}'.format(site_name)
+            self.stdout.write('Settings site to {}'.format(site_name))
         site = Site.objects.get_current()
         site.domain = site.name = site_name
         site.save()

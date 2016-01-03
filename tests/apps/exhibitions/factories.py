@@ -8,7 +8,8 @@ from ... import utils
 
 
 class ExhibitionFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Exhibition
+    class Meta:
+        model = Exhibition
 
     name = factory.Sequence(lambda n: 'name{}'.format(n))
 
@@ -19,13 +20,4 @@ class ExhibitionFactory(factory.DjangoModelFactory):
     artists = factory.PostGeneration(create_artists)
     press = factory.PostGeneration(create_press)
 
-    @factory.post_generation
-    def press_release_photo(self, create, extracted, **kwargs):
-        if extracted:
-            image_name, image = extracted
-        elif kwargs.pop('make', None):
-            image_name = 'image.jpg'
-            image = utils.django_image(image_name, **kwargs)
-        else:
-            return
-        self.press_release_photo.save(image_name, image)
+    press_release_photo = factory.django.ImageField()

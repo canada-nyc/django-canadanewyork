@@ -1,4 +1,4 @@
-import urllib
+import urllib.parse
 
 from django.db import models
 from django.core.urlresolvers import reverse
@@ -26,7 +26,7 @@ class Book(models.Model):
     class Meta:
         ordering = ['-date']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def clean(self):
@@ -34,15 +34,15 @@ class Book(models.Model):
 
     @property
     def link_email(self):
-        return u'gallery@canadanewyork.com'
+        return 'gallery@canadanewyork.com'
 
     @property
     def link_subject(self):
-        return u'Purchase Book'
+        return 'Purchase Book'
 
     @property
     def link_body_template(self):
-        return u'Hello\nI am interested in buying {first} {last}:{title}. Can you please contact me for pricing and availabilty?'
+        return 'Hello\nI am interested in buying {first} {last}:{title}. Can you please contact me for pricing and availabilty?'
 
     @property
     def link_body(self):
@@ -53,12 +53,12 @@ class Book(models.Model):
         )
 
     def url_quote(self, string):
-        return urllib.quote(string, '')
+        return urllib.parse.quote(string, '')
 
     def get_purchase_url(self):
         arguments = [self.link_email, self.link_subject, self.link_body]
-        return u'mailto:{}?subject={}&body={}'.format(
-            *map(self.url_quote, arguments)
+        return 'mailto:{}?subject={}&body={}'.format(
+            *list(map(self.url_quote, arguments))
         )
 
     def dependent_paths(self):

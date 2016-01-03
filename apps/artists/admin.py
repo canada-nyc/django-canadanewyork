@@ -1,18 +1,21 @@
 from django.contrib import admin
 
-from apps.photos.admin import photo_inline
+from apps.photos.admin import PhotoInline
 from apps.books.admin import BookInline
 
 from .models import Artist, ArtistPhoto
 
 
-class ArtistPhotoInline(photo_inline(ArtistPhoto)):
+class ArtistPhotoInline(PhotoInline):
+    model = ArtistPhoto
+
     fields = (
-        ('image', "position"),
+        'position',
+        'image',
         ('title', 'date'),
         ('height', 'width', 'depth',),
-        'medium',
         'dimensions_text',
+        'medium',
         'caption'
     )
 

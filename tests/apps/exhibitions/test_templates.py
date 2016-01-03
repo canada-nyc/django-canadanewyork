@@ -30,7 +30,7 @@ class ExhibitionListTest(WebTest):
             reverse('exhibition-list')
         )
         exhibition_list.click(
-            unicode(Exhibition),
+            str(Exhibition),
             href=reverse('exhibition-detail', kwargs={'slug': Exhibition.slug})
         )
 
@@ -47,7 +47,7 @@ class ExhibitionDetailTest(WebTest):
     def test_unicode(self):
         Exhibition = ExhibitionFactory.create()
         exhibition_detail = self.app.get(Exhibition.get_absolute_url())
-        self.assertIn(unicode(Exhibition), exhibition_detail)
+        self.assertIn(str(Exhibition), exhibition_detail)
 
     def test_description(self):
         Exhibition = ExhibitionFactory.create(description='description')
@@ -60,7 +60,7 @@ class ExhibitionDetailTest(WebTest):
         exhibition_detail = self.app.get(Exhibition.get_absolute_url())
 
         exhibition_detail.click(
-            unicode(Artist),
+            str(Artist),
             href=Artist.get_absolute_url()
         )
 
@@ -69,10 +69,10 @@ class ExhibitionDetailTest(WebTest):
         Artist = Exhibition.artists.all()[0]
         exhibition_detail = self.app.get(Exhibition.get_absolute_url())
 
-        self.assertIn(unicode(Artist), exhibition_detail)
+        self.assertIn(str(Artist), exhibition_detail)
         with self.assertRaises(IndexError):
             exhibition_detail.click(
-                unicode(Artist),
+                str(Artist),
                 href=Artist.get_absolute_url()
             )
 
@@ -121,7 +121,7 @@ class ExhibitionPressListTest(WebTest):
         )
 
         exhibition_press_list.click(
-            unicode(Exhibition),
+            str(Exhibition),
             href=Exhibition.get_absolute_url()
         )
 
@@ -135,7 +135,7 @@ class ExhibitionPressListTest(WebTest):
         )
 
         exhibition_press_list.click(
-            unicode(Press),
+            str(Press),
             href=reverse('press-detail', kwargs={'slug': Press.slug}),
         )
 
@@ -150,7 +150,7 @@ class ExhibitionPressListTest(WebTest):
             reverse('exhibition-press-list', kwargs={'slug': Exhibition.slug})
         )
         exhibition_press_list.click(
-            unicode(Press),
+            str(Press),
             href=Press.get_absolute_url(),
         )
 
@@ -158,7 +158,7 @@ class ExhibitionPressListTest(WebTest):
         Exhibition = ExhibitionFactory.create(press__n=1)
         Press = Exhibition.press.all()[0]
         Press.content = '_'
-        Press.date_text ='some text'
+        Press.date_text = 'some text'
         Press.save()
 
         exhibition_press_list = self.app.get(
@@ -174,7 +174,7 @@ class ExhibitionPressReleaseTest(WebTest):
             reverse('exhibition-pressrelease', kwargs={'slug': Exhibition.slug})
         )
         exhibition_press_release.click(
-            unicode(Exhibition),
+            str(Exhibition),
             href=Exhibition.get_absolute_url()
         )
 
@@ -193,7 +193,7 @@ class ExhibitionCurrentTest(WebTest):
             reverse('exhibition-current')
         )
 
-        self.assertIn(unicode(Exhibition), exhibition_current)
+        self.assertIn(str(Exhibition), exhibition_current)
 
     def test_artist_text(self):
         Exhibition = ExhibitionFactory.create(artists__n=1)

@@ -5,12 +5,11 @@ from django.test.utils import override_settings
 from django.template import Context, Template
 
 from .models import CKEditorModel
-from ...utils import AddAppMixin
 
 
+@CKEditorModel.fake_me
 @override_settings(CKEDITOR_CLASS='hey')
-class CKEditorTest(AddAppMixin, TestCase):
-    custom_apps = ('tests.libs.ckeditor',)
+class CKEditorTest(TestCase):
 
     def setUp(self):
         self.model = CKEditorModel.objects.create(html='<p>test</p>')
@@ -26,7 +25,6 @@ class CKEditorTest(AddAppMixin, TestCase):
         '''
         self.model.html = ''
         self.target_html = '<div class="hey"></div>\n'
-
         self.assertEqual(self.model.html.as_html, self.target_html)
 
     def test_no_save_is_not_save(self):

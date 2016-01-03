@@ -1,25 +1,32 @@
-language: python
-before_script:
-- psql -c 'create database django_canadanewyork;' -U postgres
-- python manage.py validate
-- python manage.py collectstatic --noinput
-script:
-- python manage.py test tests --traceback
+sudo: required
+services:
+  - docker
 env:
-  global:
-  - DJANGO_SETTINGS_MODULE=configs.settings
-  - CANADA_ALLOWED_HOST=*
-  - CANADA_DEBUG=False
-  - CANADA_DEBUG_TOOLBAR=False
-  - CANADA_DEVSERVER=False
-  - CANADA_SENTRY=False
-  - CANADA_STORAGE=local
-  - CANADA_CACHE=dummy
-  - CANADA_CACHE_TEMPLATES=False
-  - CANADA_CONSOLE_LOGGING_LEVEL=INFO
-  - DATABASE_URL=postgres://postgres@localhost/django_canadanewyork
-  - DJANGO_SETTINGS_MODULE=configs.settings
-  - SECRET_KEY=not_so_secret
-  - CANADA_QUEUE_ASYNC=False
-  - CANADA_DUMPER_LOG=False
-  - CANADA_IMAGE_DIMENSION_FIELDS=True
+  DOCKER_COMPOSE_VERSION: 1.5.2
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y --only-upgrade install docker-engine
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - |-
+    echo -e '
+    web:
+      environment:
+        SECRET_KEY: _
+    worker:
+      environment:
+        SECRET_KEY: _
+    ' > docker-compose.override.yml
+install:
+  - docker-compose pull
+  - docker-compose build
+before_script:
+  - docker-compose --x-networking up -d db
+  - docker-compose --x-networking run web python manage.py collectstatic --noinput
+script:
+- docker-compose --x-networking run -e CANADA_QUEUE_ASYNC=False web py.test
+notifications:
+  email: false

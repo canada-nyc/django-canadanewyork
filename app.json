@@ -1,62 +1,34 @@
 {
-  "name": "canada-development",
+  "name": "django-canadanewyork",
+  "website": "https://ww.canadanewyork.com/",
+  "repository": "https://github.com/saulshanabrook/django-canadanewyork",
+  "success_url": "/",
   "scripts": {
     "postdeploy": "python manage.py init_db --init; python manage.py collectstatic --noinput"
   },
   "env": {
-    "ADMIN_PASSWORD": {
-      "generator": "secret"
-    },
-    "ADMIN_USERNAME": {
-      "required": true
-    },
-    "DJANGO_SETTINGS_MODULE": {
-      "required": true
-    },
-    "SECRET_KEY": {
-      "generator": "secret"
-    },
-    "CANADA_CACHE_TEMPLATES": {
-      "required": true
-    },
-    "CANADA_DEBUG": {
-      "required": true
-    },
-    "CANADA_STORAGE": "s3",
-    "AWS_ACCESS_KEY_ID": {
-      "required": true
-    },
-    "AWS_SECRET_ACCESS_KEY": {
-      "required": true
-    },
-    "AWS_BUCKET": {
-      "required": true
-    },
-    "CANADA_CACHE": {
-      "required": true
-    },
-    "CANADA_SENTRY": {
-      "required": true
-    },
+    "ADMIN_PASSWORD": {"generator": "secret"},
+    "ADMIN_USERNAME": "saul",
+    "AWS_ACCESS_KEY_ID": {"required": true},
+    "AWS_BUCKET": {"required": true},
+    "AWS_SECRET_ACCESS_KEY": {"required": true},
+    "CACHE_URL": "dbcache://cache",
     "CANADA_ALLOWED_HOST": "*",
-    "CANADA_DEBUG_TOOLBAR": {
-      "required": true
-    },
-    "CANADA_DEVSERVER": {
-      "required": true
-    },
-    "CANADA_QUEUE_ASYNC": {
-      "required": true
-    },
-    "CANADA_DUMPER_LOG": {
-      "required": true
-    },
-    "CANADA_IMAGE_DIMENSION_FIELDS": {
-      "required": true
-    }
+    "CANADA_CACHE_TEMPLATES": "True",
+    "CANADA_DEBUG": "False",
+    "CANADA_DEBUG_TOOLBAR": "False",
+    "CANADA_DEVSERVER": "False",
+    "CANADA_DUMPER_LOG": "False",
+    "CANADA_IMAGE_DIMENSION_FIELDS": "True",
+    "CANADA_QUEUE_ASYNC": "True",
+    "CANADA_SENTRY": "False",
+    "CANADA_STORAGE_S3": "True",
+    "DJANGO_SETTINGS_MODULE": "configs.settings",
+    "SECRET_KEY": {"generator": "secret"}
   },
   "addons": [
-    "newrelic:stark",
-    "heroku-postgresql:dev"
+    "newrelic",
+    "heroku-postgresql",
+    "librato"
   ]
 }

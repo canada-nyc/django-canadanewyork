@@ -1,4 +1,6 @@
 from django.contrib import admin
+import autocomplete_light
+
 
 from .models import Press
 
@@ -29,9 +31,7 @@ class PressAdmin(admin.ModelAdmin):
         }),
     )
 
-    raw_id_fields = ('artist', 'exhibition')
-    autocomplete_lookup_fields = {
-        'fk': ['artist', 'exhibition'],
-    }
+    form = autocomplete_light.modelform_factory(Press, fields='__all__')
+
 
 admin.site.register(Press, PressAdmin)

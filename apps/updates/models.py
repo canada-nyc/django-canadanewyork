@@ -19,8 +19,8 @@ class Update(url_tracker.URLTrackingMixin, models.Model):
     def clean(self):
         self.description = self.description.strip()
 
-    def __unicode__(self):
-        return unicode(self.post_date.isoformat())
+    def __str__(self):
+        return str(self.post_date.isoformat())
 
     def get_absolute_url(self):
         return reverse('update-detail', kwargs={'pk': self.pk})

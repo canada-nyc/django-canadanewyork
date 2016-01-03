@@ -9,20 +9,33 @@ from django.template.loader import render_to_string
 import simpleimages.transforms
 
 
-class BasePhoto(models.Model):
-    def image_path_function(subfolder):
-        return lambda instance, filename: os.path.join(
-            instance.content_name,
-            'photos',
-            subfolder,
-            filename
-        )
+def image_path_function(subfolder, instance, filename):
+    return os.path.join(
+        instance.content_name,
+        'photos',
+        subfolder,
+        filename
+    )
 
+
+def original_image_path_function(instance, filename):
+    return image_path_function('original', instance, filename)
+
+
+def thumbnail_image_path_function(instance, filename):
+    return image_path_function('thumbnail', instance, filename)
+
+
+def large_image_path_function(instance, filename):
+    return image_path_function('large', instance, filename)
+
+
+class BasePhoto(models.Model):
     title = models.CharField(blank=True, max_length=400)
     caption = models.TextField(blank=True, verbose_name='Extra Text')
 
     image = models.ImageField(
-        upload_to=image_path_function('original'),
+        upload_to=original_image_path_function,
         max_length=1000,
         verbose_name='Image File'
     )
@@ -30,7 +43,7 @@ class BasePhoto(models.Model):
         blank=True,
         null=True,
         editable=False,
-        upload_to=image_path_function('thumbnail'),
+        upload_to=thumbnail_image_path_function,
         height_field='thumbnail_image_height',
         width_field='thumbnail_image_width',
         max_length=1000
@@ -39,7 +52,7 @@ class BasePhoto(models.Model):
         blank=True,
         null=True,
         editable=False,
-        upload_to=image_path_function('large'),
+        upload_to=large_image_path_function,
         height_field='large_image_height',
         width_field='large_image_width',
         max_length=1000
@@ -76,9 +89,9 @@ class BasePhoto(models.Model):
         ordering = ['position']
         abstract = True
 
-    def __unicode__(self):
+    def __str__(self):
         if self.position is not None:
-            return u'#{} {}'.format(self.position + 1, self.title)
+            return '#{} {}'.format(self.position + 1, self.title)
         return self.title
 
     transformed_fields = {
@@ -96,8 +109,8 @@ class BasePhoto(models.Model):
     @property
     def content_name(self):
         return os.path.join(
-            unicode(self.content_object._meta.app_label),
-            unicode(self.content_object.pk),
+            self.content_object._meta.app_label,
+            str(self.content_object.pk),
         )
 
     @property
@@ -127,10 +140,7 @@ class BasePhoto(models.Model):
             return getattr(self, backup_image_field_name)
 
         if settings.CANADA_IMAGE_DIMENSION_FIELDS:
-            width, height = map(
-                lambda suffix: getattr(self, image_field_name + suffix),
-                ['_width', '_height']
-            )
+            width, height = [getattr(self, image_field_name + suffix) for suffix in ['_width', '_height']]
         else:
             width, height = image_field.width, image_field.height
         return {
@@ -192,7 +202,7 @@ class ArtworkPhoto(BasePhoto):
 
     @property
     def dimensions(self):
-        return map(self.round_decimal, filter(None, [self.height, self.width, self.depth]))
+        return list(map(self.round_decimal, [_f for _f in [self.height, self.width, self.depth] if _f]))
 
     def convert_inches_to_cm(self, inches):
         cm = inches * Decimal(self.INCHES_PER_CM)
@@ -200,7 +210,7 @@ class ArtworkPhoto(BasePhoto):
 
     @property
     def dimensions_cm(self):
-        return map(self.round_decimal, map(self.convert_inches_to_cm, self.dimensions))
+        return list(map(self.round_decimal, list(map(self.convert_inches_to_cm, self.dimensions))))
 
     def decimal_to_fraction(self, decimal):
         integer = decimal.to_integral_value(ROUND_DOWN)
@@ -218,6 +228,6 @@ class ArtworkPhoto(BasePhoto):
         if self.dimensions_text:
             return self.dimensions_text
         if self.dimensions:
-            inches_dimensions = map(self.decimal_to_fraction, self.dimensions)
-            cm_dimensions = map(str, self.dimensions_cm)
+            inches_dimensions = list(map(self.decimal_to_fraction, self.dimensions))
+            cm_dimensions = list(map(str, self.dimensions_cm))
             return '{} in ({} cm)'.format(' x '.join(inches_dimensions), ' x '.join(cm_dimensions))

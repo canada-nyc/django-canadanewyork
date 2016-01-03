@@ -8,7 +8,8 @@ from ..books.related_factories import create_books
 
 
 class ArtistFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Artist
+    class Meta:
+        model = Artist
 
     first_name = factory.Sequence(lambda n: 'Firstname{}'.format(n))
     last_name = factory.Sequence(lambda n: 'Lastname{}'.format(n))

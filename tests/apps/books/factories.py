@@ -7,7 +7,8 @@ from ... import utils
 
 class BookFactory(factory.DjangoModelFactory):
 
-    FACTORY_FOR = Book
+    class Meta:
+        model = Book
 
     title = factory.Sequence(lambda n: 'title{}'.format(n))
     date = utils.FuzzyDate()

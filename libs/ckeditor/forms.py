@@ -3,7 +3,7 @@ from django import forms
 from .widgets import CKEditorWidget
 
 
-class CKEditorFormField(forms.fields.Field):
+class CKEditorFormField(forms.fields.CharField):
 
     def __init__(self, *args, **kwargs):
         kwargs.update({'widget': CKEditorWidget()})

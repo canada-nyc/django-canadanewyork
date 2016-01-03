@@ -1,11 +1,10 @@
 from django.test import TestCase
 
 from .models import UniqueBooleanModel
-from ...utils import AddAppMixin
 
 
-class UniqueBooleanTest(AddAppMixin, TestCase):
-    custom_apps = ('tests.libs.unique_boolean',)
+@UniqueBooleanModel.fake_me
+class UniqueBooleanTest(TestCase):
 
     def test_wont_change_to_true(self):
         UniqueBooleanModel.objects.create(unique_boolean=False)
@@ -19,4 +18,3 @@ class UniqueBooleanTest(AddAppMixin, TestCase):
 
         # Should be the only model with True now
         UniqueBooleanModel.objects.get(unique_boolean=True)
-

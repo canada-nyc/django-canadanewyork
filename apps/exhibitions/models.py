@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 import url_tracker
 import dumper
 import simpleimages.trackers
+from autocomplete_light.shortcuts import register
 
 from apps.artists.models import Artist
 from apps.photos.models import ArtworkPhoto
@@ -16,29 +17,28 @@ from libs.common.utils import sentance_join
 from libs.ckeditor.fields import CKEditorField
 
 
+def image_path(instance, filename):
+    return (
+        os.path.join(
+            instance.get_absolute_url()[1:],
+            'press_release_photos',
+            filename)
+    )
+
+
 class Exhibition(url_tracker.URLTrackingMixin, models.Model):
-
-    def image_path(instance, filename):
-        return (
-            os.path.join(
-                instance.get_absolute_url()[1:],
-                'press_release_photos',
-                filename)
-        )
-
     name = models.CharField(max_length=1000, unique_for_year='start_date')
     description = CKEditorField(blank=True, verbose_name='Press Release')
     artists = models.ManyToManyField(
         Artist,
         related_name='exhibitions',
-        blank=True,
-        null=True
+        blank=True
     )
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
     slug = SlugifyField(
         populate_from=('get_year', 'name',),
-        slug_template=u'{}/{}',
+        slug_template='{}/{}',
         unique=True
     )
 
@@ -80,7 +80,7 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
     class Meta:
         ordering = ["-start_date"]
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_absolute_url(self):
@@ -130,19 +130,18 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
         if artist.visible:
             return '<a href="{}">{}</a>'.format(
                 artist.get_absolute_url(),
-                unicode(artist)
+                artist
             )
-        return unicode(artist)
+        return artist
 
     @property
     def join_artists_with_links(self):
-        link_or_names = map(self.link_artist_if_visble, self.artists.all())
+        link_or_names = list(map(self.link_artist_if_visble, self.artists.all()))
         return sentance_join(link_or_names)
 
     @property
     def join_artists(self):
-        names = map(unicode, self.artists.all())
-        return sentance_join(names)
+        return sentance_join(list(map(str, self.artists.all())))
 
     def dependent_paths(self):
         yield self.get_absolute_url()
@@ -176,3 +175,4 @@ url_tracker.track_url_changes_for_model(Exhibition)
 dumper.register(Exhibition)
 dumper.register(ExhibitionPhoto)
 simpleimages.trackers.track_model(ExhibitionPhoto)
+register(Exhibition, search_fields=["name"])

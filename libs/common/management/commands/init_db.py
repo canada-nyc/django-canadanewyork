@@ -23,8 +23,6 @@ class Command(NoArgsCommand):
             call_command('createcachetable', 'cache', interactive=False, verbosity=0)
         except CommandError:
             self.log('Table already created')
-        self.log('Initial sync')
-        call_command('syncdb', interactive=False, verbosity=0)
         self.log('Initial migrate')
         call_command('migrate', interactive=False, verbosity=0)
         self.log('Adding super user')
@@ -33,8 +31,6 @@ class Command(NoArgsCommand):
             os.environ['ADMIN_USERNAME'],
             os.environ['ADMIN_PASSWORD'])
         call_command('set_site')
-        self.log('Loading contact fixture')
-        call_command('loaddata', 'configs/fixtures/contact.json')
         if options.get('init'):
             self.log('Adding test_data')
             call_command('test_data')

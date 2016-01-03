@@ -1,5 +1,5 @@
 from django.views.generic import DetailView, ListView
-from django.template.loader import select_template
+from .utils import select_template_name
 
 
 class BaseCustomObjectList(object):
@@ -14,8 +14,7 @@ class BaseCustomObjectList(object):
             queryset.model._meta.object_name.lower(),
         )
         generic_template = "base/list_item.html"
-        rendered_template = select_template([model_template, generic_template])
-        return rendered_template.name
+        return select_template_name([model_template, generic_template])
 
     def add_context_data(self, context):
         context['object_label'] = self.model_from_queryset(context['object_list'])

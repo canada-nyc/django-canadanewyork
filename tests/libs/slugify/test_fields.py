@@ -1,14 +1,15 @@
-from django.test import TestCase
+from django.test import TransactionTestCase
 from django.template.defaultfilters import slugify
 from django.db import IntegrityError
 
 from . import models as slug_models
-from ...utils import AddAppMixin
 
 
-class TestSlugify(AddAppMixin, TestCase):
-    custom_apps = ('tests.libs.slugify',)
-
+@slug_models.SlugifyTemplateModel.fake_me
+@slug_models.SlugifyUniqueModel.fake_me
+@slug_models.SlugifyModel.fake_me
+@slug_models.RelatedModel.fake_me
+class TestSlugify(TransactionTestCase):
     def test_save(self):
         _SlugifyModel = slug_models.SlugifyModel.objects.create(
             text='text',
@@ -55,3 +56,15 @@ class TestSlugify(AddAppMixin, TestCase):
         model_slug = _SlugifyTemplateModel.slug
         self.assertEqual(calculated_slug, model_slug)
 
+    def test_available_before_save(self):
+        _SlugifyModel = slug_models.SlugifyUniqueModel(
+            text='text',
+        )
+        self.assertEqual('text', _SlugifyModel.slug)
+
+    def test_wont_update_before_save(self):
+        _SlugifyModel = slug_models.SlugifyUniqueModel.objects.create(
+            text='text',
+        )
+        _SlugifyModel.text = "hey there"
+        self.assertEqual('text', _SlugifyModel.slug)

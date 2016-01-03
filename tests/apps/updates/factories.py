@@ -6,7 +6,8 @@ from ... import utils
 
 
 class UpdateFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Update
+    class Meta:
+        model = Update
 
     photos = factory.PostGeneration(get_create_function(UpdatePhoto))
     post_date = utils.FuzzyDate()

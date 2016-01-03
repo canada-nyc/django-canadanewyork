@@ -1,7 +1,7 @@
-from django.db import models
+from django_fake_model import models as f
 
 from libs.ckeditor.fields import CKEditorField
 
 
-class CKEditorModel(models.Model):
+class CKEditorModel(f.FakeModel):
     html = CKEditorField(blank=True)

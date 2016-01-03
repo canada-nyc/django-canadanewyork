@@ -5,21 +5,21 @@ from .factories import ExhibitionFactory
 
 class ExhibitionPressReleasePhotoTest(TestCase):
     def test_no_photo(self):
-        Exhibition = ExhibitionFactory()
+        Exhibition = ExhibitionFactory(press_release_photo=None)
         self.assertFalse(Exhibition.get_press_release_photo())
 
     def test_uploaded_photo(self):
-        Exhibition = ExhibitionFactory.create(press_release_photo__make=True)
+        Exhibition = ExhibitionFactory.create()
 
         self.assertEqual(Exhibition.get_press_release_photo()['url'], Exhibition.press_release_photo.url)
 
     def test_related_photo(self):
-        Exhibition = ExhibitionFactory.create(photos__n=1)
+        Exhibition = ExhibitionFactory.create(photos__n=1, press_release_photo=None)
 
         self.assertEqual(Exhibition.get_press_release_photo(), Exhibition.photos.all()[0].safe_thumbnail_image)
 
     def test_uploaded_overrides_related_photo(self):
-        Exhibition = ExhibitionFactory.create(photos__n=1, press_release_photo__make=True)
+        Exhibition = ExhibitionFactory.create(photos__n=1)
 
         self.assertEqual(Exhibition.get_press_release_photo()['url'], Exhibition.press_release_photo.url)
 
@@ -52,7 +52,7 @@ class ExhibitionJoinArtistsTest(TestCase):
 
         self.assertEqual(
             Exhibition.join_artists,
-            '{}'.format(unicode(Exhibition.artists.all()[0]))
+            '{}'.format(str(Exhibition.artists.all()[0]))
         )
 
     def test_two_artists(self):
@@ -61,8 +61,8 @@ class ExhibitionJoinArtistsTest(TestCase):
         self.assertEqual(
             Exhibition.join_artists,
             '{} and {}'.format(
-                unicode(Exhibition.artists.all()[0]),
-                unicode(Exhibition.artists.all()[1])
+                str(Exhibition.artists.all()[0]),
+                str(Exhibition.artists.all()[1])
             )
         )
 
@@ -72,8 +72,8 @@ class ExhibitionJoinArtistsTest(TestCase):
         self.assertEqual(
             Exhibition.join_artists,
             '{}, {}, and {}'.format(
-                unicode(Exhibition.artists.all()[0]),
-                unicode(Exhibition.artists.all()[1]),
-                unicode(Exhibition.artists.all()[2])
+                str(Exhibition.artists.all()[0]),
+                str(Exhibition.artists.all()[1]),
+                str(Exhibition.artists.all()[2])
             )
         )

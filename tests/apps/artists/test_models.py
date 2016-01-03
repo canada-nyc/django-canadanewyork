@@ -2,24 +2,22 @@ from django.test import TestCase
 from django.core.files.base import ContentFile
 
 from .factories import ArtistFactory
+from apps.artists.models import Artist
 from ..exhibitions.factories import ExhibitionFactory
 from ..press.factories import PressFactory
 
 
 class ArtistVisibleTest(TestCase):
 
-    def setUp(self):
-        self.in_gallery = ArtistFactory.FACTORY_FOR.in_gallery
-
     def test_in_gallery(self):
         ArtistFactory.create(visible=True)
 
-        self.assertTrue(self.in_gallery.exists())
+        self.assertTrue(Artist.in_gallery.exists())
 
     def test_not_in_gallery(self):
         ArtistFactory.create(visible=False)
 
-        self.assertFalse(self.in_gallery.exists())
+        self.assertFalse(Artist.in_gallery.exists())
 
 
 class ArtistResumeTest(TestCase):

@@ -1,0 +1,7 @@
+[run]
+branch = True
+source =
+    apps
+    libs
+omit =
+    */migrations/*

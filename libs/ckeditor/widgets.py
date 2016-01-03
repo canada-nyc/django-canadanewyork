@@ -13,7 +13,7 @@ class CKEditorWidget(widgets.Textarea):
     def render(self, name, value, attrs=None):
         output = super(CKEditorWidget, self).render(name, value, attrs)
         output += mark_safe(render_to_string('ckeditor/widget.html', {
-            'element_id': name,
+            'element_id': attrs['id'],
             'body_class': get_html_class(),
         }))
         return output

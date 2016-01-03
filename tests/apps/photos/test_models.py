@@ -3,11 +3,10 @@ from decimal import Decimal as D
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from simpleimages.utils import perform_transformation
-
 from apps.photos.models import ArtworkPhoto, BasePhoto
-from ...utils import AddAppMixin, django_image
-from .factories import MockPhotoFactory
+from .models import MockPhoto, MockRelated
+from .mock_factories import MockPhotoFactory
+from ...utils import django_image
 
 
 class BasePhotoGetSafeImageTest(TestCase):
@@ -66,20 +65,22 @@ class BasePhotoGetSafeImageTest(TestCase):
         )
 
 
-class BasePhotoCachedDimensionsTest(AddAppMixin, TestCase):
+@MockPhoto.fake_me
+@MockRelated.fake_me
+class BasePhotoCachedDimensionsTest(TestCase):
     custom_apps = ('tests.apps.photos',)
 
     def test_dimension_fields_filled(self):
-        photo = MockPhotoFactory(image__size=1000)
+        photo = MockPhotoFactory(image__height=1000)
         self.assertTrue(photo.thumbnail_image)
         self.assertEqual(
             photo.thumbnail_image.height,
             photo.thumbnail_image_height)
 
     def test_dimensions_field_change(self):
-        photo = MockPhotoFactory(image__size=10)
+        photo = MockPhotoFactory(image__height=10)
 
-        photo.image.save('_.jpg', django_image('_.jpg', size=1000))
+        photo.image.save('_.jpg', django_image(width=1000, height=1000))
         self.assertEqual(
             photo.thumbnail_image.height,
             photo.thumbnail_image_height)
@@ -88,9 +89,9 @@ class BasePhotoCachedDimensionsTest(AddAppMixin, TestCase):
         self.assertNotEqual(photo.thumbnail_image.height, 10)
 
     def test_unequal_dimensions(self):
-        photo = MockPhotoFactory(image__size=10)
+        photo = MockPhotoFactory(image__height=10)
 
-        photo.image.save('_.jpg', django_image('_.jpg', width=1, height=2))
+        photo.image.save('_.jpg', django_image(width=1, height=2))
         self.assertEqual(
             photo.thumbnail_image.height,
             photo.thumbnail_image_height,
@@ -101,10 +102,9 @@ class BasePhotoCachedDimensionsTest(AddAppMixin, TestCase):
             1)
 
     def test_dimensions_saved_on_field(self):
-        photo = MockPhotoFactory(image__size=10)
+        photo = MockPhotoFactory(image__height=10)
 
-        photo.image.save('_.jpg', django_image('_.jpg', size=100))
-
+        photo.image.save('_.jpg', django_image(width=100, height=100))
         photo = photo.__class__.objects.get(pk=photo.pk)
         self.assertEqual(
             photo.thumbnail_image.height,
@@ -125,7 +125,7 @@ class ArtworkPhotoDimensionTest(TestCase):
         self.photo.width = 10
         self.photo.depth = None
 
-        self.assertItemsEqual(self.photo.dimensions, [10, 10])
+        self.assertCountEqual(self.photo.dimensions, [10, 10])
 
     def test_convert_inches_to_cm(self):
         cm = self.photo.convert_inches_to_cm(1)

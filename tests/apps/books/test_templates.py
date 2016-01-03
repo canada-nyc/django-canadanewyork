@@ -34,7 +34,7 @@ class BookListTest(WebTest):
         # page, but a mailto link
         with self.assertRaises(AppError):
             book_list.click(
-                unicode(Book),
+                str(Book),
                 href=re.escape(Book.get_purchase_url()),
             )
 
@@ -44,7 +44,7 @@ class BookListTest(WebTest):
             reverse('book-list')
         )
 
-        self.assertIn(unicode(Book.artist), book_list)
+        self.assertIn(str(Book.artist), book_list)
 
     def test_date_text(self):
         Book = BookFactory(date_text='some text')

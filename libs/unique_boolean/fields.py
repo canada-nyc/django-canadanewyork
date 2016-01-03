@@ -1,8 +1,4 @@
-import new
-
 from django.db.models import BooleanField
-
-from south.modelsinspector import add_introspection_rules
 
 
 class UniqueBooleanField(BooleanField):
@@ -16,6 +12,3 @@ class UniqueBooleanField(BooleanField):
     def _other_model_objects(self, model_instance):
         objects = model_instance.__class__.objects
         return objects.exclude(id=model_instance.id)
-
-
-add_introspection_rules([], ["^libs\.unique_boolean\.fields\.UniqueBooleanField"])

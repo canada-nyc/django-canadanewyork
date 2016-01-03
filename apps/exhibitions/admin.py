@@ -1,18 +1,21 @@
+import autocomplete_light
+
 from django.contrib import admin
 
-
-from apps.photos.admin import photo_inline
+from apps.photos.admin import PhotoInline
 from .models import Exhibition, ExhibitionPhoto
 
 
-class ExhibitionPhotoInline(photo_inline(ExhibitionPhoto)):
+class ExhibitionPhotoInline(PhotoInline):
+    model = ExhibitionPhoto
     fields = (
-        ('image', "position"),
+        'position',
+        'image',
         'artist_text',
         ('title', 'date'),
         ('height', 'width', 'depth',),
-        'medium',
         'dimensions_text',
+        'medium',
         'caption'
     )
 
@@ -39,9 +42,7 @@ class ExhibitionAdmin(admin.ModelAdmin):
     inlines = [ExhibitionPhotoInline]
     readonly_fields = ('slug',)
 
-    raw_id_fields = ('artists',)
-    autocomplete_lookup_fields = {
-        'm2m': ['artists'],
-    }
+    form = autocomplete_light.modelform_factory(Exhibition, fields='__all__')
+
 
 admin.site.register(Exhibition, ExhibitionAdmin)

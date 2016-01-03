@@ -1,3 +1,4 @@
+import autocomplete_light
 from django.contrib import admin
 
 from .models import Book
@@ -5,6 +6,7 @@ from .models import Book
 
 class BookInline(admin.TabularInline):
     model = Book
+
 
 class BookAdmin(admin.ModelAdmin):
     list_display = ('title', 'date', 'date_text')
@@ -17,10 +19,7 @@ class BookAdmin(admin.ModelAdmin):
         'artist'
     )
 
-    raw_id_fields = ('artist',)
-    autocomplete_lookup_fields = {
-        'fk': ['artist'],
-        'm2m': ['related_m2m'],
-    }
+    form = autocomplete_light.modelform_factory(Book, fields='__all__')
+
 
 admin.site.register(Book, BookAdmin)

@@ -1,14 +1,12 @@
-from django.db.models import TextField, SubfieldBase
+from django.db.models import TextField
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
-
-from south.modelsinspector import add_introspection_rules
 
 from .settings import get_html_class
 from .forms import CKEditorFormField
 
 
-class CKEditorString(unicode):
+class CKEditorString(str):
 
     @property
     def as_html(self):
@@ -20,21 +18,38 @@ class CKEditorString(unicode):
 
 class CKEditorField(TextField):
 
-    __metaclass__ = SubfieldBase
-
     description = (
         'A TextField that provides a CKEditor field and an `as_html`` property'
         ' that will wrap the content in a div set to the class of the setting'
         ' ``CKEDITOR_CLASS``')
 
     def formfield(self, **kwargs):
-        defaults = {'form_class': CKEditorFormField}
-        defaults.update(kwargs)
-        return super(CKEditorField, self).formfield(**defaults)
+        kwargs['form_class'] = CKEditorFormField
+        return super(CKEditorField, self).formfield(**kwargs)
+
+    def contribute_to_class(self, cls, name, **kwargs):
+        '''
+        Change the class so that when this attribute is accessed, it will
+        return a `CKEditorString` not a normal string. This is so that
+        the `as_html` attribute will be available, even if haven't retrieved
+        the field form the DB.
+        '''
+        super().contribute_to_class(cls, name, **kwargs)
+
+        original_getattr = cls.__getattribute__
+
+        def __getattribute__(self_, name):
+            original = original_getattr(self_, name)
+            if name == self.attname:
+                return CKEditorString(original)
+            return original
+
+        cls.__getattribute__ = __getattribute__
+
+    def from_db_value(self, value, expression, connection, context):
+        return CKEditorString(value)
 
     def to_python(self, value):
-        original_value = super(CKEditorField, self).to_python(value)
-        return CKEditorString(original_value)
-
-
-add_introspection_rules([], ["^libs\.ckeditor\.fields\.CKEditorField"])
+        if isinstance(value, CKEditorString):
+            return value
+        return CKEditorString(value)

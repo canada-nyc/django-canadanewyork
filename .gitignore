@@ -1,15 +1,14 @@
-/tmp/
 *.pyc
 *~
 .DS_Store
 .c9revisions/
 .idea
 
-/configs/env/secret.env
 *.sublime*
-/static/wordpress/.image_cache.sqlite
 
 /.venv
-/latest.dump
 .sass-cache/*
 tmp/static/
+.static/*
+.media/*
+docker-compose*.override.yml

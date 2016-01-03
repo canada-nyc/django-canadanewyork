@@ -16,4 +16,4 @@ class Command(BaseCommand):
         key = Key(bucket)
         key.key = file_name
         key.set_contents_from_filename(file_name)
-        print key.generate_url(60 * 60)
+        print(key.generate_url(60 * 60))

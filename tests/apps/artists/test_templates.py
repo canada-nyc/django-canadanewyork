@@ -33,7 +33,7 @@ class ArtistListTest(WebTest):
         )
 
         artist_list.click(
-            unicode(Artist),
+            str(Artist),
             href=reverse('artist-detail', kwargs={'slug': Artist.slug})
         )
 
@@ -42,7 +42,7 @@ class ArtistListTest(WebTest):
         artist_list = self.app.get(
             reverse('artist-list')
         )
-        assert unicode(Artist) not in artist_list
+        assert str(Artist) not in artist_list
 
 
 class ArtistDetailTest(WebTest):
@@ -50,7 +50,7 @@ class ArtistDetailTest(WebTest):
     def test_visible_exists(self):
         Artist = ArtistFactory.create()
         artist_detail = self.app.get(Artist.get_absolute_url())
-        self.assertIn(unicode(Artist), artist_detail)
+        self.assertIn(str(Artist), artist_detail)
 
     def test_invisible_doesnt_exist(self):
         Artist = ArtistFactory.create(visible=False)
@@ -163,7 +163,7 @@ class ArtistPressListTest(WebTest):
         )
 
         artist_press_list.click(
-            unicode(Artist),
+            str(Artist),
             href=Artist.get_absolute_url()
         )
 
@@ -175,7 +175,7 @@ class ArtistPressListTest(WebTest):
         )
 
         artist_press_list.click(
-            unicode(Press),
+            str(Press),
             href=reverse('press-detail', kwargs={'slug': Press.slug})
         )
 
@@ -187,7 +187,7 @@ class ArtistExhibitionListTest(WebTest):
             reverse('artist-exhibition-list', kwargs={'slug': Artist.slug})
         )
         artist_exhibition_list.click(
-            unicode(Artist),
+            str(Artist),
             href=Artist.get_absolute_url()
         )
 
@@ -199,7 +199,7 @@ class ArtistExhibitionListTest(WebTest):
         )
 
         artist_exhibition_list.click(
-            unicode(Exhibition),
+            str(Exhibition),
             href=reverse('exhibition-detail', kwargs={'slug': Exhibition.slug})
         )
 
@@ -211,7 +211,7 @@ class ArtistResumeTest(WebTest):
             reverse('artist-resume', kwargs={'slug': Artist.slug})
         )
         artist_resume.click(
-            unicode(Artist),
+            str(Artist),
             href=Artist.get_absolute_url()
         )
 
@@ -231,7 +231,7 @@ class ArtistBookListTest(WebTest):
         )
 
         artist_book_list.click(
-            unicode(Artist),
+            str(Artist),
             href=Artist.get_absolute_url()
         )
 
@@ -246,6 +246,6 @@ class ArtistBookListTest(WebTest):
         # page, but a mailto link
         with self.assertRaises(AppError):
             artist_book_list.click(
-                unicode(Book),
+                str(Book),
                 href=re.escape(Book.get_purchase_url()),
             )

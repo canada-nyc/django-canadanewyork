@@ -1,38 +1,12 @@
-import os
-import urlparse
 from datetime import datetime, timedelta
-import logging
 
-import dj_database_url
-from memcacheify import memcacheify
+import environ
 
-from django.core.exceptions import ImproperlyConfigured
+root = environ.Path(__file__) - 2
 
-from libs.common.utils import rel_path
-
-
-def get_env_variable(var_name, possible_options=[]):
-    try:
-        value = os.environ[var_name]
-    except KeyError:
-        message = "Set the {} environment variable".format(var_name)
-        if possible_options:
-            message += 'Possible options are {}'.format(str(possible_options))
-        raise ImproperlyConfigured(message)
-    if possible_options and value not in possible_options:
-        raise ImproperlyConfigured(
-            "The variable {} must be set to one of the following: {} "
-            "It is set to '{}'' instead".format(
-                var_name,
-                str(possible_options),
-                value
-            )
-        )
-    if value.lower() == 'false':
-        return False
-    if value.lower() == 'true':
-        return True
-    return value
+env = environ.Env(
+    DEBUG=(bool, False),
+)
 
 
 def insert_after(tuple_, index_item, new_item):
@@ -43,14 +17,36 @@ def insert_after(tuple_, index_item, new_item):
     list_.insert(list_.index(index_item) + 1, new_item)
     return tuple(list_)
 
+#############
+# TEMPLATES #
+#############
+INSTALLED_APPS = ('sekizai',)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [root('templates')],
+        'APP_DIRS': False,
+        'OPTIONS': {
+            'context_processors': [
+                'sekizai.context_processors.sekizai',
+            ],
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            ]
+        },
+    },
+]
+
+
 ##################
 # DJANGO DEFAULT #
 ##################
-SECRET_KEY = get_env_variable('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 WSGI_APPLICATION = 'wsgi.application'
 ROOT_URLCONF = 'configs.urls'
 PREPEND_WWW = False
-INSTALLED_APPS = ('django.contrib.sites', )
+INSTALLED_APPS += ('django.contrib.sites', )
 SITE_ID = 1
 # Disable translation
 USE_I18N = False
@@ -67,15 +63,16 @@ MIDDLEWARE_CLASSES = (
     'dumper.middleware.FetchFromCacheMiddleware',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.core.context_processors.debug",
-    "django.core.context_processors.tz",  # Time zone support
-)
+TEMPLATES[0]['OPTIONS']['context_processors'] += [
+    "django.template.context_processors.debug",
+    "django.template.context_processors.tz",  # Time zone support
+]
 
 ########
 # MISC #
 ########
 INSTALLED_APPS += ('django.contrib.sitemaps',)
+INSTALLED_APPS += ('django.contrib.flatpages',)
 INSTALLED_APPS += ('clear_cache',)
 
 
@@ -107,7 +104,7 @@ INSTALLED_APPS += (
 # ADMIN #
 #########
 INSTALLED_APPS += (
-    'grappelli',
+    'autocomplete_light',  # must be before django.contrib.admin
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -115,57 +112,43 @@ INSTALLED_APPS += (
     'django.contrib.sessions',
     'django.contrib.messages'
 )
-TEMPLATE_CONTEXT_PROCESSORS += (
+TEMPLATES[0]['OPTIONS']['context_processors'] += [
     "django.contrib.auth.context_processors.auth",
     "django.contrib.messages.context_processors.messages"
-)
-
-GRAPPELLI_ADMIN_TITLE = 'canada'
+]
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
-INSTALLED_APPS += ('libs.ckeditor',)
+INSTALLED_APPS += (
+    'libs.ckeditor',
+    'adminsortable2',
+)
 CKEDITOR_CLASS = 'user-created'
-
-#############
-# TEMPLATES #
-#############
-TEMPLATE_DIRS = (rel_path('templates'), )
-
-INSTALLED_APPS += ('sekizai',)
-TEMPLATE_CONTEXT_PROCESSORS += ('sekizai.context_processors.sekizai',)
 
 
 ##########
 # IMAGES #
 ##########
 INSTALLED_APPS += ('simpleimages',)
-if get_env_variable('CANADA_QUEUE_ASYNC'):
-    SIMPLEIMAGES_TRANSFORM_CALLER = 'configs.queues.enqueue'
-CANADA_IMAGE_DIMENSION_FIELDS = get_env_variable('CANADA_IMAGE_DIMENSION_FIELDS')
+if env.bool('CANADA_QUEUE_ASYNC'):
+    SIMPLEIMAGES_TRANSFORM_CALLER = 'simpleimages.callers.celery'
+CANADA_IMAGE_DIMENSION_FIELDS = env('CANADA_IMAGE_DIMENSION_FIELDS')
 
 ###########
 # DATABASE #
 ###########
-INSTALLED_APPS += (
-    'south',
-)
-SOUTH_TESTS_MIGRATE = False
 DATABASES = {
-    'default': dj_database_url.config()
+    'default': env.db()
 }
 
 
 #########
 # QUEUE #
 #########
-INSTALLED_APPS += ('pq',)
+INSTALLED_APPS += ('kombu.transport.django',)
+BROKER_URL = 'django://'
 
-QUEUE_ASYNC = get_env_variable('CANADA_QUEUE_ASYNC')
-
-# not default in django 1.5
-DATABASES['default']['OPTIONS'] = {'autocommit': True}
-PQ_QUEUE_CACHE = True
+CELERY_ALWAYS_EAGER = not env.bool('CANADA_QUEUE_ASYNC')
 
 
 ###########
@@ -181,58 +164,47 @@ STATICFILES_DIRS = (
     # Static files in top level directory `static` are accessible under the
     # `canada` path. For example, the file located at `static/images/favicon`
     # would be accessible via {{ static prefix }}/canada/images/favicon
-    ('canada', rel_path('static')),
+    ('canada', root('static')),
 )
 
-TEMPLATE_CONTEXT_PROCESSORS += (
-    "django.core.context_processors.static",
-)
+TEMPLATES[0]['OPTIONS']['context_processors'] += [
+    "django.template.context_processors.static",
+]
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = rel_path('.static')
+STATIC_ROOT = root('.static')
 
 # Media
-TEMPLATE_CONTEXT_PROCESSORS += (
-    "django.core.context_processors.media",
-)
+TEMPLATES[0]['OPTIONS']['context_processors'] += [
+    "django.template.context_processors.media",
+]
 
-_storage_backend = get_env_variable(
-    'CANADA_STORAGE',
-    possible_options=['local', 's3', 'planter']
-)
-if _storage_backend == 'local':
+if not env.bool('CANADA_STORAGE_S3'):
     MEDIA_URL = '/media/'
-    MEDIA_ROOT = rel_path('.media')
-
+    MEDIA_ROOT = root('.media')
 else:
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    DEFAULT_FILE_STORAGE = "django_s3_storage.storage.S3Storage"
 
     INSTALLED_APPS += (
-        'storages',
+        'django_s3_storage',
     )
-    if _storage_backend == 's3':
-        AWS_ACCESS_KEY_ID = get_env_variable('AWS_ACCESS_KEY_ID')
-        AWS_SECRET_ACCESS_KEY = get_env_variable('AWS_SECRET_ACCESS_KEY')
-        AWS_STORAGE_BUCKET_NAME = get_env_variable('AWS_BUCKET')
-    else:
-        AWS_ACCESS_KEY_ID = get_env_variable('PLANTER_S3_ACCESS_KEY_ID')
-        AWS_SECRET_ACCESS_KEY = get_env_variable('PLANTER_S3_SECRET_ACCESS_KEY')
-        AWS_STORAGE_BUCKET_NAME = get_env_variable('PLANTER_BUCKET_NAME')
 
-    AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME
+    AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+    AWS_S3_BUCKET_NAME = env('AWS_BUCKET')
+
+    AWS_S3_PUBLIC_URL = '//{}/'.format(AWS_S3_BUCKET_NAME)
+    AWS_S3_BUCKET_AUTH = False
+
+    # set's cache-control max-age header
+    AWS_S3_MAX_AGE_SECONDS = 60*60*24*365  # 1 year.
+
     _year_in_future = datetime.utcnow() + timedelta(days=365)
-    AWS_HEADERS = {
-        "Cache-Control": "public, max-age=31536000",
+    AWS_S3_METADATA = {
         'Expires': _year_in_future.strftime('%a, %d %b %Y %H:%M:%S UTC')
     }
-    AWS_QUERYSTRING_AUTH = False
-    AWS_QUERYSTRING_EXPIRE = 600
-    AWS_S3_SECURE_URLS = False
-    AWS_IS_GZIPPED = True
-    AWS_PRELOAD_METADATA = True
-
 
 ############
 # SECURITY #
@@ -241,72 +213,32 @@ else:
 # Admin overrides this, so unless we add any forms not in the admin
 # no need to enable.
 # MIDDLEWARE_CLASSES += ('django.middleware.csrf.CsrfViewMiddleware',)
-ALLOWED_HOSTS = (get_env_variable('CANADA_ALLOWED_HOST'),)
+ALLOWED_HOSTS = (env('CANADA_ALLOWED_HOST'),)
 
 
 ###########
 # CACHING #
 ###########
-_cache_backend = get_env_variable(
-    'CANADA_CACHE',
-    possible_options=['redis', 'memcache', 'memory', 'database', 'dummy']
-)
+CACHES = {
+    'default': env.cache()
+}
 
-if _cache_backend == 'redis':
-    redis_url = urlparse.urlparse(get_env_variable('REDISCLOUD_URL'))
-
-    CACHES = {
-        'default': {
-            "BACKEND": "redis_cache.cache.RedisCache",
-            'LOCATION': '{}:{}:{}'.format(redis_url.hostname, redis_url.port, 0),
-            'OPTIONS': {
-                'PASSWORD': redis_url.password,
-            },
-        }
-    }
-elif _cache_backend == 'memcache':
-    CACHES = memcacheify()
-elif _cache_backend == 'database':
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-            'LOCATION': 'cache',
-        }
-    }
-elif _cache_backend == 'memory':
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-            'LOCATION': 'django_canadanewyork',
-        }
-    }
-elif _cache_backend == 'dummy':
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-        }
-    }
-
-
-if get_env_variable('CANADA_CACHE_TEMPLATES'):
-    TEMPLATE_LOADERS = (
-        ('django.template.loaders.cached.Loader', (
-            'django.template.loaders.filesystem.Loader',
-            'django.template.loaders.app_directories.Loader',
-        )),
-    )
+if env.bool('CANADA_CACHE_TEMPLATES'):
+    TEMPLATES[0]['OPTIONS']['loaders'] = [
+        ('django.template.loaders.cached.Loader', TEMPLATES[0]['OPTIONS']['loaders']),
+    ]
 
 USE_ETAGS = True
 
-DUMPER_PATH_IGNORE_REGEX = r'^/(?:(?:admin)|(?:grappelli)|(?:media))/'
+DUMPER_PATH_IGNORE_REGEX = r'^/(?:(?:admin)|(?:autocomplete)|(?:media))/'
 
 #########
 # DEBUG #
 #########
-if get_env_variable('CANADA_DEBUG'):
-    DEBUG = TEMPLATE_DEBUG = True
+if env.bool('CANADA_DEBUG'):
+    DEBUG = TEMPLATES[0]['OPTIONS']['debug'] = True
 
-if get_env_variable('CANADA_DEVSERVER'):
+if env.bool('CANADA_DEVSERVER'):
     INSTALLED_APPS += (
         'devserver',
     )
@@ -320,7 +252,7 @@ if get_env_variable('CANADA_DEVSERVER'):
         # 'devserver.modules.profile.LineProfilerModule',
     )
 
-if get_env_variable('CANADA_DEBUG_TOOLBAR'):
+if env.bool('CANADA_DEBUG_TOOLBAR'):
     INSTALLED_APPS += (
         'debug_toolbar',
     )
@@ -354,7 +286,7 @@ LOGGING = {
     },
     'handlers': {
         'console': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         }
@@ -364,22 +296,18 @@ LOGGING = {
     },
     'root': {
         'handlers': ['console', ],
-        'level': 'DEBUG'
+        'level': 'INFO'
     },
 }
 
-if get_env_variable('CANADA_DUMPER_LOG'):
-    LOGGING['loggers']['dumper'] = {
-        'level': 'DEBUG',
-    }
 
 LOGGING['loggers']['pq'] = {
     'level': 'INFO',
 }
 
 
-if get_env_variable('CANADA_SENTRY'):
-    SENTRY_DSN = get_env_variable('SENTRY_DSN')
+if env.bool('CANADA_SENTRY'):
+    SENTRY_DSN = env('SENTRY_DSN')
     INSTALLED_APPS += (
         'raven.contrib.django.raven_compat',
     )

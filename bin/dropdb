@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -o xtrace
+
+run-db.sh dropdb "$@"

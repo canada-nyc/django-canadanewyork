@@ -1,10 +1,10 @@
-from django.db import models
+from django_fake_model import models as f
 
 from libs.unique_boolean.fields import UniqueBooleanField
 
 
-class UniqueBooleanModel(models.Model):
+class UniqueBooleanModel(f.FakeModel):
     unique_boolean = UniqueBooleanField()
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.unique_boolean)

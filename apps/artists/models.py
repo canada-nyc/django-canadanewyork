@@ -2,12 +2,13 @@ import os
 
 from django.db import models
 from django.db.models import Q
-from django.db.models.loading import get_model
+from django.apps import apps
 from django.core.urlresolvers import reverse
 
 import url_tracker
 import dumper
 import simpleimages.trackers
+from autocomplete_light.shortcuts import register
 
 from libs.slugify.fields import SlugifyField
 from libs.ckeditor.fields import CKEditorField
@@ -16,18 +17,18 @@ from apps.photos.models import ArtworkPhoto
 
 class VisibleManager(models.Manager):
 
-    def get_query_set(self):
-        return super(VisibleManager, self).get_query_set().filter(visible=True)
+    def get_queryset(self):
+        return super(VisibleManager, self).get_queryset().filter(visible=True)
+
+
+def file_path(instance, filename):
+    return os.path.join(
+        instance.get_absolute_url()[1:],
+        'resume',
+        filename)
 
 
 class Artist(url_tracker.URLTrackingMixin, models.Model):
-
-    def file_path(instance, filename):
-        return os.path.join(
-            instance.get_absolute_url()[1:],
-            'resume',
-            filename)
-
     date = models
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -53,7 +54,7 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
         ordering = ['-visible', 'last_name', 'first_name']
         unique_together = ("first_name", "last_name")
 
-    def __unicode__(self):
+    def __str__(self):
         return ' '.join([self.first_name, self.last_name])
 
     @staticmethod
@@ -70,7 +71,7 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
 
     @property
     def all_press(self):
-        return get_model('press', 'Press').objects.filter(
+        return apps.get_model('press', 'Press').objects.filter(
             Q(artist=self) | Q(exhibition__artists__in=[self])
         )
 
@@ -101,3 +102,4 @@ url_tracker.track_url_changes_for_model(Artist)
 dumper.register(Artist)
 dumper.register(ArtistPhoto)
 simpleimages.trackers.track_model(ArtistPhoto)
+register(Artist, search_fields=['first_name', 'last_name'])

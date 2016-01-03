@@ -1,0 +1,18 @@
+app:
+  build: .
+  env_file: .env
+  volumes:
+    # need all these, because we cant mount the actual directory
+    # there is a .release folder inside which cant be overriden
+    # which is built when buyilding this
+    - ./apps:/app/apps/
+    - ./configs:/app/configs/
+    - ./libs:/app/libs/
+    - ./manage.py:/app/manage.py
+    - ./Procfile:/app/Procfile
+    - ./pytest.ini:/app/pytest.ini
+    - ./static:/app/static/
+    - ./tasks:/app/tasks/
+    - ./templates:/app/templates/
+    - ./tests:/app/tests/
+    - ./wsgi.py:/app/wsgi.py

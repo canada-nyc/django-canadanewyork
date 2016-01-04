@@ -1,4 +1,10 @@
 <a href="{{ object.get_absolute_url }}">
-<em>{{ object.artist }}</em><br />
-{{ object.title}}
+  {% with photo=object.get_grid_photo %}
+    {% if photo %}
+      <img src="{{ photo.url }}" height="{{ photo.height }}" width="{{ photo.width }}"/>
+    {% endif %}
+  {% endwith %}
+  <div class="text">
+    <p><em>{{ object.artist }}</em><br />{{ object.title}}</p>
+  </div>
 </a>

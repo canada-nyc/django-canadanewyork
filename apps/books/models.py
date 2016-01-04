@@ -8,7 +8,7 @@ import simpleimages.trackers
 
 from libs.ckeditor.fields import CKEditorField
 from libs.slugify.fields import SlugifyField
-from apps.photos.models import BasePhoto
+from apps.photos.models import BasePhoto, image_path_function
 
 
 from ..artists.models import Artist
@@ -84,9 +84,46 @@ class Book(models.Model):
             yield self.artist.get_absolute_url()
             yield reverse('artist-book-list', kwargs={'slug': self.artist.slug})
 
+    def get_grid_photo(self):
+        try:
+            return self.photos.all()[0].safe_icon_image
+        except IndexError:
+            return None
+
+
+def icon_image_path_function(instance, filename):
+    return image_path_function('icon', instance, filename)
+
 
 class BookPhoto(BasePhoto):
     content_object = models.ForeignKey(Book, related_name='photos')
+
+    icon_image = models.ImageField(
+        blank=True,
+        null=True,
+        editable=False,
+        upload_to=icon_image_path_function,
+        height_field='icon_image_height',
+        width_field='icon_image_width',
+        max_length=1000
+    )
+    icon_image_height = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        editable=False,
+    )
+    icon_image_width = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        editable=False,
+    )
+
+    transformed_fields = BasePhoto.transformed_fields
+    transformed_fields['image']['icon_image'] = simpleimages.transforms.Scale(width=150)
+
+    @property
+    def safe_icon_image(self):
+        return self._get_safe_image('icon_image', 'image')
 
 
 dumper.register(Book)

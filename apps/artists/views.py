@@ -28,6 +28,7 @@ class ArtistExhibitionList(ObjectListFromParent):
 
 class ArtistBookList(ObjectListFromParent):
     queryset = Artist.in_gallery.all()
+    template_name = 'base/list_grid.html'
 
     def get_object_list_from_parent(self, artist):
         return artist.books.all()

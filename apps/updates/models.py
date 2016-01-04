@@ -26,7 +26,7 @@ class Update(url_tracker.URLTrackingMixin, models.Model):
         return reverse('update-detail', kwargs={'pk': self.pk})
 
     def dependent_paths(self):
-        yield self.get_absolute_url()
+        yield reverse('update-list')
 
 
 class UpdatePhoto(BasePhoto):

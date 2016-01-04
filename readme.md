@@ -67,17 +67,8 @@ To recompute the static files:
 
 
 ```bash
-lessc \
---compress \
-static/styles/main.less \
-static/compressed/main.css
-
-scss \
---trace \
---style compressed \
---load-path static/styles/magnific \
-static/bower_components/magnific-popup/src/css/main.scss \
-static/compressed/magnific-popup.css
+docker-compose -f docker-compose.static.yml run less
+docker-compose -f docker-compose.static.yml run sass
 ```
 
 # Transfering

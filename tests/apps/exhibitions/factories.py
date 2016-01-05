@@ -11,7 +11,7 @@ class ExhibitionFactory(factory.DjangoModelFactory):
     class Meta:
         model = Exhibition
 
-    name = factory.Faker('word')
+    name = utils.FakerTitle()
     description = factory.Faker('text')
     extra_info = factory.Faker('text')
 
@@ -22,4 +22,4 @@ class ExhibitionFactory(factory.DjangoModelFactory):
     artists = factory.PostGeneration(create_artists)
     press = factory.PostGeneration(create_press)
 
-    press_release_photo = factory.django.ImageField()
+    press_release_photo = utils.FakerImageField()

@@ -22,3 +22,13 @@ class FuzzyDate(BaseFuzzyAttribute):
 
 def django_image(**params):
     return ContentFile(factory.django.ImageField()._make_data(params))
+
+
+def FakerTitle(words=3):
+    return factory.LazyAttribute(
+        lambda _: ' '.join(factory.Faker('words', nb=words).generate({}))
+    )
+
+
+def FakerImageField():
+    return factory.django.ImageField(color='blue')

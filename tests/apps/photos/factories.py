@@ -1,21 +1,26 @@
 import factory
 
+from ... import utils
 
-def get_create_function(photo_model):
+
+def PhotoFactory(photo_model):
     class PhotoFactory(factory.DjangoModelFactory):
         class Meta:
             model = photo_model
 
-        title = factory.Faker('word')
+        title = utils.FakerTitle()
+        image = utils.FakerImageField()
 
-        image = factory.django.ImageField(color='blue')
+    return PhotoFactory
 
+
+def get_create_function(photo_model):
     def create_photos(obj, create, extracted, **kwargs):
         if extracted:
             obj.photos.add(extracted)
         number = int(kwargs.pop('n', 0))
         for _ in range(number):
-            photo = PhotoFactory.create(content_object=obj, **kwargs)
+            photo = PhotoFactory(photo_model).create(content_object=obj, **kwargs)
             obj.photos.add(photo)
 
     return create_photos

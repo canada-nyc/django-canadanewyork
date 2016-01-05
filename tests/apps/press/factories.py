@@ -10,7 +10,7 @@ class PressFactory(factory.DjangoModelFactory):
     class Meta:
         model = Press
 
-    title = factory.Faker('word')
+    title = utils.FakerTitle()
     content = factory.Faker('text')
     publisher = factory.Faker('company')
     publisher = factory.Faker('name')

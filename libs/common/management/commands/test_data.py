@@ -21,6 +21,7 @@ class Command(management.base.BaseCommand):
             press__n=2,
             press__content='content_in_press',
             books__n=4,
+            books__photos__n=1,
         )
         PressFactory(artist__n=1, content_file__make=True)
         ExhibitionFactory(press__n=3, press__content_file__make=True,

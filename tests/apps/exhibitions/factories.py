@@ -11,7 +11,9 @@ class ExhibitionFactory(factory.DjangoModelFactory):
     class Meta:
         model = Exhibition
 
-    name = factory.Sequence(lambda n: 'name{}'.format(n))
+    name = factory.Faker('word')
+    description = factory.Faker('text')
+    extra_info = factory.Faker('text')
 
     start_date = utils.FuzzyDate()
     end_date = factory.LazyAttribute(lambda obj: utils.random_date(start_date=obj.start_date))

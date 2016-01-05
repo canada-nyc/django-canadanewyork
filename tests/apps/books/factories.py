@@ -11,7 +11,7 @@ class BookFactory(factory.DjangoModelFactory):
     class Meta:
         model = Book
 
-    title = factory.Sequence(lambda n: 'title{}'.format(n))
+    title = factory.Faker('word')
     date = utils.FuzzyDate()
 
     description = factory.Faker('text')

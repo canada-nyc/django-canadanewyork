@@ -77,7 +77,7 @@ class ExhibitionDetailTest(WebTest):
             )
 
     def test_no_press_link(self):
-        Exhibition = ExhibitionFactory.create()
+        Exhibition = ExhibitionFactory.create(press__n=0)
         exhibition_detail = self.app.get(Exhibition.get_absolute_url())
         with self.assertRaises(IndexError):
             exhibition_detail.click(
@@ -95,7 +95,7 @@ class ExhibitionDetailTest(WebTest):
         )
 
     def test_no_press_release_link(self):
-        Exhibition = ExhibitionFactory.create()
+        Exhibition = ExhibitionFactory.create(description="")
         exhibition_detail = self.app.get(Exhibition.get_absolute_url())
         with self.assertRaises(IndexError):
             exhibition_detail.click(

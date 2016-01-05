@@ -6,7 +6,7 @@ def get_create_function(photo_model):
         class Meta:
             model = photo_model
 
-        title = factory.Sequence(lambda n: 'title {}'.format(n))
+        title = factory.Faker('word')
 
         image = factory.django.ImageField(color='blue')
 

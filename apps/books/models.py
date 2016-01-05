@@ -1,3 +1,4 @@
+import copy
 import urllib.parse
 
 from django.db import models
@@ -118,7 +119,7 @@ class BookPhoto(BasePhoto):
         editable=False,
     )
 
-    transformed_fields = BasePhoto.transformed_fields
+    transformed_fields = copy.deepcopy(BasePhoto.transformed_fields)
     transformed_fields['image']['icon_image'] = simpleimages.transforms.Scale(width=150)
 
     @property

@@ -72,7 +72,7 @@ class ArtistDetailTest(WebTest):
         )
 
     def test_no_resume_link(self):
-        Artist = ArtistFactory.create()
+        Artist = ArtistFactory.create(resume="")
         artist_detail = self.app.get(Artist.get_absolute_url())
 
         with self.assertRaises(IndexError):

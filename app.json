@@ -4,7 +4,7 @@
   "repository": "https://github.com/saulshanabrook/django-canadanewyork",
   "success_url": "/",
   "scripts": {
-    "postdeploy": "python manage.py init_db --init; python manage.py collectstatic --noinput"
+    "postdeploy": "python manage.py init_db --init"
   },
   "env": {
     "ADMIN_PASSWORD": {"generator": "secret"},

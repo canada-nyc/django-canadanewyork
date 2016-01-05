@@ -79,7 +79,7 @@ To copy the DB from prod to staging:
 
 
 ```bash
-heroku pg:copy canada::DATABASE_URL DATABASE_URL -a canada-dev
+heroku pg:copy canada::DATABASE_URL DATABASE_URL -a canada-development
 ```
 
 

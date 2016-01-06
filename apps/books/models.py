@@ -120,7 +120,10 @@ class BookPhoto(BasePhoto):
     )
 
     transformed_fields = copy.deepcopy(BasePhoto.transformed_fields)
-    transformed_fields['image']['icon_image'] = simpleimages.transforms.Scale(width=150)
+    transformed_fields['image']['icon_image'] = simpleimages.transforms.Scale(
+        width=150,
+        height=200,
+    )
 
     @property
     def safe_icon_image(self):

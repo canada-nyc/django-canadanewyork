@@ -20,7 +20,7 @@
     "CANADA_DEVSERVER": "False",
     "CANADA_DUMPER_LOG": "False",
     "CANADA_IMAGE_DIMENSION_FIELDS": "True",
-    "CANADA_QUEUE_ASYNC": "True",
+    "CANADA_QUEUE_ASYNC": "False",
     "CANADA_SENTRY": "False",
     "CANADA_STORAGE_S3": "True",
     "DJANGO_SETTINGS_MODULE": "configs.settings",
@@ -29,6 +29,7 @@
   "addons": [
     "newrelic",
     "heroku-postgresql",
-    "librato"
+    "librato",
+    "logentries"
   ]
 }

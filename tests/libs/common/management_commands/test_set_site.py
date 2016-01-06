@@ -1,3 +1,5 @@
+import pytest
+
 from django.contrib.sites.models import Site
 from django.core.management import call_command
 from django.core.management.base import CommandError
@@ -40,5 +42,5 @@ class TestSetSiteCommand(TestCase):
         ``set_site`` should raise a command error when called with > 1 argument
         '''
 
-        with self.assertRaises(CommandError):
+        with pytest.raises(CommandError):
             call_command('test_site', '', '', verbosity=0)

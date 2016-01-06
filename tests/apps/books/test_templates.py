@@ -1,9 +1,12 @@
 import re
 import datetime
 
-from django_webtest import WebTest
-from django.core.urlresolvers import reverse
+import pytest
 from webtest.app import AppError
+
+from django.core.urlresolvers import reverse
+
+from django_webtest import WebTest
 
 from .factories import BookFactory
 
@@ -75,7 +78,7 @@ class BookDetailTest(WebTest):
     def test_buy_link(self):
         # will raise AppError when hits 404, because index link is not a real
         # page, but a mailto link
-        with self.assertRaises(AppError):
+        with pytest.raises(AppError):
             self.book_detail.click(
                 'Buy',
                 href=re.escape(self.book.get_purchase_url())

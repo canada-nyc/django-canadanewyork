@@ -7,7 +7,4 @@ from .factories import ArtistFactory
 class ArtistUrlTest(TestCase):
     def test_detail(self):
         Artist = ArtistFactory.create()
-        self.assertEqual(
-            Artist.get_absolute_url(),
-            reverse('artist-detail', kwargs={'slug': Artist.slug})
-        )
+        assert Artist.get_absolute_url() == reverse('artist-detail', kwargs={'slug': Artist.slug})

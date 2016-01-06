@@ -16,4 +16,4 @@ class BookGetPurchaseUrl(TestCase):
             book.artist.last_name,
             book.title
         )
-        self.assertEqual(book.get_purchase_url(), url)
+        assert book.get_purchase_url() == url

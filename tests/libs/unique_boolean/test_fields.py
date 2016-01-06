@@ -9,7 +9,7 @@ class UniqueBooleanTest(TestCase):
     def test_wont_change_to_true(self):
         UniqueBooleanModel.objects.create(unique_boolean=False)
         model = UniqueBooleanModel.objects.all()[0]
-        self.assertFalse(model.unique_boolean)
+        assert not model.unique_boolean
 
     def test_adding_another_will_change(self):
         UniqueBooleanModel.objects.create(unique_boolean=True)

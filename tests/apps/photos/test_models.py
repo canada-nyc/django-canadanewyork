@@ -28,41 +28,23 @@ class BasePhotoGetSafeImageTest(TestCase):
     def test_no_image_returns_backup_image(self):
         self.photo.image = False
 
-        self.assertEqual(
-            self.get_safe_image(self),
-            'backup image'
-        )
+        assert self.get_safe_image(self) == 'backup image'
 
     @override_settings(CANADA_IMAGE_DIMENSION_FIELDS='_')
     def test_returns_url(self):
-        self.assertEqual(
-            self.get_safe_image(self)['url'],
-            'url atrribute'
-        )
+        assert self.get_safe_image(self)['url'] == 'url atrribute'
 
     @override_settings(CANADA_IMAGE_DIMENSION_FIELDS=True)
     def test_returns_dimension_fields(self):
-        self.assertEqual(
-            self.get_safe_image(self)['width'],
-            'width field'
-        )
+        assert self.get_safe_image(self)['width'] == 'width field'
 
-        self.assertEqual(
-            self.get_safe_image(self)['height'],
-            'height field'
-        )
+        assert self.get_safe_image(self)['height'] == 'height field'
 
     @override_settings(CANADA_IMAGE_DIMENSION_FIELDS=False)
     def test_no_canada_image_dimension_fields(self):
-        self.assertEqual(
-            self.get_safe_image(self)['width'],
-            'width atrribute'
-        )
+        assert self.get_safe_image(self)['width'] == 'width atrribute'
 
-        self.assertEqual(
-            self.get_safe_image(self)['height'],
-            'height atrribute'
-        )
+        assert self.get_safe_image(self)['height'] == 'height atrribute'
 
 
 @MockPhoto.fake_me
@@ -72,47 +54,35 @@ class BasePhotoCachedDimensionsTest(TestCase):
 
     def test_dimension_fields_filled(self):
         photo = MockPhotoFactory(image__height=1000)
-        self.assertTrue(photo.thumbnail_image)
-        self.assertEqual(
-            photo.thumbnail_image.height,
-            photo.thumbnail_image_height)
+        assert photo.thumbnail_image
+        assert photo.thumbnail_image.height == photo.thumbnail_image_height
 
     def test_dimensions_field_change(self):
         photo = MockPhotoFactory(image__height=10)
 
         photo.image.save('_.jpg', django_image(width=1000, height=1000))
-        self.assertEqual(
-            photo.thumbnail_image.height,
-            photo.thumbnail_image_height)
+        assert photo.thumbnail_image.height == photo.thumbnail_image_height
         # make sure photo height is not the same as before, it should be larger
         # now
-        self.assertNotEqual(photo.thumbnail_image.height, 10)
+        assert photo.thumbnail_image.height != 10
 
     def test_unequal_dimensions(self):
         photo = MockPhotoFactory(image__height=10)
 
         photo.image.save('_.jpg', django_image(width=1, height=2))
-        self.assertEqual(
-            photo.thumbnail_image.height,
-            photo.thumbnail_image_height,
-            2)
-        self.assertEqual(
-            photo.thumbnail_image.width,
-            photo.thumbnail_image_width,
-            1)
+        assert photo.thumbnail_image.height == photo.thumbnail_image_height == 2
+        assert photo.thumbnail_image.width == photo.thumbnail_image_width == 1
 
     def test_dimensions_saved_on_field(self):
         photo = MockPhotoFactory(image__height=10)
 
         photo.image.save('_.jpg', django_image(width=100, height=100))
         photo = photo.__class__.objects.get(pk=photo.pk)
-        self.assertEqual(
-            photo.thumbnail_image.height,
-            photo.thumbnail_image_height)
+        assert photo.thumbnail_image.height == photo.thumbnail_image_height
 
         # make sure photo height is not the same as before, it should be larger
         # now
-        self.assertNotEqual(photo.thumbnail_image.height, 10)
+        assert photo.thumbnail_image.height != 10
 
 
 class ArtworkPhotoDimensionTest(TestCase):
@@ -130,37 +100,28 @@ class ArtworkPhotoDimensionTest(TestCase):
     def test_convert_inches_to_cm(self):
         cm = self.photo.convert_inches_to_cm(1)
 
-        self.assertEqual(cm, D('2.54'))
+        assert cm == D('2.54')
 
     def test_dimensions_cm(self):
         self.photo.height = 1
 
-        self.assertEqual(self.photo.dimensions_cm, [D('2.54')])
+        assert self.photo.dimensions_cm == [D('2.54')]
 
     def test_full_dimensions(self):
         self.photo.height = .5
         self.photo.width = .5
 
-        self.assertEqual(
-            self.photo.full_dimensions,
-            '1/2 x 1/2 in (1.27 x 1.27 cm)'
-        )
+        assert self.photo.full_dimensions == '1/2 x 1/2 in (1.27 x 1.27 cm)'
 
     def test_full_dimensions_single(self):
         self.photo.height = 1
 
-        self.assertEqual(
-            self.photo.full_dimensions,
-            '1 in (2.54 cm)'
-        )
+        assert self.photo.full_dimensions == '1 in (2.54 cm)'
 
     def test_full_dimensions_double_digit(self):
         self.photo.height = 10
 
-        self.assertEqual(
-            self.photo.full_dimensions,
-            '10 in (25.4 cm)'
-        )
+        assert self.photo.full_dimensions == '10 in (25.4 cm)'
 
 
 class ArtworkPhotoFullCaptionTest(TestCase):
@@ -171,7 +132,4 @@ class ArtworkPhotoFullCaptionTest(TestCase):
     def test_dimensions(self):
         self.photo.height = 1
 
-        self.assertIn(
-            self.photo.full_dimensions,
-            self.photo.full_caption
-        )
+        assert self.photo.full_dimensions in self.photo.full_caption

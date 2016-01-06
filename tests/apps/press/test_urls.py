@@ -7,7 +7,4 @@ from .factories import PressFactory
 class PressUrlTest(TestCase):
     def test_detail(self):
         Press = PressFactory.create()
-        self.assertEqual(
-            Press.get_absolute_url(),
-            reverse('press-detail', kwargs={'slug': Press.slug})
-        )
+        assert Press.get_absolute_url() == reverse('press-detail', kwargs={'slug': Press.slug})

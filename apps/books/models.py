@@ -59,7 +59,7 @@ class Book(models.Model):
 
     @property
     def link_body_template(self):
-        return 'Hello\nI am interested in buying {first} {last}:{title}. Can you please contact me for pricing and availabilty?'
+        return 'Hello\nI am interested in buying {first} {last}: {title}. Can you please contact me for pricing and availability?'
 
     @property
     def link_body(self):

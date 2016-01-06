@@ -1,7 +1,7 @@
 <a href="{{ object.get_absolute_url }}">
   {% with photo=object.get_grid_photo %}
     {% if photo %}
-      <img src="{{ photo.url }}" height="{{ photo.height }}" width="{{ photo.width }}"/>
+      <img src="{{ photo.url }}" height="{{ photo.height }}" width="150px"/>
     {% endif %}
   {% endwith %}
   <div class="text">

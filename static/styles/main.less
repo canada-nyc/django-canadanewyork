@@ -93,7 +93,7 @@ figure aside {
 }
 
 section {
-  width: 600px;
+  width: @section-width;
   padding-left: 200px;
   padding-right: 20px;
   margin-top: 80px;
@@ -206,6 +206,8 @@ header {
 
 // Object grid styling
 
+@grid-width: @section-width / 3;
+
 .object-grid {
   list-style: none;
   padding: 0;
@@ -217,26 +219,13 @@ header {
   flex-wrap: wrap;
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
+  -webkit-align-items: flex-end;
+  align-items: flex-end;
   li {
-    flex: 0 0 auto;
-    margin-right: 3em;
+    -webkit-flex: 0 0 @grid-width;
+    flex: 0 0 @grid-width;
   }
 }
-
-// @media (min-width: 45em) {
-//   .object-grid li {
-//     float: left;
-//     display: table-cell;
-//     width: 50%;
-//   }
-// }
-
-// @media (min-width: 75em) {
-//   .object-grid li {
-//     width: 33.33333%;
-//   }
-// }
-
 
 
 // Related links list styling
@@ -300,7 +289,7 @@ header {
 
   section {
     width: auto;
-    max-width: 600px;
+    max-width: @section-width;
   }
 
   footer {

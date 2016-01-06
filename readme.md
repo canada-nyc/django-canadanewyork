@@ -57,7 +57,7 @@ docker-compose --x-networking run --rm -e HOME=/app/ --entrypoint bash web -c 'c
 To reset the local DB
 
 ```bash
-docker-compose --x-networking stop db; docker-compose --x-networking rm -f db; docker-compose --x-networking up -d db
+docker-compose --x-networking stop; docker-compose --x-networking rm -f db data web worker; docker-compose --x-networking up -d db; docker-compose --x-networking run --rm web python manage.py init_db --init; docker-compose --x-networking run --rm web python manage.py collectstatic --noinput; docker-compose --x-networking up web worker
 ```
 
 

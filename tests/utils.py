@@ -30,5 +30,12 @@ def FakerTitle(words=3):
     )
 
 
-def FakerImageField():
-    return factory.django.ImageField(color='blue')
+class FakerImageField(factory.django.ImageField):
+    def __init__(self, **kwargs):
+        random_kwargs = {
+            'color': factory.Faker('rgb_color_list').generate({}),
+            'height': factory.fuzzy.FuzzyInteger(10, 700).fuzz(),
+            'width': factory.fuzzy.FuzzyInteger(10, 700).fuzz(),
+        }
+        random_kwargs.update(kwargs)
+        super().__init__(**random_kwargs)

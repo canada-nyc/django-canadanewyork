@@ -4,21 +4,23 @@
 
 {% block body %}
 <article>
-  {% if exhibition %}
-  <header>
-    <a href="{{ exhibition.get_absolute_url }}">
-      {% with photo=exhibition.get_press_release_photo %}
-        {% if photo %}
-         <img src="{{ photo.url }}" height="{{ photo.height }}" width="{{ photo.width }}"/>
-        {% endif %}
-      {% endwith %}
-      <h1>{{ exhibition }}</h1>
-      {% if exhibition.not_group_show %}<p>{{ exhibition.join_artists}}</p>{% endif %}
-      <p>{% include 'base/date_range.html' with start_date=exhibition.start_date end_date=exhibition.end_date %}
-    </a>
-  </header>
-  {{ exhibition.extra_info.as_html }}
-  {% endif %}
+  <div class="multi-column">
+    {% for exhibition in exhibitions %}
+      <div>
+        <a href="{{ exhibition.get_absolute_url }}">
+          {% with photo=exhibition.get_press_release_photo %}
+            {% if photo %}
+             <img src="{{ photo.url }}" height="{{ photo.height }}" width="{{ photo.width }}"/>
+            {% endif %}
+          {% endwith %}
+          <h1>{{ exhibition }}</h1>
+          {% if exhibition.not_group_show %}<p>{{ exhibition.join_artists}}</p>{% endif %}
+          <p>{% include 'base/date_range.html' with start_date=exhibition.start_date end_date=exhibition.end_date %}</p>
+        </a>
+        {{ exhibition.extra_info.as_html }}
+      </div>
+    {% endfor %}
+  </div>
   {{ extra_content }}
 </article>
 {% endblock body %}

@@ -1,6 +1,6 @@
 app:
   build: .
-  env_file: .env
+  env_file: docker-compose.env
   volumes:
     # need all these, because we cant mount the actual directory
     # there is a .release folder inside which cant be overriden

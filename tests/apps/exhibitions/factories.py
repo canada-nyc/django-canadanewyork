@@ -14,6 +14,7 @@ class ExhibitionFactory(factory.DjangoModelFactory):
     name = utils.FakerTitle()
     description = factory.Faker('text')
     extra_info = factory.Faker('text')
+    current = False
 
     start_date = utils.FuzzyDate()
     end_date = factory.LazyAttribute(lambda obj: utils.random_date(start_date=obj.start_date))

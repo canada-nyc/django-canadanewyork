@@ -12,7 +12,6 @@ from autocomplete_light.shortcuts import register
 from apps.artists.models import Artist
 from apps.photos.models import ArtworkPhoto
 from libs.slugify.fields import SlugifyField
-from libs.unique_boolean.fields import UniqueBooleanField
 from libs.common.utils import sentance_join
 from libs.ckeditor.fields import CKEditorField
 
@@ -42,10 +41,10 @@ class Exhibition(url_tracker.URLTrackingMixin, models.Model):
         unique=True
     )
 
-    current = UniqueBooleanField(
+    current = models.BooleanField(
         help_text=(
-            "Set the exhibition as the current show. Will appear on homepage"),
-        default=True
+            "Shows the current exhibition on the homepage"),
+        default=False
     )
 
     extra_info = CKEditorField(

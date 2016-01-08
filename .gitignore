@@ -12,3 +12,4 @@ tmp/static/
 .static/*
 .media/*
 docker-compose*.override.yml
+.env

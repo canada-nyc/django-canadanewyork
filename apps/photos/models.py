@@ -80,9 +80,9 @@ class BasePhoto(models.Model):
     )
 
     position = models.PositiveSmallIntegerField(
-        verbose_name='',
-        null=True,
-        blank=True,
+        default=0,
+        null=False,
+        blank=False
     )
 
     class Meta:
@@ -90,9 +90,7 @@ class BasePhoto(models.Model):
         abstract = True
 
     def __str__(self):
-        if self.position is not None:
-            return '#{} {}'.format(self.position + 1, self.title)
-        return self.title
+        return '#{} {}'.format(self.position + 1, self.title)
 
     transformed_fields = {
         'image': {

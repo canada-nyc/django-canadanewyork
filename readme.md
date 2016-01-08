@@ -51,7 +51,7 @@ docker-compose --x-networking run --rm -e CANADA_QUEUE_ASYNC=False web py.test -
 To make all migrations:
 
 ```bash
-docker-compose --x-networking run --rm -e HOME=/app/ --entrypoint bash web -c 'cd /app; eval $(cat /app/.profile.d/python.sh); python manage.py makemigrations artists books custompages exhibitions photos press updates'
+docker-compose --x-networking run --rm web python manage.py makemigrations artists books custompages exhibitions photos press updates
 ```
 
 To reset the local DB
@@ -89,6 +89,8 @@ And to copy to local environment:
 docker-compose --x-networking up -d db
 
 bash -c 'env PATH=./bin/:$PATH dropdb postgres'
+
+# don't worry that this will fail halfway through, just cant verify DB
 bash -c 'env PATH=./bin/:$PATH heroku pg:pull DATABASE_URL postgres --app canada'
 ```
 

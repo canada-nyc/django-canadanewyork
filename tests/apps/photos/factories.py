@@ -11,6 +11,8 @@ def PhotoFactory(photo_model):
         title = utils.FakerTitle()
         image = utils.FakerImageField()
 
+        position = factory.Sequence(lambda n: n)
+
     return PhotoFactory
 
 

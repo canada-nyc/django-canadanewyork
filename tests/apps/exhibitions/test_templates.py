@@ -190,15 +190,25 @@ class ExhibitionPressReleaseTest(WebTest):
 
 class ExhibitionCurrentTest(WebTest):
     def test_unicode(self):
-        Exhibition = ExhibitionFactory.create()
+        Exhibition = ExhibitionFactory.create(current=True)
         exhibition_current = self.app.get(
             reverse('exhibition-current')
         )
 
         assert str(Exhibition) in exhibition_current
 
+    def test_unicode_multiple(self):
+        Exhibition1 = ExhibitionFactory.create(current=True)
+        Exhibition2 = ExhibitionFactory.create(current=True)
+        exhibition_current = self.app.get(
+            reverse('exhibition-current')
+        )
+
+        assert str(Exhibition1) in exhibition_current
+        assert str(Exhibition2) in exhibition_current
+
     def test_artist_text(self):
-        Exhibition = ExhibitionFactory.create(artists__n=1)
+        Exhibition = ExhibitionFactory.create(current=True, artists__n=1)
         exhibition_current = self.app.get(
             reverse('exhibition-current')
         )
@@ -206,7 +216,7 @@ class ExhibitionCurrentTest(WebTest):
         assert Exhibition.join_artists in exhibition_current
 
     def test_extra_info(self):
-        Exhibition = ExhibitionFactory.create(extra_info='some info')
+        Exhibition = ExhibitionFactory.create(current=True, extra_info='some info')
         exhibition_current = self.app.get(
             reverse('exhibition-current')
         )
@@ -215,7 +225,7 @@ class ExhibitionCurrentTest(WebTest):
 
     def test_no_extra_info(self):
         'if there is no extra info, should not display'
-        ExhibitionFactory.create(extra_info='')
+        ExhibitionFactory.create(current=True, extra_info='')
         exhibition_current = self.app.get(
             reverse('exhibition-current')
         )
@@ -224,7 +234,7 @@ class ExhibitionCurrentTest(WebTest):
         assert 'None' not in exhibition_current
 
     def test_link_to_exhibition(self):
-        Exhibition = ExhibitionFactory.create()
+        Exhibition = ExhibitionFactory.create(current=True)
         exhibition_current = self.app.get(
             reverse('exhibition-current')
         )
@@ -233,7 +243,7 @@ class ExhibitionCurrentTest(WebTest):
         )
 
     def test_flatpage_append(self):
-        ExhibitionFactory.create()
+        ExhibitionFactory.create(current=True)
         CustomPage_ = CustomPage.objects.create(
             path=reverse('exhibition-current'),
             content='some content',
@@ -245,6 +255,7 @@ class ExhibitionCurrentTest(WebTest):
         assert CustomPage_.content in exhibition_current
 
     def test_no_current_exhibition_flatpage_append(self):
+        ExhibitionFactory.create(current=False)
         CustomPage_ = CustomPage.objects.create(
             path=reverse('exhibition-current'),
             content='some content',

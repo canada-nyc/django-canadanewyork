@@ -98,12 +98,11 @@ bash -c 'env PATH=./bin/:$PATH heroku pg:pull DATABASE_URL postgres --app canada
 
 ### Pulling
 
-And then to run locally with those env variables, add `env_file: .env` to your
-`web` section in `docker-compose.override.yml` and then:
+To then to run locally with env variables from production
 
 ```bash
-heroku config:pull --overwrite -a canada
-echo 'CANADA_ALLOWED_HOST=*' >> .env
+heroku config:pull --overwrite --env docker-compose.env -a canada
+echo 'CANADA_ALLOWED_HOST=*' >> docker-compose.env
 docker-compose --x-networking up web
 ```
 

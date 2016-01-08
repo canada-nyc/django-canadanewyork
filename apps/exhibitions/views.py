@@ -34,12 +34,7 @@ class ExhibitionCurrent(TemplateView):
         else:
             context['extra_content'] = custompage.content.as_html
 
-        try:
-            current_exhibition = Exhibition.objects.get(current=True)
-        except Exhibition.DoesNotExist:
-            context['exhibition'] = None
-        else:
-            context['exhibition'] = current_exhibition
+        context['exhibitions'] = Exhibition.objects.filter(current=True)
 
         return context
 

@@ -44,6 +44,8 @@ To run the tests:
 docker-compose --x-networking up -d db
 docker-compose --x-networking run --rm web python manage.py collectstatic --noinput
 docker-compose --x-networking run --rm -e CANADA_QUEUE_ASYNC=False web py.test
+# or to run continiously use looponfail:
+docker-compose --x-networking run --rm -e CANADA_QUEUE_ASYNC=False web py.test -f
 ```
 
 To make all migrations:
@@ -55,7 +57,7 @@ docker-compose --x-networking run --rm -e HOME=/app/ --entrypoint bash web -c 'c
 To reset the local DB
 
 ```bash
-docker-compose --x-networking stop db; docker-compose --x-networking rm -f db; docker-compose --x-networking up -d db
+docker-compose --x-networking stop; docker-compose --x-networking rm -f db data web worker; docker-compose --x-networking up -d db; sleep 5; docker-compose --x-networking run --rm web python manage.py init_db --init; docker-compose --x-networking run --rm web python manage.py collectstatic --noinput; docker-compose --x-networking up web worker
 ```
 
 
@@ -65,17 +67,8 @@ To recompute the static files:
 
 
 ```bash
-lessc \
---compress \
-static/styles/main.less \
-static/compressed/main.css
-
-scss \
---trace \
---style compressed \
---load-path static/styles/magnific \
-static/bower_components/magnific-popup/src/css/main.scss \
-static/compressed/magnific-popup.css
+docker-compose -f docker-compose.static.yml run less
+docker-compose -f docker-compose.static.yml run sass
 ```
 
 # Transfering
@@ -86,7 +79,7 @@ To copy the DB from prod to staging:
 
 
 ```bash
-heroku pg:copy canada::DATABASE_URL DATABASE_URL -a canada-dev
+heroku pg:copy canada::DATABASE_URL DATABASE_URL -a canada-development
 ```
 
 

@@ -10,9 +10,11 @@ worker:
   extends:
     file: docker-compose.base.yml
     service: app
+  environment:
+    C_FORCE_ROOT: "True"
   volumes_from:
     - data
-  command: ["/start", "worker"]
+  command: honcho start worker
 db:
   image: postgres
 data:

@@ -1,3 +1,5 @@
+import pytest
+
 from django_webtest import WebTest
 from django.core.urlresolvers import reverse
 from django.core.files.base import ContentFile
@@ -40,19 +42,19 @@ class ExhibitionListTest(WebTest):
             reverse('exhibition-list')
         )
 
-        self.assertIn(Exhibition.join_artists, exhibition_list)
+        assert Exhibition.join_artists in exhibition_list
 
 
 class ExhibitionDetailTest(WebTest):
     def test_unicode(self):
         Exhibition = ExhibitionFactory.create()
         exhibition_detail = self.app.get(Exhibition.get_absolute_url())
-        self.assertIn(str(Exhibition), exhibition_detail)
+        assert str(Exhibition) in exhibition_detail
 
     def test_description(self):
         Exhibition = ExhibitionFactory.create(description='description')
         exhibition_detail = self.app.get(Exhibition.get_absolute_url())
-        self.assertIn(Exhibition.description, exhibition_detail)
+        assert Exhibition.description in exhibition_detail
 
     def test_artist_link(self):
         Exhibition = ExhibitionFactory.create(artists__n=1)
@@ -69,17 +71,17 @@ class ExhibitionDetailTest(WebTest):
         Artist = Exhibition.artists.all()[0]
         exhibition_detail = self.app.get(Exhibition.get_absolute_url())
 
-        self.assertIn(str(Artist), exhibition_detail)
-        with self.assertRaises(IndexError):
+        assert str(Artist) in exhibition_detail
+        with pytest.raises(IndexError):
             exhibition_detail.click(
                 str(Artist),
                 href=Artist.get_absolute_url()
             )
 
     def test_no_press_link(self):
-        Exhibition = ExhibitionFactory.create()
+        Exhibition = ExhibitionFactory.create(press__n=0)
         exhibition_detail = self.app.get(Exhibition.get_absolute_url())
-        with self.assertRaises(IndexError):
+        with pytest.raises(IndexError):
             exhibition_detail.click(
                 'Press',
                 href=reverse('exhibition-press-list', kwargs={'slug': Exhibition.slug})
@@ -95,9 +97,9 @@ class ExhibitionDetailTest(WebTest):
         )
 
     def test_no_press_release_link(self):
-        Exhibition = ExhibitionFactory.create()
+        Exhibition = ExhibitionFactory.create(description="")
         exhibition_detail = self.app.get(Exhibition.get_absolute_url())
-        with self.assertRaises(IndexError):
+        with pytest.raises(IndexError):
             exhibition_detail.click(
                 'Press Release',
                 href=reverse('exhibition-pressrelease', kwargs={'slug': Exhibition.slug})
@@ -164,7 +166,7 @@ class ExhibitionPressListTest(WebTest):
         exhibition_press_list = self.app.get(
             reverse('exhibition-press-list', kwargs={'slug': Exhibition.slug})
         )
-        self.assertIn(Press.date_text, exhibition_press_list)
+        assert Press.date_text in exhibition_press_list
 
 
 class ExhibitionPressReleaseTest(WebTest):
@@ -183,7 +185,7 @@ class ExhibitionPressReleaseTest(WebTest):
         exhibition_press_release = self.app.get(
             reverse('exhibition-pressrelease', kwargs={'slug': Exhibition.slug})
         )
-        self.assertIn(Exhibition.description, exhibition_press_release)
+        assert Exhibition.description in exhibition_press_release
 
 
 class ExhibitionCurrentTest(WebTest):
@@ -193,7 +195,7 @@ class ExhibitionCurrentTest(WebTest):
             reverse('exhibition-current')
         )
 
-        self.assertIn(str(Exhibition), exhibition_current)
+        assert str(Exhibition) in exhibition_current
 
     def test_artist_text(self):
         Exhibition = ExhibitionFactory.create(artists__n=1)
@@ -201,7 +203,7 @@ class ExhibitionCurrentTest(WebTest):
             reverse('exhibition-current')
         )
 
-        self.assertIn(Exhibition.join_artists, exhibition_current)
+        assert Exhibition.join_artists in exhibition_current
 
     def test_extra_info(self):
         Exhibition = ExhibitionFactory.create(extra_info='some info')
@@ -209,7 +211,7 @@ class ExhibitionCurrentTest(WebTest):
             reverse('exhibition-current')
         )
 
-        self.assertIn(Exhibition.extra_info, exhibition_current)
+        assert Exhibition.extra_info in exhibition_current
 
     def test_no_extra_info(self):
         'if there is no extra info, should not display'
@@ -218,8 +220,8 @@ class ExhibitionCurrentTest(WebTest):
             reverse('exhibition-current')
         )
 
-        self.assertNotIn('none', exhibition_current)
-        self.assertNotIn('None', exhibition_current)
+        assert 'none' not in exhibition_current
+        assert 'None' not in exhibition_current
 
     def test_link_to_exhibition(self):
         Exhibition = ExhibitionFactory.create()
@@ -240,7 +242,7 @@ class ExhibitionCurrentTest(WebTest):
             reverse('exhibition-current')
         )
 
-        self.assertIn(CustomPage_.content, exhibition_current)
+        assert CustomPage_.content in exhibition_current
 
     def test_no_current_exhibition_flatpage_append(self):
         CustomPage_ = CustomPage.objects.create(
@@ -251,4 +253,4 @@ class ExhibitionCurrentTest(WebTest):
             reverse('exhibition-current')
         )
 
-        self.assertIn(CustomPage_.content, exhibition_current)
+        assert CustomPage_.content in exhibition_current

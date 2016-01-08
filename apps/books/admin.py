@@ -1,11 +1,13 @@
-import autocomplete_light
 from django.contrib import admin
 
-from .models import Book
+import autocomplete_light
+
+from apps.photos.admin import PhotoInline
+from .models import Book, BookPhoto
 
 
-class BookInline(admin.TabularInline):
-    model = Book
+class BookPhotoInline(PhotoInline):
+    model = BookPhoto
 
 
 class BookAdmin(admin.ModelAdmin):
@@ -15,11 +17,14 @@ class BookAdmin(admin.ModelAdmin):
 
     fields = (
         'title',
+        'artist',
         ('date', 'date_text'),
-        'artist'
+        'description',
     )
 
     form = autocomplete_light.modelform_factory(Book, fields='__all__')
+
+    inlines = [BookPhotoInline]
 
 
 admin.site.register(Book, BookAdmin)

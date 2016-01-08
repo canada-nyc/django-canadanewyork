@@ -6,11 +6,6 @@ from .models import Update, UpdatePhoto
 
 class UpdatePhotoInline(PhotoInline):
     model = UpdatePhoto
-    fields = (
-        "position",
-        'image',
-        ('title', 'caption'),
-    )
 
 
 class UpdateAdmin(admin.ModelAdmin):

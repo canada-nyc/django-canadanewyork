@@ -11,8 +11,10 @@ class ArtistFactory(factory.DjangoModelFactory):
     class Meta:
         model = Artist
 
-    first_name = factory.Sequence(lambda n: 'Firstname{}'.format(n))
-    last_name = factory.Sequence(lambda n: 'Lastname{}'.format(n))
+    first_name = factory.Faker('first_name')
+    last_name = factory.Faker('last_name')
+    website = factory.Faker('url')
+    resume = factory.Faker('text')
     visible = True
 
     photos = factory.PostGeneration(get_create_function(ArtistPhoto))

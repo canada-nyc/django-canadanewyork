@@ -38,6 +38,8 @@ TEMPLATES = [
     },
 ]
 
+SHOW_BOOKS = env.bool('CANADA_SHOW_BOOKS', False)
+
 
 ##################
 # DJANGO DEFAULT #

@@ -16,7 +16,7 @@ class CKEditorTest(TestCase):
         self.target_html = '<div class="hey"><p>test</p></div>\n'
 
     def test_as_html_attribute(self):
-        self.assertEqual(self.model.html.as_html, self.target_html)
+        assert self.model.html.as_html == self.target_html
 
     def test_blank_is_not_none(self):
         '''
@@ -25,7 +25,7 @@ class CKEditorTest(TestCase):
         '''
         self.model.html = ''
         self.target_html = '<div class="hey"></div>\n'
-        self.assertEqual(self.model.html.as_html, self.target_html)
+        assert self.model.html.as_html == self.target_html
 
     def test_no_save_is_not_save(self):
         '''
@@ -34,14 +34,14 @@ class CKEditorTest(TestCase):
         self.model = CKEditorModel.objects.create()
         self.target_html = '<div class="hey"></div>\n'
 
-        self.assertEqual(self.model.html.as_html, self.target_html)
+        assert self.model.html.as_html == self.target_html
 
     def test_wont_escape_in_template(self):
         rendered = Template('{{ model.html.as_html }}').render(
             Context({'model': self.model})
         )
 
-        self.assertEqual(rendered, self.target_html)
+        assert rendered == self.target_html
 
     def test_pickle(self):
         pickle.dumps(self.model)

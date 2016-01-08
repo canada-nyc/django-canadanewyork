@@ -1,6 +1,6 @@
 import re
 
-from webtest.app import AppError
+import pytest
 
 from django.core.urlresolvers import reverse
 from django.core.files.base import ContentFile
@@ -50,7 +50,7 @@ class ArtistDetailTest(WebTest):
     def test_visible_exists(self):
         Artist = ArtistFactory.create()
         artist_detail = self.app.get(Artist.get_absolute_url())
-        self.assertIn(str(Artist), artist_detail)
+        assert str(Artist) in artist_detail
 
     def test_invisible_doesnt_exist(self):
         Artist = ArtistFactory.create(visible=False)
@@ -59,7 +59,7 @@ class ArtistDetailTest(WebTest):
     def test_no_exhibitions_link(self):
         Artist = ArtistFactory.create()
         artist_detail = self.app.get(Artist.get_absolute_url())
-        with self.assertRaises(IndexError):
+        with pytest.raises(IndexError):
             artist_detail.click(
                 'Exhibitions',
                 href=reverse('artist-exhibition-list', kwargs={'slug': Artist.slug})
@@ -74,10 +74,10 @@ class ArtistDetailTest(WebTest):
         )
 
     def test_no_resume_link(self):
-        Artist = ArtistFactory.create()
+        Artist = ArtistFactory.create(resume="")
         artist_detail = self.app.get(Artist.get_absolute_url())
 
-        with self.assertRaises(IndexError):
+        with pytest.raises(IndexError):
             artist_detail.click(
                 'Resume',
                 href=reverse('artist-resume', kwargs={'slug': Artist.slug})
@@ -103,7 +103,7 @@ class ArtistDetailTest(WebTest):
     def test_no_press_link(self):
         Artist = ArtistFactory.create()
         artist_detail = self.app.get(Artist.get_absolute_url())
-        with self.assertRaises(IndexError):
+        with pytest.raises(IndexError):
             artist_detail.click(
                 'Press',
                 href=reverse('artist-press-list', kwargs={'slug': Artist.slug})
@@ -121,7 +121,7 @@ class ArtistDetailTest(WebTest):
     def test_no_book_link(self):
         Artist = ArtistFactory.create()
         artist_detail = self.app.get(Artist.get_absolute_url())
-        with self.assertRaises(IndexError):
+        with pytest.raises(IndexError):
             artist_detail.click(
                 'Books',
                 href=reverse('artist-book-list', kwargs={'slug': Artist.slug})
@@ -140,7 +140,7 @@ class ArtistDetailTest(WebTest):
         Artist = ArtistFactory.create(website='')
         artist_detail = self.app.get(Artist.get_absolute_url())
 
-        with self.assertRaises(IndexError):
+        with pytest.raises(IndexError):
             artist_detail.click(
                 'Website',
             )
@@ -220,7 +220,7 @@ class ArtistResumeTest(WebTest):
         artist_resume = self.app.get(
             reverse('artist-resume', kwargs={'slug': Artist.slug})
         )
-        self.assertIn(Artist.resume, artist_resume)
+        assert Artist.resume in artist_resume
 
 
 class ArtistBookListTest(WebTest):
@@ -235,17 +235,14 @@ class ArtistBookListTest(WebTest):
             href=Artist.get_absolute_url()
         )
 
-    def test_email_link(self):
+    def test_link(self):
         Artist = ArtistFactory.create(books__n=1)
         Book = Artist.books.all()[0]
         artist_book_list = self.app.get(
             reverse('artist-book-list', kwargs={'slug': Artist.slug})
         )
 
-        # will raise AppError when hits 404, because index link is not a real
-        # page, but a mailto link
-        with self.assertRaises(AppError):
-            artist_book_list.click(
-                str(Book),
-                href=re.escape(Book.get_purchase_url()),
-            )
+        artist_book_list.click(
+            Book.title,
+            href=Book.get_absolute_url(),
+        )

@@ -1,5 +1,6 @@
 {% load static from staticfiles %}
 {% load sekizai_tags %}
+{% load canada_filters %}
 
 <!DOCTYPE html>
 <head>
@@ -29,7 +30,7 @@
     <li><a href="{% url 'exhibition-current' %}">Homepage</a></li>
     <li><a href="{% url 'artist-list' %}">Artists</a>
     <li><a href="{% url 'exhibition-list' %}">Exhibitions</a>
-{% comment %}    <li><a href="{% url 'book-list' %}">Books</a> {% endcomment %}
+    {% if "SHOW_BOOKS"|setting %}<li><a href="{% url 'book-list' %}">Books</a>{% endif %}
     <li><a href="{% url 'update-list' %}">Updates</a>
     <li><a href="{% url 'contact' %}">Contact and Info</a>
   </ul>

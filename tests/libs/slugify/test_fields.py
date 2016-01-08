@@ -1,3 +1,5 @@
+import pytest
+
 from django.test import TransactionTestCase
 from django.template.defaultfilters import slugify
 from django.db import IntegrityError
@@ -17,7 +19,7 @@ class TestSlugify(TransactionTestCase):
         )
         calculated_slug = slugify('-'.join([_SlugifyModel.text, str(_SlugifyModel.related_model)]))
         model_slug = _SlugifyModel.slug
-        self.assertEqual(calculated_slug, model_slug)
+        assert calculated_slug == model_slug
 
     def test_doesnt_change_on_save(self):
         _SlugifyModel = slug_models.SlugifyModel.objects.create(
@@ -28,7 +30,7 @@ class TestSlugify(TransactionTestCase):
         _SlugifyModel.save()
         new_calculated_slug = slugify('-'.join(['text', str(_SlugifyModel.related_model)]))
         model_slug = _SlugifyModel.slug
-        self.assertEqual(new_calculated_slug, model_slug)
+        assert new_calculated_slug == model_slug
 
     def test_max_length(self):
         _SlugifyModel = slug_models.SlugifyModel.objects.create(
@@ -36,13 +38,13 @@ class TestSlugify(TransactionTestCase):
             related_model=slug_models.RelatedModel.objects.create()
         )
         model_slug = _SlugifyModel.slug
-        self.assertLess(len(model_slug), 255)
+        assert len(model_slug) < 255
 
     def test_unique(self):
         slug_models.SlugifyUniqueModel.objects.create(
             text='text',
         )
-        with self.assertRaises(IntegrityError):
+        with pytest.raises(IntegrityError):
             slug_models.SlugifyUniqueModel.objects.create(
                 text='text',
             )
@@ -54,17 +56,17 @@ class TestSlugify(TransactionTestCase):
         )
         calculated_slug = 'text/text2-other'
         model_slug = _SlugifyTemplateModel.slug
-        self.assertEqual(calculated_slug, model_slug)
+        assert calculated_slug == model_slug
 
     def test_available_before_save(self):
         _SlugifyModel = slug_models.SlugifyUniqueModel(
             text='text',
         )
-        self.assertEqual('text', _SlugifyModel.slug)
+        assert 'text' == _SlugifyModel.slug
 
     def test_wont_update_before_save(self):
         _SlugifyModel = slug_models.SlugifyUniqueModel.objects.create(
             text='text',
         )
         _SlugifyModel.text = "hey there"
-        self.assertEqual('text', _SlugifyModel.slug)
+        assert 'text' == _SlugifyModel.slug

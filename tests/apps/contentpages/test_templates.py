@@ -32,7 +32,7 @@ class ContactTest(WebTest):
             reverse('contact')
         )
 
-        self.assertIn(self.CustomPage.content, exhibition_current)
+        assert self.CustomPage.content in exhibition_current
 
     def test_no_content(self):
         self.CustomPage.delete()

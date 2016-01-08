@@ -10,7 +10,10 @@ class PressFactory(factory.DjangoModelFactory):
     class Meta:
         model = Press
 
-    title = factory.Sequence(lambda n: 'title{}'.format(n))
+    title = utils.FakerTitle()
+    content = factory.Faker('text')
+    publisher = factory.Faker('company')
+    publisher = factory.Faker('name')
     date = utils.FuzzyDate()
 
     exhibition = factory.PostGeneration(create_exhibition)

@@ -33,4 +33,4 @@ class UpdateDetailTest(WebTest):
     def test_description(self):
         Update = UpdateFactory(description='description')
         update_detail = self.app.get(Update.get_absolute_url())
-        self.assertIn(Update.description, update_detail)
+        assert Update.description in update_detail

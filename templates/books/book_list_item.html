@@ -1,4 +1,10 @@
-<a href="{{ object.get_purchase_url|safe }}">
-{{ object.artist }} "{{ object.title }}."
-{% if object.date_text %}{{ object.date_text }}{% else %}{% include "base/full_date.html" with date=object.date year=True %}{% endif %}
+<a href="{{ object.get_absolute_url }}">
+  {% with photo=object.get_grid_photo %}
+    {% if photo %}
+      <img src="{{ photo.url }}" height="{{ photo.height }}" width="150px"/>
+    {% endif %}
+  {% endwith %}
+  <div class="text">
+    <p><em>{{ object.artist }}</em><br />{{ object.title}}</p>
+  </div>
 </a>

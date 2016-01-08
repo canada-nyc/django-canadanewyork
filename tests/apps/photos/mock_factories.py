@@ -1,6 +1,8 @@
 import factory
 from .models import MockRelated, MockPhoto
 
+from .factories import PhotoFactory
+
 
 class MockRelatedFactory(factory.DjangoModelFactory):
 
@@ -8,12 +10,5 @@ class MockRelatedFactory(factory.DjangoModelFactory):
         model = MockRelated
 
 
-class MockPhotoFactory(factory.DjangoModelFactory):
-
-    class Meta:
-        model = MockPhoto
-
-    title = factory.Sequence(lambda n: 'title {}'.format(n))
+class MockPhotoFactory(PhotoFactory(MockPhoto)):
     content_object = factory.SubFactory(MockRelatedFactory)
-
-    image = factory.django.ImageField(color='blue')

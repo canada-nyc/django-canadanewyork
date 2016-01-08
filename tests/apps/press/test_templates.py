@@ -11,12 +11,12 @@ class PressDetailTest(WebTest):
     def test_unicode(self):
         Press = PressFactory(content='content stuff')
         press_detail = self.app.get(Press.get_absolute_url())
-        self.assertIn(str(Press), press_detail)
+        assert str(Press) in press_detail
 
     def test_content(self):
         Press = PressFactory(content='content stuff')
         press_detail = self.app.get(Press.get_absolute_url())
-        self.assertIn(Press.content, press_detail)
+        assert Press.content in press_detail
 
     def test_content_file_path(self):
         Press = PressFactory()
@@ -36,7 +36,7 @@ class PressDetailTest(WebTest):
     def test_date_text(self):
         Press = PressFactory(content='_', date_text='some text')
         press_detail = self.app.get(Press.get_absolute_url())
-        self.assertIn(Press.date_text, press_detail)
+        assert Press.date_text in press_detail
 
     def test_date_text_overrides_date(self):
         year, month, day = (3000, 1, 1)
@@ -44,9 +44,9 @@ class PressDetailTest(WebTest):
         date_text = 'Something or other'
         Press = PressFactory(content='_', date_text=date_text, date=date)
         press_detail = self.app.get(Press.get_absolute_url())
-        self.assertIn(date_text, press_detail)
+        assert date_text in press_detail
 
     def test_pages_range_displayed(self):
         Press = PressFactory(content='_', pages_range='some text')
         press_detail = self.app.get(Press.get_absolute_url())
-        self.assertIn(Press.pages_range, press_detail)
+        assert Press.pages_range in press_detail

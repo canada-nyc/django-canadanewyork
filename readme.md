@@ -89,6 +89,8 @@ And to copy to local environment:
 docker-compose --x-networking up -d db
 
 bash -c 'env PATH=./bin/:$PATH dropdb postgres'
+
+# don't worry that this will fail halfway through, just cant verify DB
 bash -c 'env PATH=./bin/:$PATH heroku pg:pull DATABASE_URL postgres --app canada'
 ```
 

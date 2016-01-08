@@ -18,13 +18,24 @@ class BookListTest(WebTest):
             reverse('book-list')
         )
 
-    def test_nav_click(self):
-        book_list = self.app.get(
-            reverse('book-list')
-        )
-        book_list.click(
-            'Books',
-        )
+    def test_nav_click_shown(self):
+        with self.settings(SHOW_BOOKS=True):
+            book_list = self.app.get(
+                reverse('book-list')
+            )
+            book_list.click(
+                'Books',
+            )
+
+    def test_nav_click_hidden(self):
+        with self.settings(SHOW_BOOKS=False):
+            book_list = self.app.get(
+                reverse('book-list')
+            )
+            with pytest.raises(IndexError):
+                book_list.click(
+                    'Books',
+                )
 
     def test_link(self):
         Book = BookFactory.create()

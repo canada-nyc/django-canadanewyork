@@ -39,7 +39,7 @@ TEMPLATES = [
 ]
 
 SHOW_BOOKS = env.bool('CANADA_SHOW_BOOKS', False)
-
+SNIPCART_API_KEY = env('CANADA_SNIPCART_API_KEY')
 
 ##################
 # DJANGO DEFAULT #

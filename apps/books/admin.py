@@ -18,6 +18,7 @@ class BookAdmin(admin.ModelAdmin):
     fields = (
         'title',
         'artist',
+        'price',
         ('date', 'date_text'),
         'description',
     )

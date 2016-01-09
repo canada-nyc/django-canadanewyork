@@ -1,10 +1,12 @@
 import json
+from urllib.parse import urljoin
 
 from django import template
-from django.utils.safestring import mark_safe
-from django.utils.encoding import force_text
-from django.template.defaultfilters import stringfilter
 from django.conf import settings
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.defaultfilters import stringfilter
+from django.utils.encoding import force_text
+from django.utils.safestring import mark_safe
 
 register = template.Library()
 
@@ -19,3 +21,10 @@ def escapejson(value):
 @stringfilter
 def setting(value):
     return getattr(settings, value)
+
+
+@register.filter
+@stringfilter
+def absolute(value):
+    print(get_current_site(None).domain)
+    return urljoin(get_current_site(None).domain, value)

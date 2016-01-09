@@ -1,21 +1,22 @@
 import os
-from optparse import make_option
 
-from django.core.management.base import NoArgsCommand, CommandError
+from django.contrib.sites.models import Site
 from django.core.management import call_command
+from django.core.management.base import BaseCommand, CommandError
 
 
-class Command(NoArgsCommand):
-    help = 'Add initial data to blank datavase'
-    option_list = NoArgsCommand.option_list + (
-        make_option(
+class Command(BaseCommand):
+    help = 'Add initial data to blank database'
+
+    def add_arguments(self, parser):
+        parser.add_argument('site', help='domain for the site')
+
+        parser.add_argument(
             '--init',
             action='store_true',
             dest='init',
             default=False,
-            help='Tells Django to add factory models'
-        ),
-    )
+            help='Tells Django to add factory models')
 
     def handle(self, *args, **options):
         self.log('Adding cache table')
@@ -30,10 +31,17 @@ class Command(NoArgsCommand):
             'create_super_user',
             os.environ['ADMIN_USERNAME'],
             os.environ['ADMIN_PASSWORD'])
-        call_command('set_site')
-        if options.get('init'):
+        self.log('Setting site to ' + options['site'])
+        self.set_site(options['site'])
+
+        if options['init']:
             self.log('Adding test_data')
             call_command('test_data')
+
+    def set_site(self, domain):
+        site = Site.objects.get_current()
+        site.domain = site.name = domain
+        site.save()
 
     def log(self, string):
         self.stdout.write(string + '\n')

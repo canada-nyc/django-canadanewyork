@@ -27,7 +27,7 @@ To fill the database with test data and setup static:
 
 ```bash
 docker-compose --x-networking up -d db
-docker-compose --x-networking run --rm web python manage.py init_db --init
+docker-compose --x-networking run --rm web python manage.py init_db http://$(docker-machine ip default):8000/ --init
 docker-compose --x-networking run --rm web python manage.py collectstatic --noinput
 ```
 
@@ -57,7 +57,7 @@ docker-compose --x-networking run --rm web python manage.py makemigrations artis
 To reset the local DB
 
 ```bash
-docker-compose --x-networking stop; docker-compose --x-networking rm -f db data web worker; docker-compose --x-networking up -d db; sleep 5; docker-compose --x-networking run --rm web python manage.py init_db --init; docker-compose --x-networking run --rm web python manage.py collectstatic --noinput; docker-compose --x-networking up web worker
+docker-compose --x-networking stop; docker-compose --x-networking rm -f db data web worker; docker-compose --x-networking up -d db; sleep 5; docker-compose --x-networking run --rm web python manage.py init_db http://$(docker-machine ip default):8000/ --init; docker-compose --x-networking run --rm web python manage.py collectstatic --noinput; docker-compose --x-networking up web worker
 ```
 
 

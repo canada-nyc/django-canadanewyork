@@ -1,8 +1,6 @@
-import re
 import datetime
 
 import pytest
-from webtest.app import AppError
 
 from django.core.urlresolvers import reverse
 
@@ -87,13 +85,9 @@ class BookDetailTest(WebTest):
         assert str(year) not in self.book_detail
 
     def test_buy_link(self):
-        # will raise AppError when hits 404, because index link is not a real
-        # page, but a mailto link
-        with pytest.raises(AppError):
-            self.book_detail.click(
-                'Buy',
-                href=re.escape(self.book.get_purchase_url())
-            )
+        self.book.price = 10
+        self.book.save()
+        assert 'Buy for $10' in self.book_detail
 
     def test_description(self):
         assert self.book.description in self.book_detail

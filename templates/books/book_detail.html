@@ -1,8 +1,35 @@
 {% extends "base.html" %}
 
+{% load static from staticfiles %}
+{% load sekizai_tags %}
+{% load canada_filters %}
+
 {% block title %}{{ book }}{{ block.super }}{% endblock %}
 
 {% block body %}
+{% addtoblock "js" %}
+  <script src="{% static "canada/bower_components/jquery/jquery.min.js" %}"></script>
+  <script id="snipcart" src="https://cdn.snipcart.com/scripts/snipcart.js" data-api-key="{{ "SNIPCART_API_KEY"|setting }}"></script>
+{% endaddtoblock %}
+
+{% addtoblock "css" %}
+<link id="snipcart-theme" href="https://cdn.snipcart.com/themes/base/snipcart.min.css" rel="stylesheet">
+<style>
+#snipcart-discounts {
+  display: none !important;
+}
+a#snipcart-close:before {
+    content: "Continue Shopping";
+    padding: 10px;
+    position: relative;
+    top: -0.2em;
+    font: 15px brandon_grotesquebold,sans-serif;
+    text-transform: uppercase;
+    color: #fff;
+}
+</style>
+{% endaddtoblock %}
+
 <article>
   <header>
     <h1>{{ book.title }}</h1>
@@ -12,12 +39,27 @@
   {% include "base/photos.html" with photos=book.photos.all id=book.id %}
 
   {{ book.description.as_html }}
-  <aside>
-    <ul class="related-links">
-      <li>
-        <a href="{{ book.get_purchase_url }}">Buy</a>
-      </li>
-    </ul>
-  </aside>
+  {% if book.price %}
+    <aside>
+      <ul class="related-links">
+        <li>
+          <a href="#"
+            class="snipcart-add-item"
+            data-item-url="{{ book.get_absolute_url|absolute }}"
+            data-item-id="{{ book.pk }}"
+            data-item-name="{{ book }}"
+            data-item-price="{{ book.price|floatformat:2 }}"
+            {% with photo=book.get_grid_photo %}
+              {% if photo %}
+               data-item-image="{{ photo.url }}"
+              {% endif %}
+            {% endwith %}
+          >
+            Buy for ${{ book.price }}
+          </a>
+        </li>
+      </ul>
+    </aside>
+  {% endif %}
 </article>
 {% endblock body %}

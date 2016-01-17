@@ -13,6 +13,7 @@ class BookFactory(factory.DjangoModelFactory):
 
     title = utils.FakerTitle()
     date = utils.FuzzyDate()
+    price = factory.fuzzy.FuzzyInteger(1, 100)
 
     description = factory.Faker('text')
 

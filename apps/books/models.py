@@ -1,5 +1,4 @@
 import copy
-import urllib.parse
 
 from django.db import models
 from django.core.urlresolvers import reverse
@@ -19,7 +18,11 @@ class Book(models.Model):
     title = models.CharField(max_length=500)
     artist = models.ForeignKey(Artist, related_name='books')
     description = CKEditorField(blank=True)
-
+    price = models.PositiveSmallIntegerField(
+        blank=False,
+        null=True,
+        help_text="If blank, will not show buy button."
+    )
     date = models.DateField(
         verbose_name='Precise Date',
         help_text='Used for ordering'
@@ -41,42 +44,13 @@ class Book(models.Model):
         unique_together = ['artist', 'title']
 
     def __str__(self):
-        return self.title
+        return "{} {}".format(self.artist, self.title)
 
     def clean(self):
         self.title = self.title.strip().title()
 
     def get_absolute_url(self):
         return reverse('book-detail', kwargs={'slug': self.slug})
-
-    @property
-    def link_email(self):
-        return 'gallery@canadanewyork.com'
-
-    @property
-    def link_subject(self):
-        return 'Purchase Book'
-
-    @property
-    def link_body_template(self):
-        return 'Hello\nI am interested in buying {first} {last}: {title}. Can you please contact me for pricing and availability?'
-
-    @property
-    def link_body(self):
-        return self.link_body_template.format(
-            first=self.artist.first_name,
-            last=self.artist.last_name,
-            title=self.title
-        )
-
-    def url_quote(self, string):
-        return urllib.parse.quote(string, '')
-
-    def get_purchase_url(self):
-        arguments = [self.link_email, self.link_subject, self.link_body]
-        return 'mailto:{}?subject={}&body={}'.format(
-            *list(map(self.url_quote, arguments))
-        )
 
     def dependent_paths(self):
         yield reverse('book-list')

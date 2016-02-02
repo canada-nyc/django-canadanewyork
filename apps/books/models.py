@@ -40,7 +40,7 @@ class Book(models.Model):
     )
 
     class Meta:
-        ordering = ['-date']
+        ordering = ['artist__last_name', 'artist__first_name', '-date']
         unique_together = ['artist', 'title']
 
     def __str__(self):

@@ -26,38 +26,38 @@ echo 'app:
 To fill the database with test data and setup static:
 
 ```bash
-docker-compose --x-networking up -d db
-docker-compose --x-networking run --rm web python manage.py init_db http://$(docker-machine ip default):8000/ --init
-docker-compose --x-networking run --rm web python manage.py collectstatic --noinput
+docker-compose up -d db
+docker-compose run --rm web python manage.py init_db http://$(docker-machine ip default):8000/ --init
+docker-compose run --rm web python manage.py collectstatic --noinput
 ```
 
 To start the development server:
 
 ```bash
-docker-compose --x-networking up
+docker-compose up
 open http://$(docker-machine ip default):8000
 ```
 
 To run the tests:
 
 ```bash
-docker-compose --x-networking up -d db
-docker-compose --x-networking run --rm web python manage.py collectstatic --noinput
-docker-compose --x-networking run --rm -e CANADA_QUEUE_ASYNC=False web py.test
+docker-compose up -d db
+docker-compose run --rm web python manage.py collectstatic --noinput
+docker-compose run --rm -e CANADA_QUEUE_ASYNC=False web py.test
 # or to run continiously use looponfail:
-docker-compose --x-networking run --rm -e CANADA_QUEUE_ASYNC=False web py.test -f
+docker-compose run --rm -e CANADA_QUEUE_ASYNC=False web py.test -f
 ```
 
 To make all migrations:
 
 ```bash
-docker-compose --x-networking run --rm web python manage.py makemigrations artists books custompages exhibitions photos press updates
+docker-compose run --rm web python manage.py makemigrations artists books custompages exhibitions photos press updates
 ```
 
 To reset the local DB
 
 ```bash
-docker-compose --x-networking stop; docker-compose --x-networking rm -f db data web worker; docker-compose --x-networking up -d db; sleep 5; docker-compose --x-networking run --rm web python manage.py init_db http://$(docker-machine ip default):8000/ --init; docker-compose --x-networking run --rm web python manage.py collectstatic --noinput; docker-compose --x-networking up web worker
+docker-compose stop; docker-compose rm -f db data web worker; docker-compose up -d db; sleep 5; docker-compose run --rm web python manage.py init_db http://$(docker-machine ip default):8000/ --init; docker-compose run --rm web python manage.py collectstatic --noinput; docker-compose up web worker
 ```
 
 
@@ -86,7 +86,7 @@ heroku pg:copy canada::DATABASE_URL DATABASE_URL -a canada-development
 And to copy to local environment:
 
 ```bash
-docker-compose --x-networking up -d db
+docker-compose up -d db
 
 bash -c 'env PATH=./bin/:$PATH dropdb postgres'
 
@@ -103,7 +103,7 @@ To then to run locally with env variables from production
 ```bash
 heroku config:pull --overwrite --env docker-compose.env -a canada
 echo 'CANADA_ALLOWED_HOST=*' >> docker-compose.env
-docker-compose --x-networking up web
+docker-compose up web
 ```
 
 ### Pushing

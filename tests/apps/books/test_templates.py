@@ -63,26 +63,26 @@ class BookDetailTest(WebTest):
     def book_detail(self):
         return self.app.get(self.book.get_absolute_url())
 
-    def test_title(self):
-        assert self.book.title in self.book_detail
+    # def test_title(self):
+    #     assert self.book.title in self.book_detail
 
-    def test_artist(self):
-        assert str(self.book.artist) in self.book_detail
+    # def test_artist(self):
+    #     assert str(self.book.artist) in self.book_detail
 
-    def test_artist_link(self):
-        self.book_detail.click(
-            str(self.book.artist),
-            href=self.book.artist.get_absolute_url(),
-        )
+    # def test_artist_link(self):
+    #     self.book_detail.click(
+    #         str(self.book.artist),
+    #         href=self.book.artist.get_absolute_url(),
+    #     )
 
-    def test_date(self):
-        assert str(self.book.date.year) in self.book_detail
+    # def test_date(self):
+    #     assert str(self.book.date.year) in self.book_detail
 
-    def test_date_text_overrides_date(self):
-        year, month, day = (3000, 1, 1)
-        date = datetime.datetime(year, month, day)
-        self.book = BookFactory(date_text='some text', date=date)
-        assert str(year) not in self.book_detail
+    # def test_date_text_overrides_date(self):
+    #     year, month, day = (3000, 1, 1)
+    #     date = datetime.datetime(year, month, day)
+    #     self.book = BookFactory(date_text='some text', date=date)
+    #     assert str(year) not in self.book_detail
 
     def test_buy_link(self):
         self.book.price = 10

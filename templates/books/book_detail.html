@@ -31,11 +31,14 @@ a#snipcart-close:before {
 {% endaddtoblock %}
 
 <article>
+{% comment %}
   <header>
     <h1>{{ book.title }}</h1>
     <p>{{ book.artist.link_if_visible}}</p>
     <p>{% if object.date_text %}{{ object.date_text }}{% else %}{% include "base/full_date.html" with date=object.date year=True %}{% endif %}</p>
   </header>
+{% endcomment %}
+
   {% include "base/photos.html" with photos=book.photos.all id=book.id %}
 
   {{ book.description.as_html }}

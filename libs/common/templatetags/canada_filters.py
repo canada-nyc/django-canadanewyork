@@ -26,5 +26,4 @@ def setting(value):
 @register.filter
 @stringfilter
 def absolute(value):
-    print(get_current_site(None).domain)
-    return urljoin(get_current_site(None).domain, value)
+    return urljoin(get_current_site(None).domain + '/', value)

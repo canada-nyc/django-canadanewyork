@@ -1,5 +1,4 @@
 import json
-from urllib.parse import urljoin
 
 from django import template
 from django.conf import settings
@@ -26,4 +25,4 @@ def setting(value):
 @register.filter
 @stringfilter
 def absolute(value):
-    return urljoin(get_current_site(None).domain + '/', value)
+    return get_current_site(None).domain + value

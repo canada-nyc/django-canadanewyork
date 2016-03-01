@@ -11,7 +11,7 @@ class BookPhotoInline(PhotoInline):
 
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('title', 'date', 'date_text')
+    list_display = ('title', 'date', 'date_text', 'price')
     list_filter = ('artist',)
     date_hierarchy = 'date'
 

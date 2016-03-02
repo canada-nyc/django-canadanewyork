@@ -66,6 +66,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 TEMPLATES[0]['OPTIONS']['context_processors'] += [
+    'django.core.context_processors.request',
     "django.template.context_processors.debug",
     "django.template.context_processors.tz",  # Time zone support
 ]

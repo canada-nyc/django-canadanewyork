@@ -48,7 +48,7 @@ a#snipcart-close:before {
         <li>
           <a href="#"
             class="snipcart-add-item"
-            data-item-url="{{ book.get_absolute_url|absolute }}"
+            data-item-url="{{ request.build_absolute_uri }}"
             data-item-id="{{ book.pk }}"
             data-item-name="{{ book }}"
             data-item-price="{{ book.price|floatformat:2 }}"

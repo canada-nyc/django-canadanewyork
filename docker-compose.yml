@@ -1,28 +1,31 @@
-web:
-  extends:
-    file: docker-compose.base.yml
-    service: app
-  volumes_from:
-    - data
-  ports:
-    - "8000:8000"
-worker:
-  extends:
-    file: docker-compose.base.yml
-    service: app
-  environment:
-    C_FORCE_ROOT: "True"
-  volumes_from:
-    - data
-  command: honcho start worker
-db:
-  image: postgres
-data:
-  # must use same image for data, to avoid permission problems
-  # http://container42.com/2014/11/18/data-only-container-madness/
-  build: .
-  entrypoint: ["true"]
-  command: []
-  volumes:
-    - /app/.media
-    - /app/.static
+version: '2'
+
+services:
+  web:
+    extends:
+      file: docker-compose.base.yml
+      service: app
+    volumes_from:
+      - data
+    ports:
+      - "8000:8000"
+  worker:
+    extends:
+      file: docker-compose.base.yml
+      service: app
+    environment:
+      C_FORCE_ROOT: "True"
+    volumes_from:
+      - data
+    command: honcho start worker
+  db:
+    image: postgres
+  data:
+    # must use same image for data, to avoid permission problems
+    # http://container42.com/2014/11/18/data-only-container-madness/
+    build: .
+    entrypoint: ["true"]
+    command: []
+    volumes:
+      - /app/.media
+      - /app/.static

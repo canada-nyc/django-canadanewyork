@@ -2,7 +2,7 @@ sudo: required
 services:
   - docker
 env:
-  DOCKER_COMPOSE_VERSION: 1.5.2
+  DOCKER_COMPOSE_VERSION: 1.6.2
 
 before_install:
   - sudo apt-get update
@@ -13,20 +13,22 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
   - |-
     echo -e '
-    web:
-      environment:
-        SECRET_KEY: _
-    worker:
-      environment:
-        SECRET_KEY: _
+    version: "2"
+    services:
+      web:
+        environment:
+          SECRET_KEY: _
+      worker:
+        environment:
+          SECRET_KEY: _
     ' > docker-compose.override.yml
 install:
   - docker-compose pull
   - docker-compose build
 before_script:
-  - docker-compose --x-networking up -d db
-  - docker-compose --x-networking run web python manage.py collectstatic --noinput
+  - docker-compose up -d db
+  - docker-compose run web python manage.py collectstatic --noinput
 script:
-- docker-compose --x-networking run -e CANADA_QUEUE_ASYNC=False web py.test
+- docker-compose run -e CANADA_QUEUE_ASYNC=False web py.test
 notifications:
   email: false

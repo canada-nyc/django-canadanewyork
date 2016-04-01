@@ -1,19 +1,22 @@
-less:
-  image: evolution7/nodejs-less
-  volumes:
-    - .:/app/
-  command: >
-    --compress
-    static/styles/main.less
-    static/compressed/main.css
-sass:
-  image: dragonflyscience/website-sass
-  volumes:
-    - .:/work/
-  command: >
-    scss
-    --trace
-    --style compressed
-    --load-path static/styles/magnific
-    static/bower_components/magnific-popup/src/css/main.scss
-    static/compressed/magnific-popup.css
+version: '2'
+
+services:
+  less:
+    image: evolution7/nodejs-less
+    volumes:
+      - .:/app/
+    command: >
+      --compress
+      static/styles/main.less
+      static/compressed/main.css
+  sass:
+    image: dragonflyscience/website-sass
+    volumes:
+      - .:/work/
+    command: >
+      scss
+      --trace
+      --style compressed
+      --load-path static/styles/magnific
+      static/bower_components/magnific-popup/src/css/main.scss
+      static/compressed/magnific-popup.css

@@ -29,7 +29,8 @@
         },
         items: [{% for photo in photos %}
           {
-            src: {{ photo.safe_large_image.url|escapejson }},
+            src: {{ photo.media_url|escapejson }},
+            {% if photo.is_video %}type: 'iframe',{% endif %}
             title: $("<div/>").html({{ photo.full_caption|escapejson }})
           },{% endfor %}
         ]

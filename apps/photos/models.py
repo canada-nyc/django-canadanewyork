@@ -4,6 +4,7 @@ from fractions import Fraction
 
 from django.db import models
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.template.loader import render_to_string
 
 import simpleimages.transforms
@@ -37,7 +38,9 @@ class BasePhoto(models.Model):
     image = models.ImageField(
         upload_to=original_image_path_function,
         max_length=1000,
-        verbose_name='Image File'
+        verbose_name='Image File',
+        blank=True,
+        null=True
     )
     thumbnail_image = models.ImageField(
         blank=True,
@@ -79,6 +82,30 @@ class BasePhoto(models.Model):
         editable=False,
     )
 
+    youtube_id = models.CharField(
+        null=False,
+        blank=True,
+        max_length=400,
+        verbose_name="YouTube ID",
+        help_text="""
+        The part after <code>https://www.youtube.com/watch?v=</code>.
+        For example, the ID for <code>https://www.youtube.com/watch?v=2IWBHAZ9Q_s</code>
+        would be <code>2IWBHAZ9Q_s</code>.
+        """
+    )
+
+    vimeo_id = models.CharField(
+        null=False,
+        blank=True,
+        max_length=400,
+        verbose_name="Vimeo ID",
+        help_text="""
+        The part after <code>https://www.vimeo.com/</code>.
+        For example, the ID for <code>https://vimeo.com/45830194</code>
+        would be <code>45830194</code>.
+        """
+    )
+
     position = models.PositiveSmallIntegerField(
         default=0,
         null=False,
@@ -88,6 +115,12 @@ class BasePhoto(models.Model):
     class Meta:
         ordering = ['position']
         abstract = True
+
+    def clean(self):
+        if len(list(filter(None, [self.image, self.youtube_id, self.vimeo_id]))) != 1:
+            raise ValidationError(
+                "You must set exactly one of 'Image File', 'Youtube ID', 'Vimeo ID'."
+            )
 
     def __str__(self):
         return '#{} {}'.format(self.position + 1, self.title)
@@ -154,6 +187,21 @@ class BasePhoto(models.Model):
     @property
     def safe_large_image(self):
         return self._get_safe_image('large_image', 'image')
+
+    @property
+    def is_video(self):
+        return self.youtube_id or self.vimeo_id
+
+    @property
+    def media_url(self):
+        if self.youtube_id:
+            return "//www.youtube.com/watch?v=" + self.youtube_id
+        if self.vimeo_id:
+            return "//vimeo.com/" + self.vimeo_id
+        try:
+            return self.safe_large_image.url
+        except AttributeError:
+            return self.safe_large_image['url']
 
 
 class ArtworkPhoto(BasePhoto):

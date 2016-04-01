@@ -10,7 +10,7 @@ class ExhibitionPhotoInline(PhotoInline):
     model = ExhibitionPhoto
     fields = (
         'position',
-        'image',
+        ('image', 'youtube_id', 'vimeo_id'),
         'artist_text',
         ('title', 'date'),
         ('height', 'width', 'depth',),

@@ -10,7 +10,7 @@ class ArtistPhotoInline(PhotoInline):
 
     fields = (
         'position',
-        'image',
+        ('image', 'youtube_id', 'vimeo_id'),
         ('title', 'date'),
         ('height', 'width', 'depth',),
         'dimensions_text',

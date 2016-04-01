@@ -9,6 +9,6 @@ class PhotoInline(SortableInlineAdminMixin, admin.StackedInline):
 
     fields = (
         "position",
-        'image',
+        ('image', 'youtube_id', 'vimeo_id'),
         ('title', 'caption'),
     )

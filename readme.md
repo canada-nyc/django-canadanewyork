@@ -67,8 +67,8 @@ To recompute the static files:
 
 
 ```bash
-docker-compose -f docker-compose.static.yml run less
-docker-compose -f docker-compose.static.yml run sass
+docker-compose -f docker-compose.static.yml run --rm less
+docker-compose -f docker-compose.static.yml run --rm sass
 ```
 
 # Transfering

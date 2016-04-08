@@ -27,7 +27,7 @@ To fill the database with test data and setup static:
 
 ```bash
 docker-compose up -d db
-docker-compose run --rm web python manage.py init_db http://$(docker-machine ip default):8000/ --init
+docker-compose run --rm web python manage.py init_db docker.local:8000 --init
 docker-compose run --rm web python manage.py collectstatic --noinput
 ```
 

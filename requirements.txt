@@ -77,7 +77,7 @@ django-devserver==0.8.0
 #Testing
 ##
 factory-boy==2.6.1
-django-webtest==1.7.8
+django-webtest==1.7.9
 WebTest==2.0.21
 pytest-django==2.9.1
 pytest-xdist==1.14

@@ -106,7 +106,6 @@ class BasePhoto(models.Model):
         """
     )
 
-
     gfycat_id = models.CharField(
         null=False,
         blank=True,
@@ -118,7 +117,6 @@ class BasePhoto(models.Model):
         would be <code>WarmSmartGeese</code>.
         """
     )
-
 
     position = models.PositiveSmallIntegerField(
         default=0,

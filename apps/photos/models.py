@@ -106,6 +106,20 @@ class BasePhoto(models.Model):
         """
     )
 
+
+    gfycat_id = models.CharField(
+        null=False,
+        blank=True,
+        max_length=400,
+        verbose_name="Gfycat ID",
+        help_text="""
+        The part after <code>https://gfycat.com/detail/</code>.
+        For example, the ID for <code>https://gfycat.com/detail/WarmSmartGeese?tagname=civil%20war&tvmode=0</code>
+        would be <code>WarmSmartGeese</code>.
+        """
+    )
+
+
     position = models.PositiveSmallIntegerField(
         default=0,
         null=False,
@@ -117,10 +131,14 @@ class BasePhoto(models.Model):
         abstract = True
 
     def clean(self):
-        if len(list(filter(None, [self.image, self.youtube_id, self.vimeo_id]))) != 1:
+        if len(list(filter(None, [self.image, self.youtube_id, self.vimeo_id, self.gfycat_id]))) != 1:
             raise ValidationError(
                 "You must set exactly one of 'Image File', 'Youtube ID', 'Vimeo ID'."
             )
+        # if self.position == 0 and self.is_video:
+        #     raise ValidationError(
+        #         "First image cannot be a video"
+        #     )
 
     def __str__(self):
         return '#{} {}'.format(self.position + 1, self.title)
@@ -190,7 +208,7 @@ class BasePhoto(models.Model):
 
     @property
     def is_video(self):
-        return self.youtube_id or self.vimeo_id
+        return self.youtube_id or self.vimeo_id or self.gfycat_id
 
     @property
     def media_url(self):
@@ -198,6 +216,8 @@ class BasePhoto(models.Model):
             return "//www.youtube.com/watch?v=" + self.youtube_id
         if self.vimeo_id:
             return "//vimeo.com/" + self.vimeo_id
+        if self.gfycat_id:
+            return "//gfycat.com/ifr/" + self.gfycat_id
         try:
             return self.safe_large_image.url
         except AttributeError:

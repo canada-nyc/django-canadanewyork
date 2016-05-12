@@ -206,7 +206,11 @@ class BasePhoto(models.Model):
 
     @property
     def is_video(self):
-        return self.youtube_id or self.vimeo_id or self.gfycat_id
+        return self.youtube_id or self.vimeo_id
+
+    @property
+    def is_gfycat(self):
+        return self.gfycat_id
 
     @property
     def media_url(self):
@@ -215,7 +219,7 @@ class BasePhoto(models.Model):
         if self.vimeo_id:
             return "//vimeo.com/" + self.vimeo_id
         if self.gfycat_id:
-            return "//gfycat.com/ifr/" + self.gfycat_id
+            return "https://thumbs.gfycat.com/{}-mobile.mp4".format(self.gfycat_id)
         try:
             return self.safe_large_image.url
         except AttributeError:

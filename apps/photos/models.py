@@ -218,8 +218,6 @@ class BasePhoto(models.Model):
             return "//www.youtube.com/watch?v=" + self.youtube_id
         if self.vimeo_id:
             return "//vimeo.com/" + self.vimeo_id
-        if self.gfycat_id:
-            return "https://thumbs.gfycat.com/{}-mobile.mp4".format(self.gfycat_id)
         try:
             return self.safe_large_image.url
         except AttributeError:

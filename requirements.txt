@@ -65,7 +65,7 @@ newrelic==2.64.0.48
 ##
 #Production
 ##
-gunicorn==19.5.0
+gunicorn==19.6.0
 
 ##
 #Development

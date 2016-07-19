@@ -60,7 +60,7 @@ raven==5.23.0
 ##
 #Tracing
 ##
-newrelic==2.66.0.49
+newrelic==2.68.0.50
 
 ##
 #Production

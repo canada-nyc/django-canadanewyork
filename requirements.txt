@@ -55,7 +55,7 @@ whitenoise==3.2.1
 ##
 #Logging
 ##
-raven==5.26.0
+raven==5.27.0
 
 ##
 #Tracing

@@ -18,7 +18,7 @@ django-dumper==0.2.7
 ##
 #Queue
 ##
-celery==3.1.23
+celery==3.1.24
 
 ##
 #Images

@@ -45,7 +45,7 @@ psycopg2==2.6.2
 ##
 #Storage
 ##
-django-s3-storage==0.9.10
+django-s3-storage==0.9.11
 
 ##
 #Static

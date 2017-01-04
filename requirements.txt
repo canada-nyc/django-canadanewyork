@@ -50,7 +50,7 @@ django-s3-storage==0.9.11
 ##
 #Static
 ##
-whitenoise==3.2.2
+whitenoise==3.2.3
 
 ##
 #Logging

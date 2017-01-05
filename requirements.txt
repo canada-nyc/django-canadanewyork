@@ -1,24 +1,24 @@
 ##
 #Django
 ##
-Django==1.9
+Django==1.10.5
 django-url-tracker-fork==0.2.0
-futures==3.0.3
-django-environ==0.4.0
+futures==3.0.5
+django-environ==0.4.1
 
 ##
 #Caching
 ##
 django-clear-cache==0.3
-django-redis==4.3.0
-django-heroku-memcacheify==0.8
-pylibmc==1.5.0
+django-redis==4.7.0
+django-heroku-memcacheify==1.0.0
+pylibmc==1.5.1
 django-dumper==0.2.7
 
 ##
 #Queue
 ##
-celery==3.1.19
+celery==4.0.2
 
 ##
 #Images
@@ -28,60 +28,60 @@ django-simpleimages==1.3.3
 ##
 #Templates
 ##
-django-sekizai==0.9.0
+django-sekizai==0.10.0
 
 ##
 #Admin
 ##
-django-admin-sortable2==0.6.2
-django-autocomplete-light==2.2.10
+django-admin-sortable2==0.6.7
+django-autocomplete-light==3.2.1
 
 ##
 #Database
 ##
-dj-database-url==0.3.0
-psycopg2==2.6.1
+dj-database-url==0.4.2
+psycopg2==2.6.2
 
 ##
 #Storage
 ##
-django-s3-storage==0.9.8
+django-s3-storage==0.9.11
 
 ##
 #Static
 ##
-whitenoise==2.0.6
+whitenoise==3.2.3
 
 ##
 #Logging
 ##
-raven==5.9.0
+raven==5.32.0
 
 ##
 #Tracing
 ##
-newrelic==2.60.0.46
+newrelic==2.78.0.57
 
 ##
 #Production
 ##
-gunicorn==19.4.1
+gunicorn==19.6.0
 
 ##
 #Development
 ##
-django-debug-toolbar==1.4
+django-debug-toolbar==1.6
 django-devserver==0.8.0
 
 ##
 #Testing
 ##
-factory-boy==2.6.0
-django-webtest==1.7.8
-WebTest==2.0.18
-pytest-django==2.9.1
-pytest-xdist==1.13.1
-pytest-flake8==0.1
-pytest-cov==2.2.0
-django-fake-model==0.1.3
+factory-boy==2.8.1
+django-webtest==1.8.0
+WebTest==2.0.24
+pytest-django==3.1.2
+pytest-xdist==1.15.0
+pytest-flake8==0.8.1
+pytest-cov==2.4.0
+django-fake-model==0.1.4
 git+https://github.com/pytest-dev/pytest.git@6c170201d65049791271bda2f1cb0a889e256ff4

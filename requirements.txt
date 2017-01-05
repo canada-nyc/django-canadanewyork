@@ -39,7 +39,7 @@ django-autocomplete-light==3.2.1
 ##
 #Database
 ##
-dj-database-url==0.4.1
+dj-database-url==0.4.2
 psycopg2==2.6.2
 
 ##

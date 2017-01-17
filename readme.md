@@ -9,19 +9,8 @@ All local development is done through docker.
 
 
 
-All runtime options are chosen using environmental variables.
-
-For development, you should set a secret key and optionally admin credentials
-if you want to create that:
-
-```bash
-echo 'app:
-  environment:
-    ADMIN_PASSWORD: password
-    ADMIN_USERNAME: username
-    SECRET_KEY: _
-' > docker-compose.base.override.yml
-```
+All runtime options are chosen using environmental variables. The development
+admin password is `password` and the username is `username`.
 
 To fill the database with test data and setup static:
 

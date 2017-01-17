@@ -24,7 +24,7 @@ To start the development server:
 
 ```bash
 docker-compose up
-open http://$(docker-machine ip default):8000
+open http://localhost:8000
 ```
 
 To run the tests:

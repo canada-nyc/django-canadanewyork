@@ -54,6 +54,7 @@ a#snipcart-close:before {
             data-item-price="{{ book.price|floatformat:2 }}"
             data-item-custom1-name="TIC"
             data-item-custom1-value="00000"
+            data-item-weight="1130"
             {% with photo=book.get_grid_photo %}
               {% if photo %}
                data-item-image="{{ photo.url }}"

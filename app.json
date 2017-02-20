@@ -29,7 +29,6 @@
     "SECRET_KEY": {"generator": "secret"}
   },
   "addons": [
-    "newrelic",
     "heroku-postgresql",
     "librato",
     "logentries"

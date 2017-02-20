@@ -58,11 +58,6 @@ whitenoise==3.3.0
 raven==6.0.0
 
 ##
-#Tracing
-##
-newrelic==2.78.0.57
-
-##
 #Production
 ##
 gunicorn==19.6.0

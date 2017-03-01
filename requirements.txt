@@ -1,7 +1,7 @@
 ##
 #Django
 ##
-Django==1.10.5
+Django==1.10.6
 django-url-tracker-fork==0.2.0
 futures==3.0.5
 django-environ==0.4.1
@@ -40,7 +40,7 @@ django-autocomplete-light==3.2.1
 #Database
 ##
 dj-database-url==0.4.2
-psycopg2==2.6.2
+psycopg2==2.7
 
 ##
 #Storage

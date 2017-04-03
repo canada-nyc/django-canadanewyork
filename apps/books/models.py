@@ -19,7 +19,7 @@ class Book(models.Model):
     artist = models.ForeignKey(Artist, related_name='books')
     description = CKEditorField(blank=True)
     price = models.PositiveSmallIntegerField(
-        blank=False,
+        blank=True,
         null=True,
         help_text="If blank, will not show buy button."
     )

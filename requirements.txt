@@ -10,7 +10,7 @@ django-environ==0.4.3
 #Caching
 ##
 django-clear-cache==0.3
-django-redis==4.7.0
+django-redis==4.8.0
 django-heroku-memcacheify==1.0.0
 pylibmc==1.5.2
 django-dumper==0.2.7

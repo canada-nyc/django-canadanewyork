@@ -65,7 +65,7 @@ gunicorn==19.7.1
 ##
 #Development
 ##
-django-debug-toolbar==1.7
+django-debug-toolbar==1.8
 django-devserver==0.8.0
 
 ##

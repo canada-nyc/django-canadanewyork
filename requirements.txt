@@ -77,6 +77,6 @@ WebTest==2.0.27
 pytest-django==3.1.2
 pytest-xdist==1.16.0
 pytest-flake8==0.8.1
-pytest-cov==2.4.0
+pytest-cov==2.5.0
 django-fake-model==0.1.4
 git+https://github.com/pytest-dev/pytest.git@6c170201d65049791271bda2f1cb0a889e256ff4

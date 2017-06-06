@@ -60,6 +60,20 @@ docker-compose -f docker-compose.static.yml run --rm less
 docker-compose -f docker-compose.static.yml run --rm sass
 ```
 
+# Produciton
+
+To retransform all images:
+
+```bash
+heroku run python manage.py retransform artists.ArtistPhoto exhibitions.ExhibitionPhoto updates.UpdatePhoto
+```
+
+To clear cache
+
+```bash
+heroku run python manage.py clear_database_cache
+```
+
 # Transfering
 
 ## Database

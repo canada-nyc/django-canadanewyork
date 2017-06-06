@@ -10,6 +10,10 @@ from django.template.loader import render_to_string
 import simpleimages.transforms
 
 
+# increase quality from 85 to 95
+simpleimages.transforms.Scale.IMAGE_QUALITY = 95
+
+
 def image_path_function(subfolder, instance, filename):
     return os.path.join(
         instance.content_name,
@@ -144,7 +148,7 @@ class BasePhoto(models.Model):
     transformed_fields = {
         'image': {
             'thumbnail_image': simpleimages.transforms.Scale(height=500),
-            'large_image': simpleimages.transforms.Scale(height=800),
+            'large_image': simpleimages.transforms.Scale(height=1200),
         }
     }
 

@@ -18,7 +18,7 @@ class BookAdmin(admin.ModelAdmin):
     fields = (
         'title',
         'artist',
-        'price',
+        ('price', 'out_of_stock'),
         ('date', 'date_text'),
         'description',
     )

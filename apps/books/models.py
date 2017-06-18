@@ -23,6 +23,10 @@ class Book(models.Model):
         null=True,
         help_text="If blank, will not show buy button."
     )
+    out_of_stock = models.BooleanField(
+        default=False,
+        help_text='If true, won\'t allow people to purchase and will display text saying out of stock'
+    )
     date = models.DateField(
         verbose_name='Precise Date',
         help_text='Used for ordering'
@@ -58,6 +62,10 @@ class Book(models.Model):
         if self.artist:
             yield self.artist.get_absolute_url()
             yield reverse('artist-book-list', kwargs={'slug': self.artist.slug})
+
+    @property
+    def can_buy(self):
+        return self.price and not self.out_of_stock
 
     def get_grid_photo(self):
         try:

@@ -42,7 +42,12 @@ a#snipcart-close:before {
   {% include "base/photos.html" with photos=book.photos.all id=book.id %}
 
   {{ book.description.as_html }}
-  {% if book.price %}
+  {% if book.out_of_stock %}
+    <aside>
+      <p>Currently out of stock.</p>
+    </aside>
+  {% endif %}
+  {% if book.can_buy %}
     <aside>
       <ul class="related-links">
         <li>

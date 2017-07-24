@@ -18,7 +18,7 @@ django-dumper==0.2.7
 ##
 #Queue
 ##
-celery==4.0.2
+celery==4.1.0
 
 ##
 #Images
@@ -40,7 +40,7 @@ django-autocomplete-light==3.2.9
 #Database
 ##
 dj-database-url==0.4.2
-psycopg2==2.7.2
+psycopg2==2.7.3
 
 ##
 #Storage

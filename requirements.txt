@@ -34,7 +34,7 @@ django-sekizai==0.10.0
 #Admin
 ##
 django-admin-sortable2==0.6.15
-django-autocomplete-light==3.2.9
+django-autocomplete-light==3.2.10
 
 ##
 #Database

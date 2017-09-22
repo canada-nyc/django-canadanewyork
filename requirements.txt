@@ -55,7 +55,7 @@ whitenoise==3.3.0
 ##
 #Logging
 ##
-raven==6.1.0
+raven==6.2.0
 
 ##
 #Production

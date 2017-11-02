@@ -34,7 +34,8 @@ class ExhibitionCurrent(TemplateView):
         else:
             context['extra_content'] = custompage.content.as_html
 
-        context['exhibitions'] = Exhibition.objects.filter(current=True)
+        context['exhibitions'] = Exhibition.objects.filter(
+            current=True).order_by('name')
 
         return context
 

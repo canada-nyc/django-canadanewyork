@@ -63,8 +63,8 @@ class Artist(url_tracker.URLTrackingMixin, models.Model):
         return ("first_name__icontains", "last_name__icontains",)
 
     def clean(self):
-        self.first_name = self.first_name.strip().title()
-        self.last_name = self.last_name.strip().title()
+        self.first_name = self.first_name.strip()
+        self.last_name = self.last_name.strip()
         self.resume = self.resume.strip()
 
     def get_absolute_url(self):

@@ -60,7 +60,7 @@ raven==6.7.0
 ##
 #Production
 ##
-gunicorn==19.7.1
+gunicorn==19.8.0
 
 ##
 #Development
